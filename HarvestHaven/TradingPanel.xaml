@@ -1,0 +1,48 @@
+﻿<StackPanel x:Class="HarvestHaven.TradingPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HarvestHaven"
+             mc:Ignorable="d" 
+             d:DesignHeight="70" d:DesignWidth="285" Orientation="Horizontal">
+        <Border Width="100" CornerRadius="20,20,20,20" BorderBrush="Black" BorderThickness="2,2,2,2" Height="60" Margin="7,0,0,0">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFB5D755"/>
+                    <GradientStop Color="#FF5B7807" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <StackPanel x:Name="GivePanel" Orientation="Horizontal">
+                <Label Foreground="White" VerticalAlignment="Center" FontWeight="Bold" Width="38" FontSize="13">Give</Label>
+            <Label x:Name="LabelGive" Width="25" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="13" Content="150" Padding="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Image x:Name="ImageGive" Source="/Assets/Sprites/Items/corn.png" Width="30" Height="30"></Image>
+            </StackPanel>
+        </Border>
+        <Border Width="100" CornerRadius="20,20,20,20" BorderBrush="Black" BorderThickness="2,2,2,2" Height="60" Margin="7,0,0,0">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFD92222"/>
+                    <GradientStop Color="#FFFC7373" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <StackPanel x:Name="GetPanel" Orientation="Horizontal">
+                <Label Foreground="White" VerticalAlignment="Center" FontWeight="Bold" FontSize="13">Get</Label>
+            <Label x:Name="LabelGet" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="13" Content="3" Padding="0,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                <Image x:Name="ImageGet" Source="/Assets/Sprites/Items/sheep.png" Width="30" Height="30"></Image>
+            </StackPanel>
+        </Border>
+        <Border Width="60" Margin="10,0,0,0" Height="60" BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="20,20,20,20">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF589E12"/>
+                    <GradientStop Color="#FFEAF6C6" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Button x:Name="AcceptButton" BorderThickness="0,0,0,0" BorderBrush="{x:Null}" >
+                <Button.Background>
+                    <ImageBrush ImageSource="/Assets/Sprites/checkmark.png"/>
+                </Button.Background>
+            </Button>
+        </Border>
+</StackPanel>

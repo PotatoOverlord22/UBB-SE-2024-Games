@@ -1,0 +1,69 @@
+﻿<Window x:Class="HarvestHaven.SellMarket"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HarvestHaven"
+        mc:Ignorable="d"
+        Title="SellMarket"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="{TemplateBinding Background}" Cursor="Hand">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Height="450" Width="800">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/Sprites/shop.PNG"/>
+        </Grid.Background>
+        <Image HorizontalAlignment="Left" Height="100" Margin="64,0,0,0" VerticalAlignment="Center" Width="100" Source="/Assets/Sprites/Items/carrot.png"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="178,180,0,0" VerticalAlignment="Top" Width="100" Source="/Assets/Sprites/Items/corn.png"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="305,0,0,0" VerticalAlignment="Center" Width="100" Source="/Assets/Sprites/Items/wheat.png"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="410,0,0,0" VerticalAlignment="Center" Width="100" Source="/Assets/Sprites/Items/tomato.png"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="522,0,0,0" VerticalAlignment="Center" Width="100" Source="/Assets/Sprites/Items/chicken.png"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="635,180,0,0" VerticalAlignment="Top" Width="100" Source="/Assets/Sprites/Items/sheep.png"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="43,332,0,0" VerticalAlignment="Top" Width="119" Source="/Assets/Sprites/Items/chicken-egg.png" Stretch="Fill"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="171,332,0,0" VerticalAlignment="Top" Width="100" Source="/Assets/Sprites/Items/wool.png"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="305,332,0,0" VerticalAlignment="Top" Width="79" Source="/Assets/Sprites/Items/milk.png"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="394,332,0,0" VerticalAlignment="Top" Width="100" Source="/Assets/Sprites/Items/duck-egg.png"/>
+        <Image HorizontalAlignment="Left" Height="95" Margin="518,333,0,0" VerticalAlignment="Top" Width="100" Source="/Assets/Sprites/Items/cow.png"/>
+        <Image HorizontalAlignment="Left" Height="114" Margin="626,318,0,0" VerticalAlignment="Top" Width="112" Source="/Assets/Sprites/Items/duck.png"/>
+        <Button x:Name="SellCarrotButton" Content="Sell: 25" HorizontalAlignment="Left" Margin="81,148,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="0.5,0.5" Background="White" Click="SellCarrotButton_Click"/>
+        <Button x:Name="SellCornButton" Content="Sell: 15" HorizontalAlignment="Left" Margin="199,148,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="0.5,0.5" Background="White" Click="SellCornButton_Click"/>
+        <Button x:Name="SellWheatButton" Content="Sell: 20" HorizontalAlignment="Left" Margin="321,148,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="0.5,0.5" Background="White" Click="SellWheatButton_Click"/>
+        <Button x:Name="SellTomatoButton" Content="Sell: 35" HorizontalAlignment="Left" Margin="422,147,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="0.5,0.5" Background="White" Click="SellTomatoButton_Click"/>
+        <Button x:Name="SellChickenEggButton" Content="Sell: 25" HorizontalAlignment="Left" Margin="73,307,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="0.5,0.5" Background="White" Click="SellChickenEggButton_Click"/>
+        <Button x:Name="SellWoolButton" Content="Sell: 30" HorizontalAlignment="Left" Margin="192,307,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="0.5,0.5" Background="White" Click="SellWoolButton_Click"/>
+        <Button x:Name="SellMilkButton" Content="Sell: 40" HorizontalAlignment="Left" Margin="314,307,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="0.5,0.5" Background="White" Click="SellMilkButton_Click"/>
+        <Button x:Name="SelllDuckEggButton" Content="Sell: 30" HorizontalAlignment="Left" Margin="415,307,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="0.5,0.5" Background="White" Click="SelllDuckEggButton_Click"/>
+        <Button x:Name="SellChickenMeatButton" Content="Sell meat: 20" HorizontalAlignment="Left" Margin="532,147,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.5,0.5" Background="White" Click="SellChickenMeatButton_Click"/>
+        <Button x:Name="SellMuttonButton" Content="Sell meat: 40" HorizontalAlignment="Left" Margin="649,147,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.5,0.5" Background="White" Click="SellMuttonButton_Click"/>
+        <Button x:Name="SellSteakButton" Content="Sell meat: 50" HorizontalAlignment="Left" Margin="525,308,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.5,0.5" Background="White" Click="SellSteakButton_Click"/>
+        <Button x:Name="SellDuckMeatButton" Content="Sell meat: 25" HorizontalAlignment="Left" Margin="642,308,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.5,0.5" Background="White" Click="SellDuckMeatButton_Click"/>
+        <Image HorizontalAlignment="Center" Height="62" VerticalAlignment="Top" Width="800" Source="/Assets/Sprites/bar_icon.PNG" Stretch="Fill"/>
+        <Label Content="Shop" HorizontalAlignment="Left" Margin="35,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36"/>
+        <Label x:Name="PriceLabel" Content="150" HorizontalAlignment="Left" Margin="143,8,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Width="399" FlowDirection="RightToLeft"/>
+        <Image HorizontalAlignment="Left" Height="48" Margin="547,11,0,0" VerticalAlignment="Top" Width="39" Source="/Assets/Sprites/coin_icon.png"/>
+        <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="612,0,0,0" VerticalAlignment="Top" Height="58" Width="188" Foreground="White" FontSize="24" Click="BackButton_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Sprites/light_bar_icon.PNG"/>
+            </Button.Background>
+        </Button>
+        <!--
+        <Image x:Name="BackImage" Source="/Assets/Sprites/light_bar_icon.PNG" Margin="610,0,0,378" Stretch="Fill"/>
+        <Label x:Name="BackLabel" Content="Back" HorizontalAlignment="Left" Margin="669,2,0,0" VerticalAlignment="Top" Foreground="White" FontSize="30"/>
+        <Rectangle x:Name="BackButton" HorizontalAlignment="Left" Height="58" Margin="610,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="190" MouseDown="BackButton_MouseDown" Fill="#00000000"/>
+        -->
+    </Grid>
+</Window>
