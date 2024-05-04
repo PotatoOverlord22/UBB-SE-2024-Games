@@ -1,11 +1,17 @@
-﻿using HarvestHaven.Entities;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using HarvestHaven.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace HarvestHavenTest.EntityTests
+namespace HarvestHaven.Entities.Tests
 {
-    [TestClass]
+    [TestClass()]
     public class AchievementTests
     {
-        [TestMethod]
+        [TestMethod()]
         public void Achievement_Constructor_InitializesProperties()
         {
             // Arrange

@@ -72,7 +72,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="VisitedFarm.xaml.cs">
+	  <Compile Update="Views\VisitedFarm.xaml.cs">
 	    <SubType>Code</SubType>
 	  </Compile>
 	</ItemGroup>
