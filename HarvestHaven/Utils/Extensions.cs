@@ -3,7 +3,8 @@
     public static class Extensions
     {
         // Extension method to convert enum to string.
-        public static string ToEnumString<TEnum>(this TEnum enumValue) where TEnum : Enum
+        public static string ToEnumString<TEnum>(this TEnum enumValue)
+            where TEnum : Enum
         {
             return enumValue.ToString();
         }

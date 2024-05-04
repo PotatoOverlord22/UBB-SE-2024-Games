@@ -6,12 +6,12 @@ namespace HarvestHaven.Repositories
 {
     public static class MarketBuyItemRepository
     {
-        private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
+        private static readonly string ConnectionString = DatabaseHelper.GetDatabaseFilePath();
 
         public static async Task<List<MarketBuyItem>> GetAllMarketBuyItemsAsync()
         {
             List<MarketBuyItem> marketBuyItems = new List<MarketBuyItem>();
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM MarketBuyItems", connection))
@@ -20,12 +20,10 @@ namespace HarvestHaven.Repositories
                     {
                         while (await reader.ReadAsync())
                         {
-                            marketBuyItems.Add(new MarketBuyItem
-                            (
+                            marketBuyItems.Add(new MarketBuyItem(
                                 id: (Guid)reader["Id"],
                                 itemId: (Guid)reader["ItemId"],
-                                buyPrice: (int)reader["BuyPrice"]
-                            ));
+                                buyPrice: (int)reader["BuyPrice"]));
                         }
                     }
                 }
@@ -36,7 +34,7 @@ namespace HarvestHaven.Repositories
         public static async Task<MarketBuyItem> GetMarketBuyItemByItemIdAsync(Guid itemId)
         {
             MarketBuyItem? marketBuyItem = null;
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM MarketBuyItems WHERE ItemId = @ItemId", connection))
@@ -46,12 +44,10 @@ namespace HarvestHaven.Repositories
                     {
                         if (await reader.ReadAsync())
                         {
-                            marketBuyItem = new MarketBuyItem
-                            (
+                            marketBuyItem = new MarketBuyItem(
                                 id: (Guid)reader["Id"],
                                 itemId: (Guid)reader["ItemId"],
-                                buyPrice: (int)reader["BuyPrice"]
-                            );
+                                buyPrice: (int)reader["BuyPrice"]);
                         }
                     }
                 }
@@ -61,7 +57,7 @@ namespace HarvestHaven.Repositories
 
         public static async Task AddMarketBuyItemAsync(MarketBuyItem marketBuyItem)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO MarketBuyItems (Id, ItemId, BuyPrice) VALUES (@Id, @ItemId, @BuyPrice)";
@@ -77,7 +73,7 @@ namespace HarvestHaven.Repositories
 
         public static async Task UpdateMarketBuyItemAsync(MarketBuyItem marketBuyItem)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE MarketBuyItems SET ItemId = @ItemId, BuyPrice = @BuyPrice WHERE Id = @Id";
@@ -93,7 +89,7 @@ namespace HarvestHaven.Repositories
 
         public static async Task DeleteMarketBuyItemAsync(Guid marketBuyItemId)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM MarketBuyItems WHERE Id = @Id";

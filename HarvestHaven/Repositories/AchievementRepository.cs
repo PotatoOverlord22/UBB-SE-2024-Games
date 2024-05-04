@@ -6,12 +6,12 @@ namespace HarvestHaven.Repositories
 {
     public static class AchievementRepository
     {
-        private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
+        private static readonly string ConnectionString = DatabaseHelper.GetDatabaseFilePath();
 
         public static async Task<List<Achievement>> GetAllAchievementsAsync()
         {
             List<Achievement> achievements = new List<Achievement>();
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM Achievements", connection))
@@ -20,12 +20,10 @@ namespace HarvestHaven.Repositories
                     {
                         while (await reader.ReadAsync())
                         {
-                            achievements.Add(new Achievement
-                            (
+                            achievements.Add(new Achievement(
                                 id: (Guid)reader["Id"],
                                 description: (string)reader["Description"],
-                                rewardCoins: (int)reader["RewardCoins"]
-                            ));
+                                rewardCoins: (int)reader["RewardCoins"]));
                         }
                     }
                 }
@@ -36,7 +34,7 @@ namespace HarvestHaven.Repositories
         public static async Task<Achievement> GetAchievementByIdAsync(Guid achievementId)
         {
             Achievement achievement = null;
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM Achievements WHERE Id = @Id";
@@ -47,12 +45,10 @@ namespace HarvestHaven.Repositories
                     {
                         if (await reader.ReadAsync())
                         {
-                            achievement = new Achievement
-                            (
+                            achievement = new Achievement(
                                 id: (Guid)reader["Id"],
                                 description: (string)reader["Description"],
-                                rewardCoins: (int)reader["RewardCoins"]
-                            );
+                                rewardCoins: (int)reader["RewardCoins"]);
                         }
                     }
                 }
@@ -62,7 +58,7 @@ namespace HarvestHaven.Repositories
 
         public static async Task AddAchievementAsync(Achievement achievement)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO Achievements (Id, Description, RewardCoins) VALUES (@Id, @Description, @RewardCoins)";
@@ -78,7 +74,7 @@ namespace HarvestHaven.Repositories
 
         public static async Task UpdateAchievementAsync(Achievement achievement)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE Achievements SET Description = @Description, RewardCoins = @RewardCoins WHERE Id = @Id";
@@ -94,7 +90,7 @@ namespace HarvestHaven.Repositories
 
         public static async Task DeleteAchievementAsync(Guid achievementId)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM Achievements WHERE Id = @Id";

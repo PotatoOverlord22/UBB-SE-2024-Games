@@ -5,21 +5,21 @@ namespace HarvestHaven.Utils
 {
     public static class GameStateManager
     {
-        private static User? _currentUser;
+        private static User? currentUser;
 
         public static User? GetCurrentUser()
         {
-            return _currentUser;
+            return currentUser;
         }
 
         public static Guid GetCurrentUserId()
         {
-            return _currentUser.Id;
+            return currentUser.Id;
         }
 
         public static void SetCurrentUser(User user)
         {
-            _currentUser = user;
+            currentUser = user;
         }
     }
 }

@@ -6,12 +6,12 @@ namespace HarvestHaven.Repositories
 {
     public static class ItemRepository
     {
-        private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
+        private static readonly string ConnectionString = DatabaseHelper.GetDatabaseFilePath();
 
         public static async Task<List<Item>> GetAllItemsAsync()
         {
             List<Item> items = new List<Item>();
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM Items", connection))
@@ -20,14 +20,12 @@ namespace HarvestHaven.Repositories
                     {
                         while (await reader.ReadAsync())
                         {
-                            items.Add(new Item
-                            (
+                            items.Add(new Item(
                                 id: (Guid)reader["Id"],
                                 itemType: ((string)reader["ItemType"]).ToEnum<ItemType>(),
                                 requiredResourceId: (Guid)reader["RequiredResourceId"],
                                 interactResourceId: (Guid)reader["InteractResourceId"],
-                                destroyResourceId: reader["DestroyResourceId"] != DBNull.Value ? (Guid?)reader["DestroyResourceId"] : null
-                            ));
+                                destroyResourceId: reader["DestroyResourceId"] != DBNull.Value ? (Guid?)reader["DestroyResourceId"] : null));
                         }
                     }
                 }
@@ -38,7 +36,7 @@ namespace HarvestHaven.Repositories
         public static async Task<Item> GetItemByIdAsync(Guid itemId)
         {
             Item item = null;
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM Items WHERE Id = @Id";
@@ -49,14 +47,12 @@ namespace HarvestHaven.Repositories
                     {
                         if (await reader.ReadAsync())
                         {
-                            item = new Item
-                            (
+                            item = new Item(
                                 id: (Guid)reader["Id"],
                                 itemType: ((string)reader["ItemType"]).ToEnum<ItemType>(),
                                 requiredResourceId: (Guid)reader["RequiredResourceId"],
                                 interactResourceId: (Guid)reader["InteractResourceId"],
-                                destroyResourceId: reader["DestroyResourceId"] != DBNull.Value ? (Guid?)reader["DestroyResourceId"] : null
-                            );
+                                destroyResourceId: reader["DestroyResourceId"] != DBNull.Value ? (Guid?)reader["DestroyResourceId"] : null);
                         }
                     }
                 }
@@ -67,7 +63,7 @@ namespace HarvestHaven.Repositories
         public static async Task<Item> GetItemByTypeAsync(ItemType itemType)
         {
             Item item = null;
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM Items WHERE ItemType = @ItemType";
@@ -78,14 +74,12 @@ namespace HarvestHaven.Repositories
                     {
                         if (await reader.ReadAsync())
                         {
-                            item = new Item
-                            (
+                            item = new Item(
                                 id: (Guid)reader["Id"],
                                 itemType: ((string)reader["ItemType"]).ToEnum<ItemType>(),
                                 requiredResourceId: (Guid)reader["RequiredResourceId"],
                                 interactResourceId: (Guid)reader["InteractResourceId"],
-                                destroyResourceId: reader["DestroyResourceId"] != DBNull.Value ? (Guid?)reader["DestroyResourceId"] : null
-                            );
+                                destroyResourceId: reader["DestroyResourceId"] != DBNull.Value ? (Guid?)reader["DestroyResourceId"] : null);
                         }
                     }
                 }
@@ -95,7 +89,7 @@ namespace HarvestHaven.Repositories
 
         public static async Task CreateItemAsync(Item item)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO Items (Id, ItemType, RequiredResourceId, InteractResourceId, DestroyResourceId) VALUES (@Id, @ItemType, @RequiredResourceId, @InteractResourceId, @DestroyResourceId)";
@@ -113,7 +107,7 @@ namespace HarvestHaven.Repositories
 
         public static async Task UpdateItemAsync(Item item)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE Items SET ItemType = @ItemType, RequiredResourceId = @RequiredResourceId, InteractResourceId = @InteractResourceId, DestroyResourceId = @DestroyResourceId WHERE Id = @Id";
@@ -131,7 +125,7 @@ namespace HarvestHaven.Repositories
 
         public static async Task DeleteItemAsync(Guid itemId)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM Items WHERE Id = @Id";

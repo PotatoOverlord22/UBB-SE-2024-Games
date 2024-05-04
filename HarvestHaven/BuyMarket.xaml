@@ -64,13 +64,13 @@
         <Image HorizontalAlignment="Left" Height="38" Margin="543,7,0,0" VerticalAlignment="Top" Width="42" Source="/Assets/Sprites/coin_icon.png"/>
         <!--#endregion-->
 
-        <Rectangle x:Name="carrotButton" HorizontalAlignment="Left" Height="52" Margin="188,100,0,0" VerticalAlignment="Top" Width="171" Cursor="Hand" Fill="#00000000" MouseDown="carrotButton_MouseDown"/>
-        <Rectangle x:Name="cornButton" HorizontalAlignment="Left" Height="56" Margin="188,168,0,0" VerticalAlignment="Top" Width="171" Cursor="Hand" Fill="#00000000" MouseDown="cornButton_MouseDown"/>
-        <Rectangle x:Name="wheatButton" HorizontalAlignment="Left" Height="62" Margin="188,234,0,0" VerticalAlignment="Top" Width="171" Cursor="Hand" Fill="#00000000" MouseDown="wheatButton_MouseDown"/>
-        <Rectangle x:Name="tomatoButton" HorizontalAlignment="Left" Height="72" Margin="188,301,0,0" VerticalAlignment="Top" Width="171" Cursor="Hand" Fill="#00000000" MouseDown="tomatoButton_MouseDown"/>
-        <Rectangle x:Name="chickenButton" HorizontalAlignment="Left" Height="62" Margin="476,100,0,0" VerticalAlignment="Top" Width="167" Cursor="Hand" Fill="#00000000" MouseDown="chickenButton_MouseDown"/>
-        <Rectangle x:Name="sheepButton" HorizontalAlignment="Left" Height="61" Margin="472,168,0,0" VerticalAlignment="Top" Width="171" Cursor="Hand" Fill="#00000000" MouseDown="sheepButton_MouseDown"/>
-        <Rectangle x:Name="cowButton" HorizontalAlignment="Left" Height="56" Margin="474,234,0,0" VerticalAlignment="Top" Width="171" Cursor="Hand" Fill="#00000000" MouseDown="cowButton_MouseDown"/>
-        <Rectangle x:Name="duckButton" HorizontalAlignment="Left" Height="53" Margin="476,310,0,0" VerticalAlignment="Top" Width="171" Cursor="Hand" Fill="#00000000" MouseDown="duckButton_MouseDown"/>
+        <Rectangle x:Name="carrotButton" HorizontalAlignment="Left" Height="52" Margin="188,100,0,0" VerticalAlignment="Top" Width="171" Cursor="Hand" Fill="#00000000" MouseDown="CarrotButton_MouseDown"/>
+        <Rectangle x:Name="cornButton" HorizontalAlignment="Left" Height="56" Margin="188,168,0,0" VerticalAlignment="Top" Width="171" Cursor="Hand" Fill="#00000000" MouseDown="CornButton_MouseDown"/>
+        <Rectangle x:Name="wheatButton" HorizontalAlignment="Left" Height="62" Margin="188,234,0,0" VerticalAlignment="Top" Width="171" Cursor="Hand" Fill="#00000000" MouseDown="WheatButton_MouseDown"/>
+        <Rectangle x:Name="tomatoButton" HorizontalAlignment="Left" Height="72" Margin="188,301,0,0" VerticalAlignment="Top" Width="171" Cursor="Hand" Fill="#00000000" MouseDown="TomatoButton_MouseDown"/>
+        <Rectangle x:Name="chickenButton" HorizontalAlignment="Left" Height="62" Margin="476,100,0,0" VerticalAlignment="Top" Width="167" Cursor="Hand" Fill="#00000000" MouseDown="ChickenButton_MouseDown"/>
+        <Rectangle x:Name="sheepButton" HorizontalAlignment="Left" Height="61" Margin="472,168,0,0" VerticalAlignment="Top" Width="171" Cursor="Hand" Fill="#00000000" MouseDown="SheepButton_MouseDown"/>
+        <Rectangle x:Name="cowButton" HorizontalAlignment="Left" Height="56" Margin="474,234,0,0" VerticalAlignment="Top" Width="171" Cursor="Hand" Fill="#00000000" MouseDown="CowButton_MouseDown"/>
+        <Rectangle x:Name="duckButton" HorizontalAlignment="Left" Height="53" Margin="476,310,0,0" VerticalAlignment="Top" Width="171" Cursor="Hand" Fill="#00000000" MouseDown="DuckButton_MouseDown"/>
     </Grid>
 </Window>

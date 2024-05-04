@@ -1,26 +1,10 @@
-﻿using HarvestHaven.Entities;
-using HarvestHaven.Repositories;
+﻿using System.Windows;
+using HarvestHaven.Entities;
 using HarvestHaven.Services;
 using HarvestHaven.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace HarvestHaven
 {
-    /// <summary>
-    /// Interaction logic for SellMarket.xaml
-    /// </summary>
     public partial class SellMarket : Window
     {
         private Farm farmScreen;
@@ -58,13 +42,15 @@ namespace HarvestHaven
         private void RefreshGui()
         {
             User? user = GameStateManager.GetCurrentUser();
-            if (user != null) PriceLabel.Content = user.Coins;
+            if (user != null)
+            {
+                PriceLabel.Content = user.Coins;
+            }
         }
 
         private void SellCarrotButton_Click(object sender, RoutedEventArgs e)
         {
             SellItem(ResourceType.Carrot);
-
         }
 
         private void SellCornButton_Click(object sender, RoutedEventArgs e)

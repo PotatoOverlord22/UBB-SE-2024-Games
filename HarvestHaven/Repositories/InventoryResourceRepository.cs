@@ -6,12 +6,12 @@ namespace HarvestHaven.Repositories
 {
     public static class InventoryResourceRepository
     {
-        private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
+        private static readonly string ConnectionString = DatabaseHelper.GetDatabaseFilePath();
 
         public static async Task<List<InventoryResource>> GetUserResourcesAsync(Guid userId)
         {
             List<InventoryResource> userResources = new List<InventoryResource>();
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM InventoryResources WHERE UserId = @UserId";
@@ -22,13 +22,11 @@ namespace HarvestHaven.Repositories
                     {
                         while (await reader.ReadAsync())
                         {
-                            userResources.Add(new InventoryResource
-                            (
+                            userResources.Add(new InventoryResource(
                                 id: (Guid)reader["Id"],
                                 userId: (Guid)reader["UserId"],
                                 resourceId: (Guid)reader["ResourceId"],
-                                quantity: (int)reader["Quantity"]
-                            ));
+                                quantity: (int)reader["Quantity"]));
                         }
                     }
                 }
@@ -40,7 +38,7 @@ namespace HarvestHaven.Repositories
         {
             InventoryResource? userResource = null;
 
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM InventoryResources WHERE UserId = @UserId AND ResourceId = @ResourceId";
@@ -52,13 +50,11 @@ namespace HarvestHaven.Repositories
                     {
                         if (await reader.ReadAsync())
                         {
-                            userResource = new InventoryResource
-                            (
+                            userResource = new InventoryResource(
                                 id: (Guid)reader["Id"],
                                 userId: (Guid)reader["UserId"],
                                 resourceId: (Guid)reader["ResourceId"],
-                                quantity: (int)reader["Quantity"]
-                            );
+                                quantity: (int)reader["Quantity"]);
                         }
                     }
                 }
@@ -66,10 +62,9 @@ namespace HarvestHaven.Repositories
             return userResource;
         }
 
-
         public static async Task AddUserResourceAsync(InventoryResource userResource)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO InventoryResources (Id, UserId, ResourceId, Quantity) VALUES (@Id, @UserId, @ResourceId, @Quantity)";
@@ -86,7 +81,7 @@ namespace HarvestHaven.Repositories
 
         public static async Task UpdateUserResourceAsync(InventoryResource userResource)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE InventoryResources SET Quantity = @Quantity WHERE Id = @Id";
@@ -101,7 +96,7 @@ namespace HarvestHaven.Repositories
 
         public static async Task DeleteUserResourceAsync(Guid userResourceId)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM InventoryResources WHERE Id = @Id";

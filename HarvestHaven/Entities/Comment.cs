@@ -1,18 +1,10 @@
 ﻿namespace HarvestHaven.Entities
 {
-    public class Comment
+    public class Comment(Guid id, Guid userId, string message, DateTime createdTime)
     {
-        public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public string Message { get; set; }
-        public DateTime CreatedTime { get; set; }
-
-        public Comment(Guid id, Guid userId, string message, DateTime createdTime)
-        {
-            Id = id;
-            UserId = userId;
-            Message = message;
-            CreatedTime = createdTime;
-        }
+        public Guid Id { get; set; } = id;
+        public Guid UserId { get; set; } = userId;
+        public string Message { get; set; } = message;
+        public DateTime CreatedTime { get; set; } = createdTime;
     }
 }

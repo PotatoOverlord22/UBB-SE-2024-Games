@@ -25,8 +25,7 @@ namespace HarvestHaven.Utils
             // Check if the database file exists
             if (File.Exists(databaseFilePath))
             {
-                //return @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\PROJECTS\C#\UBB-SE-2024-Random-Entities\HarvestHaven\Repository\Database\Database.mdf;Integrated Security=True;Connect Timeout=30";
-
+                // return @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\PROJECTS\C#\UBB-SE-2024-Random-Entities\HarvestHaven\Repository\Database\Database.mdf;Integrated Security=True;Connect Timeout=30";
                 return @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={databaseFilePath};Integrated Security=True;Connect Timeout=30";
             }
             else

@@ -30,17 +30,17 @@
                 <ImageBrush ImageSource="/Assets/Sprites/light_bar_icon.PNG"/>
             </Button.Background>
         </Button>
-        <Button x:Name="achievementButton" Margin="192,120,468,273" Width="140" Content="Achievements" FontSize="15" Foreground="White" Click="achievementButton_Click">
+        <Button x:Name="achievementButton" Margin="192,120,468,273" Width="140" Content="Achievements" FontSize="15" Foreground="White" Click="AchievementButton_Click">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/Light_bar_icon.PNG"></ImageBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="leaderboardButton" Margin="332,120,328,273" Width="140" Content="Leaderboard" FontSize="15" Foreground="White" Click="leaderboardButton_Click">
+        <Button x:Name="leaderboardButton" Margin="332,120,328,273" Width="140" Content="Leaderboard" FontSize="15" Foreground="White" Click="LeaderboardButton_Click">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/Light_bar_icon.PNG"></ImageBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="commentsButton" Margin="470,120,190,273" Width="140" Content="Comments" FontSize="15" Foreground="White" Click="commentsButton_Click">
+        <Button x:Name="commentsButton" Margin="470,120,190,273" Width="140" Content="Comments" FontSize="15" Foreground="White" Click="CommentsButton_Click">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Sprites/Light_bar_icon.PNG"></ImageBrush>
             </Button.Background>
@@ -86,7 +86,7 @@
 
             </ListBox.Items>
         </ListBox>
-        <ListBox ItemsSource="{Binding}" x:Name="leaderboardList" Margin="192,177,197,83" Width="411" SelectionChanged="leaderboardList_SelectionChanged">
+        <ListBox ItemsSource="{Binding}" x:Name="leaderboardList" Margin="192,177,197,83" Width="411" SelectionChanged="LeaderboardList_SelectionChanged">
             <ListBox.Resources>
                 <BitmapImage x:Key="FaceImage" UriSource="/Assets/Sprites/sunglasses_face_icon.png"/>
                 <BitmapImage x:Key="CoinImage" UriSource="/Assets/Sprites/coin_icon.png"/>

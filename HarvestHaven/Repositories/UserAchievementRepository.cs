@@ -6,12 +6,12 @@ namespace HarvestHaven.Repositories
 {
     public static class UserAchievementRepository
     {
-        private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
+        private static readonly string ConnectionString = DatabaseHelper.GetDatabaseFilePath();
 
         public static async Task<List<UserAchievement>> GetAllUserAchievementsAsync(Guid userId)
         {
             List<UserAchievement> userAchievements = new List<UserAchievement>();
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM UserAchievements WHERE UserId = @UserId", connection))
@@ -25,8 +25,7 @@ namespace HarvestHaven.Repositories
                                 id: (Guid)reader["Id"],
                                 userId: (Guid)reader["UserId"],
                                 achievementId: (Guid)reader["AchievementId"],
-                                createdTime: (DateTime)reader["CreatedTime"]
-                            ));
+                                createdTime: (DateTime)reader["CreatedTime"]));
                         }
                     }
                 }
@@ -36,7 +35,7 @@ namespace HarvestHaven.Repositories
 
         public static async Task AddUserAchievementAsync(UserAchievement userAchievement)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO UserAchievements (Id, UserId, AchievementId, CreatedTime) VALUES (@Id, @UserId, @AchievementId, @CreatedTime)";
@@ -53,7 +52,7 @@ namespace HarvestHaven.Repositories
 
         public static async Task UpdateUserAchievementAsync(UserAchievement userAchievement)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE UserAchievements SET UserId = @UserId, AchievementId = @AchievementId, CreatedTime = @CreatedTime WHERE Id = @Id";
@@ -70,7 +69,7 @@ namespace HarvestHaven.Repositories
 
         public static async Task DeleteUserAchievementAsync(Guid userAchievementId)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM UserAchievements WHERE Id = @Id";

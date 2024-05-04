@@ -1,17 +1,5 @@
-﻿using HarvestHaven.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using HarvestHaven.Services;
 
 namespace HarvestHaven
 {
@@ -20,8 +8,8 @@ namespace HarvestHaven
     /// </summary>
     public partial class CommentScreen : Window
     {
-        VisitedFarm visitedFarm;
-        Guid userId;
+        private VisitedFarm visitedFarm;
+        private Guid userId;
 
         public CommentScreen(VisitedFarm visitedFarm, Guid userId)
         {

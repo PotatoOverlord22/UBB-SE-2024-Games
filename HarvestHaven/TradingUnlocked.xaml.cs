@@ -1,52 +1,32 @@
-﻿using HarvestHaven.Entities;
+﻿using System.Windows;
+using System.Windows.Media.Imaging;
+using HarvestHaven.Entities;
 using HarvestHaven.Services;
 using HarvestHaven.Utils;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using static HarvestHaven.TradingInventory;
-using static HarvestHaven.TradingUnlocked;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HarvestHaven
 {
-    /// <summary>
-    /// Interaction logic for TradingUnlocked.xaml
-    /// </summary>
     public partial class TradingUnlocked : Window
     {
         private Farm farmScreen;
 
-        private const string carrotPath = "/Assets/Sprites/Items/carrot.png";
-        private const string cornPath = "/Assets/Sprites/Items/corn.png";
-        private const string wheatPath = "/Assets/Sprites/Items/wheat.png";
-        private const string tomatoPath = "/Assets/Sprites/Items/tomato.png";
-        private const string chickenPath = "/Assets/Sprites/Items/chicken.png";
-        private const string sheepPath = "/Assets/Sprites/Items/sheep.png";
-        private const string cowPath = "/Assets/Sprites/Items/cow.png";
-        private const string duckPath = "/Assets/Sprites/Items/duck.png";
-        private const string duckEggPath = "/Assets/Sprites/Items/duck-egg.png";
-        private const string chickenEggPath = "/Assets/Sprites/Items/chicken-egg.png";
-        private const string woolPath = "/Assets/Sprites/Items/wool.png";
-        private const string milkPath = "/Assets/Sprites/Items/milk.png";
-
+        private const string CarrotPath = "/Assets/Sprites/Items/carrot.png";
+        private const string CornPath = "/Assets/Sprites/Items/corn.png";
+        private const string WheatPath = "/Assets/Sprites/Items/wheat.png";
+        private const string TomatoPath = "/Assets/Sprites/Items/tomato.png";
+        private const string ChickenPath = "/Assets/Sprites/Items/chicken.png";
+        private const string SheepPath = "/Assets/Sprites/Items/sheep.png";
+        private const string CowPath = "/Assets/Sprites/Items/cow.png";
+        private const string DuckPath = "/Assets/Sprites/Items/duck.png";
+        private const string DuckEggPath = "/Assets/Sprites/Items/duck-egg.png";
+        private const string ChickenEggPath = "/Assets/Sprites/Items/chicken-egg.png";
+        private const string WoolPath = "/Assets/Sprites/Items/wool.png";
+        private const string MilkPath = "/Assets/Sprites/Items/milk.png";
 
         private List<Trade> tradeList;
-        ResourceType getResource;
-        ResourceType giveResource;
+        private ResourceType getResource;
+        private ResourceType giveResource;
 
         public TradingUnlocked(Farm farmScreen)
         {
@@ -56,12 +36,12 @@ namespace HarvestHaven
             GetAllTrades();
         }
 
-        public void ChangeIcon(InventoryType inventoryType,ResourceType resourceType)
+        public void ChangeIcon(InventoryType inventoryType, ResourceType resourceType)
         {
             if (inventoryType == InventoryType.Get)
             {
                 Get_Button.Source = new BitmapImage(new Uri(GetResourcePath(resourceType), UriKind.Relative));
-                getResource = resourceType; 
+                getResource = resourceType;
             }
             else if (inventoryType == InventoryType.Give)
             {
@@ -72,19 +52,51 @@ namespace HarvestHaven
 
         private string GetResourcePath(ResourceType resourceType)
         {
-            string path = "";
-            if (resourceType == ResourceType.Carrot) path = carrotPath;
-            else if (resourceType == ResourceType.Corn) path = cornPath;
-            else if (resourceType == ResourceType.Wheat) path = wheatPath;
-            else if (resourceType == ResourceType.Tomato) path = tomatoPath;
-            else if (resourceType == ResourceType.ChickenMeat) path = chickenPath;
-            else if (resourceType == ResourceType.DuckMeat) path = duckPath;
-            else if (resourceType == ResourceType.Mutton) path = sheepPath;
-            else if (resourceType == ResourceType.SheepWool) path = woolPath;
-            else if (resourceType == ResourceType.ChickenEgg) path = chickenEggPath;
-            else if (resourceType == ResourceType.DuckEgg) path = duckEggPath;
-            else if (resourceType == ResourceType.CowMilk) path = milkPath;
-            else path = cowPath;
+            string path = string.Empty;
+            if (resourceType == ResourceType.Carrot)
+            {
+                path = CarrotPath;
+            }
+            else if (resourceType == ResourceType.Corn)
+            {
+                path = CornPath;
+            }
+            else if (resourceType == ResourceType.Wheat)
+            {
+                path = WheatPath;
+            }
+            else if (resourceType == ResourceType.Tomato)
+            {
+                path = TomatoPath;
+            }
+            else if (resourceType == ResourceType.ChickenMeat)
+            {
+                path = ChickenPath;
+            }
+            else if (resourceType == ResourceType.DuckMeat)
+            {
+                path = DuckPath;
+            }
+            else if (resourceType == ResourceType.Mutton)
+            {
+                path = SheepPath;
+            }
+            else if (resourceType == ResourceType.SheepWool)
+            {
+                path = WoolPath;
+            }
+            else if (resourceType == ResourceType.ChickenEgg)
+            {
+                path = ChickenEggPath;
+            }
+            else if (resourceType == ResourceType.DuckEgg)
+            {
+                path = DuckEggPath;
+            }
+            else
+            {
+                path = resourceType == ResourceType.CowMilk ? MilkPath : CowPath;
+            }
 
             return path;
         }
@@ -120,7 +132,7 @@ namespace HarvestHaven
             Get_TextBox.Text = trade.RequestedResourceQuantity.ToString();
             Get_Button.Source = new BitmapImage(new Uri("/Assets/Sprites/backpack_icon.png", UriKind.Relative));
             Get_Button.Source = new BitmapImage(new Uri(GetResourcePath(resourceType2), UriKind.Relative));
-            
+
             this.Get_Button.IsEnabled = false;
             this.Give_Button.IsEnabled = false;
         }
@@ -132,7 +144,7 @@ namespace HarvestHaven
                 tradeList = await TradeService.GetAllTradesExceptCreatedByLoggedUser();
                 foreach (Trade item in tradeList)
                 {
-                    TradingPanel tradingPanel = new(item);
+                    TradingPanel tradingPanel = new (item);
 
                     Resource resource1 = await ResourceService.GetResourceByIdAsync(item.RequestedResourceId);
                     ResourceType resourceType1 = resource1.ResourceType;
@@ -147,7 +159,6 @@ namespace HarvestHaven
                     Trades_List.Items.Add(tradingPanel);
                     tradingPanel.AcceptButton.Click += (sender, e) => AcceptButton_Click(sender, e, tradingPanel);
                 }
-
             }
             catch (Exception e)
             {
@@ -165,17 +176,18 @@ namespace HarvestHaven
                     SwitchToCancelTrade(playerTrade);
                 }
             }
-            catch (Exception e) { 
+            catch (Exception e)
+            {
                 MessageBox.Show(e.Message);
             }
         }
 
         private async void AcceptButton_Click(object sender, RoutedEventArgs e, TradingPanel tradingPanel)
         {
-            //Accept trade
+            // Accept trade
             try
             {
-                await TradeService.PerformTradeAsync(tradingPanel.trade.Id);
+                await TradeService.PerformTradeAsync(tradingPanel.Trade.Id);
                 Trades_List.Items.Remove(tradingPanel);
             }
             catch (Exception ex)
@@ -195,9 +207,8 @@ namespace HarvestHaven
 
         private void Give_Button_Click(object sender, RoutedEventArgs e)
         {
-            //Open inventory and select the resource you want to give
-            //and return the resource type
-
+            // Open inventory and select the resource you want to give
+            // and return the resource type
             TradingInventory inventoryScreen = new TradingInventory(this, InventoryType.Give);
 
             inventoryScreen.Top = this.Top;
@@ -206,14 +217,12 @@ namespace HarvestHaven
             inventoryScreen.Show();
 
             this.Hide();
-
         }
 
         private void Get_Button_Click(object sender, RoutedEventArgs e)
         {
-            //Open inventory and select the resource you want to give
-            //and return the resource type
-
+            // Open inventory and select the resource you want to give
+            // and return the resource type
             TradingInventory inventoryScreen = new TradingInventory(this, InventoryType.Get);
 
             inventoryScreen.Top = this.Top;
@@ -222,25 +231,24 @@ namespace HarvestHaven
             inventoryScreen.Show();
 
             this.Hide();
-
         }
 
         private async void Confirm_Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
             if (this.Confirm_Cancel_Button.Content.Equals("Confirm"))
             {
-                //Create trade
+                // Create trade
                 string amountGet = Get_TextBox.Text;
                 string amountGive = Give_TextBox.Text;
                 try
                 {
                     int intGet = Convert.ToInt32(amountGet);
                     int intGive = Convert.ToInt32(amountGive);
-                    if(intGet <= 0 || intGive <= 0)
+                    if (intGet <= 0 || intGive <= 0)
                     {
                         throw new Exception("Input should be a positive integer!");
                     }
-                    if((getResource == ResourceType.Water) || (giveResource == ResourceType.Water))
+                    if ((getResource == ResourceType.Water) || (giveResource == ResourceType.Water))
                     {
                         throw new Exception("Select the resources to give and get!");
                     }
@@ -254,14 +262,18 @@ namespace HarvestHaven
                 catch (Exception ex)
                 {
                     if (ex.Message == "Input should be a positive integer!" || ex.Message == "Select the resources to give and get!")
-                        MessageBox.Show(ex.Message);
-                    else MessageBox.Show("Input should be a positive integer!");
-
+                    {
+                        _ = MessageBox.Show(ex.Message);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Input should be a positive integer!");
+                    }
                 }
             }
             else
             {
-                //Cancel trade
+                // Cancel trade
                 try
                 {
                     Trade playerTrade = await TradeService.GetUserTradeAsync(GameStateManager.GetCurrentUserId());

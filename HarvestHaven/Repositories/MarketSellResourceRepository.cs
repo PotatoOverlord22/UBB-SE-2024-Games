@@ -6,12 +6,12 @@ namespace HarvestHaven.Repositories
 {
     public static class MarketSellResourceRepository
     {
-        private static readonly string _connectionString = DatabaseHelper.GetDatabaseFilePath();
+        private static readonly string ConnectionString = DatabaseHelper.GetDatabaseFilePath();
 
         public static async Task<List<MarketSellResource>> GetAllSellResourcesAsync()
         {
             List<MarketSellResource> sellResources = new List<MarketSellResource>();
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM MarketSellResources", connection))
@@ -20,12 +20,10 @@ namespace HarvestHaven.Repositories
                     {
                         while (await reader.ReadAsync())
                         {
-                            sellResources.Add(new MarketSellResource
-                            (
+                            sellResources.Add(new MarketSellResource(
                                 id: (Guid)reader["Id"],
                                 resourceId: (Guid)reader["ResourceId"],
-                                sellPrice: (int)reader["SellPrice"]
-                            ));
+                                sellPrice: (int)reader["SellPrice"]));
                         }
                     }
                 }
@@ -37,7 +35,7 @@ namespace HarvestHaven.Repositories
         {
             MarketSellResource? sellResource = null;
 
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM MarketSellResources WHERE ResourceId = @ResourceId", connection))
@@ -47,12 +45,10 @@ namespace HarvestHaven.Repositories
                     {
                         if (await reader.ReadAsync())
                         {
-                            sellResource = new MarketSellResource
-                            (
+                            sellResource = new MarketSellResource(
                                 id: (Guid)reader["Id"],
                                 resourceId: (Guid)reader["ResourceId"],
-                                sellPrice: (int)reader["SellPrice"]
-                            );
+                                sellPrice: (int)reader["SellPrice"]);
                         }
                     }
                 }
@@ -61,11 +57,9 @@ namespace HarvestHaven.Repositories
             return sellResource;
         }
 
-        
-
         public static async Task AddMarketSellResourceAsync(MarketSellResource marketSellResource)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO MarketSellResources (Id, ResourceId, SellPrice) VALUES (@Id, @ResourceId, @SellPrice)";
@@ -81,7 +75,7 @@ namespace HarvestHaven.Repositories
 
         public static async Task UpdateMarketSellResourceAsync(MarketSellResource marketSellResource)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE MarketSellResources SET ResourceId = @ResourceId, SellPrice = @SellPrice WHERE Id = @Id";
@@ -97,7 +91,7 @@ namespace HarvestHaven.Repositories
 
         public static async Task DeleteMarketSellResourceAsync(Guid marketSellResourceId)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM MarketSellResources WHERE Id = @Id";
