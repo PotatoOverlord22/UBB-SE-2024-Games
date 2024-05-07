@@ -5,9 +5,9 @@ using HarvestHaven.Utils;
 
 namespace HarvestHaven.Services
 {
-    public static class AchievementService
+    public class AchievementService : IAchievementService
     {
-        public static async Task<List<Achievement>> GetAllAchievementsAsync()
+        public async Task<List<Achievement>> GetAllAchievementsAsync()
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
@@ -18,7 +18,7 @@ namespace HarvestHaven.Services
             return await AchievementRepository.GetAllAchievementsAsync();
         }
 
-        public static async Task<Dictionary<UserAchievement, Achievement>> GetUserAchievements()
+        public async Task<Dictionary<UserAchievement, Achievement>> GetUserAchievements()
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
@@ -49,7 +49,7 @@ namespace HarvestHaven.Services
             return userAchievementsMap;
         }
 
-        public static async Task CheckFarmAchievements()
+        public async Task CheckFarmAchievements()
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
@@ -165,7 +165,7 @@ namespace HarvestHaven.Services
             #endregion
         }
 
-        public static async Task CheckTradeAchievements(Guid otherUserInvolvedId)
+        public async Task CheckTradeAchievements(Guid otherUserInvolvedId)
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
@@ -203,7 +203,7 @@ namespace HarvestHaven.Services
             #endregion
         }
 
-        public static async Task CheckInventoryAchievements()
+        public async Task CheckInventoryAchievements()
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
@@ -257,7 +257,7 @@ namespace HarvestHaven.Services
             #endregion
         }
 
-        public static async Task CheckMarketAchievements()
+        public async Task CheckMarketAchievements()
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
@@ -273,7 +273,7 @@ namespace HarvestHaven.Services
             #endregion
         }
 
-        private static async Task AddUserAchievement(Guid achievementId)
+        private async Task AddUserAchievement(Guid achievementId)
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)

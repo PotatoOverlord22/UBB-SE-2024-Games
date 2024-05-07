@@ -3,16 +3,19 @@ using System.Windows.Controls;
 using HarvestHaven.Entities;
 using HarvestHaven.Services;
 using HarvestHaven.Utils;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HarvestHaven
 {
     public partial class ProfileTab : Window
     {
         private Farm farmScreen;
+        private readonly IAchievementService achievementService;
 
-        public ProfileTab(Farm farmScreen)
+        public ProfileTab(Farm farmScreen, IAchievementService achievementService)
         {
             this.farmScreen = farmScreen;
+            this.achievementService = achievementService;
             InitializeComponent();
             SwitchToAchievements();
         }
@@ -24,7 +27,7 @@ namespace HarvestHaven
             commentList.Visibility = Visibility.Hidden;
             try
             {
-                List<Achievement> list = await AchievementService.GetAllAchievementsAsync();
+                List<Achievement> list = await achievementService.GetAllAchievementsAsync();
                 DataContext = list;
             }
             catch (Exception e)
@@ -105,7 +108,7 @@ namespace HarvestHaven
             {
                 return;
             }
-            VisitedFarm visitedFarm = new VisitedFarm(userId, this);
+            VisitedFarm visitedFarm = new VisitedFarm(userId, this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IFarmService>());
             visitedFarm.Show();
             this.Hide();
         }

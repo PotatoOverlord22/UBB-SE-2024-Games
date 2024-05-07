@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using HarvestHaven.Entities;
+using HarvestHaven.Services;
 using HarvestHaven.Utils;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HarvestHaven
 {
@@ -23,7 +25,7 @@ namespace HarvestHaven
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-            Farm farmScreen = new Farm();
+            Farm farmScreen = new Farm(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IFarmService>());
 
             farmScreen.Top = this.Top;
             farmScreen.Left = this.Left;

@@ -23,7 +23,10 @@ namespace HarvestHaven
     {
         public static IServiceCollection ConfigureServices(this IServiceCollection services)
         {
+            services.AddSingleton<IAchievementService, AchievementService>();
             services.AddSingleton<IMarketService, MarketService>();
+            services.AddSingleton<IFarmService, FarmService>();
+            services.AddSingleton<ITradeService, TradeService>();
 
             return services;
         }

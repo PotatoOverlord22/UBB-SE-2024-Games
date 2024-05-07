@@ -10,12 +10,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace HarvestHaven
 {
-    /// <summary>
-    /// Interaction logic for Farm.xaml
-    /// </summary>
     public partial class Farm : Window
     {
         private List<Image> itemIcons = new List<Image>();
+        private readonly IFarmService farmService;
 
         #region Image Paths
         private const string CarrotPath = "Assets/Sprites/Items/carrot.png";
@@ -38,8 +36,9 @@ namespace HarvestHaven
         private bool onItemIcon;
         private bool onInteractionButton;
 
-        public Farm()
+        public Farm(IFarmService farmService)
         {
+            this.farmService = farmService;
             InitializeComponent();
             RefreshGUI();
         }
@@ -76,7 +75,7 @@ namespace HarvestHaven
 
         private void ProfileButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            ProfileTab profileTab = new ProfileTab(this);
+            ProfileTab profileTab = new ProfileTab(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IAchievementService>());
 
             profileTab.Top = this.Top;
             profileTab.Left = this.Left;
@@ -92,7 +91,7 @@ namespace HarvestHaven
 
             if (unlocked)
             {
-                TradingUnlocked tradingScreen = new TradingUnlocked(this);
+                TradingUnlocked tradingScreen = new TradingUnlocked(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ITradeService>());
 
                 tradingScreen.Top = this.Top;
                 tradingScreen.Left = this.Left;
@@ -168,7 +167,7 @@ namespace HarvestHaven
             #region Farm Rendering
             try
             {
-                Dictionary<FarmCell, Item> farmCells = await FarmService.GetAllFarmCellsForUser(user.Id);
+                Dictionary<FarmCell, Item> farmCells = await farmService.GetAllFarmCellsForUser(user.Id);
 
                 foreach (KeyValuePair<FarmCell, Item> pair in farmCells)
                 {
@@ -298,7 +297,7 @@ namespace HarvestHaven
         {
             try
             {
-                await FarmService.InteractWithCell(this.clickedRow, this.clickedColumn);
+                await farmService.InteractWithCell(this.clickedRow, this.clickedColumn);
                 HideInteractionButtons(true);
                 RefreshGUI();
             }
@@ -312,7 +311,7 @@ namespace HarvestHaven
         {
             try
             {
-                await FarmService.DestroyCell(this.clickedRow, this.clickedColumn);
+                await farmService.DestroyCell(this.clickedRow, this.clickedColumn);
                 HideInteractionButtons(true);
                 RefreshGUI();
             }

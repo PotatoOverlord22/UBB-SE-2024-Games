@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using HarvestHaven.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HarvestHaven
 {
@@ -29,7 +30,7 @@ namespace HarvestHaven
             {
                 await UserService.UnlockTradeHall();
 
-                TradingUnlocked tradingScreen = new TradingUnlocked(farm);
+                TradingUnlocked tradingScreen = new TradingUnlocked(farm, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ITradeService>());
 
                 tradingScreen.Top = this.Top;
                 tradingScreen.Left = this.Left;

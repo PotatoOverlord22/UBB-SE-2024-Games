@@ -9,6 +9,7 @@ namespace HarvestHaven
 {
     public partial class TradingUnlocked : Window
     {
+        private ITradeService tradeService;
         private Farm farmScreen;
 
         private const string CarrotPath = "/Assets/Sprites/Items/carrot.png";
@@ -28,9 +29,10 @@ namespace HarvestHaven
         private ResourceType getResource;
         private ResourceType giveResource;
 
-        public TradingUnlocked(Farm farmScreen)
+        public TradingUnlocked(Farm farmScreen, ITradeService tradeService)
         {
             this.farmScreen = farmScreen;
+            this.tradeService = tradeService;
             InitializeComponent();
 
             GetAllTrades();
@@ -141,7 +143,7 @@ namespace HarvestHaven
         {
             try
             {
-                tradeList = await TradeService.GetAllTradesExceptCreatedByLoggedUser();
+                tradeList = await tradeService.GetAllTradesExceptCreatedByLoggedUser();
                 foreach (Trade item in tradeList)
                 {
                     TradingPanel tradingPanel = new (item);
@@ -166,7 +168,7 @@ namespace HarvestHaven
             }
             try
             {
-                Trade playerTrade = await TradeService.GetUserTradeAsync(GameStateManager.GetCurrentUserId());
+                Trade playerTrade = await tradeService.GetUserTradeAsync(GameStateManager.GetCurrentUserId());
                 if (playerTrade == null)
                 {
                     SwitchToCreateTrade();
@@ -187,7 +189,7 @@ namespace HarvestHaven
             // Accept trade
             try
             {
-                await TradeService.PerformTradeAsync(tradingPanel.Trade.Id);
+                await tradeService.PerformTradeAsync(tradingPanel.Trade.Id);
                 Trades_List.Items.Remove(tradingPanel);
             }
             catch (Exception ex)
@@ -252,7 +254,7 @@ namespace HarvestHaven
                     {
                         throw new Exception("Select the resources to give and get!");
                     }
-                    await TradeService.CreateTradeAsync(giveResource, intGive, getResource, intGet);
+                    await tradeService.CreateTradeAsync(giveResource, intGive, getResource, intGet);
                     this.Confirm_Cancel_Button.Content = "Cancel";
                     Give_TextBox.IsReadOnly = true;
                     Get_TextBox.IsReadOnly = true;
@@ -276,8 +278,8 @@ namespace HarvestHaven
                 // Cancel trade
                 try
                 {
-                    Trade playerTrade = await TradeService.GetUserTradeAsync(GameStateManager.GetCurrentUserId());
-                    await TradeService.CancelTradeAsync(playerTrade.Id);
+                    Trade playerTrade = await tradeService.GetUserTradeAsync(GameStateManager.GetCurrentUserId());
+                    await tradeService.CancelTradeAsync(playerTrade.Id);
 
                     SwitchToCreateTrade();
                 }
