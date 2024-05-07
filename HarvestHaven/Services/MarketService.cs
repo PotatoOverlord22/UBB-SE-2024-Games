@@ -4,9 +4,9 @@ using HarvestHaven.Utils;
 
 namespace HarvestHaven.Services
 {
-    public static class MarketService
+    public class MarketService : IMarketService
     {
-        public static async Task BuyItem(int row, int column, ItemType itemType)
+        public async Task BuyItem(int row, int column, ItemType itemType)
         {
             #region Validation
             // Throw an exception if the user is not logged in.
@@ -71,7 +71,7 @@ namespace HarvestHaven.Services
             await AchievementService.CheckMarketAchievements();
         }
 
-        public static async Task SellResource(ResourceType resourceType)
+        public async Task SellResource(ResourceType resourceType)
         {
             #region Validation
             // Throw an exception if the user is not logged in.
