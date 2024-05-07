@@ -6,16 +6,14 @@ using HarvestHaven.Utils;
 
 namespace HarvestHaven
 {
-    /// <summary>
-    /// Interaction logic for BuyMarket.xaml
-    /// </summary>
     public partial class BuyMarket : Window
     {
         private Farm farmScreen;
         private int row;
         private int column;
+        private readonly IMarketService marketService;
 
-        public BuyMarket(Farm farmScreen, int row, int column)
+        public BuyMarket(Farm farmScreen, int row, int column, IMarketService marketService)
         {
             this.farmScreen = farmScreen;
             this.row = row;
@@ -23,6 +21,7 @@ namespace HarvestHaven
 
             InitializeComponent();
             RefreshGUI();
+            this.marketService = marketService;
         }
 
         private void RefreshGUI()
@@ -53,7 +52,7 @@ namespace HarvestHaven
         {
             try
             {
-                await MarketService.BuyItem(row, column, itemType);
+                await marketService.BuyItem(row, column, itemType);
                 BackToFarm();
             }
             catch (Exception e)

@@ -7,11 +7,13 @@ namespace HarvestHaven
 {
     public partial class SellMarket : Window
     {
-        private Farm farmScreen;
+        private readonly Farm farmScreen;
+        private readonly IMarketService marketService;
 
-        public SellMarket(Farm farmScreen)
+        public SellMarket(Farm farmScreen, IMarketService marketService)
         {
             this.farmScreen = farmScreen;
+            this.marketService = marketService;
             InitializeComponent();
             RefreshGui();
         }
@@ -30,7 +32,7 @@ namespace HarvestHaven
         {
             try
             {
-                await MarketService.SellResource(resourceType);
+                await marketService.SellResource(resourceType);
                 RefreshGui();
             }
             catch (Exception ex)

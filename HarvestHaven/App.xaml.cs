@@ -10,6 +10,7 @@ namespace HarvestHaven
         public App()
         {
             SetCurrentUser();
+            DependencyInjectionConfigurator.Init();
 
             Task.Delay(500).Wait();
 

@@ -6,6 +6,7 @@ using System.Windows.Media.Imaging;
 using HarvestHaven.Entities;
 using HarvestHaven.Services;
 using HarvestHaven.Utils;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HarvestHaven
 {
@@ -58,7 +59,7 @@ namespace HarvestHaven
 
         private void ShopButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            SellMarket sellMarket = new SellMarket(this);
+            SellMarket sellMarket = new SellMarket(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IMarketService>());
 
             sellMarket.Top = this.Top;
             sellMarket.Left = this.Left;
@@ -117,7 +118,7 @@ namespace HarvestHaven
         {
             HideBuyButton(true);
 
-            BuyMarket market = new BuyMarket(this, clickedRow, clickedColumn);
+            BuyMarket market = new BuyMarket(this, clickedRow, clickedColumn, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IMarketService>());
 
             market.Top = this.Top;
             market.Left = this.Left;
