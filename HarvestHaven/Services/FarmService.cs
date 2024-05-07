@@ -4,9 +4,9 @@ using HarvestHaven.Utils;
 
 namespace HarvestHaven.Services
 {
-    public static class FarmService
+    public class FarmService : IFarmService
     {
-        public static async Task<Dictionary<FarmCell, Item>> GetAllFarmCellsForUser(Guid userId)
+        public async Task<Dictionary<FarmCell, Item>> GetAllFarmCellsForUser(Guid userId)
         {
             // Get all the user's farm cells.
             List<FarmCell> farmCells = await FarmCellRepository.GetUserFarmCellsAsync(userId);
@@ -38,7 +38,7 @@ namespace HarvestHaven.Services
             return farmCellsMap;
         }
 
-        public static async Task InteractWithCell(int row, int column)
+        public async Task InteractWithCell(int row, int column)
         {
             #region Validation
             // Throw an exception if the user is not logged in.
@@ -103,7 +103,7 @@ namespace HarvestHaven.Services
             await AchievementService.CheckInventoryAchievements();
         }
 
-        public static async Task DestroyCell(int row, int column)
+        public async Task DestroyCell(int row, int column)
         {
             #region Validation
             // Throw an exception if the user is not logged in.
@@ -160,7 +160,7 @@ namespace HarvestHaven.Services
             await AchievementService.CheckInventoryAchievements();
         }
 
-        public static async Task EnchanceCellForUser(Guid targetUserId, int row, int column)
+        public async Task EnchanceCellForUser(Guid targetUserId, int row, int column)
         {
             #region Validation
             // Throw an exception if the user is not logged in.
@@ -194,7 +194,7 @@ namespace HarvestHaven.Services
             await FarmCellRepository.UpdateFarmCellAsync(farmCell);
         }
 
-        public static async Task<bool> IsCellEnchanced(Guid userId, int row, int column)
+        public async Task<bool> IsCellEnchanced(Guid userId, int row, int column)
         {
             #region Validation
             // Throw an exception if the user is not logged in.

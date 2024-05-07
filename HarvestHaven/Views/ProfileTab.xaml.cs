@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using HarvestHaven.Entities;
 using HarvestHaven.Services;
 using HarvestHaven.Utils;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HarvestHaven
 {
@@ -105,7 +106,7 @@ namespace HarvestHaven
             {
                 return;
             }
-            VisitedFarm visitedFarm = new VisitedFarm(userId, this);
+            VisitedFarm visitedFarm = new VisitedFarm(userId, this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IFarmService>());
             visitedFarm.Show();
             this.Hide();
         }

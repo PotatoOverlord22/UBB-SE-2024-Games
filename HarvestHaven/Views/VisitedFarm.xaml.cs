@@ -10,6 +10,7 @@ namespace HarvestHaven
 {
     public partial class VisitedFarm : Window
     {
+        private readonly IFarmService farmService;
         private List<Image> itemIcons = new List<Image>();
 
         #region Image Paths
@@ -33,10 +34,11 @@ namespace HarvestHaven
         private bool onItemIcon;
         private bool onEnhanceButton;
 
-        public VisitedFarm(Guid userId, ProfileTab profileTab)
+        public VisitedFarm(Guid userId, ProfileTab profileTab, IFarmService farmService)
         {
             this.userId = userId;
             this.profileTab = profileTab;
+            this.farmService = farmService;
 
             InitializeComponent();
             RefreshGUI();
@@ -61,7 +63,7 @@ namespace HarvestHaven
             #region Farm Rendering
             try
             {
-                Dictionary<FarmCell, Item> farmCells = await FarmService.GetAllFarmCellsForUser(userId);
+                Dictionary<FarmCell, Item> farmCells = await farmService.GetAllFarmCellsForUser(userId);
 
                 foreach (KeyValuePair<FarmCell, Item> pair in farmCells)
                 {
@@ -166,7 +168,7 @@ namespace HarvestHaven
         {
             try
             {
-                await FarmService.EnchanceCellForUser(userId, clickedRow, clickedColumn);
+                await farmService.EnchanceCellForUser(userId, clickedRow, clickedColumn);
                 HideEnhanceButton(true);
                 RefreshGUI();
             }
