@@ -75,7 +75,7 @@ namespace HarvestHaven
 
         private void ProfileButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            ProfileTab profileTab = new ProfileTab(this);
+            ProfileTab profileTab = new ProfileTab(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IAchievementService>());
 
             profileTab.Top = this.Top;
             profileTab.Left = this.Left;
@@ -91,7 +91,7 @@ namespace HarvestHaven
 
             if (unlocked)
             {
-                TradingUnlocked tradingScreen = new TradingUnlocked(this);
+                TradingUnlocked tradingScreen = new TradingUnlocked(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ITradeService>());
 
                 tradingScreen.Top = this.Top;
                 tradingScreen.Left = this.Left;

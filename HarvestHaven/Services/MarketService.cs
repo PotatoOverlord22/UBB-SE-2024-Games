@@ -6,6 +6,12 @@ namespace HarvestHaven.Services
 {
     public class MarketService : IMarketService
     {
+        private readonly IAchievementService achievementService;
+
+        public MarketService(IAchievementService achievementService)
+        {
+            this.achievementService = achievementService;
+        }
         public async Task BuyItem(int row, int column, ItemType itemType)
         {
             #region Validation
@@ -67,8 +73,8 @@ namespace HarvestHaven.Services
             GameStateManager.SetCurrentUser(newUser);
 
             // Check achievements.
-            await AchievementService.CheckFarmAchievements();
-            await AchievementService.CheckMarketAchievements();
+            await achievementService.CheckFarmAchievements();
+            await achievementService.CheckMarketAchievements();
         }
 
         public async Task SellResource(ResourceType resourceType)
@@ -115,7 +121,7 @@ namespace HarvestHaven.Services
             GameStateManager.SetCurrentUser(newUser);
 
             // Check achievements.
-            await AchievementService.CheckInventoryAchievements();
+            await achievementService.CheckInventoryAchievements();
         }
     }
 }

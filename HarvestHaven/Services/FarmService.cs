@@ -6,6 +6,12 @@ namespace HarvestHaven.Services
 {
     public class FarmService : IFarmService
     {
+        private readonly IAchievementService achievementService;
+
+        public FarmService(IAchievementService achievementService)
+        {
+            this.achievementService = achievementService;
+        }
         public async Task<Dictionary<FarmCell, Item>> GetAllFarmCellsForUser(Guid userId)
         {
             // Get all the user's farm cells.
@@ -100,7 +106,7 @@ namespace HarvestHaven.Services
             await FarmCellRepository.UpdateFarmCellAsync(farmCell);
 
             // Check achievements.
-            await AchievementService.CheckInventoryAchievements();
+            await achievementService.CheckInventoryAchievements();
         }
 
         public async Task DestroyCell(int row, int column)
@@ -157,7 +163,7 @@ namespace HarvestHaven.Services
             await FarmCellRepository.DeleteFarmCellAsync(farmCell.Id);
 
             // Check achievements.
-            await AchievementService.CheckInventoryAchievements();
+            await achievementService.CheckInventoryAchievements();
         }
 
         public async Task EnchanceCellForUser(Guid targetUserId, int row, int column)

@@ -4,9 +4,16 @@ using HarvestHaven.Utils;
 
 namespace HarvestHaven.Services
 {
-    public static class TradeService
+    public class TradeService : ITradeService
     {
-        public static async Task<List<Trade>> GetAllTradesExceptCreatedByLoggedUser()
+        private readonly IAchievementService achievementService;
+
+        public TradeService(IAchievementService achievementService)
+        {
+            this.achievementService = achievementService;
+        }
+
+        public async Task<List<Trade>> GetAllTradesExceptCreatedByLoggedUser()
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
@@ -17,12 +24,12 @@ namespace HarvestHaven.Services
             return await TradeRepository.GetAllTradesExceptCreatedByUser(GameStateManager.GetCurrentUserId());
         }
 
-        public static async Task<Trade> GetUserTradeAsync(Guid userId)
+        public async Task<Trade> GetUserTradeAsync(Guid userId)
         {
             return await TradeRepository.GetUserTradeAsync(userId);
         }
 
-        public static async Task CreateTradeAsync(ResourceType givenResourceType, int givenResourceQuantity, ResourceType requestedResourceType, int requestedResourceQuantity)
+        public async Task CreateTradeAsync(ResourceType givenResourceType, int givenResourceQuantity, ResourceType requestedResourceType, int requestedResourceQuantity)
         {
             #region Validation
             // Throw an exception if the user is not logged in.
@@ -69,7 +76,7 @@ namespace HarvestHaven.Services
                 isCompleted: false));
         }
 
-        public static async Task PerformTradeAsync(Guid tradeId)
+        public async Task PerformTradeAsync(Guid tradeId)
         {
             #region Validation
             // Throw an exception if the user is not logged in.
@@ -161,11 +168,11 @@ namespace HarvestHaven.Services
             GameStateManager.SetCurrentUser(newUser);
 
             // Check achievements.
-            await AchievementService.CheckTradeAchievements(trade.UserId);
-            await AchievementService.CheckInventoryAchievements();
+            await achievementService.CheckTradeAchievements(trade.UserId);
+            await achievementService.CheckInventoryAchievements();
         }
 
-        public static async Task CancelTradeAsync(Guid tradeId)
+        public async Task CancelTradeAsync(Guid tradeId)
         {
             #region Validation
             // Throw an exception if the user is not logged in.
@@ -205,7 +212,7 @@ namespace HarvestHaven.Services
             await TradeRepository.DeleteTradeAsync(trade.Id);
 
             // Check achievements.
-            await AchievementService.CheckInventoryAchievements();
+            await achievementService.CheckInventoryAchievements();
         }
     }
 }
