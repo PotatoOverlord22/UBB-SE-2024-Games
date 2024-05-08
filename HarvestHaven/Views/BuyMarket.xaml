@@ -60,7 +60,7 @@
                 <ImageBrush ImageSource="/Assets/Sprites/light_bar_icon.PNG"/>
             </Button.Background>
         </Button>
-        <Label x:Name="coinLabel" Content="150" HorizontalAlignment="Left" Margin="334,6,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" FlowDirection="RightToLeft" Width="204"/>
+        <Label x:Name="coinLabel" Content="{Binding CoinCount}" HorizontalAlignment="Left" Margin="334,6,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" FlowDirection="RightToLeft" Width="204"/>
         <Image HorizontalAlignment="Left" Height="38" Margin="543,7,0,0" VerticalAlignment="Top" Width="42" Source="/Assets/Sprites/coin_icon.png"/>
         <!--#endregion-->
 

@@ -14,6 +14,12 @@ namespace HarvestHaven.Services
         private readonly IMarketSellResourceRepository marketSellResourceRepository;
         private readonly IInventoryResourceRepository inventoryResourceRepository;
         private readonly IResourceRepository resourceRepository;
+        private int userCoins;
+        public int UserCoins
+        {
+            get { return userCoins; }
+            set { userCoins = value; }
+        }
 
         public MarketService(IAchievementService achievementService, IFarmCellRepository farmCellRepository, IUserRepository userRepository, IItemRepository itemRepository, IMarketBuyItemRepository marketBuyItemRepository, IInventoryResourceRepository inventoryResourceRepository, IMarketSellResourceRepository marketSellResourceRepository, IResourceRepository resourceRepository)
         {
@@ -25,6 +31,12 @@ namespace HarvestHaven.Services
             this.inventoryResourceRepository = inventoryResourceRepository;
             this.marketSellResourceRepository = marketSellResourceRepository;
             this.resourceRepository = resourceRepository;
+
+            User? user = GameStateManager.GetCurrentUser();
+            if (user != null)
+            {
+                UserCoins = user.Coins;
+            }
         }
         public async Task BuyItem(int row, int column, ItemType itemType)
         {

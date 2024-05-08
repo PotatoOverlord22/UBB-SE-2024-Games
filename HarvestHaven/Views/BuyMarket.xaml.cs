@@ -18,19 +18,10 @@ namespace HarvestHaven
             this.farmScreen = farmScreen;
             this.row = row;
             this.column = column;
+            DataContext = marketService;
 
             InitializeComponent();
-            RefreshGUI();
             this.marketService = marketService;
-        }
-
-        private void RefreshGUI()
-        {
-            User? user = GameStateManager.GetCurrentUser();
-            if (user != null)
-            {
-                coinLabel.Content = user.Coins;
-            }
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
