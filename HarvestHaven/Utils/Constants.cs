@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HarvestHaven.Utils
+﻿namespace HarvestHaven.Utils
 {
     public static class Constants
     {
@@ -15,5 +9,13 @@ namespace HarvestHaven.Utils
         public static int TRADEHALL_LIFETIME_IN_DAYS = 7;
         public static int WATER_INTERVAL_IN_HOURS = 1;
         public static int WATER_PER_INTERVAL = 5;
+        public static string CarrotPath = "Assets/Sprites/Items/carrot.png";
+        public static string CornPath = "Assets/Sprites/Items/corn.png";
+        public static string WheatPath = "Assets/Sprites/Items/wheat.png";
+        public static string TomatoPath = "Assets/Sprites/Items/tomato.png";
+        public static string ChickenPath = "Assets/Sprites/Items/chicken.png";
+        public static string SheepPath = "Assets/Sprites/Items/sheep.png";
+        public static string CowPath = "Assets/Sprites/Items/cow.png";
+        public static string DuckPath = "Assets/Sprites/Items/duck.png";
     }
 }
