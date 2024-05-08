@@ -4,7 +4,7 @@ using HarvestHaven.Utils;
 
 namespace HarvestHaven.Services
 {
-    public class MarketService : IMarketService
+    public class MarketService : ServiceBase, IMarketService
     {
         private readonly IAchievementService achievementService;
         private readonly IFarmCellRepository farmCellRepository;
@@ -17,8 +17,16 @@ namespace HarvestHaven.Services
         private int userCoins;
         public int UserCoins
         {
-            get { return userCoins; }
-            set { userCoins = value; }
+            get
+            {
+                return userCoins;
+            }
+
+            set
+            {
+                userCoins = value;
+                OnPropertyChanged();
+            }
         }
 
         public MarketService(IAchievementService achievementService, IFarmCellRepository farmCellRepository, IUserRepository userRepository, IItemRepository itemRepository, IMarketBuyItemRepository marketBuyItemRepository, IInventoryResourceRepository inventoryResourceRepository, IMarketSellResourceRepository marketSellResourceRepository, IResourceRepository resourceRepository)
@@ -98,6 +106,8 @@ namespace HarvestHaven.Services
             await userRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
 
+            UserCoins = newUser.Coins;
+
             // Check achievements.
             await achievementService.CheckFarmAchievements();
             await achievementService.CheckMarketAchievements();
@@ -145,6 +155,8 @@ namespace HarvestHaven.Services
             newUser.Coins += marketSellResouce.SellPrice;
             await userRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
+
+            UserCoins = newUser.Coins;
 
             // Check achievements.
             await achievementService.CheckInventoryAchievements();
