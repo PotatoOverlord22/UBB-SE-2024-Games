@@ -7,11 +7,12 @@ namespace HarvestHaven
     public partial class TradingLocked : Window
     {
         private Farm farm;
+        private readonly IUserService userService;
 
-        public TradingLocked(Farm farm)
+        public TradingLocked(Farm farm, IUserService userService)
         {
             this.farm = farm;
-
+            this.userService = userService;
             InitializeComponent();
         }
 
@@ -28,9 +29,9 @@ namespace HarvestHaven
         {
             try
             {
-                await UserService.UnlockTradeHall();
+                await userService.UnlockTradeHall();
 
-                TradingUnlocked tradingScreen = new TradingUnlocked(farm, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ITradeService>());
+                TradingUnlocked tradingScreen = new TradingUnlocked(farm, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ITradeService>(), DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IResourceService>());
 
                 tradingScreen.Top = this.Top;
                 tradingScreen.Left = this.Left;

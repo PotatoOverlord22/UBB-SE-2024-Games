@@ -14,6 +14,7 @@ namespace HarvestHaven
     {
         private List<Image> itemIcons = new List<Image>();
         private readonly IFarmService farmService;
+        private readonly IUserService userService;
 
         #region Image Paths
         private const string CarrotPath = "Assets/Sprites/Items/carrot.png";
@@ -36,9 +37,10 @@ namespace HarvestHaven
         private bool onItemIcon;
         private bool onInteractionButton;
 
-        public Farm(IFarmService farmService)
+        public Farm(IFarmService farmService, IUserService userService)
         {
             this.farmService = farmService;
+            this.userService = userService;
             InitializeComponent();
             RefreshGUI();
         }
@@ -46,7 +48,7 @@ namespace HarvestHaven
         #region Screen Transitions
         private void InventoryButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Inventory inventoryScreen = new Inventory(this);
+            Inventory inventoryScreen = new Inventory(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>());
 
             inventoryScreen.Top = this.Top;
             inventoryScreen.Left = this.Left;
@@ -75,7 +77,7 @@ namespace HarvestHaven
 
         private void ProfileButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            ProfileTab profileTab = new ProfileTab(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IAchievementService>());
+            ProfileTab profileTab = new ProfileTab(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IAchievementService>(), DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>());
 
             profileTab.Top = this.Top;
             profileTab.Left = this.Left;
@@ -87,11 +89,11 @@ namespace HarvestHaven
 
         private void TradingHallButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            bool unlocked = UserService.IsTradeHallUnlocked();
+            bool unlocked = userService.IsTradeHallUnlocked();
 
             if (unlocked)
             {
-                TradingUnlocked tradingScreen = new TradingUnlocked(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ITradeService>());
+                TradingUnlocked tradingScreen = new TradingUnlocked(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ITradeService>(), DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IResourceService>());
 
                 tradingScreen.Top = this.Top;
                 tradingScreen.Left = this.Left;
@@ -102,7 +104,7 @@ namespace HarvestHaven
             }
             else
             {
-                TradingLocked tradingScreen = new TradingLocked(this);
+                TradingLocked tradingScreen = new TradingLocked(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>());
 
                 tradingScreen.Top = this.Top;
                 tradingScreen.Left = this.Left;
@@ -140,7 +142,7 @@ namespace HarvestHaven
             #region Update Water
             try
             {
-                InventoryResource water = await UserService.GetInventoryResourceByType(ResourceType.Water);
+                InventoryResource water = await userService.GetInventoryResourceByType(ResourceType.Water);
 
                 if (water == null)
                 {

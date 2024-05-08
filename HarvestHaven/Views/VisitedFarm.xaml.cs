@@ -5,12 +5,14 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using HarvestHaven.Entities;
 using HarvestHaven.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HarvestHaven
 {
     public partial class VisitedFarm : Window
     {
         private readonly IFarmService farmService;
+        private readonly IUserService userService;
         private List<Image> itemIcons = new List<Image>();
 
         #region Image Paths
@@ -34,11 +36,12 @@ namespace HarvestHaven
         private bool onItemIcon;
         private bool onEnhanceButton;
 
-        public VisitedFarm(Guid userId, ProfileTab profileTab, IFarmService farmService)
+        public VisitedFarm(Guid userId, ProfileTab profileTab, IFarmService farmService, IUserService userService)
         {
             this.userId = userId;
             this.profileTab = profileTab;
             this.farmService = farmService;
+            this.userService = userService;
 
             InitializeComponent();
             RefreshGUI();
@@ -46,7 +49,7 @@ namespace HarvestHaven
 
         public async void RefreshGUI()
         {
-            User? user = await UserService.GetUserByIdAsync(userId);
+            User? user = await userService.GetUserByIdAsync(userId);
             if (user != null)
             {
                 coinLabel.Content = user.Coins;
@@ -244,7 +247,7 @@ namespace HarvestHaven
 
         private void CommentButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            CommentScreen commentScreen = new CommentScreen(this, userId);
+            CommentScreen commentScreen = new CommentScreen(this, userId, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>());
 
             commentScreen.Top = this.Top;
             commentScreen.Left = this.Left;

@@ -4,10 +4,10 @@ using HarvestHaven.Utils;
 
 namespace HarvestHaven.Services
 {
-    public static class UserService
+    public class UserService : IUserService
     {
         #region Authentification
-        public static async Task<User> GetUserByIdAsync(Guid userId)
+        public async Task<User> GetUserByIdAsync(Guid userId)
         {
             return await UserRepository.GetUserByIdAsync(userId);
         }
@@ -15,7 +15,7 @@ namespace HarvestHaven.Services
 
         #region Inventory
 
-        public static async Task<Dictionary<InventoryResource, Resource>> GetInventoryResources()
+        public async Task<Dictionary<InventoryResource, Resource>> GetInventoryResources()
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
@@ -46,7 +46,7 @@ namespace HarvestHaven.Services
             return inventoryResourcesMap;
         }
 
-        public static async Task<InventoryResource> GetInventoryResourceByType(ResourceType resourceType)
+        public async Task<InventoryResource> GetInventoryResourceByType(ResourceType resourceType)
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
@@ -67,7 +67,7 @@ namespace HarvestHaven.Services
             return inventoryResource;
         }
 
-        public static async Task UpdateUserWater()
+        public async Task UpdateUserWater()
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
@@ -131,7 +131,7 @@ namespace HarvestHaven.Services
 
         #region TradeHall
 
-        public static bool IsTradeHallUnlocked()
+        public bool IsTradeHallUnlocked()
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
@@ -142,7 +142,7 @@ namespace HarvestHaven.Services
             return (DateTime.UtcNow - GameStateManager.GetCurrentUser().TradeHallUnlockTime) < TimeSpan.FromDays(Constants.TRADEHALL_LIFETIME_IN_DAYS);
         }
 
-        public static async Task UnlockTradeHall()
+        public async Task UnlockTradeHall()
         {
             #region Validation
             // Throw an exception if the user is not logged in.
@@ -175,7 +175,7 @@ namespace HarvestHaven.Services
         #endregion
 
         #region Comments
-        public static async Task AddCommentForAnotherUser(Guid targetUserId, string message)
+        public async Task AddCommentForAnotherUser(Guid targetUserId, string message)
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
@@ -190,7 +190,7 @@ namespace HarvestHaven.Services
                createdTime: DateTime.UtcNow));
         }
 
-        public static async Task<List<Comment>> GetMyComments()
+        public async Task<List<Comment>> GetMyComments()
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
@@ -201,7 +201,7 @@ namespace HarvestHaven.Services
             return await CommentRepository.GetUserCommentsAsync(GameStateManager.GetCurrentUserId());
         }
 
-        public static async Task DeleteComment(Guid commentId)
+        public async Task DeleteComment(Guid commentId)
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
@@ -215,7 +215,7 @@ namespace HarvestHaven.Services
         #endregion
 
         #region Leaderboard
-        public static async Task<List<User>> GetAllUsersSortedByCoinsAsync()
+        public async Task<List<User>> GetAllUsersSortedByCoinsAsync()
         {
             // Get a list with all the users from the database.
             List<User> users = await UserRepository.GetAllUsersAsync();

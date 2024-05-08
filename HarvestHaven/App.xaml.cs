@@ -2,27 +2,27 @@
 using HarvestHaven.Entities;
 using HarvestHaven.Services;
 using HarvestHaven.Utils;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HarvestHaven
 {
     public partial class App : Application
     {
+        private readonly IUserService userService;
         public App()
         {
-            SetCurrentUser();
             DependencyInjectionConfigurator.Init();
-
-            Task.Delay(500).Wait();
+            userService = DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>();
+            SetCurrentUser().Wait();
 
             MainMenu mainMenu = new MainMenu();
             mainMenu.Show();
         }
-
-        private async void SetCurrentUser()
+        private async Task SetCurrentUser()
         {
-            User user = await UserService.GetUserByIdAsync(Guid.Parse("19d3b857-9e75-4b0d-a0bc-cb945db12620"));
+            User user = await userService.GetUserByIdAsync(Guid.Parse("19d3b857-9e75-4b0d-a0bc-cb945db12620"));
             GameStateManager.SetCurrentUser(user);
-            await UserService.UpdateUserWater();
+            await userService.UpdateUserWater();
         }
     }
 }

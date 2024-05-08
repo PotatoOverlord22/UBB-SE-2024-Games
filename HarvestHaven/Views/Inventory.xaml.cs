@@ -11,10 +11,12 @@ namespace HarvestHaven
     public partial class Inventory : Window
     {
         private Farm farmScreen;
+        private readonly IUserService userService;
 
-        public Inventory(Farm farmScreen)
+        public Inventory(Farm farmScreen, IUserService userService)
         {
             this.farmScreen = farmScreen;
+            this.userService = userService;
             InitializeComponent();
             LoadInventory();
         }
@@ -87,7 +89,7 @@ namespace HarvestHaven
         {
             try
             {
-                Dictionary<InventoryResource, Resource> resources = await UserService.GetInventoryResources();
+                Dictionary<InventoryResource, Resource> resources = await userService.GetInventoryResources();
 
                 foreach (KeyValuePair<InventoryResource, Resource> pair in resources)
                 {

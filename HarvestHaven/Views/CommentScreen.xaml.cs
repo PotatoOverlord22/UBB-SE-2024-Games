@@ -10,11 +10,13 @@ namespace HarvestHaven
     {
         private VisitedFarm visitedFarm;
         private Guid userId;
+        private readonly IUserService userService;
 
-        public CommentScreen(VisitedFarm visitedFarm, Guid userId)
+        public CommentScreen(VisitedFarm visitedFarm, Guid userId, IUserService userService)
         {
             this.visitedFarm = visitedFarm;
             this.userId = userId;
+            this.userService = userService;
 
             InitializeComponent();
         }
@@ -32,7 +34,7 @@ namespace HarvestHaven
         {
             try
             {
-                await UserService.AddCommentForAnotherUser(userId, CommentTextBox.Text);
+                await userService.AddCommentForAnotherUser(userId, CommentTextBox.Text);
                 BackToVisitedFarm();
             }
             catch (Exception ex)
