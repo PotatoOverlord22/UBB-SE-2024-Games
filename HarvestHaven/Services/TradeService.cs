@@ -1,4 +1,5 @@
-﻿using HarvestHaven.Entities;
+﻿using Castle.Core.Resource;
+using HarvestHaven.Entities;
 using HarvestHaven.Repositories;
 using HarvestHaven.Utils;
 
@@ -37,9 +38,13 @@ namespace HarvestHaven.Services
             return await tradeRepository.GetUserTradeAsync(userId);
         }
 
-        public async Task CreateTradeAsync(ResourceType givenResourceType, int givenResourceQuantity, ResourceType requestedResourceType, int requestedResourceQuantity)
+        public async Task CreateTradeAsync(ResourceType givenResourceType, string givenResourceQuantity, ResourceType requestedResourceType, string requestedResourceQuantity)
         {
             #region Validation
+
+            int givenResourceQuantityInt = Convert.ToInt32(givenResourceQuantity);
+            int requestedResourceQuantityInt = Convert.ToInt32(requestedResourceQuantity);
+
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
             {
@@ -62,14 +67,23 @@ namespace HarvestHaven.Services
 
             // Get the user's given trade resource from the inventory and throw and error in case the user doesn't have enough quantity.
             InventoryResource userGivenResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), givenResource.Id);
-            if (userGivenResource == null || userGivenResource.Quantity < givenResourceQuantity)
+            if (userGivenResource == null || userGivenResource.Quantity < givenResourceQuantityInt)
             {
                 throw new Exception($"You don't have that ammount of {givenResourceType.ToString()}!");
+            }
+
+            if (givenResourceQuantityInt <= 0 || requestedResourceQuantityInt <= 0)
+            {
+                throw new Exception("Input should be a positive integer!");
+            }
+            if ((givenResourceType == ResourceType.Water) || (requestedResourceType == ResourceType.Water))
+            {
+                throw new Exception("Select the resources to give and get!");
             }
             #endregion
 
             // Update the user's resource quantity in the database.
-            userGivenResource.Quantity -= givenResourceQuantity;
+            userGivenResource.Quantity -= requestedResourceQuantityInt;
             await inventoryResourceRepository.UpdateUserResourceAsync(userGivenResource);
 
             // Create the trade in the database.
@@ -77,9 +91,9 @@ namespace HarvestHaven.Services
                 id: Guid.NewGuid(),
                 userId: GameStateManager.GetCurrentUserId(),
                 givenResourceId: givenResource.Id,
-                givenResourceQuantity: givenResourceQuantity,
+                givenResourceQuantity: givenResourceQuantityInt,
                 requestedResourceId: requestedResource.Id,
-                requestedResourceQuantity: requestedResourceQuantity,
+                requestedResourceQuantity: requestedResourceQuantityInt,
                 createdTime: DateTime.UtcNow,
                 isCompleted: false));
         }
@@ -221,6 +235,25 @@ namespace HarvestHaven.Services
 
             // Check achievements.
             await achievementService.CheckInventoryAchievements();
+        }
+
+        public string GetPicturePathByResourceType(ResourceType resourceType)
+        {
+            string path = string.Empty;
+            return resourceType switch
+            {
+                ResourceType.Carrot => Constants.CarrotPath,
+                ResourceType.Corn => Constants.CornPath,
+                ResourceType.Wheat => Constants.WheatPath,
+                ResourceType.Tomato => Constants.TomatoPath,
+                ResourceType.ChickenMeat => Constants.ChickenPath,
+                ResourceType.DuckMeat => Constants.DuckPath,
+                ResourceType.Mutton => Constants.SheepPath,
+                ResourceType.SheepWool => Constants.WoolPath,
+                ResourceType.ChickenEgg => Constants.ChickenEggPath,
+                ResourceType.DuckEgg => Constants.DuckEggPath,
+                _ => resourceType == ResourceType.CowMilk ? Constants.MilkPath : Constants.CowPath,
+            };
         }
     }
 }

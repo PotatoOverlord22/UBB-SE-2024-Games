@@ -8,10 +8,11 @@ namespace HarvestHaven.Services
 
         Task<Trade> GetUserTradeAsync(Guid userId);
 
-        Task CreateTradeAsync(ResourceType givenResourceType, int givenResourceQuantity, ResourceType requestedResourceType, int requestedResourceQuantity);
+        Task CreateTradeAsync(ResourceType givenResourceType, string givenResourceQuantity, ResourceType requestedResourceType, string requestedResourceQuantity);
 
         Task PerformTradeAsync(Guid tradeId);
 
         Task CancelTradeAsync(Guid tradeId);
+        string GetPicturePathByResourceType(ResourceType resourceType);
     }
 }

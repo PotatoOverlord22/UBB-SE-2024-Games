@@ -86,7 +86,7 @@
 
             </ListBox.Items>
         </ListBox>
-        <ListBox ItemsSource="{Binding}" x:Name="leaderboardList" Margin="192,177,197,83" Width="411" SelectionChanged="LeaderboardList_SelectionChanged">
+        <ListBox ItemsSource="{Binding}" x:Name="leaderboardList" Margin="192,177,197,83" Width="411">
             <ListBox.Resources>
                 <BitmapImage x:Key="FaceImage" UriSource="/Assets/Sprites/sunglasses_face_icon.png"/>
                 <BitmapImage x:Key="CoinImage" UriSource="/Assets/Sprites/coin_icon.png"/>

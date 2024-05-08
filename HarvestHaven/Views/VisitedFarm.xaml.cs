@@ -65,41 +65,8 @@ namespace HarvestHaven
                     Button associatedButton = (Button)FindName("Farm" + buttonIndex);
 
                     ItemType type = pair.Value.ItemType;
-                    string path = string.Empty;
-                    if (type == ItemType.CarrotSeeds)
-                    {
-                        path = Constants.CarrotPath;
-                    }
-                    else if (type == ItemType.CornSeeds)
-                    {
-                        path = Constants.CornPath;
-                    }
-                    else if (type == ItemType.WheatSeeds)
-                    {
-                        path = Constants.WheatPath;
-                    }
-                    else if (type == ItemType.TomatoSeeds)
-                    {
-                        path = Constants.TomatoPath;
-                    }
-                    else if (type == ItemType.Chicken)
-                    {
-                        path = Constants.ChickenPath;
-                    }
-                    else if (type == ItemType.Duck)
-                    {
-                        path = Constants.DuckPath;
-                    }
-                    else if (type == ItemType.Sheep)
-                    {
-                        path = Constants.SheepPath;
-                    }
-                    else
-                    {
-                        path = Constants.CowPath;
-                    }
 
-                    CreateItemIcon(associatedButton, path);
+                    CreateItemIcon(associatedButton, farmService.GetPicturePathByItemType(type));
                 }
             }
             catch (Exception e)
@@ -147,7 +114,7 @@ namespace HarvestHaven
 
             EnhanceButton.Visibility = Visibility.Visible;
 
-            SetRowColumn(image.Name);
+            ExtractCorrespondingNumberFromFarmGridCellClicked(image.Name);
         }
 
         private void ItemIcon_Leave(object sender, MouseEventArgs e)
@@ -183,25 +150,24 @@ namespace HarvestHaven
             EnhanceButton.Visibility = Visibility.Hidden;
         }
 
-        private void SetRowColumn(string name)
+        private void ExtractCorrespondingNumberFromFarmGridCellClicked(string cellClickedButtonName)
         {
-            string possibleNumber = name.Substring(name.Length - 2, 2);
-            if (int.TryParse(possibleNumber, out int number))
+            string extractedNumber = cellClickedButtonName.Substring(cellClickedButtonName.Length - 2, 2);
+            if (int.TryParse(extractedNumber, out int extractedNumberInt))
             {
-                ConvertToRowColumn(number);
+                ConvertGivenNumberToCorrespondingGridCellPosition(extractedNumberInt);
                 return;
             }
 
-            possibleNumber = name.Substring(name.Length - 1, 1);
-            number = int.Parse(possibleNumber);
-            ConvertToRowColumn(number);
+            extractedNumber = cellClickedButtonName.Substring(cellClickedButtonName.Length - 1, 1);
+            ConvertGivenNumberToCorrespondingGridCellPosition(int.Parse(extractedNumber));
         }
 
-        private void ConvertToRowColumn(int number)
+        private void ConvertGivenNumberToCorrespondingGridCellPosition(int extractedNumberFromName)
         {
-            int fullRows = number / ColumnCount;
+            int fullRows = extractedNumberFromName / ColumnCount;
 
-            int newNumber = number - (fullRows * ColumnCount);
+            int newNumber = extractedNumberFromName - (fullRows * ColumnCount);
             if (newNumber == 0)
             {
                 this.clickedRow = fullRows;
