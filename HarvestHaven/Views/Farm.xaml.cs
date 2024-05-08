@@ -16,17 +16,6 @@ namespace HarvestHaven
         private readonly IFarmService farmService;
         private readonly IUserService userService;
 
-        #region Image Paths
-        private const string CarrotPath = "Assets/Sprites/Items/carrot.png";
-        private const string CornPath = "Assets/Sprites/Items/corn.png";
-        private const string WheatPath = "Assets/Sprites/Items/wheat.png";
-        private const string TomatoPath = "Assets/Sprites/Items/tomato.png";
-        private const string ChickenPath = "Assets/Sprites/Items/chicken.png";
-        private const string SheepPath = "Assets/Sprites/Items/sheep.png";
-        private const string CowPath = "Assets/Sprites/Items/cow.png";
-        private const string DuckPath = "Assets/Sprites/Items/duck.png";
-        #endregion
-
         private const int ColumnCount = 6;
         private int clickedRow;
         private int clickedColumn;
@@ -48,7 +37,7 @@ namespace HarvestHaven
         #region Screen Transitions
         private void InventoryButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Inventory inventoryScreen = new Inventory(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>());
+            Inventory inventoryScreen = new Inventory(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IInventoryService>());
 
             inventoryScreen.Top = this.Top;
             inventoryScreen.Left = this.Left;
@@ -179,37 +168,32 @@ namespace HarvestHaven
 
                     ItemType type = pair.Value.ItemType;
                     string path = string.Empty;
-                    if (type == ItemType.CarrotSeeds)
+                    switch (type)
                     {
-                        path = CarrotPath;
-                    }
-                    else if (type == ItemType.CornSeeds)
-                    {
-                        path = CornPath;
-                    }
-                    else if (type == ItemType.WheatSeeds)
-                    {
-                        path = WheatPath;
-                    }
-                    else if (type == ItemType.TomatoSeeds)
-                    {
-                        path = TomatoPath;
-                    }
-                    else if (type == ItemType.Chicken)
-                    {
-                        path = ChickenPath;
-                    }
-                    else if (type == ItemType.Duck)
-                    {
-                        path = DuckPath;
-                    }
-                    else if (type == ItemType.Sheep)
-                    {
-                        path = SheepPath;
-                    }
-                    else
-                    {
-                        path = CowPath;
+                        case ItemType.CarrotSeeds:
+                            path = Constants.CarrotPath;
+                            break;
+                        case ItemType.CornSeeds:
+                            path = Constants.CornPath;
+                            break;
+                        case ItemType.WheatSeeds:
+                            path = Constants.WheatPath;
+                            break;
+                        case ItemType.TomatoSeeds:
+                            path = Constants.TomatoPath;
+                            break;
+                        case ItemType.Chicken:
+                            path = Constants.ChickenPath;
+                            break;
+                        case ItemType.Duck:
+                            path = Constants.DuckPath;
+                            break;
+                        case ItemType.Sheep:
+                            path = Constants.SheepPath;
+                            break;
+                        default:
+                            path = Constants.CowPath;
+                            break;
                     }
 
                     CreateItemIcon(associatedButton, path);
@@ -238,7 +222,7 @@ namespace HarvestHaven
 
             newImage.Margin = associatedButton.Margin;
 
-            newImage.Source = new BitmapImage(new Uri("pack://application:,,,/" + imagePath));
+            newImage.Source = new BitmapImage(new Uri("pack://application:,,," + imagePath));
 
             newImage.MouseDown += ItemIcon_Click;
             newImage.MouseLeave += ItemIcon_Leave;

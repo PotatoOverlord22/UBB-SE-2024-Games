@@ -6,6 +6,7 @@ using System.Windows.Media.Imaging;
 using HarvestHaven.Entities;
 using HarvestHaven.Services;
 using Microsoft.Extensions.DependencyInjection;
+using HarvestHaven.Utils;
 
 namespace HarvestHaven
 {
@@ -14,17 +15,6 @@ namespace HarvestHaven
         private readonly IFarmService farmService;
         private readonly IUserService userService;
         private List<Image> itemIcons = new List<Image>();
-
-        #region Image Paths
-        private const string CarrotPath = "Assets/Sprites/Items/carrot.png";
-        private const string CornPath = "Assets/Sprites/Items/corn.png";
-        private const string WheatPath = "Assets/Sprites/Items/wheat.png";
-        private const string TomatoPath = "Assets/Sprites/Items/tomato.png";
-        private const string ChickenPath = "Assets/Sprites/Items/chicken.png";
-        private const string SheepPath = "Assets/Sprites/Items/sheep.png";
-        private const string CowPath = "Assets/Sprites/Items/cow.png";
-        private const string DuckPath = "Assets/Sprites/Items/duck.png";
-        #endregion
 
         private Guid userId;
         private ProfileTab profileTab;
@@ -78,35 +68,35 @@ namespace HarvestHaven
                     string path = string.Empty;
                     if (type == ItemType.CarrotSeeds)
                     {
-                        path = CarrotPath;
+                        path = Constants.CarrotPath;
                     }
                     else if (type == ItemType.CornSeeds)
                     {
-                        path = CornPath;
+                        path = Constants.CornPath;
                     }
                     else if (type == ItemType.WheatSeeds)
                     {
-                        path = WheatPath;
+                        path = Constants.WheatPath;
                     }
                     else if (type == ItemType.TomatoSeeds)
                     {
-                        path = TomatoPath;
+                        path = Constants.TomatoPath;
                     }
                     else if (type == ItemType.Chicken)
                     {
-                        path = ChickenPath;
+                        path = Constants.ChickenPath;
                     }
                     else if (type == ItemType.Duck)
                     {
-                        path = DuckPath;
+                        path = Constants.DuckPath;
                     }
                     else if (type == ItemType.Sheep)
                     {
-                        path = SheepPath;
+                        path = Constants.SheepPath;
                     }
                     else
                     {
-                        path = CowPath;
+                        path = Constants.CowPath;
                     }
 
                     CreateItemIcon(associatedButton, path);
