@@ -17,5 +17,9 @@
         public static string SheepPath = "Assets/Sprites/Items/sheep.png";
         public static string CowPath = "Assets/Sprites/Items/cow.png";
         public static string DuckPath = "Assets/Sprites/Items/duck.png";
+        public static string DuckEggPath = "/Assets/Sprites/Items/duck-egg.png";
+        public static string ChickenEggPath = "/Assets/Sprites/Items/chicken-egg.png";
+        public static string WoolPath = "/Assets/Sprites/Items/wool.png";
+        public static string MilkPath = "/Assets/Sprites/Items/milk.png";
     }
 }

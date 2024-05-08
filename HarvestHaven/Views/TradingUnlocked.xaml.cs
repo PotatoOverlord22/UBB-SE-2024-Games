@@ -14,19 +14,6 @@ namespace HarvestHaven
         private readonly IResourceService resourceService;
         private Farm farmScreen;
 
-        private const string CarrotPath = "/Assets/Sprites/Items/carrot.png";
-        private const string CornPath = "/Assets/Sprites/Items/corn.png";
-        private const string WheatPath = "/Assets/Sprites/Items/wheat.png";
-        private const string TomatoPath = "/Assets/Sprites/Items/tomato.png";
-        private const string ChickenPath = "/Assets/Sprites/Items/chicken.png";
-        private const string SheepPath = "/Assets/Sprites/Items/sheep.png";
-        private const string CowPath = "/Assets/Sprites/Items/cow.png";
-        private const string DuckPath = "/Assets/Sprites/Items/duck.png";
-        private const string DuckEggPath = "/Assets/Sprites/Items/duck-egg.png";
-        private const string ChickenEggPath = "/Assets/Sprites/Items/chicken-egg.png";
-        private const string WoolPath = "/Assets/Sprites/Items/wool.png";
-        private const string MilkPath = "/Assets/Sprites/Items/milk.png";
-
         private List<Trade> tradeList;
         private ResourceType getResource;
         private ResourceType giveResource;
@@ -60,47 +47,47 @@ namespace HarvestHaven
             string path = string.Empty;
             if (resourceType == ResourceType.Carrot)
             {
-                path = CarrotPath;
+                path = Constants.CarrotPath;
             }
             else if (resourceType == ResourceType.Corn)
             {
-                path = CornPath;
+                path = Constants.CornPath;
             }
             else if (resourceType == ResourceType.Wheat)
             {
-                path = WheatPath;
+                path = Constants.WheatPath;
             }
             else if (resourceType == ResourceType.Tomato)
             {
-                path = TomatoPath;
+                path = Constants.TomatoPath;
             }
             else if (resourceType == ResourceType.ChickenMeat)
             {
-                path = ChickenPath;
+                path = Constants.ChickenPath;
             }
             else if (resourceType == ResourceType.DuckMeat)
             {
-                path = DuckPath;
+                path = Constants.DuckPath;
             }
             else if (resourceType == ResourceType.Mutton)
             {
-                path = SheepPath;
+                path = Constants.SheepPath;
             }
             else if (resourceType == ResourceType.SheepWool)
             {
-                path = WoolPath;
+                path = Constants.WoolPath;
             }
             else if (resourceType == ResourceType.ChickenEgg)
             {
-                path = ChickenEggPath;
+                path = Constants.ChickenEggPath;
             }
             else if (resourceType == ResourceType.DuckEgg)
             {
-                path = DuckEggPath;
+                path = Constants.DuckEggPath;
             }
             else
             {
-                path = resourceType == ResourceType.CowMilk ? MilkPath : CowPath;
+                path = resourceType == ResourceType.CowMilk ? Constants.MilkPath : Constants.CowPath;
             }
 
             return path;
