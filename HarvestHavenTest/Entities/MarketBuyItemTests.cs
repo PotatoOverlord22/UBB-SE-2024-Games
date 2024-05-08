@@ -8,7 +8,7 @@ namespace HarvestHaven.Entities.Tests
     public class MarketBuyItemTests
     {
         [TestMethod()]
-        public void MarketBuyItem_Constructor_InitializesProperties()
+        public void Constructor_WithValidParameters_InitializesProperties()
         {
             // Arrange
             Guid id = Guid.NewGuid();

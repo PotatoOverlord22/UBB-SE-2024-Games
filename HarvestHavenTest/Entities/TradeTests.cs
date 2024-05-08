@@ -9,7 +9,7 @@ namespace HarvestHaven.Entities.Tests
     public class TradeTests
     {
         [TestMethod()]
-        public void Trade_Constructor_InitializesProperties()
+        public void Constructor_WithValidParameters_InitializesProperties()
         {
             // Arrange
             Guid id = Guid.NewGuid();

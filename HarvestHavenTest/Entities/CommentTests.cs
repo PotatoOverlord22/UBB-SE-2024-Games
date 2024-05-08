@@ -8,7 +8,7 @@ namespace HarvestHaven.Entities.Tests
     public class CommentTests
     {
         [TestMethod()]
-        public void Comment_Constructor_InitializesProperties()
+        public void Constructor_WithValidParameters_InitializesProperties()
         {
             // Arrange
             Guid id = Guid.NewGuid();

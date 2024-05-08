@@ -8,7 +8,7 @@ namespace HarvestHaven.Entities.Tests
     public class ResourceTests
     {
         [TestMethod()]
-        public void Resource_Constructor_InitializesProperties()
+        public void Constructor_WithValidParameters_InitializesProperties()
         {
             // Arrange
             Guid id = Guid.NewGuid();
@@ -27,7 +27,7 @@ namespace HarvestHaven.Entities.Tests
     public class ResourceTypeTests
     {
         [TestMethod()]
-        public void ResourceType_EnumValues_AreCorrect()
+        public void EnumValues_AreCorrect()
         {
             // Arrange
             ResourceType[] expectedValues = {

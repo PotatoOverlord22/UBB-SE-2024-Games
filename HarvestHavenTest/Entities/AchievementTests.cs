@@ -1,10 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HarvestHaven.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HarvestHaven.Entities.Tests
 {
@@ -12,7 +8,7 @@ namespace HarvestHaven.Entities.Tests
     public class AchievementTests
     {
         [TestMethod()]
-        public void Achievement_Constructor_InitializesProperties()
+        public void Constructor_WithValidParameters_InitializesProperties()
         {
             // Arrange
             Guid id = Guid.NewGuid();

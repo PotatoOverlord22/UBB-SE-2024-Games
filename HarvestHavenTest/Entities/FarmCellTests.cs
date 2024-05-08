@@ -9,7 +9,7 @@ namespace HarvestHaven.Entities.Tests
     public class FarmCellTests
     {
         [TestMethod()]
-        public void FarmCell_Constructor_InitializesProperties()
+        public void Constructor_WithValidParameters_InitializesProperties()
         {
             // Arrange
             Guid id = Guid.NewGuid();
