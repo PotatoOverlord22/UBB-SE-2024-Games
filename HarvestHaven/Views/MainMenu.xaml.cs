@@ -1,26 +1,15 @@
 ﻿using System.Windows;
-using HarvestHaven.Entities;
 using HarvestHaven.Services;
-using HarvestHaven.Utils;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HarvestHaven
 {
     public partial class MainMenu : Window
     {
-        public MainMenu()
+        public MainMenu(IMainMenuService service)
         {
             InitializeComponent();
-            RefreshGUI();
-        }
-
-        private void RefreshGUI()
-        {
-            User? user = GameStateManager.GetCurrentUser();
-            if (user != null)
-            {
-                GreetingLabel.Content = "Welcome, " + user.Username;
-            }
+            DataContext = service;
         }
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)

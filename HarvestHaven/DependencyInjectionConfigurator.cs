@@ -29,6 +29,7 @@ namespace HarvestHaven
             services.AddSingleton<ITradeService, TradeService>();
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IResourceService, ResourceService>();
+            services.AddSingleton<IMainMenuService, MainMenuService>();
             services.AddSingleton<IInventoryService, InventoryService>();
 
             return services;
