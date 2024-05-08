@@ -225,5 +225,21 @@ namespace HarvestHaven.Services
             // Return whether the cell is enhanced or not.
             return (DateTime.UtcNow - farmCell.LastTimeEnhanced < TimeSpan.FromDays(Constants.ENCHANCE_DURATION_IN_DAYS));
         }
+
+        public string GetPathByType(ItemType type)
+        {
+            return type switch
+            {
+                ItemType.CarrotSeeds => Constants.CarrotPath,
+                ItemType.CornSeeds => Constants.CornPath,
+                ItemType.WheatSeeds => Constants.WheatPath,
+                ItemType.TomatoSeeds => Constants.TomatoPath,
+                ItemType.Chicken => Constants.ChickenPath,
+                ItemType.Duck => Constants.DuckPath,
+                ItemType.Sheep => Constants.SheepPath,
+                ItemType.Cow => Constants.CowPath,
+                _ => throw new Exception("Invalid item type!")
+            };
+        }
     }
 }

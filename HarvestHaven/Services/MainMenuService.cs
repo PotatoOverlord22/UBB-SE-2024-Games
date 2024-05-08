@@ -5,7 +5,7 @@ using HarvestHaven.Utils;
 
 namespace HarvestHaven.Services
 {
-    public class MainMenuService : IMainMenuService, INotifyPropertyChanged
+    public class MainMenuService : ServiceBase, IMainMenuService
     {
         private string userName;
         public string UserName
@@ -20,20 +20,22 @@ namespace HarvestHaven.Services
                 OnPropertyChanged();
             }
         }
-        public event PropertyChangedEventHandler PropertyChanged;
+
+        public string WelcomeMessage
+        {
+            get
+            {
+                return $"Welcome, {UserName}!";
+            }
+        }
 
         public MainMenuService()
         {
             User? user = GameStateManager.GetCurrentUser();
             if (user != null)
             {
-                UserName = "Welcome, " + user.Username;
+                UserName = user.Username;
             }
-        }
-
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

@@ -11,5 +11,7 @@ namespace HarvestHaven.Services
         Task DestroyCell(int row, int column);
 
         Task EnchanceCellForUser(Guid targetUserId, int row, int column);
+
+        string GetPathByType(ItemType type);
     }
 }

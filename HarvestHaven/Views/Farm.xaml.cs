@@ -167,34 +167,7 @@ namespace HarvestHaven
                     Button associatedButton = (Button)FindName("Farm" + buttonIndex);
 
                     ItemType type = pair.Value.ItemType;
-                    string path = string.Empty;
-                    switch (type)
-                    {
-                        case ItemType.CarrotSeeds:
-                            path = Constants.CarrotPath;
-                            break;
-                        case ItemType.CornSeeds:
-                            path = Constants.CornPath;
-                            break;
-                        case ItemType.WheatSeeds:
-                            path = Constants.WheatPath;
-                            break;
-                        case ItemType.TomatoSeeds:
-                            path = Constants.TomatoPath;
-                            break;
-                        case ItemType.Chicken:
-                            path = Constants.ChickenPath;
-                            break;
-                        case ItemType.Duck:
-                            path = Constants.DuckPath;
-                            break;
-                        case ItemType.Sheep:
-                            path = Constants.SheepPath;
-                            break;
-                        default:
-                            path = Constants.CowPath;
-                            break;
-                    }
+                    string path = farmService.GetPathByType(type);
 
                     CreateItemIcon(associatedButton, path);
                 }
