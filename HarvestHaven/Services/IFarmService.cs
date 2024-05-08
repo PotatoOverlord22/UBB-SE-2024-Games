@@ -12,6 +12,6 @@ namespace HarvestHaven.Services
 
         Task EnchanceCellForUser(Guid targetUserId, int row, int column);
 
-        string GetPathByType(ItemType type);
+        string GetPicturePathByItemType(ItemType type);
     }
 }

@@ -167,7 +167,7 @@ namespace HarvestHaven
                     Button associatedButton = (Button)FindName("Farm" + buttonIndex);
 
                     ItemType type = pair.Value.ItemType;
-                    string path = farmService.GetPathByType(type);
+                    string path = farmService.GetPicturePathByItemType(type);
 
                     CreateItemIcon(associatedButton, path);
                 }

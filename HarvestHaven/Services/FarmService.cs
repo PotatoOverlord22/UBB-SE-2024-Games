@@ -226,7 +226,7 @@ namespace HarvestHaven.Services
             return (DateTime.UtcNow - farmCell.LastTimeEnhanced < TimeSpan.FromDays(Constants.ENCHANCE_DURATION_IN_DAYS));
         }
 
-        public string GetPathByType(ItemType type)
+        public string GetPicturePathByItemType(ItemType type)
         {
             return type switch
             {
