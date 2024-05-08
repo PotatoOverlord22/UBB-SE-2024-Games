@@ -4,14 +4,14 @@ using HarvestHaven.Entities;
 
 namespace HarvestHaven.Repositories
 {
-    public static class ResourceRepository
+    public class ResourceRepository : IResourceRepository
     {
-        private static readonly string ConnectionString = DatabaseHelper.GetDatabaseFilePath();
+        private readonly string connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public static async Task<List<Resource>> GetAllResourcesAsync()
+        public async Task<List<Resource>> GetAllResourcesAsync()
         {
             List<Resource> resources = new List<Resource>();
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM Resources", connection))
@@ -30,10 +30,10 @@ namespace HarvestHaven.Repositories
             return resources;
         }
 
-        public static async Task<Resource> GetResourceByIdAsync(Guid resourceId)
+        public async Task<Resource> GetResourceByIdAsync(Guid resourceId)
         {
             Resource resource = null;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM Resources WHERE Id = @Id";
@@ -54,10 +54,10 @@ namespace HarvestHaven.Repositories
             return resource;
         }
 
-        public static async Task<Resource> GetResourceByTypeAsync(ResourceType resourceType)
+        public async Task<Resource> GetResourceByTypeAsync(ResourceType resourceType)
         {
             Resource resource = null;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM Resources WHERE ResourceType = @ResourceType";
@@ -78,9 +78,9 @@ namespace HarvestHaven.Repositories
             return resource;
         }
 
-        public static async Task AddResourceAsync(Resource resource)
+        public async Task AddResourceAsync(Resource resource)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO Resources (Id, ResourceType) VALUES (@Id, @ResourceType)";
@@ -93,9 +93,9 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task UpdateResourceAsync(Resource resource)
+        public async Task UpdateResourceAsync(Resource resource)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE Resources SET ResourceType = @ResourceType WHERE Id = @Id";
@@ -108,9 +108,9 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task DeleteResourceAsync(Guid resourceId)
+        public async Task DeleteResourceAsync(Guid resourceId)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM Resources WHERE Id = @Id";

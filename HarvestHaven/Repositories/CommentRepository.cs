@@ -4,13 +4,13 @@ using HarvestHaven.Entities;
 
 namespace HarvestHaven.Repositories
 {
-    public static class CommentRepository
+    public class CommentRepository : ICommentRepository
     {
-        private static readonly string ConnectionString = DatabaseHelper.GetDatabaseFilePath();
+        private readonly string connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public static async Task CreateCommentAsync(Comment comment)
+        public async Task CreateCommentAsync(Comment comment)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO Comments (Id, UserId, Message, CreatedTime) VALUES (@Id, @UserId, @Message, @CreatedTime)";
@@ -25,10 +25,10 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task<List<Comment>> GetUserCommentsAsync(Guid userId)
+        public async Task<List<Comment>> GetUserCommentsAsync(Guid userId)
         {
             List<Comment> userComments = new List<Comment>();
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM Comments WHERE UserId = @UserId";
@@ -51,9 +51,9 @@ namespace HarvestHaven.Repositories
             return userComments;
         }
 
-        public static async Task UpdateCommentAsync(Comment comment)
+        public async Task UpdateCommentAsync(Comment comment)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE Comments SET Message = @Message WHERE Id = @Id";
@@ -66,9 +66,9 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task DeleteCommentAsync(Guid commentId)
+        public async Task DeleteCommentAsync(Guid commentId)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM Comments WHERE Id = @Id";
@@ -81,3 +81,4 @@ namespace HarvestHaven.Repositories
         }
     }
 }
+

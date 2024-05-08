@@ -7,10 +7,24 @@ namespace HarvestHaven.Services
     public class MarketService : IMarketService
     {
         private readonly IAchievementService achievementService;
+        private readonly IFarmCellRepository farmCellRepository;
+        private readonly IUserRepository userRepository;
+        private readonly IItemRepository itemRepository;
+        private readonly IMarketBuyItemRepository marketBuyItemRepository;
+        private readonly IMarketSellResourceRepository marketSellResourceRepository;
+        private readonly IInventoryResourceRepository inventoryResourceRepository;
+        private readonly IResourceRepository resourceRepository;
 
-        public MarketService(IAchievementService achievementService)
+        public MarketService(IAchievementService achievementService, IFarmCellRepository farmCellRepository, IUserRepository userRepository, IItemRepository itemRepository, IMarketBuyItemRepository marketBuyItemRepository, IInventoryResourceRepository inventoryResourceRepository, IMarketSellResourceRepository marketSellResourceRepository, IResourceRepository resourceRepository)
         {
             this.achievementService = achievementService;
+            this.farmCellRepository = farmCellRepository;
+            this.userRepository = userRepository;
+            this.itemRepository = itemRepository;
+            this.marketBuyItemRepository = marketBuyItemRepository;
+            this.inventoryResourceRepository = inventoryResourceRepository;
+            this.marketSellResourceRepository = marketSellResourceRepository;
+            this.resourceRepository = resourceRepository;
         }
         public async Task BuyItem(int row, int column, ItemType itemType)
         {
@@ -22,14 +36,14 @@ namespace HarvestHaven.Services
             }
 
             // Get the item from the database.
-            Item item = await ItemRepository.GetItemByTypeAsync(itemType);
+            Item item = await itemRepository.GetItemByTypeAsync(itemType);
             if (item == null)
             {
                 throw new Exception("Given item not found in the database.");
             }
 
             // Get the corresponding market buy item from the database.
-            MarketBuyItem marketBuyItem = await MarketBuyItemRepository.GetMarketBuyItemByItemIdAsync(item.Id);
+            MarketBuyItem marketBuyItem = await marketBuyItemRepository.GetMarketBuyItemByItemIdAsync(item.Id);
             if (marketBuyItem == null)
             {
                 throw new Exception("Market buy item not found in the database.");
@@ -42,7 +56,7 @@ namespace HarvestHaven.Services
             }
 
             // Get all the user farm cells from the database.
-            List<FarmCell> farmCells = await FarmCellRepository.GetUserFarmCellsAsync(GameStateManager.GetCurrentUserId());
+            List<FarmCell> farmCells = await farmCellRepository.GetUserFarmCellsAsync(GameStateManager.GetCurrentUserId());
 
             // Throw an exception in case the cell is occupied.
             foreach (FarmCell cell in farmCells)
@@ -56,7 +70,7 @@ namespace HarvestHaven.Services
             #endregion
 
             // Add a new farm cell in the database.
-            await FarmCellRepository.AddFarmCellAsync(new FarmCell(
+            await farmCellRepository.AddFarmCellAsync(new FarmCell(
                 id: Guid.NewGuid(),
                 userId: GameStateManager.GetCurrentUserId(),
                 row: row,
@@ -69,7 +83,7 @@ namespace HarvestHaven.Services
             User newUser = GameStateManager.GetCurrentUser();
             newUser.Coins -= marketBuyItem.BuyPrice;
             newUser.NrItemsBought++;
-            await UserRepository.UpdateUserAsync(newUser);
+            await userRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
 
             // Check achievements.
@@ -87,21 +101,21 @@ namespace HarvestHaven.Services
             }
 
             // Get the resource from the database.
-            Resource resource = await ResourceRepository.GetResourceByTypeAsync(resourceType);
+            Resource resource = await resourceRepository.GetResourceByTypeAsync(resourceType);
             if (resource == null)
             {
                 throw new Exception("Given resource not found.");
             }
 
             // Get the market sell resource from the database.
-            MarketSellResource marketSellResouce = await MarketSellResourceRepository.GetMarketSellResourceByResourceIdAsync(resource.Id);
+            MarketSellResource marketSellResouce = await marketSellResourceRepository.GetMarketSellResourceByResourceIdAsync(resource.Id);
             if (marketSellResouce == null)
             {
                 throw new Exception("Market sell resource not found.");
             }
 
             // Get the user's inventory resource from the database.
-            InventoryResource? inventoryResource = await InventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), resource.Id);
+            InventoryResource? inventoryResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), resource.Id);
 
             // Throw an exception if the user doesn's have that resource.
             if (inventoryResource == null || inventoryResource.Quantity <= 0)
@@ -112,12 +126,12 @@ namespace HarvestHaven.Services
 
             // Update the inventory resource quantity in the database.
             inventoryResource.Quantity--;
-            await InventoryResourceRepository.UpdateUserResourceAsync(inventoryResource);
+            await inventoryResourceRepository.UpdateUserResourceAsync(inventoryResource);
 
             // Update the user coins both locally and in the database.
             User newUser = GameStateManager.GetCurrentUser();
             newUser.Coins += marketSellResouce.SellPrice;
-            await UserRepository.UpdateUserAsync(newUser);
+            await userRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
 
             // Check achievements.

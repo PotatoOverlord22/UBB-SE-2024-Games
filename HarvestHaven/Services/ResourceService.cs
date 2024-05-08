@@ -5,13 +5,18 @@ namespace HarvestHaven.Services
 {
     public class ResourceService : IResourceService
     {
+        private readonly IResourceRepository resourceRepository;
+        public ResourceService(IResourceRepository resourceRepository)
+        {
+            this.resourceRepository = resourceRepository;
+        }
         public async Task<Resource> GetResourceByIdAsync(Guid resourceId)
         {
-            return await ResourceRepository.GetResourceByIdAsync(resourceId);
+            return await resourceRepository.GetResourceByIdAsync(resourceId);
         }
         public async Task<List<Resource>> GetAllResourcesAsync()
         {
-            return await ResourceRepository.GetAllResourcesAsync();
+            return await resourceRepository.GetAllResourcesAsync();
         }
     }
 }

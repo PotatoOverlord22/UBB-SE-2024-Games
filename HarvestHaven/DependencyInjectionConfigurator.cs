@@ -1,4 +1,5 @@
-﻿using HarvestHaven.Services;
+﻿using HarvestHaven.Repositories;
+using HarvestHaven.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HarvestHaven
@@ -31,6 +32,18 @@ namespace HarvestHaven
             services.AddSingleton<IResourceService, ResourceService>();
             services.AddSingleton<IMainMenuService, MainMenuService>();
             services.AddSingleton<IInventoryService, InventoryService>();
+
+            services.AddTransient<IAchievementRepository, AchievementRepository>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
+            services.AddTransient<IFarmCellRepository, FarmCellRepository>();
+            services.AddTransient<IInventoryResourceRepository, InventoryResourceRepository>();
+            services.AddTransient<IItemRepository, ItemRepository>();
+            services.AddTransient<IMarketBuyItemRepository, MarketBuyItemRepository>();
+            services.AddTransient<IMarketSellResourceRepository, MarketSellResourceRepository>();
+            services.AddTransient<IResourceRepository, ResourceRepository>();
+            services.AddTransient<ITradeRepository, TradeRepository>();
+            services.AddTransient<IUserAchievementRepository, UserAchievementRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
             return services;
         }

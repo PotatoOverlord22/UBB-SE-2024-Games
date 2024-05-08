@@ -4,14 +4,14 @@ using Microsoft.Data.SqlClient;
 
 namespace HarvestHaven.Repositories
 {
-    public static class TradeRepository
+    public class TradeRepository : ITradeRepository
     {
-        private static readonly string ConnectionString = DatabaseHelper.GetDatabaseFilePath();
+        private readonly string connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public static async Task<List<Trade>> GetAllTradesAsync()
+        public async Task<List<Trade>> GetAllTradesAsync()
         {
             List<Trade> trades = new List<Trade>();
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM Trades", connection))
@@ -36,12 +36,12 @@ namespace HarvestHaven.Repositories
             return trades;
         }
 
-        public static async Task<List<Trade>> GetAllTradesExceptCreatedByUser(Guid userId)
+        public async Task<List<Trade>> GetAllTradesExceptCreatedByUser(Guid userId)
         {
             List<Trade> trades = new List<Trade>();
             string query = "SELECT * FROM Trades WHERE UserId <> @UserId";
 
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand(query, connection))
@@ -69,10 +69,10 @@ namespace HarvestHaven.Repositories
             return trades;
         }
 
-        public static async Task<Trade> GetTradeByIdAsync(Guid tradeId)
+        public async Task<Trade> GetTradeByIdAsync(Guid tradeId)
         {
             Trade? trade = null;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM Trades Where Id = @Id", connection))
@@ -98,10 +98,10 @@ namespace HarvestHaven.Repositories
             return trade;
         }
 
-        public static async Task<Trade> GetUserTradeAsync(Guid userId)
+        public async Task<Trade> GetUserTradeAsync(Guid userId)
         {
             Trade userTrade = null;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM Trades WHERE UserId = @UserId";
@@ -128,9 +128,9 @@ namespace HarvestHaven.Repositories
             return userTrade;
         }
 
-        public static async Task CreateTradeAsync(Trade trade)
+        public async Task CreateTradeAsync(Trade trade)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO Trades (Id, UserId, GivenResourceId, GivenResourceQuantity, RequestedResourceId, RequestedResourceQuantity, CreatedTime, IsCompleted) VALUES (@Id, @UserId, @GivenResourceId, @GivenResourceQuantity, @RequestedResourceId, @RequestedResourceQuantity, @CreatedTime, @IsCompleted)";
@@ -149,10 +149,10 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task UpdateTradeAsync(Trade trade)
+        public async Task UpdateTradeAsync(Trade trade)
         {
             // Create the SQL connection and release the resources after use.
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("UPDATE Trades SET IsCompleted = @IsCompleted WHERE Id = @Id", connection))
@@ -164,9 +164,9 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task DeleteTradeAsync(Guid tradeId)
+        public async Task DeleteTradeAsync(Guid tradeId)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM Trades WHERE Id = @Id";

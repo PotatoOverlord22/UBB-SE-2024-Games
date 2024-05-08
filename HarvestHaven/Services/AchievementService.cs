@@ -8,10 +8,20 @@ namespace HarvestHaven.Services
     public class AchievementService : IAchievementService
     {
         private readonly IUserService userService;
+        private readonly IAchievementRepository achievementRepository;
+        private readonly IUserAchievementRepository userAchievementRepository;
+        private readonly IFarmCellRepository farmCellRepository;
+        private readonly IUserRepository userRepository;
+        private readonly IItemRepository itemRepository;
 
-        public AchievementService(IUserService userService)
+        public AchievementService(IUserService userService, IAchievementRepository achievementRepository, IUserAchievementRepository userAchievementRepository, IFarmCellRepository farmCellRepository, IUserRepository userRepository, IItemRepository itemRepository)
         {
             this.userService = userService;
+            this.achievementRepository = achievementRepository;
+            this.userAchievementRepository = userAchievementRepository;
+            this.farmCellRepository = farmCellRepository;
+            this.userRepository = userRepository;
+            this.itemRepository = itemRepository;
         }
 
         public async Task<List<Achievement>> GetAllAchievementsAsync()
@@ -22,7 +32,7 @@ namespace HarvestHaven.Services
                 throw new Exception("User must be logged in!");
             }
 
-            return await AchievementRepository.GetAllAchievementsAsync();
+            return await achievementRepository.GetAllAchievementsAsync();
         }
 
         public async Task<Dictionary<UserAchievement, Achievement>> GetUserAchievements()
@@ -34,7 +44,7 @@ namespace HarvestHaven.Services
             }
 
             // Get all user achievements from the database.
-            List<UserAchievement> userAchievements = await UserAchievementRepository.GetAllUserAchievementsAsync(GameStateManager.GetCurrentUserId());
+            List<UserAchievement> userAchievements = await userAchievementRepository.GetAllUserAchievementsAsync(GameStateManager.GetCurrentUserId());
 
             // Initialize the dictionary that will be returned.
             Dictionary<UserAchievement, Achievement> userAchievementsMap = new Dictionary<UserAchievement, Achievement>();
@@ -43,7 +53,7 @@ namespace HarvestHaven.Services
             foreach (UserAchievement userAchievement in userAchievements)
             {
                 // Get the corresponding achievement from the database.
-                Achievement achievement = await AchievementRepository.GetAchievementByIdAsync(userAchievement.AchievementId);
+                Achievement achievement = await achievementRepository.GetAchievementByIdAsync(userAchievement.AchievementId);
                 if (achievement == null)
                 {
                     throw new Exception($"No corresponding achievement found for the user achievement with id: {userAchievement.Id}");
@@ -65,7 +75,7 @@ namespace HarvestHaven.Services
             }
 
             // Get all the user farm cells.
-            List<FarmCell> farmCells = await FarmCellRepository.GetUserFarmCellsAsync(GameStateManager.GetCurrentUserId());
+            List<FarmCell> farmCells = await farmCellRepository.GetUserFarmCellsAsync(GameStateManager.GetCurrentUserId());
 
             #region Put 5 cows on grids so it makes an X shape! d532eeca-7163-4b27-8135-dbca4cee057a
 
@@ -81,7 +91,7 @@ namespace HarvestHaven.Services
                     }
 
                     // Get the item from the cell.
-                    Item cellItem = await ItemRepository.GetItemByIdAsync(cell.ItemId);
+                    Item cellItem = await itemRepository.GetItemByIdAsync(cell.ItemId);
 
                     return cellItem?.ItemType == ItemType.Cow;
                 }
@@ -94,7 +104,7 @@ namespace HarvestHaven.Services
             foreach (FarmCell cell in farmCells)
             {
                 // Get the item from the cell and skip null items or non-cow items.
-                Item item = await ItemRepository.GetItemByIdAsync(cell.ItemId);
+                Item item = await itemRepository.GetItemByIdAsync(cell.ItemId);
                 if (item == null || item.ItemType != ItemType.Cow)
                 {
                     continue;
@@ -120,7 +130,7 @@ namespace HarvestHaven.Services
             foreach (FarmCell cell in farmCells)
             {
                 // Get the item from the cell and skip null items.
-                Item item = await ItemRepository.GetItemByIdAsync(cell.ItemId);
+                Item item = await itemRepository.GetItemByIdAsync(cell.ItemId);
                 if (item == null)
                 {
                     continue;
@@ -154,7 +164,7 @@ namespace HarvestHaven.Services
             foreach (FarmCell cell in farmCells)
             {
                 // Get the item from the cell and skip null items..
-                Item item = await ItemRepository.GetItemByIdAsync(cell.ItemId);
+                Item item = await itemRepository.GetItemByIdAsync(cell.ItemId);
                 if (item != null && targetItemTypes.Contains(item.ItemType))
                 {
                     // Mark the row and column positions for cells containing one of the target item types.
@@ -202,7 +212,7 @@ namespace HarvestHaven.Services
             #endregion
 
             #region Make the very first trade provided by a player! a8f407e3-5338-4bf8-bd20-61bf6fa78aa9
-            User otherUser = await UserRepository.GetUserByIdAsync(otherUserInvolvedId);
+            User otherUser = await userRepository.GetUserByIdAsync(otherUserInvolvedId);
             if (otherUser != null && otherUser.NrTradesPerformed == 1)
             {
                 await AddUserAchievement(Guid.Parse("a8f407e3-5338-4bf8-bd20-61bf6fa78aa9"));
@@ -289,7 +299,7 @@ namespace HarvestHaven.Services
             }
 
             // Get all user achievements from the database.
-            List<UserAchievement> userAchievements = await UserAchievementRepository.GetAllUserAchievementsAsync(GameStateManager.GetCurrentUserId());
+            List<UserAchievement> userAchievements = await userAchievementRepository.GetAllUserAchievementsAsync(GameStateManager.GetCurrentUserId());
 
             // Return in case the user has already completed the given achievement.
             foreach (UserAchievement userAchievement in userAchievements)
@@ -301,14 +311,14 @@ namespace HarvestHaven.Services
             }
 
             // Get the achievement from the database.
-            Achievement achievement = await AchievementRepository.GetAchievementByIdAsync(achievementId);
+            Achievement achievement = await achievementRepository.GetAchievementByIdAsync(achievementId);
             if (achievement == null)
             {
                 throw new Exception($"Achievement with id: {achievementId} not found in the database.");
             }
 
             // Add the achievement to the user acheivements in the database.
-            await UserAchievementRepository.AddUserAchievementAsync(new UserAchievement(
+            await userAchievementRepository.AddUserAchievementAsync(new UserAchievement(
                 id: Guid.NewGuid(),
                 userId: GameStateManager.GetCurrentUserId(),
                 achievementId: achievementId,
@@ -317,7 +327,7 @@ namespace HarvestHaven.Services
             // Update the user coins both in the database and locally.
             User newUser = GameStateManager.GetCurrentUser();
             newUser.Coins += achievement.RewardCoins;
-            await UserRepository.UpdateUserAsync(newUser);
+            await userRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
 
             MessageBox.Show($"Congratulations you unlocked a new achievement! {achievement.Description}");
