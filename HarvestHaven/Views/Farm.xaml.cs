@@ -222,7 +222,7 @@ namespace HarvestHaven
 
             newImage.Margin = associatedButton.Margin;
 
-            newImage.Source = new BitmapImage(new Uri("pack://application:,,,/" + imagePath));
+            newImage.Source = new BitmapImage(new Uri("pack://application:,,," + imagePath));
 
             newImage.MouseDown += ItemIcon_Click;
             newImage.MouseLeave += ItemIcon_Leave;

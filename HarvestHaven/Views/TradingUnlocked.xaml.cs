@@ -41,7 +41,6 @@ namespace HarvestHaven
                 giveResource = resourceType;
             }
         }
-
         private string GetResourcePath(ResourceType resourceType)
         {
             string path = string.Empty;
