@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace CodeBuddies.MVVM
+namespace HarvestHaven.Utils
 {
     public class RelayCommand<T> : ICommand
     {
