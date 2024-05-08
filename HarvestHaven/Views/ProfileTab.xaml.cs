@@ -69,10 +69,6 @@ namespace HarvestHaven
                 MessageBox.Show(e.Message);
             }
         }
-        private void SwitchToVisitedFarm()
-        {
-        }
-
         private void AchievementButton_Click(object sender, RoutedEventArgs e)
         {
             SwitchToAchievements();

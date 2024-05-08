@@ -11,12 +11,12 @@ namespace HarvestHaven
     public partial class Inventory : Window
     {
         private Farm farmScreen;
-        private readonly IUserService userService;
+        private readonly IInventoryService inventoryService;
 
-        public Inventory(Farm farmScreen, IUserService userService)
+        public Inventory(Farm farmScreen, IInventoryService inventoryService)
         {
             this.farmScreen = farmScreen;
-            this.userService = userService;
+            this.inventoryService = inventoryService;
             InitializeComponent();
             LoadInventory();
         }
@@ -29,85 +29,16 @@ namespace HarvestHaven
             farmScreen.Show();
             this.Close();
         }
-
-        private void CheckForLabel(KeyValuePair<InventoryResource, Resource> pair)
-            /*
-             This function changes the label of an entity depending on what is the value in the database.
-             */
-        {
-            if (pair.Value.ResourceType == ResourceType.Carrot)
-            {
-                carrotLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.Corn)
-            {
-                cornLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.Wheat)
-            {
-                wheatLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.Tomato)
-            {
-                tomatoLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.ChickenMeat)
-            {
-                chickenLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.Mutton)
-            {
-                sheepLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.ChickenEgg)
-            {
-                chickenEggLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.SheepWool)
-            {
-                woolLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.CowMilk)
-            {
-                milkLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.DuckEgg)
-            {
-                duckEggLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.Steak)
-            {
-                cowLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.DuckMeat)
-            {
-                duckLabel.Content = pair.Key.Quantity.ToString();
-            }
-        }
-
         private async void LoadInventory()
         {
-            try
+            foreach (Label label in labelsGrid.Children)
             {
-                Dictionary<InventoryResource, Resource> resources = await userService.GetInventoryResources();
+                label.Content = await inventoryService.GetCorrespondingValueForLabel(label.Name);
 
-                foreach (KeyValuePair<InventoryResource, Resource> pair in resources)
+                if (label.Content.ToString().Length > 2)
                 {
-                    CheckForLabel(pair);
+                    label.FontSize = 27;
                 }
-
-                foreach (Label label in labelsGrid.Children)
-                {
-                    // If we have a label with content higher than 100, we change the font so that it will fit.
-                    if (label.Content.ToString().Length > 2)
-                    {
-                        label.FontSize = 27;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
         }
     }
