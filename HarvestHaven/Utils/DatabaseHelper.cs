@@ -25,7 +25,8 @@ namespace HarvestHaven.Utils
             }
             else
             {
-                throw new FileNotFoundException("Database file not found at the specified location.");
+                /*throw new FileNotFoundException("Database file not found at the specified location.");*/
+                return null;
             }
         }
     }

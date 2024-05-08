@@ -1,5 +1,6 @@
 ﻿using HarvestHaven.Repositories;
 using HarvestHaven.Services;
+using HarvestHaven.Utils;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HarvestHaven
@@ -38,6 +39,7 @@ namespace HarvestHaven
 
         public static IServiceCollection ConfigureRepositories(this IServiceCollection services)
         {
+            services.AddSingleton<IDatabaseProvider, DatabaseProvider>();
             services.AddTransient<IAchievementRepository, AchievementRepository>();
             services.AddTransient<ICommentRepository, CommentRepository>();
             services.AddTransient<IFarmCellRepository, FarmCellRepository>();
