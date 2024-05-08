@@ -5,7 +5,7 @@ namespace HarvestHaven.Services
     public interface IUserService
     {
         Task<User> GetUserByIdAsync(Guid userId);
-        Task<Dictionary<InventoryResource, Resource>> GetInventoryResources();
+        Task<Dictionary<InventoryResource, Resource>> GetInventoryResources(Guid userId);
         Task<InventoryResource> GetInventoryResourceByType(ResourceType resourceType);
         Task UpdateUserWater();
         bool IsTradeHallUnlocked();

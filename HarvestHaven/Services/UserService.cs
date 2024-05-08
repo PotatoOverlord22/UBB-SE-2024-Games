@@ -27,16 +27,10 @@ namespace HarvestHaven.Services
 
         #region Inventory
 
-        public async Task<Dictionary<InventoryResource, Resource>> GetInventoryResources()
+        public async Task<Dictionary<InventoryResource, Resource>> GetInventoryResources(Guid userId)
         {
-            // Throw an exception if the user is not logged in.
-            if (GameStateManager.GetCurrentUser() == null)
-            {
-                throw new Exception("User must be logged in!");
-            }
-
             // Get all the inventory resources for the current user from the database.
-            List<InventoryResource> inventoryResources = await inventoryResourceRepository.GetUserResourcesAsync(GameStateManager.GetCurrentUserId());
+            List<InventoryResource> inventoryResources = await inventoryResourceRepository.GetUserResourcesAsync(userId);
 
             // Initialize the dictionary that will be returned.
             Dictionary<InventoryResource, Resource> inventoryResourcesMap = new Dictionary<InventoryResource, Resource>();
