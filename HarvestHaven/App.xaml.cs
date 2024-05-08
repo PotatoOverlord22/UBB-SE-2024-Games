@@ -15,7 +15,7 @@ namespace HarvestHaven
             userService = DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>();
             SetCurrentUser().Wait();
 
-            MainMenu mainMenu = new MainMenu();
+            MainMenu mainMenu = new MainMenu(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IMainMenuService>());
             mainMenu.Show();
         }
         private async Task SetCurrentUser()
