@@ -3,13 +3,13 @@ using HarvestHaven.Entities;
 
 namespace HarvestHaven.Services
 {
-    public static class ItemService
+    public class ItemService : IItemService
     {
-        public static async Task<Item> GetItemByIdAsync(Guid itemId)
+        public async Task<Item> GetItemByIdAsync(Guid itemId)
         {
             return await ItemRepository.GetItemByIdAsync(itemId);
         }
-        public static async Task<List<Item>> GetAllItemsAsync()
+        public async Task<List<Item>> GetAllItemsAsync()
         {
             return await ItemRepository.GetAllItemsAsync();
         }

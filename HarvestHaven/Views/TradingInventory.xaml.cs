@@ -9,6 +9,7 @@ namespace HarvestHaven
     public partial class TradingInventory : Window
     {
         private TradingUnlocked unlockedScreen;
+        private readonly IUserService userService;
 
         public enum InventoryType
         {
@@ -17,10 +18,11 @@ namespace HarvestHaven
         }
         private InventoryType inventoryType;
 
-        public TradingInventory(TradingUnlocked unlockedScreen, InventoryType inventoryType)
+        public TradingInventory(TradingUnlocked unlockedScreen, InventoryType inventoryType, IUserService userService)
         {
             this.unlockedScreen = unlockedScreen;
             this.inventoryType = inventoryType;
+            this.userService = userService;
             InitializeComponent();
             LoadInventory();
         }
@@ -105,7 +107,7 @@ namespace HarvestHaven
         {
             try
             {
-                Dictionary<InventoryResource, Resource> resources = await UserService.GetInventoryResources();
+                Dictionary<InventoryResource, Resource> resources = await userService.GetInventoryResources();
 
                 foreach (KeyValuePair<InventoryResource, Resource> pair in resources)
                 {

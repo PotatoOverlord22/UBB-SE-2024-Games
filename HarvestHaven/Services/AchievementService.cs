@@ -7,6 +7,13 @@ namespace HarvestHaven.Services
 {
     public class AchievementService : IAchievementService
     {
+        private readonly IUserService userService;
+
+        public AchievementService(IUserService userService)
+        {
+            this.userService = userService;
+        }
+
         public async Task<List<Achievement>> GetAllAchievementsAsync()
         {
             // Throw an exception if the user is not logged in.
@@ -212,13 +219,13 @@ namespace HarvestHaven.Services
             }
 
             // Get the neccesary resources from the current user's inventory.
-            InventoryResource wheatInventoryResource = await UserService.GetInventoryResourceByType(ResourceType.Wheat);
-            InventoryResource tomatoInventoryResource = await UserService.GetInventoryResourceByType(ResourceType.Tomato);
-            InventoryResource cornInventoryResource = await UserService.GetInventoryResourceByType(ResourceType.Corn);
-            InventoryResource chickenEggsInventoryResource = await UserService.GetInventoryResourceByType(ResourceType.ChickenEgg);
-            InventoryResource duckEggsInventoryResource = await UserService.GetInventoryResourceByType(ResourceType.DuckEgg);
-            InventoryResource chickenMeatInventoryResource = await UserService.GetInventoryResourceByType(ResourceType.ChickenMeat);
-            InventoryResource duckMeatInventoryResource = await UserService.GetInventoryResourceByType(ResourceType.DuckMeat);
+            InventoryResource wheatInventoryResource = await userService.GetInventoryResourceByType(ResourceType.Wheat);
+            InventoryResource tomatoInventoryResource = await userService.GetInventoryResourceByType(ResourceType.Tomato);
+            InventoryResource cornInventoryResource = await userService.GetInventoryResourceByType(ResourceType.Corn);
+            InventoryResource chickenEggsInventoryResource = await userService.GetInventoryResourceByType(ResourceType.ChickenEgg);
+            InventoryResource duckEggsInventoryResource = await userService.GetInventoryResourceByType(ResourceType.DuckEgg);
+            InventoryResource chickenMeatInventoryResource = await userService.GetInventoryResourceByType(ResourceType.ChickenMeat);
+            InventoryResource duckMeatInventoryResource = await userService.GetInventoryResourceByType(ResourceType.DuckMeat);
 
             #region Have in your inventory exactly 69 wheat! bccadd9c-c520-4c6e-8efb-8ef7642edde0
             if (wheatInventoryResource != null && wheatInventoryResource.Quantity == 69)

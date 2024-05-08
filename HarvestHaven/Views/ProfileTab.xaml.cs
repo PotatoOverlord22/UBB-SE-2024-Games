@@ -11,11 +11,13 @@ namespace HarvestHaven
     {
         private Farm farmScreen;
         private readonly IAchievementService achievementService;
+        private readonly IUserService userService;
 
-        public ProfileTab(Farm farmScreen, IAchievementService achievementService)
+        public ProfileTab(Farm farmScreen, IAchievementService achievementService, IUserService userService)
         {
             this.farmScreen = farmScreen;
             this.achievementService = achievementService;
+            this.userService = userService;
             InitializeComponent();
             SwitchToAchievements();
         }
@@ -43,7 +45,7 @@ namespace HarvestHaven
             commentList.Visibility = Visibility.Hidden;
             try
             {
-                List<User> list = await UserService.GetAllUsersSortedByCoinsAsync();
+                List<User> list = await userService.GetAllUsersSortedByCoinsAsync();
                 DataContext = list;
             }
             catch (Exception e)
@@ -59,7 +61,7 @@ namespace HarvestHaven
             commentList.Visibility = Visibility.Visible;
             try
             {
-                List<Comment> list = await UserService.GetMyComments();
+                List<Comment> list = await userService.GetMyComments();
                 DataContext = list;
             }
             catch (Exception e)
@@ -108,7 +110,7 @@ namespace HarvestHaven
             {
                 return;
             }
-            VisitedFarm visitedFarm = new VisitedFarm(userId, this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IFarmService>());
+            VisitedFarm visitedFarm = new VisitedFarm(userId, this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IFarmService>(), DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>());
             visitedFarm.Show();
             this.Hide();
         }

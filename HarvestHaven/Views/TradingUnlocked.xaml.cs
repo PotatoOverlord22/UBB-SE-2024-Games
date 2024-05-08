@@ -4,12 +4,14 @@ using HarvestHaven.Entities;
 using HarvestHaven.Services;
 using HarvestHaven.Utils;
 using static HarvestHaven.TradingInventory;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HarvestHaven
 {
     public partial class TradingUnlocked : Window
     {
-        private ITradeService tradeService;
+        private readonly ITradeService tradeService;
+        private readonly IResourceService resourceService;
         private Farm farmScreen;
 
         private const string CarrotPath = "/Assets/Sprites/Items/carrot.png";
@@ -29,10 +31,11 @@ namespace HarvestHaven
         private ResourceType getResource;
         private ResourceType giveResource;
 
-        public TradingUnlocked(Farm farmScreen, ITradeService tradeService)
+        public TradingUnlocked(Farm farmScreen, ITradeService tradeService, IResourceService resourceService)
         {
             this.farmScreen = farmScreen;
             this.tradeService = tradeService;
+            this.resourceService = resourceService;
             InitializeComponent();
 
             GetAllTrades();
@@ -122,13 +125,13 @@ namespace HarvestHaven
         {
             this.Confirm_Cancel_Button.Content = "Cancel";
 
-            Resource resource1 = await ResourceService.GetResourceByIdAsync(trade.GivenResourceId);
+            Resource resource1 = await resourceService.GetResourceByIdAsync(trade.GivenResourceId);
             ResourceType resourceType1 = resource1.ResourceType;
             Give_TextBox.IsReadOnly = true;
             Give_TextBox.Text = trade.GivenResourceQuantity.ToString();
             Give_Button.Source = new BitmapImage(new Uri(GetResourcePath(resourceType1), UriKind.Relative));
 
-            Resource resource2 = await ResourceService.GetResourceByIdAsync(trade.RequestedResourceId);
+            Resource resource2 = await resourceService.GetResourceByIdAsync(trade.RequestedResourceId);
             ResourceType resourceType2 = resource2.ResourceType;
             Get_TextBox.IsReadOnly = true;
             Get_TextBox.Text = trade.RequestedResourceQuantity.ToString();
@@ -148,12 +151,12 @@ namespace HarvestHaven
                 {
                     TradingPanel tradingPanel = new (item);
 
-                    Resource resource1 = await ResourceService.GetResourceByIdAsync(item.RequestedResourceId);
+                    Resource resource1 = await resourceService.GetResourceByIdAsync(item.RequestedResourceId);
                     ResourceType resourceType1 = resource1.ResourceType;
                     tradingPanel.LabelGive.Content = item.RequestedResourceQuantity;
                     tradingPanel.ImageGive.Source = new BitmapImage(new Uri(GetResourcePath(resourceType1), UriKind.Relative));
 
-                    Resource resource2 = await ResourceService.GetResourceByIdAsync(item.GivenResourceId);
+                    Resource resource2 = await resourceService.GetResourceByIdAsync(item.GivenResourceId);
                     ResourceType resourceType2 = resource2.ResourceType;
                     tradingPanel.LabelGet.Content = item.GivenResourceQuantity;
                     tradingPanel.ImageGet.Source = new BitmapImage(new Uri(GetResourcePath(resourceType2), UriKind.Relative));
@@ -211,7 +214,7 @@ namespace HarvestHaven
         {
             // Open inventory and select the resource you want to give
             // and return the resource type
-            TradingInventory inventoryScreen = new TradingInventory(this, InventoryType.Give);
+            TradingInventory inventoryScreen = new TradingInventory(this, InventoryType.Give, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>());
 
             inventoryScreen.Top = this.Top;
             inventoryScreen.Left = this.Left;
@@ -225,7 +228,7 @@ namespace HarvestHaven
         {
             // Open inventory and select the resource you want to give
             // and return the resource type
-            TradingInventory inventoryScreen = new TradingInventory(this, InventoryType.Get);
+            TradingInventory inventoryScreen = new TradingInventory(this, InventoryType.Get, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>());
 
             inventoryScreen.Top = this.Top;
             inventoryScreen.Left = this.Left;

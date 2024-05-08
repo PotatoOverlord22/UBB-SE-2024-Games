@@ -25,7 +25,7 @@ namespace HarvestHaven
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-            Farm farmScreen = new Farm(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IFarmService>());
+            Farm farmScreen = new Farm(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IFarmService>(), DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>());
 
             farmScreen.Top = this.Top;
             farmScreen.Left = this.Left;
