@@ -14,8 +14,8 @@ namespace HarvestHaven
         {
             this.farmScreen = farmScreen;
             this.marketService = marketService;
+            DataContext = marketService;
             InitializeComponent();
-            RefreshGui();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -33,20 +33,10 @@ namespace HarvestHaven
             try
             {
                 await marketService.SellResource(resourceType);
-                RefreshGui();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void RefreshGui()
-        {
-            User? user = GameStateManager.GetCurrentUser();
-            if (user != null)
-            {
-                PriceLabel.Content = user.Coins;
             }
         }
 

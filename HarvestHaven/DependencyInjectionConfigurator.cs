@@ -11,8 +11,8 @@ namespace HarvestHaven
         public static IServiceProvider Init()
         {
             var serviceProvider = new ServiceCollection()
+                .ConfigureRepositories()
                 .ConfigureServices()
-                .ConfigureCodeBehinds()
                 .BuildServiceProvider();
             ServiceProvider = serviceProvider;
 
@@ -33,6 +33,11 @@ namespace HarvestHaven
             services.AddSingleton<IMainMenuService, MainMenuService>();
             services.AddSingleton<IInventoryService, InventoryService>();
 
+            return services;
+        }
+
+        public static IServiceCollection ConfigureRepositories(this IServiceCollection services)
+        {
             services.AddTransient<IAchievementRepository, AchievementRepository>();
             services.AddTransient<ICommentRepository, CommentRepository>();
             services.AddTransient<IFarmCellRepository, FarmCellRepository>();
@@ -45,11 +50,6 @@ namespace HarvestHaven
             services.AddTransient<IUserAchievementRepository, UserAchievementRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
 
-            return services;
-        }
-
-        public static IServiceCollection ConfigureCodeBehinds(this IServiceCollection services)
-        {
             return services;
         }
     }
