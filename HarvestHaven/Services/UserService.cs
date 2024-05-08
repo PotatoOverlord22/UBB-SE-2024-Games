@@ -6,10 +6,22 @@ namespace HarvestHaven.Services
 {
     public class UserService : IUserService
     {
+        private readonly IUserRepository userRepository;
+        private readonly IInventoryResourceRepository inventoryResourceRepository;
+        private readonly IResourceRepository resourceRepository;
+        private readonly ICommentRepository commentRepository;
+
+        public UserService(IUserRepository userRepository, IInventoryResourceRepository inventoryResourceRepository, IResourceRepository resourceRepository, ICommentRepository commentRepository)
+        {
+            this.userRepository = userRepository;
+            this.inventoryResourceRepository = inventoryResourceRepository;
+            this.resourceRepository = resourceRepository;
+            this.commentRepository = commentRepository;
+        }
         #region Authentification
         public async Task<User> GetUserByIdAsync(Guid userId)
         {
-            return await UserRepository.GetUserByIdAsync(userId);
+            return await userRepository.GetUserByIdAsync(userId);
         }
         #endregion
 
@@ -24,7 +36,7 @@ namespace HarvestHaven.Services
             }
 
             // Get all the inventory resources for the current user from the database.
-            List<InventoryResource> inventoryResources = await InventoryResourceRepository.GetUserResourcesAsync(GameStateManager.GetCurrentUserId());
+            List<InventoryResource> inventoryResources = await inventoryResourceRepository.GetUserResourcesAsync(GameStateManager.GetCurrentUserId());
 
             // Initialize the dictionary that will be returned.
             Dictionary<InventoryResource, Resource> inventoryResourcesMap = new Dictionary<InventoryResource, Resource>();
@@ -33,7 +45,7 @@ namespace HarvestHaven.Services
             foreach (InventoryResource inventoryResource in inventoryResources)
             {
                 // Get the corresponding resource from the database.
-                Resource resource = await ResourceRepository.GetResourceByIdAsync(inventoryResource.ResourceId);
+                Resource resource = await resourceRepository.GetResourceByIdAsync(inventoryResource.ResourceId);
                 if (resource == null)
                 {
                     throw new Exception($"No corresponding resource found for the inventory resource with id: {inventoryResource.Id}");
@@ -55,14 +67,14 @@ namespace HarvestHaven.Services
             }
 
             // Get the resource with the given type from the database.
-            Resource resource = await ResourceRepository.GetResourceByTypeAsync(resourceType);
+            Resource resource = await resourceRepository.GetResourceByTypeAsync(resourceType);
             if (resource == null)
             {
                 throw new Exception($"Resource with type: {resourceType.ToString()} found in the database.");
             }
 
             // Get the inventory resource from the database.
-            InventoryResource inventoryResource = await InventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), resource.Id);
+            InventoryResource inventoryResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), resource.Id);
 
             return inventoryResource;
         }
@@ -94,7 +106,7 @@ namespace HarvestHaven.Services
             int waterQuantity = (int)timePassed.Value.TotalHours * Constants.WATER_PER_INTERVAL;
 
             // Get the water resource reference from the database.
-            Resource waterResource = await ResourceRepository.GetResourceByTypeAsync(ResourceType.Water);
+            Resource waterResource = await resourceRepository.GetResourceByTypeAsync(ResourceType.Water);
             if (waterResource == null)
             {
                 throw new Exception("Water resource not found in the database.");
@@ -107,12 +119,12 @@ namespace HarvestHaven.Services
             if (waterInventoryResource != null)
             {
                 waterInventoryResource.Quantity += waterQuantity;
-                await InventoryResourceRepository.UpdateUserResourceAsync(waterInventoryResource);
+                await inventoryResourceRepository.UpdateUserResourceAsync(waterInventoryResource);
             }
             else
             {
                 // Otherwise add the resource to the inventory.
-                await InventoryResourceRepository.AddUserResourceAsync(
+                await inventoryResourceRepository.AddUserResourceAsync(
                     new InventoryResource(
                         id: Guid.NewGuid(),
                         userId: GameStateManager.GetCurrentUserId(),
@@ -123,7 +135,7 @@ namespace HarvestHaven.Services
             // Update last time received water to current time.
             User newUser = GameStateManager.GetCurrentUser();
             newUser.LastTimeReceivedWater = DateTime.UtcNow;
-            await UserRepository.UpdateUserAsync(newUser);
+            await userRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
         }
 
@@ -168,7 +180,7 @@ namespace HarvestHaven.Services
             User newUser = GameStateManager.GetCurrentUser();
             newUser.Coins -= Constants.TRADEHALL_UNLOCK_PRICE;
             newUser.TradeHallUnlockTime = DateTime.UtcNow;
-            await UserRepository.UpdateUserAsync(newUser);
+            await userRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
         }
 
@@ -183,7 +195,7 @@ namespace HarvestHaven.Services
                 throw new Exception("User must be logged in!");
             }
 
-            await CommentRepository.CreateCommentAsync(new Comment(
+            await commentRepository.CreateCommentAsync(new Comment(
                id: Guid.NewGuid(),
                userId: targetUserId,
                message: message,
@@ -198,7 +210,7 @@ namespace HarvestHaven.Services
                 throw new Exception("User must be logged in!");
             }
 
-            return await CommentRepository.GetUserCommentsAsync(GameStateManager.GetCurrentUserId());
+            return await commentRepository.GetUserCommentsAsync(GameStateManager.GetCurrentUserId());
         }
 
         public async Task DeleteComment(Guid commentId)
@@ -209,7 +221,7 @@ namespace HarvestHaven.Services
                 throw new Exception("User must be logged in!");
             }
 
-            await CommentRepository.DeleteCommentAsync(commentId);
+            await commentRepository.DeleteCommentAsync(commentId);
         }
 
         #endregion
@@ -218,7 +230,7 @@ namespace HarvestHaven.Services
         public async Task<List<User>> GetAllUsersSortedByCoinsAsync()
         {
             // Get a list with all the users from the database.
-            List<User> users = await UserRepository.GetAllUsersAsync();
+            List<User> users = await userRepository.GetAllUsersAsync();
 
             // Sort the users by coins.
             users.Sort((user1, user2) => user2.Coins.CompareTo(user1.Coins));

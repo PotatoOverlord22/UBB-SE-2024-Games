@@ -4,15 +4,15 @@ using Microsoft.Data.SqlClient;
 
 namespace HarvestHaven.Repositories
 {
-    public static class UserRepository
+    public class UserRepository : IUserRepository
     {
-        private static readonly string ConnectionString = DatabaseHelper.GetDatabaseFilePath();
+        private readonly string connectionString = DatabaseHelper.GetDatabaseFilePath();
 
         #region CRUD
 
-        public static async Task AddUserAsync(User user)
+        public async Task AddUserAsync(User user)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("INSERT INTO Users (Id, Username, Coins, NrItemsBought, NrTradesPerformed, TradeHallUnlockTime, LastTimeReceivedWater) VALUES (@Id, @Username, @Coins, @NrItemsBought, @NrTradesPerformed, @TradeHallUnlockTime, @LastTimeReceivedWater)", connection))
@@ -29,10 +29,10 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task<User> GetUserByIdAsync(Guid userId)
+        public async Task<User> GetUserByIdAsync(Guid userId)
         {
             User? user = null;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM Users WHERE Id = @Id";
@@ -58,10 +58,10 @@ namespace HarvestHaven.Repositories
             return user;
         }
 
-        public static async Task<List<User>> GetAllUsersAsync()
+        public async Task<List<User>> GetAllUsersAsync()
         {
             List<User> users = new List<User>();
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM Users", connection))
@@ -85,9 +85,9 @@ namespace HarvestHaven.Repositories
             return users;
         }
 
-        public static async Task UpdateUserAsync(User user)
+        public async Task UpdateUserAsync(User user)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("UPDATE Users SET Username = @Username, Coins = @Coins, NrItemsBought = @NrItemsBought, NrTradesPerformed = @NrTradesPerformed, TradeHallUnlockTime = @TradeHallUnlockTime, LastTimeReceivedWater = @LastTimeReceivedWater WHERE Id = @Id", connection))
@@ -104,9 +104,9 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task DeleteUserByIdAsync(Guid userId)
+        public async Task DeleteUserByIdAsync(Guid userId)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("DELETE FROM Users WHERE Id = @Id", connection))
@@ -120,7 +120,7 @@ namespace HarvestHaven.Repositories
         #endregion
 
         #region Helper Functions
-        public static async Task TestAsync()
+        public async Task TestAsync()
         {
             try
             {

@@ -4,14 +4,14 @@ using HarvestHaven.Entities;
 
 namespace HarvestHaven.Repositories
 {
-    public static class ItemRepository
+    public class ItemRepository : IItemRepository
     {
-        private static readonly string ConnectionString = DatabaseHelper.GetDatabaseFilePath();
+        private readonly string connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public static async Task<List<Item>> GetAllItemsAsync()
+        public async Task<List<Item>> GetAllItemsAsync()
         {
             List<Item> items = new List<Item>();
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM Items", connection))
@@ -33,10 +33,10 @@ namespace HarvestHaven.Repositories
             return items;
         }
 
-        public static async Task<Item> GetItemByIdAsync(Guid itemId)
+        public async Task<Item> GetItemByIdAsync(Guid itemId)
         {
             Item item = null;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM Items WHERE Id = @Id";
@@ -60,10 +60,10 @@ namespace HarvestHaven.Repositories
             return item;
         }
 
-        public static async Task<Item> GetItemByTypeAsync(ItemType itemType)
+        public async Task<Item> GetItemByTypeAsync(ItemType itemType)
         {
             Item item = null;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM Items WHERE ItemType = @ItemType";
@@ -87,9 +87,9 @@ namespace HarvestHaven.Repositories
             return item;
         }
 
-        public static async Task CreateItemAsync(Item item)
+        public async Task CreateItemAsync(Item item)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO Items (Id, ItemType, RequiredResourceId, InteractResourceId, DestroyResourceId) VALUES (@Id, @ItemType, @RequiredResourceId, @InteractResourceId, @DestroyResourceId)";
@@ -105,9 +105,9 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task UpdateItemAsync(Item item)
+        public async Task UpdateItemAsync(Item item)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE Items SET ItemType = @ItemType, RequiredResourceId = @RequiredResourceId, InteractResourceId = @InteractResourceId, DestroyResourceId = @DestroyResourceId WHERE Id = @Id";
@@ -123,9 +123,9 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task DeleteItemAsync(Guid itemId)
+        public async Task DeleteItemAsync(Guid itemId)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM Items WHERE Id = @Id";

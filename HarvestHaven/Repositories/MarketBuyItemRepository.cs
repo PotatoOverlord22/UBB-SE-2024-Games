@@ -4,14 +4,14 @@ using HarvestHaven.Entities;
 
 namespace HarvestHaven.Repositories
 {
-    public static class MarketBuyItemRepository
+    public class MarketBuyItemRepository : IMarketBuyItemRepository
     {
-        private static readonly string ConnectionString = DatabaseHelper.GetDatabaseFilePath();
+        private readonly string connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public static async Task<List<MarketBuyItem>> GetAllMarketBuyItemsAsync()
+        public async Task<List<MarketBuyItem>> GetAllMarketBuyItemsAsync()
         {
             List<MarketBuyItem> marketBuyItems = new List<MarketBuyItem>();
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM MarketBuyItems", connection))
@@ -31,10 +31,10 @@ namespace HarvestHaven.Repositories
             return marketBuyItems;
         }
 
-        public static async Task<MarketBuyItem> GetMarketBuyItemByItemIdAsync(Guid itemId)
+        public async Task<MarketBuyItem> GetMarketBuyItemByItemIdAsync(Guid itemId)
         {
             MarketBuyItem? marketBuyItem = null;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM MarketBuyItems WHERE ItemId = @ItemId", connection))
@@ -55,9 +55,9 @@ namespace HarvestHaven.Repositories
             return marketBuyItem;
         }
 
-        public static async Task AddMarketBuyItemAsync(MarketBuyItem marketBuyItem)
+        public async Task AddMarketBuyItemAsync(MarketBuyItem marketBuyItem)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO MarketBuyItems (Id, ItemId, BuyPrice) VALUES (@Id, @ItemId, @BuyPrice)";
@@ -71,9 +71,9 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task UpdateMarketBuyItemAsync(MarketBuyItem marketBuyItem)
+        public async Task UpdateMarketBuyItemAsync(MarketBuyItem marketBuyItem)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE MarketBuyItems SET ItemId = @ItemId, BuyPrice = @BuyPrice WHERE Id = @Id";
@@ -87,9 +87,9 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task DeleteMarketBuyItemAsync(Guid marketBuyItemId)
+        public async Task DeleteMarketBuyItemAsync(Guid marketBuyItemId)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM MarketBuyItems WHERE Id = @Id";

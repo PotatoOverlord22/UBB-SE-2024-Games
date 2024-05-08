@@ -13,7 +13,7 @@
 *.userprefs
 
 # Ignore db
-HarvestHaven/Database/
+HarvestHaven/Database/Database.mdf
 
 # Build results
 [Dd]ebug/
@@ -348,3 +348,5 @@ ASALocalRun/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+HarvestHaven/Database/Database.mdf

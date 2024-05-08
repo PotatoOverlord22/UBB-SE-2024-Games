@@ -7,15 +7,20 @@ namespace HarvestHaven.Services
     public class FarmService : IFarmService
     {
         private readonly IAchievementService achievementService;
-
-        public FarmService(IAchievementService achievementService)
+        private readonly IFarmCellRepository farmCellRepository;
+        private readonly IItemRepository itemRepository;
+        private readonly IInventoryResourceRepository inventoryResourceRepository;
+        public FarmService(IAchievementService achievementService, IFarmCellRepository farmCellRepository, IItemRepository itemRepository, IInventoryResourceRepository inventoryResourceRepository)
         {
             this.achievementService = achievementService;
+            this.farmCellRepository = farmCellRepository;
+            this.itemRepository = itemRepository;
+            this.inventoryResourceRepository = inventoryResourceRepository;
         }
         public async Task<Dictionary<FarmCell, Item>> GetAllFarmCellsForUser(Guid userId)
         {
             // Get all the user's farm cells.
-            List<FarmCell> farmCells = await FarmCellRepository.GetUserFarmCellsAsync(userId);
+            List<FarmCell> farmCells = await farmCellRepository.GetUserFarmCellsAsync(userId);
 
             // Initialize the dictionary that will be returned.
             Dictionary<FarmCell, Item> farmCellsMap = new Dictionary<FarmCell, Item>();
@@ -26,12 +31,12 @@ namespace HarvestHaven.Services
                 // IMPORTANT: Remove the cell from the database if it has not been interacted with for longer than a cell's lifetime.
                 if (DateTime.UtcNow - cell.LastTimeInteracted >= TimeSpan.FromDays(Constants.FARM_CELL_LIFETIME_IN_DAYS))
                 {
-                    await FarmCellRepository.DeleteFarmCellAsync(cell.Id);
+                    await farmCellRepository.DeleteFarmCellAsync(cell.Id);
                     continue;
                 }
 
                 // Get the item from the current cell.
-                Item item = await ItemRepository.GetItemByIdAsync(cell.ItemId);
+                Item item = await itemRepository.GetItemByIdAsync(cell.ItemId);
                 if (item == null)
                 {
                     throw new Exception($"Item from farmCell with id {cell.Id} not found.");
@@ -54,21 +59,21 @@ namespace HarvestHaven.Services
             }
 
             // Get the farm cell from the given position.
-            FarmCell farmCell = await FarmCellRepository.GetUserFarmCellByPositionAsync(GameStateManager.GetCurrentUserId(), row, column);
+            FarmCell farmCell = await farmCellRepository.GetUserFarmCellByPositionAsync(GameStateManager.GetCurrentUserId(), row, column);
             if (farmCell == null)
             {
                 throw new Exception("No farm cell found at the given position for the current user in the database!");
             }
 
             // Get the item from the farm cell.
-            Item farmCellItem = await ItemRepository.GetItemByIdAsync(farmCell.ItemId);
+            Item farmCellItem = await itemRepository.GetItemByIdAsync(farmCell.ItemId);
             if (farmCellItem == null)
             {
                 throw new Exception("Item from the farm cell was not found in the database!");
             }
 
             // Get the required resource of the farm cell item from the inventory.
-            InventoryResource requiredResource = await InventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.RequiredResourceId);
+            InventoryResource requiredResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.RequiredResourceId);
             if (requiredResource == null || requiredResource.Quantity <= 0)
             {
                 throw new Exception("You don't have the resource required for this farm cell.");
@@ -77,10 +82,10 @@ namespace HarvestHaven.Services
 
             // Update the user's inventory by decreasing the required resource from the farm cell item.
             requiredResource.Quantity--;
-            await InventoryResourceRepository.UpdateUserResourceAsync(requiredResource);
+            await inventoryResourceRepository.UpdateUserResourceAsync(requiredResource);
 
             // Get the user's interact farm cell item resource from the inventory.
-            InventoryResource interactResource = await InventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.InteractResourceId);
+            InventoryResource interactResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.InteractResourceId);
 
             // Define the interact resource quantity amount.
             int interactResourceAmount = (DateTime.UtcNow - farmCell.LastTimeEnhanced < TimeSpan.FromDays(Constants.ENCHANCE_DURATION_IN_DAYS)) ? 2 : 1;
@@ -89,12 +94,12 @@ namespace HarvestHaven.Services
             if (interactResource != null)
             {
                 interactResource.Quantity += interactResourceAmount;
-                await InventoryResourceRepository.UpdateUserResourceAsync(interactResource);
+                await inventoryResourceRepository.UpdateUserResourceAsync(interactResource);
             }
             else
             {
                 // Otherwise create the entry in the database.
-                await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
+                await inventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
                     id: Guid.NewGuid(),
                     userId: GameStateManager.GetCurrentUserId(),
                     resourceId: farmCellItem.InteractResourceId,
@@ -103,7 +108,7 @@ namespace HarvestHaven.Services
 
             // Update the farm cell's last interaction time in the database.
             farmCell.LastTimeInteracted = DateTime.UtcNow;
-            await FarmCellRepository.UpdateFarmCellAsync(farmCell);
+            await farmCellRepository.UpdateFarmCellAsync(farmCell);
 
             // Check achievements.
             await achievementService.CheckInventoryAchievements();
@@ -119,14 +124,14 @@ namespace HarvestHaven.Services
             }
 
             // Get the farm cell from the given position.
-            FarmCell farmCell = await FarmCellRepository.GetUserFarmCellByPositionAsync(GameStateManager.GetCurrentUserId(), row, column);
+            FarmCell farmCell = await farmCellRepository.GetUserFarmCellByPositionAsync(GameStateManager.GetCurrentUserId(), row, column);
             if (farmCell == null)
             {
                 throw new Exception("No farm cell found at the given position for the current user in the database!");
             }
 
             // Get the item from the farm cell.
-            Item farmCellItem = await ItemRepository.GetItemByIdAsync(farmCell.ItemId);
+            Item farmCellItem = await itemRepository.GetItemByIdAsync(farmCell.ItemId);
             if (farmCellItem == null)
             {
                 throw new Exception("Item from the farm cell was not found in the database!");
@@ -137,7 +142,7 @@ namespace HarvestHaven.Services
             if (farmCellItem.DestroyResourceId != null)
             {
                 // Get the user's destroy farm cell item resource from the inventory.
-                InventoryResource destroyResource = await InventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.DestroyResourceId.Value);
+                InventoryResource destroyResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.DestroyResourceId.Value);
 
                 // Define the destroy resource quantity amount.
                 int destroyResourceAmount = (DateTime.UtcNow - farmCell.LastTimeEnhanced < TimeSpan.FromDays(Constants.ENCHANCE_DURATION_IN_DAYS)) ? 2 : 1;
@@ -146,12 +151,12 @@ namespace HarvestHaven.Services
                 if (destroyResource != null)
                 {
                     destroyResource.Quantity += destroyResourceAmount;
-                    await InventoryResourceRepository.UpdateUserResourceAsync(destroyResource);
+                    await inventoryResourceRepository.UpdateUserResourceAsync(destroyResource);
                 }
                 else
                 {
                     // Otherwise create the entry in the database.
-                    await InventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
+                    await inventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
                         id: Guid.NewGuid(),
                         userId: GameStateManager.GetCurrentUserId(),
                         resourceId: farmCellItem.DestroyResourceId.Value,
@@ -160,7 +165,7 @@ namespace HarvestHaven.Services
             }
 
             // Remove the cell from the database.
-            await FarmCellRepository.DeleteFarmCellAsync(farmCell.Id);
+            await farmCellRepository.DeleteFarmCellAsync(farmCell.Id);
 
             // Check achievements.
             await achievementService.CheckInventoryAchievements();
@@ -182,7 +187,7 @@ namespace HarvestHaven.Services
             }
 
             // Get the farm cell from the given position.
-            FarmCell farmCell = await FarmCellRepository.GetUserFarmCellByPositionAsync(targetUserId, row, column);
+            FarmCell farmCell = await farmCellRepository.GetUserFarmCellByPositionAsync(targetUserId, row, column);
             if (farmCell == null)
             {
                 throw new Exception("No farm cell found at the given position for the target user in the database!");
@@ -197,7 +202,7 @@ namespace HarvestHaven.Services
 
             // Enhance the cell.
             farmCell.LastTimeEnhanced = DateTime.UtcNow;
-            await FarmCellRepository.UpdateFarmCellAsync(farmCell);
+            await farmCellRepository.UpdateFarmCellAsync(farmCell);
         }
 
         public async Task<bool> IsCellEnchanced(Guid userId, int row, int column)
@@ -210,7 +215,7 @@ namespace HarvestHaven.Services
             }
 
             // Get the farm cell from the given position.
-            FarmCell farmCell = await FarmCellRepository.GetUserFarmCellByPositionAsync(userId, row, column);
+            FarmCell farmCell = await farmCellRepository.GetUserFarmCellByPositionAsync(userId, row, column);
             if (farmCell == null)
             {
                 throw new Exception("No farm cell found at the given position for the target user in the database!");

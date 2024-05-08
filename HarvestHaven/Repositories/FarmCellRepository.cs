@@ -4,14 +4,14 @@ using HarvestHaven.Entities;
 
 namespace HarvestHaven.Repositories
 {
-    public static class FarmCellRepository
+    public class FarmCellRepository : IFarmCellRepository
     {
-        private static readonly string ConnectionString = DatabaseHelper.GetDatabaseFilePath();
+        private readonly string connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public static async Task<List<FarmCell>> GetUserFarmCellsAsync(Guid userId)
+        public async Task<List<FarmCell>> GetUserFarmCellsAsync(Guid userId)
         {
             List<FarmCell> farmCells = new List<FarmCell>();
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM FarmCells WHERE UserId = @UserId";
@@ -37,10 +37,10 @@ namespace HarvestHaven.Repositories
             return farmCells;
         }
 
-        public static async Task<FarmCell> GetUserFarmCellByPositionAsync(Guid userId, int row, int column)
+        public async Task<FarmCell> GetUserFarmCellByPositionAsync(Guid userId, int row, int column)
         {
             FarmCell farmCell = null;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM FarmCells WHERE UserId = @UserId AND Row = @Row AND [Column] = @Column";
@@ -68,9 +68,9 @@ namespace HarvestHaven.Repositories
             return farmCell;
         }
 
-        public static async Task AddFarmCellAsync(FarmCell farmCell)
+        public async Task AddFarmCellAsync(FarmCell farmCell)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO FarmCells (Id, UserId, Row, [Column], ItemId, LastTimeEnhanced, LastTimeInteracted) VALUES (@Id, @UserId, @Row, @Column, @ItemId, @LastTimeEnhanced, @LastTimeInteracted)";
@@ -88,9 +88,9 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task UpdateFarmCellAsync(FarmCell farmCell)
+        public async Task UpdateFarmCellAsync(FarmCell farmCell)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE FarmCells SET Row = @Row, [Column] = @Column, ItemId = @ItemId, LastTimeEnhanced = @LastTimeEnhanced, LastTimeInteracted = @LastTimeInteracted WHERE Id = @Id";
@@ -107,9 +107,9 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task DeleteFarmCellAsync(Guid farmCellId)
+        public async Task DeleteFarmCellAsync(Guid farmCellId)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM FarmCells WHERE Id = @Id";
@@ -122,3 +122,5 @@ namespace HarvestHaven.Repositories
         }
     }
 }
+
+

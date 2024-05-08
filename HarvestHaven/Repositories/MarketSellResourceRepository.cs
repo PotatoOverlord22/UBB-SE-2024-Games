@@ -4,14 +4,14 @@ using HarvestHaven.Entities;
 
 namespace HarvestHaven.Repositories
 {
-    public static class MarketSellResourceRepository
+    public class MarketSellResourceRepository : IMarketSellResourceRepository
     {
-        private static readonly string ConnectionString = DatabaseHelper.GetDatabaseFilePath();
+        private readonly string connectionString = DatabaseHelper.GetDatabaseFilePath();
 
-        public static async Task<List<MarketSellResource>> GetAllSellResourcesAsync()
+        public async Task<List<MarketSellResource>> GetAllSellResourcesAsync()
         {
             List<MarketSellResource> sellResources = new List<MarketSellResource>();
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM MarketSellResources", connection))
@@ -31,11 +31,11 @@ namespace HarvestHaven.Repositories
             return sellResources;
         }
 
-        public static async Task<MarketSellResource> GetMarketSellResourceByResourceIdAsync(Guid resourceId)
+        public async Task<MarketSellResource> GetMarketSellResourceByResourceIdAsync(Guid resourceId)
         {
             MarketSellResource? sellResource = null;
 
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM MarketSellResources WHERE ResourceId = @ResourceId", connection))
@@ -57,9 +57,9 @@ namespace HarvestHaven.Repositories
             return sellResource;
         }
 
-        public static async Task AddMarketSellResourceAsync(MarketSellResource marketSellResource)
+        public async Task AddMarketSellResourceAsync(MarketSellResource marketSellResource)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO MarketSellResources (Id, ResourceId, SellPrice) VALUES (@Id, @ResourceId, @SellPrice)";
@@ -73,9 +73,9 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task UpdateMarketSellResourceAsync(MarketSellResource marketSellResource)
+        public async Task UpdateMarketSellResourceAsync(MarketSellResource marketSellResource)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE MarketSellResources SET ResourceId = @ResourceId, SellPrice = @SellPrice WHERE Id = @Id";
@@ -89,9 +89,9 @@ namespace HarvestHaven.Repositories
             }
         }
 
-        public static async Task DeleteMarketSellResourceAsync(Guid marketSellResourceId)
+        public async Task DeleteMarketSellResourceAsync(Guid marketSellResourceId)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM MarketSellResources WHERE Id = @Id";
