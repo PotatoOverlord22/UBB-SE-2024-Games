@@ -9,7 +9,7 @@ namespace HarvestHaven
     public partial class TradingInventory : Window
     {
         private TradingUnlocked unlockedScreen;
-        private readonly IUserService userService;
+        private readonly IInventoryService inventoryService;
 
         public enum InventoryType
         {
@@ -18,11 +18,11 @@ namespace HarvestHaven
         }
         private InventoryType inventoryType;
 
-        public TradingInventory(TradingUnlocked unlockedScreen, InventoryType inventoryType, IUserService userService)
+        public TradingInventory(TradingUnlocked unlockedScreen, InventoryType inventoryType, IInventoryService inventoryService)
         {
             this.unlockedScreen = unlockedScreen;
             this.inventoryType = inventoryType;
-            this.userService = userService;
+            this.inventoryService = inventoryService;
             InitializeComponent();
             LoadInventory();
         }
@@ -41,61 +41,6 @@ namespace HarvestHaven
             BackToTrading();
         }
 
-        private void CheckForLabel(KeyValuePair<InventoryResource, Resource> pair)
-        /*
-         This function changes the label of an entity depending on what is the value in the database.
-         */
-        {
-            if (pair.Value.ResourceType == ResourceType.Carrot)
-            {
-                carrotLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.Corn)
-            {
-                cornLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.Wheat)
-            {
-                wheatLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.Tomato)
-            {
-                tomatoLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.ChickenMeat)
-            {
-                chickenLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.Mutton)
-            {
-                sheepLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.ChickenEgg)
-            {
-                chickenEggLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.SheepWool)
-            {
-                woolLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.CowMilk)
-            {
-                milkLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.DuckEgg)
-            {
-                duckEggLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.Steak)
-            {
-                cowLabel.Content = pair.Key.Quantity.ToString();
-            }
-            else if (pair.Value.ResourceType == ResourceType.DuckMeat)
-            {
-                duckLabel.Content = pair.Key.Quantity.ToString();
-            }
-        }
-
         public void AssignResourceIcon(ResourceType resourceType)
         {
             unlockedScreen.ChangeIcon(inventoryType, resourceType);
@@ -107,15 +52,10 @@ namespace HarvestHaven
         {
             try
             {
-                Dictionary<InventoryResource, Resource> resources = await userService.GetInventoryResources();
-
-                foreach (KeyValuePair<InventoryResource, Resource> pair in resources)
-                {
-                    CheckForLabel(pair);
-                }
-
                 foreach (Label label in labelsGrid.Children)
                 {
+                    label.Content = await inventoryService.GetCorrespondingValueForLabel(label.Name);
+
                     // If we have a label with content higher than 100, we change the font so that it will fit.
                     if (label.Content.ToString().Length > 2)
                     {

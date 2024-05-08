@@ -92,11 +92,6 @@ namespace HarvestHaven
             farmScreen.Show();
             this.Close();
         }
-
-        private void LeaderboardList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-        }
-
         private void User_Click(object sender, RoutedEventArgs e)
         {
             User clickedUser = (User)(sender as Button).DataContext;

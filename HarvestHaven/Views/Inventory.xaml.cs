@@ -31,14 +31,21 @@ namespace HarvestHaven
         }
         private async void LoadInventory()
         {
-            foreach (Label label in labelsGrid.Children)
+            try
             {
-                label.Content = await inventoryService.GetCorrespondingValueForLabel(label.Name);
-
-                if (label.Content.ToString().Length > 2)
+                foreach (Label label in labelsGrid.Children)
                 {
-                    label.FontSize = 27;
+                    label.Content = await inventoryService.GetCorrespondingValueForLabel(label.Name);
+
+                    if (label.Content.ToString().Length > 2)
+                    {
+                        label.FontSize = 27;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

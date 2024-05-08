@@ -32,66 +32,15 @@ namespace HarvestHaven
         {
             if (inventoryType == InventoryType.Get)
             {
-                Get_Button.Source = new BitmapImage(new Uri(GetResourcePath(resourceType), UriKind.Relative));
+                Get_Button.Source = new BitmapImage(new Uri(tradeService.GetPicturePathByResourceType(resourceType), UriKind.Relative));
                 getResource = resourceType;
             }
             else if (inventoryType == InventoryType.Give)
             {
-                Give_Button.Source = new BitmapImage(new Uri(GetResourcePath(resourceType), UriKind.Relative));
+                Give_Button.Source = new BitmapImage(new Uri(tradeService.GetPicturePathByResourceType(resourceType), UriKind.Relative));
                 giveResource = resourceType;
             }
         }
-        private string GetResourcePath(ResourceType resourceType)
-        {
-            string path = string.Empty;
-            if (resourceType == ResourceType.Carrot)
-            {
-                path = Constants.CarrotPath;
-            }
-            else if (resourceType == ResourceType.Corn)
-            {
-                path = Constants.CornPath;
-            }
-            else if (resourceType == ResourceType.Wheat)
-            {
-                path = Constants.WheatPath;
-            }
-            else if (resourceType == ResourceType.Tomato)
-            {
-                path = Constants.TomatoPath;
-            }
-            else if (resourceType == ResourceType.ChickenMeat)
-            {
-                path = Constants.ChickenPath;
-            }
-            else if (resourceType == ResourceType.DuckMeat)
-            {
-                path = Constants.DuckPath;
-            }
-            else if (resourceType == ResourceType.Mutton)
-            {
-                path = Constants.SheepPath;
-            }
-            else if (resourceType == ResourceType.SheepWool)
-            {
-                path = Constants.WoolPath;
-            }
-            else if (resourceType == ResourceType.ChickenEgg)
-            {
-                path = Constants.ChickenEggPath;
-            }
-            else if (resourceType == ResourceType.DuckEgg)
-            {
-                path = Constants.DuckEggPath;
-            }
-            else
-            {
-                path = resourceType == ResourceType.CowMilk ? Constants.MilkPath : Constants.CowPath;
-            }
-
-            return path;
-        }
-
         private void SwitchToCreateTrade()
         {
             this.Confirm_Cancel_Button.Content = "Confirm";
@@ -115,14 +64,14 @@ namespace HarvestHaven
             ResourceType resourceType1 = resource1.ResourceType;
             Give_TextBox.IsReadOnly = true;
             Give_TextBox.Text = trade.GivenResourceQuantity.ToString();
-            Give_Button.Source = new BitmapImage(new Uri(GetResourcePath(resourceType1), UriKind.Relative));
+            Give_Button.Source = new BitmapImage(new Uri(tradeService.GetPicturePathByResourceType(resourceType1), UriKind.Relative));
 
             Resource resource2 = await resourceService.GetResourceByIdAsync(trade.RequestedResourceId);
             ResourceType resourceType2 = resource2.ResourceType;
             Get_TextBox.IsReadOnly = true;
             Get_TextBox.Text = trade.RequestedResourceQuantity.ToString();
             Get_Button.Source = new BitmapImage(new Uri("/Assets/Sprites/backpack_icon.png", UriKind.Relative));
-            Get_Button.Source = new BitmapImage(new Uri(GetResourcePath(resourceType2), UriKind.Relative));
+            Get_Button.Source = new BitmapImage(new Uri(tradeService.GetPicturePathByResourceType(resourceType2), UriKind.Relative));
 
             this.Get_Button.IsEnabled = false;
             this.Give_Button.IsEnabled = false;
@@ -140,12 +89,12 @@ namespace HarvestHaven
                     Resource resource1 = await resourceService.GetResourceByIdAsync(item.RequestedResourceId);
                     ResourceType resourceType1 = resource1.ResourceType;
                     tradingPanel.LabelGive.Content = item.RequestedResourceQuantity;
-                    tradingPanel.ImageGive.Source = new BitmapImage(new Uri(GetResourcePath(resourceType1), UriKind.Relative));
+                    tradingPanel.ImageGive.Source = new BitmapImage(new Uri(tradeService.GetPicturePathByResourceType(resourceType1), UriKind.Relative));
 
                     Resource resource2 = await resourceService.GetResourceByIdAsync(item.GivenResourceId);
                     ResourceType resourceType2 = resource2.ResourceType;
                     tradingPanel.LabelGet.Content = item.GivenResourceQuantity;
-                    tradingPanel.ImageGet.Source = new BitmapImage(new Uri(GetResourcePath(resourceType2), UriKind.Relative));
+                    tradingPanel.ImageGet.Source = new BitmapImage(new Uri(tradeService.GetPicturePathByResourceType(resourceType2), UriKind.Relative));
 
                     Trades_List.Items.Add(tradingPanel);
                     tradingPanel.AcceptButton.Click += (sender, e) => AcceptButton_Click(sender, e, tradingPanel);
@@ -200,7 +149,7 @@ namespace HarvestHaven
         {
             // Open inventory and select the resource you want to give
             // and return the resource type
-            TradingInventory inventoryScreen = new TradingInventory(this, InventoryType.Give, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>());
+            TradingInventory inventoryScreen = new TradingInventory(this, InventoryType.Give, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IInventoryService>());
 
             inventoryScreen.Top = this.Top;
             inventoryScreen.Left = this.Left;
@@ -214,7 +163,7 @@ namespace HarvestHaven
         {
             // Open inventory and select the resource you want to give
             // and return the resource type
-            TradingInventory inventoryScreen = new TradingInventory(this, InventoryType.Get, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>());
+            TradingInventory inventoryScreen = new TradingInventory(this, InventoryType.Get, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IInventoryService>());
 
             inventoryScreen.Top = this.Top;
             inventoryScreen.Left = this.Left;
@@ -233,17 +182,7 @@ namespace HarvestHaven
                 string amountGive = Give_TextBox.Text;
                 try
                 {
-                    int intGet = Convert.ToInt32(amountGet);
-                    int intGive = Convert.ToInt32(amountGive);
-                    if (intGet <= 0 || intGive <= 0)
-                    {
-                        throw new Exception("Input should be a positive integer!");
-                    }
-                    if ((getResource == ResourceType.Water) || (giveResource == ResourceType.Water))
-                    {
-                        throw new Exception("Select the resources to give and get!");
-                    }
-                    await tradeService.CreateTradeAsync(giveResource, intGive, getResource, intGet);
+                    await tradeService.CreateTradeAsync(giveResource, amountGet, getResource, amountGive);
                     this.Confirm_Cancel_Button.Content = "Cancel";
                     Give_TextBox.IsReadOnly = true;
                     Get_TextBox.IsReadOnly = true;
