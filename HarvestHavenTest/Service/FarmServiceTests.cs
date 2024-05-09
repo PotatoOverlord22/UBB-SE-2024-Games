@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.ComponentModel.Design;
 
 namespace HarvestHaven.Tests.Services
 {
@@ -175,40 +176,13 @@ namespace HarvestHaven.Tests.Services
         }
 
         [TestMethod]
-        public async Task DestroyCell_WhenValidPosition_DestroyAndRemoveFromDatabase()
-        {
-            // Arrange
-            var row = 1;
-            var column = 1;
-            var farmCell = new FarmCell(Guid.NewGuid(), currentUser.Id, row, column, Guid.NewGuid(), DateTime.Now, DateTime.Now);
-            var item = new Item(Guid.NewGuid(), ItemType.CarrotSeeds, Guid.NewGuid(), Guid.NewGuid(), null);
-
-            var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
-            farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync(farmCell);
-
-            var itemRepositoryMock = new Mock<IItemRepository>();
-            itemRepositoryMock.Setup(repo => repo.GetItemByIdAsync(farmCell.ItemId)).ReturnsAsync(item);
-
-            var inventoryResourceRepositoryMock = new Mock<IInventoryResourceRepository>();
-
-            var achievementServiceMock = new Mock<IAchievementService>();
-
-            var farmService = new FarmService(achievementServiceMock.Object, farmCellRepositoryMock.Object, itemRepositoryMock.Object, inventoryResourceRepositoryMock.Object);
-
-            // Act
-            await farmService.DestroyCell(row, column);
-
-            // Assert
-            farmCellRepositoryMock.Verify(repo => repo.DeleteFarmCellAsync(farmCell.Id), Times.Once);
-        }
-        [TestMethod]
         public async Task InteractWithCell_WhenFarmCellIsNull_ThrowsException()
         {
             // Arrange
             var row = 1;
             var column = 1;
             var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
-            farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync((FarmCell) null);
+            farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync((FarmCell)null);
 
             var farmService = new FarmService(null, farmCellRepositoryMock.Object, null, null);
 
@@ -231,7 +205,7 @@ namespace HarvestHaven.Tests.Services
             farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync(farmCell);
 
             var itemRepositoryMock = new Mock<IItemRepository>();
-            itemRepositoryMock.Setup(repo => repo.GetItemByIdAsync(farmCell.ItemId)).ReturnsAsync((Item) null);
+            itemRepositoryMock.Setup(repo => repo.GetItemByIdAsync(farmCell.ItemId)).ReturnsAsync((Item)null);
 
             var farmService = new FarmService(null, farmCellRepositoryMock.Object, itemRepositoryMock.Object, null);
 
@@ -261,7 +235,7 @@ namespace HarvestHaven.Tests.Services
 
             var inventoryResourceRepositoryMock = new Mock<IInventoryResourceRepository>();
             inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, item.InteractResourceId)).ReturnsAsync(interactResource);
-            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, item.RequiredResourceId)).ReturnsAsync((InventoryResource) null);
+            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, item.RequiredResourceId)).ReturnsAsync((InventoryResource)null);
 
             var farmService = new FarmService(null, farmCellRepositoryMock.Object, itemRepositoryMock.Object, inventoryResourceRepositoryMock.Object);
 
@@ -274,7 +248,7 @@ namespace HarvestHaven.Tests.Services
         }
 
         [TestMethod]
-        public async Task InteractWithCell_WhenInteractResourceIsNull_ThrowsException()
+        public async Task InteractWithCell_WhenInteractResourceIsNull_CreateANewEntryAndInteractsAndUpdatesInventory()
         {
             // Arrange
             var row = 1;
@@ -299,9 +273,156 @@ namespace HarvestHaven.Tests.Services
 
             // Assert
             inventoryResourceRepositoryMock.Verify(repo => repo.UpdateUserResourceAsync(requiredResource), Times.Once);
+        }
+
+
+        [TestMethod]
+        public async Task DestroyCell_WhenValidPosition_DestroyAndRemoveFromDatabase()
+        {
+            // Arrange
+            var row = 1;
+            var column = 1;
+            var farmCell = new FarmCell(Guid.NewGuid(), currentUser.Id, row, column, Guid.NewGuid(), DateTime.Now, DateTime.Now);
+            var item = new Item(Guid.NewGuid(), ItemType.CarrotSeeds, Guid.NewGuid(), Guid.NewGuid(), null);
+
+            var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
+            farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync(farmCell);
+
+            var itemRepositoryMock = new Mock<IItemRepository>();
+            itemRepositoryMock.Setup(repo => repo.GetItemByIdAsync(farmCell.ItemId)).ReturnsAsync(item);
+
+            var inventoryResourceRepositoryMock = new Mock<IInventoryResourceRepository>();
+
+            var achievementServiceMock = new Mock<IAchievementService>();
+
+            var farmService = new FarmService(achievementServiceMock.Object, farmCellRepositoryMock.Object, itemRepositoryMock.Object, inventoryResourceRepositoryMock.Object);
+
+            // Act
+            await farmService.DestroyCell(row, column);
+
+            // Assert
+            farmCellRepositoryMock.Verify(repo => repo.DeleteFarmCellAsync(farmCell.Id), Times.Once);
+        }
+
+        [TestMethod]
+        public async Task DestroyCell_WhenUserIsNotLoggedIn_ThrowsException()
+        {
+            // Arrange
+            var farmService = new FarmService(null, null, null, null);
+            // Ensure that there is no current user logged in
+            GameStateManager.SetCurrentUser(null);
+
+            // Act & Assert
+            await Assert.ThrowsExceptionAsync<Exception>(async () =>
+            {
+                // Act: Call the method that should throw an exception
+                await farmService.DestroyCell(1, 1);
+            });
 
         }
 
+        [TestMethod]
+        public async Task DestroyCell_WhenFarmCellIsNull_ThrowsException()
+        {
+            // Arrange
+            var row = 1;
+            var column = 1;
+            var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
+            farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync((FarmCell)null);
+
+            var farmService = new FarmService(null, farmCellRepositoryMock.Object, null, null);
+
+            // Act & Assert
+            await Assert.ThrowsExceptionAsync<Exception>(async () =>
+            {
+                // Act: Call the method that should throw an exception
+                await farmService.DestroyCell(row, column);
+            });
+        }
+
+        [TestMethod]
+        public async Task DestroyCell_WhenFarmCellItemIsNull_ThrowsException()
+        {
+            // Arrange
+            var row = 1;
+            var column = 1;
+            var farmCell = new FarmCell(Guid.NewGuid(), currentUser.Id, row, column, Guid.NewGuid(), DateTime.Now, DateTime.Now);
+            var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
+            farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync(farmCell);
+
+            var itemRepositoryMock = new Mock<IItemRepository>();
+            itemRepositoryMock.Setup(repo => repo.GetItemByIdAsync(farmCell.ItemId)).ReturnsAsync((Item)null);
+
+            var farmService = new FarmService(null, farmCellRepositoryMock.Object, itemRepositoryMock.Object, null);
+
+            // Act & Assert
+            await Assert.ThrowsExceptionAsync<Exception>(async () =>
+            {
+                // Act: Call the method that should throw an exception
+                await farmService.DestroyCell(row, column);
+            });
+        }
+        [TestMethod]
+        public async Task DestroyCell_WhenFarmCellHasADestroyResourceAndNotNull_DestroyAndRemoveFromDatabase()
+        {
+            // Arrange
+            var row = 1;
+            var column = 1;
+            var farmCell = new FarmCell(Guid.NewGuid(), currentUser.Id, row, column, Guid.NewGuid(), DateTime.Now, DateTime.Now);
+            var item = new Item(Guid.NewGuid(), ItemType.CarrotSeeds, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
+            var destroyResource = new InventoryResource(Guid.NewGuid(), currentUser.Id, (Guid) item.DestroyResourceId, 10);
+
+            var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
+            farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync(farmCell);
+
+            var itemRepositoryMock = new Mock<IItemRepository>();
+            itemRepositoryMock.Setup(repo => repo.GetItemByIdAsync(farmCell.ItemId)).ReturnsAsync(item);
+
+            var inventoryResourceRepositoryMock = new Mock<IInventoryResourceRepository>();
+            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, (Guid) item.DestroyResourceId)).ReturnsAsync(destroyResource);
+
+            var achievementServiceMock = new Mock<IAchievementService>();
+
+            var farmService = new FarmService(achievementServiceMock.Object, farmCellRepositoryMock.Object, itemRepositoryMock.Object, inventoryResourceRepositoryMock.Object);
+
+            // Act
+            await farmService.DestroyCell(row, column);
+
+            // Assert
+            inventoryResourceRepositoryMock.Verify(repo => repo.UpdateUserResourceAsync(destroyResource), Times.Once);
+            farmCellRepositoryMock.Verify(repo => repo.DeleteFarmCellAsync(farmCell.Id), Times.Once);
+        }
+
+        [TestMethod]
+        public async Task DestroyCell_WhenFarmCellHasADestroyResourceNull_CreateANewEntryAndDestroyAndRemoveFromDatabase()
+        {
+            //Arrange
+            var row = 1;
+            var column = 1;
+            var farmCell = new FarmCell(Guid.NewGuid(), currentUser.Id, row, column, Guid.NewGuid(), DateTime.Now, DateTime.Now);
+            var item = new Item(Guid.NewGuid(), ItemType.CarrotSeeds, Guid.NewGuid(), Guid.NewGuid(), null);
+            var destroyResource = new InventoryResource(Guid.NewGuid(), currentUser.Id, Guid.NewGuid(), 10);
+
+            var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
+            farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync(farmCell);
+
+            var itemRepositoryMock = new Mock<IItemRepository>();
+            itemRepositoryMock.Setup(repo => repo.GetItemByIdAsync(farmCell.ItemId)).ReturnsAsync(item);
+
+            var inventoryResourceRepositoryMock = new Mock<IInventoryResourceRepository>();
+            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, (Guid) item.DestroyResourceId)).ReturnsAsync((InventoryResource)null);
+
+            var achievementServiceMock = new Mock<IAchievementService>();
+
+            var farmService = new FarmService(achievementServiceMock.Object, farmCellRepositoryMock.Object, itemRepositoryMock.Object, inventoryResourceRepositoryMock.Object);
+
+            // Act
+            await farmService.DestroyCell(row, column);
+
+            // Assert
+            
+        }
+        
         [TestMethod]
         public async Task EnchanceCellForUser_WhenValidUserIdAndPosition_UpdatesCellEnhancement()
         {
@@ -323,6 +444,65 @@ namespace HarvestHaven.Tests.Services
         }
 
         [TestMethod]
+        public async Task EnhanceCellForUser_WhenUserIsNotLoggedIn_ThrowsException()
+        {
+            // Arrange
+            var farmService = new FarmService(null, null, null, null);
+            // Ensure that there is no current user logged in
+            GameStateManager.SetCurrentUser(null);
+
+            // Act & Assert
+            await Assert.ThrowsExceptionAsync<Exception>(async () =>
+            {
+                // Act: Call the method that should throw an exception
+                await farmService.EnchanceCellForUser(currentUser.Id, 1, 1);
+            });
+
+        }
+
+        [TestMethod]
+        public async Task EnhanceCellForUser_WhenFarmCellIsNull_ThrowsException()
+        {
+            // Arrange
+            var row = 1;
+            var column = 1;
+            var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
+            farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync((FarmCell)null);
+
+            var farmService = new FarmService(null, farmCellRepositoryMock.Object, null, null);
+
+            // Act & Assert
+            await Assert.ThrowsExceptionAsync<Exception>(async () =>
+            {
+                // Act: Call the method that should throw an exception
+                await farmService.EnchanceCellForUser(currentUser.Id, row, column);
+            });
+        }
+
+        [TestMethod]
+        public async Task EnhanceCellForUser_WhenFarmCellItemIsNull_ThrowsException()
+        {
+            // Arrange
+            var row = 1;
+            var column = 1;
+            var farmCell = new FarmCell(Guid.NewGuid(), currentUser.Id, row, column, Guid.NewGuid(), DateTime.Now, DateTime.Now);
+            var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
+            farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync(farmCell);
+
+            var itemRepositoryMock = new Mock<IItemRepository>();
+            itemRepositoryMock.Setup(repo => repo.GetItemByIdAsync(farmCell.ItemId)).ReturnsAsync((Item)null);
+
+            var farmService = new FarmService(null, farmCellRepositoryMock.Object, itemRepositoryMock.Object, null);
+
+            // Act & Assert
+            await Assert.ThrowsExceptionAsync<Exception>(async () =>
+            {
+                // Act: Call the method that should throw an exception
+                await farmService.EnchanceCellForUser(currentUser.Id, row, column);
+            });
+        }
+
+        [TestMethod]
         public async Task IsCellEnchanced_WhenValidUserIdAndPosition_ReturnsTrueIfEnhanced()
         {
             // Arrange
@@ -341,6 +521,26 @@ namespace HarvestHaven.Tests.Services
 
             // Assert
             Assert.IsTrue(isEnhanced);
+        }
+
+        [TestMethod]
+        public async Task IsCellEnhanced_WhenValidUserIdAndPosition_ReturnsFalseIfNotEnhanced()
+        {
+            // Arrange
+            var userId = Guid.NewGuid();
+            var row = 1;
+            var column = 1;
+            var farmCell = new FarmCell(Guid.NewGuid(), userId, row, column, Guid.NewGuid(), DateTime.UtcNow.AddDays(-1), DateTime.Now); // Ensure the cell is not enhanced
+            var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
+            farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(userId, row, column)).ReturnsAsync(farmCell);
+
+            var farmService = new FarmService(null, farmCellRepositoryMock.Object, null, null);
+
+            // Act
+            var isEnhanced = await farmService.IsCellEnchanced(userId, row, column);
+
+            // Assert
+            Assert.IsFalse(isEnhanced);
         }
 
 
