@@ -97,9 +97,9 @@ namespace HarvestHaven.Repositories
                 {
                     command.Parameters.AddWithValue("@Id", item.Id);
                     command.Parameters.AddWithValue("@ItemType", item.ItemType.ToString());
-                    command.Parameters.AddWithValue("@RequiredResourceId", item.RequiredResourceId);
-                    command.Parameters.AddWithValue("@InteractResourceId", item.InteractResourceId);
-                    command.Parameters.AddWithValue("@DestroyResourceId", item.DestroyResourceId ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@RequiredResourceId", item.ResourceToPlaceId);
+                    command.Parameters.AddWithValue("@InteractResourceId", item.ResourceToInteractId);
+                    command.Parameters.AddWithValue("@DestroyResourceId", item.ResourceToDestroyId ?? (object)DBNull.Value);
                     await command.ExecuteNonQueryAsync();
                 }
             }
@@ -115,9 +115,9 @@ namespace HarvestHaven.Repositories
                 {
                     command.Parameters.AddWithValue("@Id", item.Id);
                     command.Parameters.AddWithValue("@ItemType", item.ItemType.ToString());
-                    command.Parameters.AddWithValue("@RequiredResourceId", item.RequiredResourceId);
-                    command.Parameters.AddWithValue("@InteractResourceId", item.InteractResourceId);
-                    command.Parameters.AddWithValue("@DestroyResourceId", item.DestroyResourceId ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@RequiredResourceId", item.ResourceToPlaceId);
+                    command.Parameters.AddWithValue("@InteractResourceId", item.ResourceToInteractId);
+                    command.Parameters.AddWithValue("@DestroyResourceId", item.ResourceToDestroyId ?? (object)DBNull.Value);
                     await command.ExecuteNonQueryAsync();
                 }
             }

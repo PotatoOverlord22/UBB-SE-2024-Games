@@ -73,7 +73,7 @@ namespace HarvestHaven.Services
             }
 
             // Get the required resource of the farm cell item from the inventory.
-            InventoryResource requiredResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.RequiredResourceId);
+            InventoryResource requiredResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.ResourceToPlaceId);
             if (requiredResource == null || requiredResource.Quantity <= 0)
             {
                 throw new Exception("You don't have the resource required for this farm cell.");
@@ -85,7 +85,7 @@ namespace HarvestHaven.Services
             await inventoryResourceRepository.UpdateUserResourceAsync(requiredResource);
 
             // Get the user's interact farm cell item resource from the inventory.
-            InventoryResource interactResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.InteractResourceId);
+            InventoryResource interactResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.ResourceToInteractId);
 
             // Define the interact resource quantity amount.
             int interactResourceAmount = (DateTime.UtcNow - farmCell.LastTimeEnhanced < TimeSpan.FromDays(Constants.ENCHANCE_DURATION_IN_DAYS)) ? 2 : 1;
@@ -102,7 +102,7 @@ namespace HarvestHaven.Services
                 await inventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
                     id: Guid.NewGuid(),
                     userId: GameStateManager.GetCurrentUserId(),
-                    resourceId: farmCellItem.InteractResourceId,
+                    resourceId: farmCellItem.ResourceToInteractId,
                     quantity: interactResourceAmount));
             }
 
@@ -139,10 +139,10 @@ namespace HarvestHaven.Services
             #endregion
 
             // If the farm cell item has a destroy resource.
-            if (farmCellItem.DestroyResourceId != null)
+            if (farmCellItem.ResourceToDestroyId != null)
             {
                 // Get the user's destroy farm cell item resource from the inventory.
-                InventoryResource destroyResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.DestroyResourceId.Value);
+                InventoryResource destroyResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.ResourceToDestroyId.Value);
 
                 // Define the destroy resource quantity amount.
                 int destroyResourceAmount = (DateTime.UtcNow - farmCell.LastTimeEnhanced < TimeSpan.FromDays(Constants.ENCHANCE_DURATION_IN_DAYS)) ? 2 : 1;
@@ -159,7 +159,7 @@ namespace HarvestHaven.Services
                     await inventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
                         id: Guid.NewGuid(),
                         userId: GameStateManager.GetCurrentUserId(),
-                        resourceId: farmCellItem.DestroyResourceId.Value,
+                        resourceId: farmCellItem.ResourceToDestroyId.Value,
                         quantity: destroyResourceAmount));
                 }
             }

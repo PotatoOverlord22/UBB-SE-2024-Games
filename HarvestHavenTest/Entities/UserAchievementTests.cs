@@ -24,7 +24,7 @@ namespace HarvestHaven.Entities.Tests
             Assert.AreEqual(id, userAchievement.Id);
             Assert.AreEqual(userId, userAchievement.UserId);
             Assert.AreEqual(achievementId, userAchievement.AchievementId);
-            Assert.AreEqual(createdTime, userAchievement.CreatedTime);
+            Assert.AreEqual(createdTime, userAchievement.AchievementRewardedTime);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace HarvestHaven.Entities.Tests
             // Assert
             Assert.AreEqual(id, achievement.Id);
             Assert.AreEqual(description, achievement.Description);
-            Assert.AreEqual(rewardCoins, achievement.RewardCoins);
+            Assert.AreEqual(rewardCoins, achievement.NumberOfCoinsRewarded);
         }
     }
 }

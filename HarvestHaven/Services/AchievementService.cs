@@ -191,21 +191,21 @@ namespace HarvestHaven.Services
             }
 
             #region Trade with a player! 15a0ffbb-3e0a-4a5e-8a87-4bf35395622e
-            if (GameStateManager.GetCurrentUser().NrTradesPerformed >= 1)
+            if (GameStateManager.GetCurrentUser().AmountOfTradesPerformed >= 1)
             {
                 await AddUserAchievement(Guid.Parse("15a0ffbb-3e0a-4a5e-8a87-4bf35395622e"));
             }
             #endregion
 
             #region Trade with 3 players! 8f01cc9d-e620-4719-96af-e3c078a85b4d
-            if (GameStateManager.GetCurrentUser().NrTradesPerformed >= 3)
+            if (GameStateManager.GetCurrentUser().AmountOfTradesPerformed >= 3)
             {
                 await AddUserAchievement(Guid.Parse("8f01cc9d-e620-4719-96af-e3c078a85b4d"));
             }
             #endregion
 
             #region Trade with 5 players! bf6f36e4-718a-4b9e-a991-e02d64257cbf
-            if (GameStateManager.GetCurrentUser().NrTradesPerformed >= 5)
+            if (GameStateManager.GetCurrentUser().AmountOfTradesPerformed >= 5)
             {
                 await AddUserAchievement(Guid.Parse("bf6f36e4-718a-4b9e-a991-e02d64257cbf"));
             }
@@ -213,7 +213,7 @@ namespace HarvestHaven.Services
 
             #region Make the very first trade provided by a player! a8f407e3-5338-4bf8-bd20-61bf6fa78aa9
             User otherUser = await userRepository.GetUserByIdAsync(otherUserInvolvedId);
-            if (otherUser != null && otherUser.NrTradesPerformed == 1)
+            if (otherUser != null && otherUser.AmountOfTradesPerformed == 1)
             {
                 await AddUserAchievement(Guid.Parse("a8f407e3-5338-4bf8-bd20-61bf6fa78aa9"));
             }
@@ -283,7 +283,7 @@ namespace HarvestHaven.Services
             }
 
             #region Buy 15 items from the shop! ec7fafef-4a9b-48bd-8cf2-0a667d63f254
-            if (GameStateManager.GetCurrentUser().NrItemsBought >= 15)
+            if (GameStateManager.GetCurrentUser().AmountOfItemsBought >= 15)
             {
                 await AddUserAchievement(Guid.Parse("ec7fafef-4a9b-48bd-8cf2-0a667d63f254"));
             }
@@ -326,7 +326,7 @@ namespace HarvestHaven.Services
 
             // Update the user coins both in the database and locally.
             User newUser = GameStateManager.GetCurrentUser();
-            newUser.Coins += achievement.RewardCoins;
+            newUser.Coins += achievement.NumberOfCoinsRewarded;
             await userRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
 

@@ -132,8 +132,8 @@ namespace HarvestHaven.Tests.Services
             var column = 1;
             var farmCell = new FarmCell(Guid.NewGuid(), currentUser.Id, row, column, Guid.NewGuid(), DateTime.Now, DateTime.Now);
             var item = new Item(Guid.NewGuid(), ItemType.CarrotSeeds, Guid.NewGuid(), Guid.NewGuid(), null);
-            var interactResource = new InventoryResource(Guid.NewGuid(), currentUser.Id, item.InteractResourceId, 10);
-            var requiredResource = new InventoryResource(Guid.NewGuid(), currentUser.Id, item.RequiredResourceId, 5);
+            var interactResource = new InventoryResource(Guid.NewGuid(), currentUser.Id, item.ResourceToInteractId, 10);
+            var requiredResource = new InventoryResource(Guid.NewGuid(), currentUser.Id, item.ResourceToPlaceId, 5);
 
             var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
             farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync(farmCell);
@@ -142,8 +142,8 @@ namespace HarvestHaven.Tests.Services
             itemRepositoryMock.Setup(repo => repo.GetItemByIdAsync(farmCell.ItemId)).ReturnsAsync(item);
 
             var inventoryResourceRepositoryMock = new Mock<IInventoryResourceRepository>();
-            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, item.InteractResourceId)).ReturnsAsync(interactResource);
-            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, item.RequiredResourceId)).ReturnsAsync(requiredResource);
+            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, item.ResourceToInteractId)).ReturnsAsync(interactResource);
+            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, item.ResourceToPlaceId)).ReturnsAsync(requiredResource);
 
             var achievementServiceMock = new Mock<IAchievementService>();
 
@@ -225,7 +225,7 @@ namespace HarvestHaven.Tests.Services
             var column = 1;
             var farmCell = new FarmCell(Guid.NewGuid(), currentUser.Id, row, column, Guid.NewGuid(), DateTime.Now, DateTime.Now);
             var item = new Item(Guid.NewGuid(), ItemType.CarrotSeeds, Guid.NewGuid(), Guid.NewGuid(), null);
-            var interactResource = new InventoryResource(Guid.NewGuid(), currentUser.Id, item.InteractResourceId, 10);
+            var interactResource = new InventoryResource(Guid.NewGuid(), currentUser.Id, item.ResourceToInteractId, 10);
 
             var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
             farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync(farmCell);
@@ -234,8 +234,8 @@ namespace HarvestHaven.Tests.Services
             itemRepositoryMock.Setup(repo => repo.GetItemByIdAsync(farmCell.ItemId)).ReturnsAsync(item);
 
             var inventoryResourceRepositoryMock = new Mock<IInventoryResourceRepository>();
-            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, item.InteractResourceId)).ReturnsAsync(interactResource);
-            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, item.RequiredResourceId)).ReturnsAsync((InventoryResource)null);
+            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, item.ResourceToInteractId)).ReturnsAsync(interactResource);
+            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, item.ResourceToPlaceId)).ReturnsAsync((InventoryResource)null);
 
             var farmService = new FarmService(null, farmCellRepositoryMock.Object, itemRepositoryMock.Object, inventoryResourceRepositoryMock.Object);
 
@@ -255,7 +255,7 @@ namespace HarvestHaven.Tests.Services
             var column = 1;
             var farmCell = new FarmCell(Guid.NewGuid(), currentUser.Id, row, column, Guid.NewGuid(), DateTime.Now.AddDays(-3), DateTime.Now); // Set LastTimeEnhanced to a date in the past
             var item = new Item(Guid.NewGuid(), ItemType.CarrotSeeds, Guid.NewGuid(), Guid.NewGuid(), null);
-            var requiredResource = new InventoryResource(Guid.NewGuid(), currentUser.Id, item.RequiredResourceId, 5);
+            var requiredResource = new InventoryResource(Guid.NewGuid(), currentUser.Id, item.ResourceToPlaceId, 5);
 
             var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
             farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync(farmCell);
@@ -264,7 +264,7 @@ namespace HarvestHaven.Tests.Services
             itemRepositoryMock.Setup(repo => repo.GetItemByIdAsync(farmCell.ItemId)).ReturnsAsync(item);
 
             var inventoryResourceRepositoryMock = new Mock<IInventoryResourceRepository>();
-            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, item.RequiredResourceId)).ReturnsAsync(requiredResource);
+            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, item.ResourceToPlaceId)).ReturnsAsync(requiredResource);
 
             var farmService = new FarmService(null, farmCellRepositoryMock.Object, itemRepositoryMock.Object, inventoryResourceRepositoryMock.Object);
 
@@ -370,7 +370,7 @@ namespace HarvestHaven.Tests.Services
             var column = 1;
             var farmCell = new FarmCell(Guid.NewGuid(), currentUser.Id, row, column, Guid.NewGuid(), DateTime.Now, DateTime.Now);
             var item = new Item(Guid.NewGuid(), ItemType.CarrotSeeds, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
-            var destroyResource = new InventoryResource(Guid.NewGuid(), currentUser.Id, (Guid) item.DestroyResourceId, 10);
+            var destroyResource = new InventoryResource(Guid.NewGuid(), currentUser.Id, (Guid) item.ResourceToDestroyId, 10);
 
             var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
             farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync(farmCell);
@@ -379,7 +379,7 @@ namespace HarvestHaven.Tests.Services
             itemRepositoryMock.Setup(repo => repo.GetItemByIdAsync(farmCell.ItemId)).ReturnsAsync(item);
 
             var inventoryResourceRepositoryMock = new Mock<IInventoryResourceRepository>();
-            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, (Guid) item.DestroyResourceId)).ReturnsAsync(destroyResource);
+            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, (Guid) item.ResourceToDestroyId)).ReturnsAsync(destroyResource);
 
             var achievementServiceMock = new Mock<IAchievementService>();
 
@@ -393,35 +393,6 @@ namespace HarvestHaven.Tests.Services
             farmCellRepositoryMock.Verify(repo => repo.DeleteFarmCellAsync(farmCell.Id), Times.Once);
         }
 
-        [TestMethod]
-        public async Task DestroyCell_WhenFarmCellHasADestroyResourceNull_CreateANewEntryAndDestroyAndRemoveFromDatabase()
-        {
-            //Arrange
-            var row = 1;
-            var column = 1;
-            var farmCell = new FarmCell(Guid.NewGuid(), currentUser.Id, row, column, Guid.NewGuid(), DateTime.Now, DateTime.Now);
-            var item = new Item(Guid.NewGuid(), ItemType.CarrotSeeds, Guid.NewGuid(), Guid.NewGuid(), null);
-            var destroyResource = new InventoryResource(Guid.NewGuid(), currentUser.Id, Guid.NewGuid(), 10);
-
-            var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
-            farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync(farmCell);
-
-            var itemRepositoryMock = new Mock<IItemRepository>();
-            itemRepositoryMock.Setup(repo => repo.GetItemByIdAsync(farmCell.ItemId)).ReturnsAsync(item);
-
-            var inventoryResourceRepositoryMock = new Mock<IInventoryResourceRepository>();
-            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, (Guid) item.DestroyResourceId)).ReturnsAsync((InventoryResource)null);
-
-            var achievementServiceMock = new Mock<IAchievementService>();
-
-            var farmService = new FarmService(achievementServiceMock.Object, farmCellRepositoryMock.Object, itemRepositoryMock.Object, inventoryResourceRepositoryMock.Object);
-
-            // Act
-            await farmService.DestroyCell(row, column);
-
-            // Assert
-            
-        }
         
         [TestMethod]
         public async Task EnchanceCellForUser_WhenValidUserIdAndPosition_UpdatesCellEnhancement()

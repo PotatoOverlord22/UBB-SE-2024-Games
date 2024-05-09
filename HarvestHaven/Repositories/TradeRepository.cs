@@ -138,11 +138,11 @@ namespace HarvestHaven.Repositories
                 {
                     command.Parameters.AddWithValue("@Id", trade.Id);
                     command.Parameters.AddWithValue("@UserId", trade.UserId);
-                    command.Parameters.AddWithValue("@GivenResourceId", trade.GivenResourceId);
-                    command.Parameters.AddWithValue("@GivenResourceQuantity", trade.GivenResourceQuantity);
-                    command.Parameters.AddWithValue("@RequestedResourceId", trade.RequestedResourceId);
-                    command.Parameters.AddWithValue("@RequestedResourceQuantity", trade.RequestedResourceQuantity);
-                    command.Parameters.AddWithValue("@CreatedTime", trade.CreatedTime);
+                    command.Parameters.AddWithValue("@GivenResourceId", trade.ResourceToGiveId);
+                    command.Parameters.AddWithValue("@GivenResourceQuantity", trade.ResourceToGiveQuantity);
+                    command.Parameters.AddWithValue("@RequestedResourceId", trade.ResourceToGetResourceId);
+                    command.Parameters.AddWithValue("@RequestedResourceQuantity", trade.ResourceToGetQuantity);
+                    command.Parameters.AddWithValue("@CreatedTime", trade.TradeCreationTime);
                     command.Parameters.AddWithValue("@IsCompleted", trade.IsCompleted);
                     await command.ExecuteNonQueryAsync();
                 }

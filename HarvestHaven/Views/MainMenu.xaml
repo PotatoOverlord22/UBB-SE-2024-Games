@@ -38,7 +38,7 @@
             </Label>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-            <Label x:Name="GreetingLabel" Content="{Binding WelcomeMessage}" FontSize="30" Foreground="#FFDCDE00" FontWeight="Bold" Margin="0,60,0,0" Width="616" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+            <Label x:Name="GreetingLabel" Content="{Binding WelcomeUserMessage}" FontSize="30" Foreground="#FFDCDE00" FontWeight="Bold" Margin="0,60,0,0" Width="616" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
                 <Label.Effect>
                     <DropShadowEffect Color="Black" ShadowDepth="1" Direction="0" BlurRadius="2"/>
                 </Label.Effect>

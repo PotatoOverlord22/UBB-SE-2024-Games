@@ -26,8 +26,8 @@ namespace HarvestHaven.Entities.Tests
             Assert.AreEqual(id, user.Id);
             Assert.AreEqual(username, user.Username);
             Assert.AreEqual(coins, user.Coins);
-            Assert.AreEqual(nrItemsBought, user.NrItemsBought);
-            Assert.AreEqual(nrTradesPerformed, user.NrTradesPerformed);
+            Assert.AreEqual(nrItemsBought, user.AmountOfItemsBought);
+            Assert.AreEqual(nrTradesPerformed, user.AmountOfTradesPerformed);
             Assert.AreEqual(tradeHallUnlockTime, user.TradeHallUnlockTime);
             Assert.AreEqual(lastTimeReceivedWater, user.LastTimeReceivedWater);
         }

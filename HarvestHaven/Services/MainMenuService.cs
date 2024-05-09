@@ -21,7 +21,7 @@ namespace HarvestHaven.Services
             }
         }
 
-        public string WelcomeMessage
+        public string WelcomeUserMessage
         {
             get
             {

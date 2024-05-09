@@ -34,9 +34,9 @@ namespace HarvestHavenTest.Repositories
             var parameters = new Dictionary<string, object>
             {
                 { "@Id", comment.Id },
-                { "@UserId", comment.UserId },
-                { "@Message", comment.Message },
-                { "@CreatedTime", comment.CreatedTime }
+                { "@UserId", comment.PosterUserId },
+                { "@Message", comment.CommentMessage },
+                { "@CreatedTime", comment.CreationTime }
             };
 
             // Act
@@ -69,8 +69,8 @@ namespace HarvestHavenTest.Repositories
 
             // Assert
             Assert.AreEqual(2, result.Count);
-            Assert.AreEqual(expectedComments[0].Message, result[0].Message);
-            Assert.AreEqual(expectedComments[1].Message, result[1].Message);
+            Assert.AreEqual(expectedComments[0].CommentMessage, result[0].CommentMessage);
+            Assert.AreEqual(expectedComments[1].CommentMessage, result[1].CommentMessage);
         }
 
         private void SetupMockReaderForComments(List<Comment> comments)
@@ -82,9 +82,9 @@ namespace HarvestHavenTest.Repositories
             mockDataReader.Setup(m => m.GetOrdinal("Message")).Returns(2);
             mockDataReader.Setup(m => m.GetOrdinal("CreatedTime")).Returns(3);
             mockDataReader.Setup(m => m.GetGuid(0)).Returns(() => queue.Peek().Id);
-            mockDataReader.Setup(m => m.GetGuid(1)).Returns(() => queue.Peek().UserId);
-            mockDataReader.Setup(m => m.GetString(2)).Returns(() => queue.Peek().Message);
-            mockDataReader.Setup(m => m.GetDateTime(3)).Returns(() => queue.Dequeue().CreatedTime);
+            mockDataReader.Setup(m => m.GetGuid(1)).Returns(() => queue.Peek().PosterUserId);
+            mockDataReader.Setup(m => m.GetString(2)).Returns(() => queue.Peek().CommentMessage);
+            mockDataReader.Setup(m => m.GetDateTime(3)).Returns(() => queue.Dequeue().CreationTime);
         }
 
         [TestMethod]
@@ -96,7 +96,7 @@ namespace HarvestHavenTest.Repositories
             var parameters = new Dictionary<string, object>
             {
                 { "@Id", comment.Id },
-                { "@Message", comment.Message }
+                { "@Message", comment.CommentMessage }
             };
 
             // Act

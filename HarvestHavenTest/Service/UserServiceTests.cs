@@ -276,9 +276,9 @@ namespace HarvestHaven.Tests.Services
 
             // Assert
             commentRepositoryMock.Verify(repo => repo.CreateCommentAsync(It.Is<Comment>(c =>
-                c.UserId == targetUserId &&
-                c.Message == message &&
-                c.CreatedTime <= DateTime.UtcNow
+                c.PosterUserId == targetUserId &&
+                c.CommentMessage == message &&
+                c.CreationTime <= DateTime.UtcNow
             )), Times.Once);
         }
 

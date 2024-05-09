@@ -23,9 +23,9 @@ namespace HarvestHaven.Entities.Tests
             // Assert
             Assert.AreEqual(id, item.Id);
             Assert.AreEqual(itemType, item.ItemType);
-            Assert.AreEqual(requiredResourceId, item.RequiredResourceId);
-            Assert.AreEqual(interactResourceId, item.InteractResourceId);
-            Assert.AreEqual(destroyResourceId, item.DestroyResourceId);
+            Assert.AreEqual(requiredResourceId, item.ResourceToPlaceId);
+            Assert.AreEqual(interactResourceId, item.ResourceToInteractId);
+            Assert.AreEqual(destroyResourceId, item.ResourceToDestroyId);
         }
     }
 

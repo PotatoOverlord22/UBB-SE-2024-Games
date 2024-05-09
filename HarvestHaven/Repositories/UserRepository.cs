@@ -20,8 +20,8 @@ namespace HarvestHaven.Repositories
                     command.Parameters.AddWithValue("@Id", user.Id);
                     command.Parameters.AddWithValue("@Username", user.Username);
                     command.Parameters.AddWithValue("@Coins", user.Coins);
-                    command.Parameters.AddWithValue("@NrItemsBought", user.NrItemsBought);
-                    command.Parameters.AddWithValue("@NrTradesPerformed", user.NrTradesPerformed);
+                    command.Parameters.AddWithValue("@NrItemsBought", user.AmountOfItemsBought);
+                    command.Parameters.AddWithValue("@NrTradesPerformed", user.AmountOfTradesPerformed);
                     command.Parameters.AddWithValue("@TradeHallUnlockTime", user.TradeHallUnlockTime ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@LastTimeReceivedWater", user.LastTimeReceivedWater ?? (object)DBNull.Value);
                     await command.ExecuteNonQueryAsync();
@@ -95,8 +95,8 @@ namespace HarvestHaven.Repositories
                     command.Parameters.AddWithValue("@Id", user.Id);
                     command.Parameters.AddWithValue("@Username", user.Username);
                     command.Parameters.AddWithValue("@Coins", user.Coins);
-                    command.Parameters.AddWithValue("@NrItemsBought", user.NrItemsBought);
-                    command.Parameters.AddWithValue("@NrTradesPerformed", user.NrTradesPerformed);
+                    command.Parameters.AddWithValue("@NrItemsBought", user.AmountOfItemsBought);
+                    command.Parameters.AddWithValue("@NrTradesPerformed", user.AmountOfTradesPerformed);
                     command.Parameters.AddWithValue("@TradeHallUnlockTime", user.TradeHallUnlockTime ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@LastTimeReceivedWater", user.LastTimeReceivedWater ?? (object)DBNull.Value);
                     await command.ExecuteNonQueryAsync();

@@ -44,7 +44,7 @@ namespace HarvestHaven.Repositories
                     command.Parameters.AddWithValue("@Id", userAchievement.Id);
                     command.Parameters.AddWithValue("@UserId", userAchievement.UserId);
                     command.Parameters.AddWithValue("@AchievementId", userAchievement.AchievementId);
-                    command.Parameters.AddWithValue("@CreatedTime", userAchievement.CreatedTime);
+                    command.Parameters.AddWithValue("@CreatedTime", userAchievement.AchievementRewardedTime);
                     await command.ExecuteNonQueryAsync();
                 }
             }
@@ -61,7 +61,7 @@ namespace HarvestHaven.Repositories
                     command.Parameters.AddWithValue("@Id", userAchievement.Id);
                     command.Parameters.AddWithValue("@UserId", userAchievement.UserId);
                     command.Parameters.AddWithValue("@AchievementId", userAchievement.AchievementId);
-                    command.Parameters.AddWithValue("@CreatedTime", userAchievement.CreatedTime);
+                    command.Parameters.AddWithValue("@CreatedTime", userAchievement.AchievementRewardedTime);
                     await command.ExecuteNonQueryAsync();
                 }
             }
