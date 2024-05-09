@@ -53,7 +53,7 @@
         <Button x:Name="SellDuckMeatButton" Content="Sell meat: 25" HorizontalAlignment="Left" Margin="642,308,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.5,0.5" Background="White" Click="SellDuckMeatButton_Click"/>
         <Image HorizontalAlignment="Center" Height="62" VerticalAlignment="Top" Width="800" Source="/Assets/Sprites/bar_icon.PNG" Stretch="Fill"/>
         <Label Content="Shop" HorizontalAlignment="Left" Margin="35,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36"/>
-        <Label x:Name="PriceLabel" Content="{Binding UserCoins}" HorizontalAlignment="Left" Margin="143,8,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Width="399" FlowDirection="RightToLeft"/>
+        <Label x:Name="PriceLabel" Content="{Binding UserCurrentCoins}" HorizontalAlignment="Left" Margin="143,8,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Width="399" FlowDirection="RightToLeft"/>
         <Image HorizontalAlignment="Left" Height="48" Margin="547,11,0,0" VerticalAlignment="Top" Width="39" Source="/Assets/Sprites/coin_icon.png"/>
         <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="612,0,0,0" VerticalAlignment="Top" Height="58" Width="188" Foreground="White" FontSize="24" Click="BackButton_Click">
             <Button.Background>

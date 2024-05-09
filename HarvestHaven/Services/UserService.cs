@@ -39,14 +39,14 @@ namespace HarvestHaven.Services
             foreach (InventoryResource inventoryResource in inventoryResources)
             {
                 // Get the corresponding resource from the database.
-                Resource resource = await resourceRepository.GetResourceByIdAsync(inventoryResource.ResourceId);
-                if (resource == null)
+                Resource resourceOfUser = await resourceRepository.GetResourceByIdAsync(inventoryResource.ResourceId);
+                if (resourceOfUser == null)
                 {
                     throw new Exception($"No corresponding resource found for the inventory resource with id: {inventoryResource.Id}");
                 }
 
                 // Add the pair in the dictionary.
-                inventoryResourcesMap.Add(inventoryResource, resource);
+                inventoryResourcesMap.Add(inventoryResource, resourceOfUser);
             }
 
             return inventoryResourcesMap;

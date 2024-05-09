@@ -47,7 +47,7 @@ namespace HarvestHaven.Tests.Services
             var mainMenuService = new MainMenuService();
 
             // Act
-            var result = mainMenuService.WelcomeMessage;
+            var result = mainMenuService.WelcomeUserMessage;
 
             // Assert
             Assert.AreEqual(expectedMessage, result);
@@ -63,7 +63,7 @@ namespace HarvestHaven.Tests.Services
             var mainMenuService = new MainMenuService();
 
             // Act
-            var result = mainMenuService.WelcomeMessage;
+            var result = mainMenuService.WelcomeUserMessage;
 
             // Assert
             Assert.AreEqual(expectedMessage, result);

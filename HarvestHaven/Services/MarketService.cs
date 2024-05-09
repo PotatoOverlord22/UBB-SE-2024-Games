@@ -15,7 +15,7 @@ namespace HarvestHaven.Services
         private readonly IInventoryResourceRepository inventoryResourceRepository;
         private readonly IResourceRepository resourceRepository;
         private int userCoins;
-        public int UserCoins
+        public int UserCurrentCoins
         {
             get
             {
@@ -43,7 +43,7 @@ namespace HarvestHaven.Services
             User? user = GameStateManager.GetCurrentUser();
             if (user != null)
             {
-                UserCoins = user.Coins;
+                UserCurrentCoins = user.Coins;
             }
         }
         public async Task BuyItem(int row, int column, ItemType itemType)
@@ -106,7 +106,7 @@ namespace HarvestHaven.Services
             await userRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
 
-            UserCoins = newUser.Coins;
+            UserCurrentCoins = newUser.Coins;
 
             // Check achievements.
             await achievementService.CheckFarmAchievements();
@@ -156,7 +156,7 @@ namespace HarvestHaven.Services
             await userRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
 
-            UserCoins = newUser.Coins;
+            UserCurrentCoins = newUser.Coins;
 
             // Check achievements.
             await achievementService.CheckInventoryAchievements();
