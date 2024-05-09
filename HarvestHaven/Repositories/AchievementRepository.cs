@@ -71,7 +71,7 @@ namespace HarvestHaven.Repositories
             {
                 { "@Id", achievement.Id },
                 { "@Description", achievement.Description },
-                { "@RewardCoins", achievement.RewardCoins }
+                { "@RewardCoins", achievement.NumberOfCoinsRewarded }
              };
 
             using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("INSERT INTO Achievements (Id, Description, RewardCoins) VALUES (@Id, @Description, @RewardCoins)", parameters))
@@ -85,7 +85,7 @@ namespace HarvestHaven.Repositories
             {
                 { "@Id", achievement.Id },
                 { "@Description", achievement.Description },
-                { "@RewardCoins", achievement.RewardCoins }
+                { "@RewardCoins", achievement.NumberOfCoinsRewarded }
             };
 
             using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("UPDATE Achievements SET Description = @Description, RewardCoins = @RewardCoins WHERE Id = @Id", parameters))

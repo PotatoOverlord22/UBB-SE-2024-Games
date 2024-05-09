@@ -131,9 +131,9 @@ namespace HarvestHaven.Services
 
             await commentRepository.CreateCommentAsync(new Comment(
                id: Guid.NewGuid(),
-               userId: targetUserId,
-               message: message,
-               createdTime: DateTime.UtcNow));
+               posterUserId: targetUserId,
+               commentMessage: message,
+               commentCreationTime: DateTime.UtcNow));
         }
 
         public async Task<List<Comment>> GetMyComments()

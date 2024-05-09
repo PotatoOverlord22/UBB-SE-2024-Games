@@ -23,7 +23,7 @@
                 new Achievement(Guid.NewGuid(), "Description2", 200)
             };
 
-            var achievementsData = new Queue<(Guid, string, int)>(initialAchievements.Select(a => (a.Id, a.Description, a.RewardCoins)));
+            var achievementsData = new Queue<(Guid, string, int)>(initialAchievements.Select(a => (a.Id, a.Description, a.NumberOfCoinsRewarded)));
 
             mockDataReader.SetupSequence(m => m.Read())
                   .Returns(() => achievementsData.Count > 0)
@@ -54,7 +54,7 @@
 
             Assert.AreEqual(initialAchievements[0].Id, result[0].Id);
             Assert.AreEqual(initialAchievements[0].Description, result[0].Description);
-            Assert.AreEqual(initialAchievements[0].RewardCoins, result[0].RewardCoins);
+            Assert.AreEqual(initialAchievements[0].NumberOfCoinsRewarded, result[0].NumberOfCoinsRewarded);
         }
 
         [TestMethod]
@@ -79,7 +79,7 @@
             mockDataReader.Setup(m => m.GetOrdinal("RewardCoins"))
                           .Returns(2);
             mockDataReader.Setup(m => m.GetInt32(2))
-                          .Returns(expectedAchievement.RewardCoins);
+                          .Returns(expectedAchievement.NumberOfCoinsRewarded);
 
             var mockDatabaseProvider = new Mock<IDatabaseProvider>();
             mockDatabaseProvider.Setup(m => m.ExecuteReaderAsync("SELECT * FROM Achievements WHERE Id = @Id", It.IsAny<Dictionary<string, object>>()))
@@ -94,7 +94,7 @@
             Assert.IsNotNull(result);
             Assert.AreEqual(expectedAchievement.Id, result.Id);
             Assert.AreEqual(expectedAchievement.Description, result.Description);
-            Assert.AreEqual(expectedAchievement.RewardCoins, result.RewardCoins);
+            Assert.AreEqual(expectedAchievement.NumberOfCoinsRewarded, result.NumberOfCoinsRewarded);
         }
 
         [TestMethod()]
@@ -110,7 +110,7 @@
             {
                 { "@Id", achievementToAdd.Id },
                 { "@Description", achievementToAdd.Description },
-                { "@RewardCoins", achievementToAdd.RewardCoins }
+                { "@RewardCoins", achievementToAdd.NumberOfCoinsRewarded }
             };
 
             // Act
@@ -135,7 +135,7 @@
             {
                 { "@Id", achievementToUpdate.Id },
                 { "@Description", achievementToUpdate.Description },
-                { "@RewardCoins", achievementToUpdate.RewardCoins }
+                { "@RewardCoins", achievementToUpdate.NumberOfCoinsRewarded }
             };
 
             // Act

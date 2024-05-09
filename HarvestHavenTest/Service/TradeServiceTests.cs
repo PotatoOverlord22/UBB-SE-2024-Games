@@ -529,7 +529,7 @@ namespace HarvestHaven.Tests.Services
 
             // Assert
             inventoryResourceRepositoryMock.Verify(repo => repo.AddUserResourceAsync(
-                It.Is<InventoryResource>(r => r.UserId == userId &&
+                It.Is<InventoryResource>(r => r.OwnerId == userId &&
                                                 r.ResourceId == givenResourceId &&
                                                 r.Quantity == givenResourceQuantity)), Times.Once);
         }

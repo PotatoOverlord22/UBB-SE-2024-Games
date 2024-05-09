@@ -17,9 +17,9 @@ namespace HarvestHaven.Repositories
             var parameters = new Dictionary<string, object>
             {
                 { "@Id", comment.Id },
-                { "@UserId", comment.UserId },
-                { "@Message", comment.Message },
-                { "@CreatedTime", comment.CreatedTime }
+                { "@UserId", comment.PosterUserId },
+                { "@Message", comment.CommentMessage },
+                { "@CreatedTime", comment.CreationTime }
             };
 
             await databaseProvider.ExecuteReaderAsync(
@@ -43,9 +43,9 @@ namespace HarvestHaven.Repositories
                 {
                     userComments.Add(new Comment(
                         id: reader.GetGuid(idOrdinal),
-                        userId: reader.GetGuid(userIdOrdinal),
-                        message: reader.GetString(messageOrdinal),
-                        createdTime: reader.GetDateTime(createdTimeOrdinal)));
+                        posterUserId: reader.GetGuid(userIdOrdinal),
+                        commentMessage: reader.GetString(messageOrdinal),
+                        commentCreationTime: reader.GetDateTime(createdTimeOrdinal)));
                 }
             }
             return userComments;
@@ -56,7 +56,7 @@ namespace HarvestHaven.Repositories
             var parameters = new Dictionary<string, object>
             {
                 { "@Id", comment.Id },
-                { "@Message", comment.Message }
+                { "@Message", comment.CommentMessage }
             };
 
             await databaseProvider.ExecuteReaderAsync(

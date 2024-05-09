@@ -21,9 +21,9 @@ namespace HarvestHaven.Entities.Tests
 
             // Assert
             Assert.AreEqual(id, comment.Id);
-            Assert.AreEqual(userId, comment.UserId);
-            Assert.AreEqual(message, comment.Message);
-            Assert.AreEqual(createdTime, comment.CreatedTime);
+            Assert.AreEqual(userId, comment.PosterUserId);
+            Assert.AreEqual(message, comment.CommentMessage);
+            Assert.AreEqual(createdTime, comment.CreationTime);
         }
     }
 }

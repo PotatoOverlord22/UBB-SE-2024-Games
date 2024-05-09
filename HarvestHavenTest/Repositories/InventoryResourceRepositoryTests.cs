@@ -58,7 +58,7 @@ namespace HarvestHavenTest.Repositories
             mockDataReader.Setup(m => m.GetOrdinal("ResourceId")).Returns(2);
             mockDataReader.Setup(m => m.GetOrdinal("Quantity")).Returns(3);
             mockDataReader.Setup(m => m.GetGuid(0)).Returns(() => queue.Peek().Id);
-            mockDataReader.Setup(m => m.GetGuid(1)).Returns(() => queue.Peek().UserId);
+            mockDataReader.Setup(m => m.GetGuid(1)).Returns(() => queue.Peek().OwnerId);
             mockDataReader.Setup(m => m.GetGuid(2)).Returns(() => queue.Peek().ResourceId);
             mockDataReader.Setup(m => m.GetInt32(3)).Returns(() => queue.Dequeue().Quantity);
         }
@@ -96,7 +96,7 @@ namespace HarvestHavenTest.Repositories
             mockDataReader.Setup(m => m.GetOrdinal("ResourceId")).Returns(2);
             mockDataReader.Setup(m => m.GetOrdinal("Quantity")).Returns(3);
             mockDataReader.Setup(m => m.GetGuid(0)).Returns(resource.Id);
-            mockDataReader.Setup(m => m.GetGuid(1)).Returns(resource.UserId);
+            mockDataReader.Setup(m => m.GetGuid(1)).Returns(resource.OwnerId);
             mockDataReader.Setup(m => m.GetGuid(2)).Returns(resource.ResourceId);
             mockDataReader.Setup(m => m.GetInt32(3)).Returns(resource.Quantity);
         }
@@ -109,7 +109,7 @@ namespace HarvestHavenTest.Repositories
             var parameters = new Dictionary<string, object>
     {
         { "@Id", userResource.Id },
-        { "@UserId", userResource.UserId },
+        { "@UserId", userResource.OwnerId },
         { "@ResourceId", userResource.ResourceId },
         { "@Quantity", userResource.Quantity }
     };

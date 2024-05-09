@@ -22,7 +22,7 @@ namespace HarvestHaven.Entities.Tests
 
             // Assert
             Assert.AreEqual(id, inventoryResource.Id);
-            Assert.AreEqual(userId, inventoryResource.UserId);
+            Assert.AreEqual(userId, inventoryResource.OwnerId);
             Assert.AreEqual(resourceId, inventoryResource.ResourceId);
             Assert.AreEqual(quantity, inventoryResource.Quantity);
         }

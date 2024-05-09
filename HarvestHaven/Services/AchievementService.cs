@@ -326,7 +326,7 @@ namespace HarvestHaven.Services
 
             // Update the user coins both in the database and locally.
             User newUser = GameStateManager.GetCurrentUser();
-            newUser.Coins += achievement.RewardCoins;
+            newUser.Coins += achievement.NumberOfCoinsRewarded;
             await userRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
 

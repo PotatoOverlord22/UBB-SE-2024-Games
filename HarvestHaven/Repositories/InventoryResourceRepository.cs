@@ -70,7 +70,7 @@ namespace HarvestHaven.Repositories
             var parameters = new Dictionary<string, object>
             {
                 { "@Id", userResource.Id },
-                { "@UserId", userResource.UserId },
+                { "@UserId", userResource.OwnerId },
                 { "@ResourceId", userResource.ResourceId },
                 { "@Quantity", userResource.Quantity }
             };
