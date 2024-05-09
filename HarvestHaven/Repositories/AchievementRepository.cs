@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System.Data;
+using Microsoft.Data.SqlClient;
 using HarvestHaven.Utils;
 using HarvestHaven.Entities;
 
@@ -7,98 +8,99 @@ namespace HarvestHaven.Repositories
     public class AchievementRepository : IAchievementRepository
     {
         private readonly string connectionString = DatabaseHelper.GetDatabaseFilePath();
+        private readonly IDatabaseProvider databaseProvider;
+
+        public AchievementRepository(IDatabaseProvider databaseProvider)
+        {
+            this.databaseProvider = databaseProvider;
+        }
 
         public async Task<List<Achievement>> GetAllAchievementsAsync()
         {
             List<Achievement> achievements = new List<Achievement>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
+
+            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("SELECT * FROM Achievements", null))
             {
-                await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand("SELECT * FROM Achievements", connection))
+                int idOrdinal = reader.GetOrdinal("Id");
+                int descriptionOrdinal = reader.GetOrdinal("Description");
+                int rewardCoinsOrdinal = reader.GetOrdinal("RewardCoins");
+
+                while (reader.Read())
                 {
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            achievements.Add(new Achievement(
-                                id: (Guid)reader["Id"],
-                                description: (string)reader["Description"],
-                                rewardCoins: (int)reader["RewardCoins"]));
-                        }
-                    }
+                    Guid id = reader.GetGuid(idOrdinal);
+                    string description = reader.GetString(descriptionOrdinal);
+                    int rewardCoins = reader.GetInt32(rewardCoinsOrdinal);
+
+                    achievements.Add(new Achievement(id, description, rewardCoins));
                 }
             }
+
             return achievements;
         }
 
         public async Task<Achievement> GetAchievementByIdAsync(Guid achievementId)
         {
             Achievement achievement = null;
-            using (SqlConnection connection = new SqlConnection(connectionString))
+
+            var parameters = new Dictionary<string, object>
             {
-                await connection.OpenAsync();
-                string query = "SELECT * FROM Achievements WHERE Id = @Id";
-                using (SqlCommand command = new SqlCommand(query, connection))
+                 { "@Id", achievementId }
+            };
+
+            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("SELECT * FROM Achievements WHERE Id = @Id", parameters))
+            {
+                int idOrdinal = reader.GetOrdinal("Id");
+                int descriptionOrdinal = reader.GetOrdinal("Description");
+                int rewardCoinsOrdinal = reader.GetOrdinal("RewardCoins");
+                if (reader.Read())
                 {
-                    command.Parameters.AddWithValue("@Id", achievementId);
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                    {
-                        if (await reader.ReadAsync())
-                        {
-                            achievement = new Achievement(
-                                id: (Guid)reader["Id"],
-                                description: (string)reader["Description"],
-                                rewardCoins: (int)reader["RewardCoins"]);
-                        }
-                    }
+                    Guid id = reader.GetGuid(idOrdinal);
+                    string description = reader.GetString(descriptionOrdinal);
+                    int rewardCoins = reader.GetInt32(rewardCoinsOrdinal);
+
+                   achievement = new Achievement(id, description, rewardCoins);
                 }
             }
+
             return achievement;
         }
 
         public async Task AddAchievementAsync(Achievement achievement)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            var parameters = new Dictionary<string, object>
             {
-                await connection.OpenAsync();
-                string query = "INSERT INTO Achievements (Id, Description, RewardCoins) VALUES (@Id, @Description, @RewardCoins)";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Id", achievement.Id);
-                    command.Parameters.AddWithValue("@Description", achievement.Description);
-                    command.Parameters.AddWithValue("@RewardCoins", achievement.RewardCoins);
-                    await command.ExecuteNonQueryAsync();
-                }
+                { "@Id", achievement.Id },
+                { "@Description", achievement.Description },
+                { "@RewardCoins", achievement.RewardCoins }
+             };
+
+            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("INSERT INTO Achievements (Id, Description, RewardCoins) VALUES (@Id, @Description, @RewardCoins)", parameters))
+            {
             }
         }
 
         public async Task UpdateAchievementAsync(Achievement achievement)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            var parameters = new Dictionary<string, object>
             {
-                await connection.OpenAsync();
-                string query = "UPDATE Achievements SET Description = @Description, RewardCoins = @RewardCoins WHERE Id = @Id";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Id", achievement.Id);
-                    command.Parameters.AddWithValue("@Description", achievement.Description);
-                    command.Parameters.AddWithValue("@RewardCoins", achievement.RewardCoins);
-                    await command.ExecuteNonQueryAsync();
-                }
+                { "@Id", achievement.Id },
+                { "@Description", achievement.Description },
+                { "@RewardCoins", achievement.RewardCoins }
+            };
+
+            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("UPDATE Achievements SET Description = @Description, RewardCoins = @RewardCoins WHERE Id = @Id", parameters))
+            {
             }
         }
-
         public async Task DeleteAchievementAsync(Guid achievementId)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            var parameters = new Dictionary<string, object>
             {
-                await connection.OpenAsync();
-                string query = "DELETE FROM Achievements WHERE Id = @Id";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Id", achievementId);
-                    await command.ExecuteNonQueryAsync();
-                }
+                { "@Id", achievementId }
+            };
+
+            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("DELETE FROM Achievements WHERE Id = @Id", parameters))
+            {
             }
         }
     }
