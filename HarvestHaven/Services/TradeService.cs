@@ -125,7 +125,7 @@ namespace HarvestHaven.Services
             InventoryResource userRequestedResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), requestedResource.Id);
             if (userRequestedResource == null || userRequestedResource.Quantity < trade.RequestedResourceQuantity)
             {
-                throw new Exception($"You don't have that ammount of {requestedResource.ResourceType.ToString()}!");
+                throw new Exception($"You don't have that amount of {requestedResource.ResourceType.ToString()}!");
             }
             #endregion
 
