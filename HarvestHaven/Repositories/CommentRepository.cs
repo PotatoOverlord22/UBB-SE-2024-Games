@@ -1,51 +1,51 @@
-﻿using Microsoft.Data.SqlClient;
-using HarvestHaven.Utils;
+﻿using System.Data;
 using HarvestHaven.Entities;
-
+using HarvestHaven.Utils;
 namespace HarvestHaven.Repositories
 {
     public class CommentRepository : ICommentRepository
     {
-        private readonly string connectionString = DatabaseHelper.GetDatabaseFilePath();
+        private readonly IDatabaseProvider databaseProvider;
+
+        public CommentRepository(IDatabaseProvider databaseProvider)
+        {
+            this.databaseProvider = databaseProvider;
+        }
 
         public async Task CreateCommentAsync(Comment comment)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            var parameters = new Dictionary<string, object>
             {
-                await connection.OpenAsync();
-                string query = "INSERT INTO Comments (Id, UserId, Message, CreatedTime) VALUES (@Id, @UserId, @Message, @CreatedTime)";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Id", comment.Id);
-                    command.Parameters.AddWithValue("@UserId", comment.UserId);
-                    command.Parameters.AddWithValue("@Message", comment.Message);
-                    command.Parameters.AddWithValue("@CreatedTime", comment.CreatedTime);
-                    await command.ExecuteNonQueryAsync();
-                }
-            }
+                { "@Id", comment.Id },
+                { "@UserId", comment.UserId },
+                { "@Message", comment.Message },
+                { "@CreatedTime", comment.CreatedTime }
+            };
+
+            await databaseProvider.ExecuteReaderAsync(
+                "INSERT INTO Comments (Id, UserId, Message, CreatedTime) VALUES (@Id, @UserId, @Message, @CreatedTime)",
+                parameters);
         }
 
         public async Task<List<Comment>> GetUserCommentsAsync(Guid userId)
         {
             List<Comment> userComments = new List<Comment>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            var parameters = new Dictionary<string, object> { { "@UserId", userId } };
+
+            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("SELECT * FROM Comments WHERE UserId = @UserId", parameters))
             {
-                await connection.OpenAsync();
-                string query = "SELECT * FROM Comments WHERE UserId = @UserId";
-                using (SqlCommand command = new SqlCommand(query, connection))
+                int idOrdinal = reader.GetOrdinal("Id");
+                int userIdOrdinal = reader.GetOrdinal("UserId");
+                int messageOrdinal = reader.GetOrdinal("Message");
+                int createdTimeOrdinal = reader.GetOrdinal("CreatedTime");
+
+                while (reader.Read())
                 {
-                    command.Parameters.AddWithValue("@UserId", userId);
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            userComments.Add(new Comment(
-                                id: (Guid)reader["Id"],
-                                userId: (Guid)reader["UserId"],
-                                message: (string)reader["Message"],
-                                createdTime: (DateTime)reader["CreatedTime"]));
-                        }
-                    }
+                    userComments.Add(new Comment(
+                        id: reader.GetGuid(idOrdinal),
+                        userId: reader.GetGuid(userIdOrdinal),
+                        message: reader.GetString(messageOrdinal),
+                        createdTime: reader.GetDateTime(createdTimeOrdinal)));
                 }
             }
             return userComments;
@@ -53,32 +53,22 @@ namespace HarvestHaven.Repositories
 
         public async Task UpdateCommentAsync(Comment comment)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            var parameters = new Dictionary<string, object>
             {
-                await connection.OpenAsync();
-                string query = "UPDATE Comments SET Message = @Message WHERE Id = @Id";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Id", comment.Id);
-                    command.Parameters.AddWithValue("@Message", comment.Message);
-                    await command.ExecuteNonQueryAsync();
-                }
-            }
+                { "@Id", comment.Id },
+                { "@Message", comment.Message }
+            };
+
+            await databaseProvider.ExecuteReaderAsync(
+                "UPDATE Comments SET Message = @Message WHERE Id = @Id",
+                parameters);
         }
 
         public async Task DeleteCommentAsync(Guid commentId)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                await connection.OpenAsync();
-                string query = "DELETE FROM Comments WHERE Id = @Id";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Id", commentId);
-                    await command.ExecuteNonQueryAsync();
-                }
-            }
+            var parameters = new Dictionary<string, object> { { "@Id", commentId } };
+
+            await databaseProvider.ExecuteReaderAsync("DELETE FROM Comments WHERE Id = @Id", parameters);
         }
     }
 }
-
