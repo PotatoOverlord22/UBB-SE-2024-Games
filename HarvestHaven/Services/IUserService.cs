@@ -6,8 +6,7 @@ namespace HarvestHaven.Services
     {
         Task<User> GetUserByIdAsync(Guid userId);
         Task<Dictionary<InventoryResource, Resource>> GetInventoryResources(Guid userId);
-        Task<InventoryResource> GetInventoryResourceByType(ResourceType resourceType);
-        Task UpdateUserWater();
+        Task<InventoryResource> GetInventoryResourceByType(ResourceType resourceType, Guid userId);
         bool IsTradeHallUnlocked();
         Task UnlockTradeHall();
         Task AddCommentForAnotherUser(Guid targetUserId, string message);
