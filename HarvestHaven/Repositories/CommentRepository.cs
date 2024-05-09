@@ -14,7 +14,7 @@ namespace HarvestHaven.Repositories
 
         public async Task CreateCommentAsync(Comment comment)
         {
-            var parameters = new Dictionary<string, object>
+            var queryParameters = new Dictionary<string, object>
             {
                 { "@Id", comment.Id },
                 { "@UserId", comment.PosterUserId },
@@ -24,28 +24,28 @@ namespace HarvestHaven.Repositories
 
             await databaseProvider.ExecuteReaderAsync(
                 "INSERT INTO Comments (Id, UserId, Message, CreatedTime) VALUES (@Id, @UserId, @Message, @CreatedTime)",
-                parameters);
+                queryParameters);
         }
 
         public async Task<List<Comment>> GetUserCommentsAsync(Guid userId)
         {
             List<Comment> userComments = new List<Comment>();
-            var parameters = new Dictionary<string, object> { { "@UserId", userId } };
+            var queryParameters = new Dictionary<string, object> { { "@UserId", userId } };
 
-            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("SELECT * FROM Comments WHERE UserId = @UserId", parameters))
+            using (IDataReader databaseReader = await databaseProvider.ExecuteReaderAsync("SELECT * FROM Comments WHERE UserId = @UserId", queryParameters))
             {
-                int idOrdinal = reader.GetOrdinal("Id");
-                int userIdOrdinal = reader.GetOrdinal("UserId");
-                int messageOrdinal = reader.GetOrdinal("Message");
-                int createdTimeOrdinal = reader.GetOrdinal("CreatedTime");
+                int idOrdinal = databaseReader.GetOrdinal("Id");
+                int userIdOrdinal = databaseReader.GetOrdinal("UserId");
+                int messageOrdinal = databaseReader.GetOrdinal("Message");
+                int createdTimeOrdinal = databaseReader.GetOrdinal("CreatedTime");
 
-                while (reader.Read())
+                while (databaseReader.Read())
                 {
                     userComments.Add(new Comment(
-                        id: reader.GetGuid(idOrdinal),
-                        posterUserId: reader.GetGuid(userIdOrdinal),
-                        commentMessage: reader.GetString(messageOrdinal),
-                        commentCreationTime: reader.GetDateTime(createdTimeOrdinal)));
+                        id: databaseReader.GetGuid(idOrdinal),
+                        posterUserId: databaseReader.GetGuid(userIdOrdinal),
+                        commentMessage: databaseReader.GetString(messageOrdinal),
+                        commentCreationTime: databaseReader.GetDateTime(createdTimeOrdinal)));
                 }
             }
             return userComments;
@@ -53,7 +53,7 @@ namespace HarvestHaven.Repositories
 
         public async Task UpdateCommentAsync(Comment comment)
         {
-            var parameters = new Dictionary<string, object>
+            var queryParameters = new Dictionary<string, object>
             {
                 { "@Id", comment.Id },
                 { "@Message", comment.CommentMessage }
@@ -61,14 +61,14 @@ namespace HarvestHaven.Repositories
 
             await databaseProvider.ExecuteReaderAsync(
                 "UPDATE Comments SET Message = @Message WHERE Id = @Id",
-                parameters);
+                queryParameters);
         }
 
         public async Task DeleteCommentAsync(Guid commentId)
         {
-            var parameters = new Dictionary<string, object> { { "@Id", commentId } };
+            var queryParameters = new Dictionary<string, object> { { "@Id", commentId } };
 
-            await databaseProvider.ExecuteReaderAsync("DELETE FROM Comments WHERE Id = @Id", parameters);
+            await databaseProvider.ExecuteReaderAsync("DELETE FROM Comments WHERE Id = @Id", queryParameters);
         }
     }
 }

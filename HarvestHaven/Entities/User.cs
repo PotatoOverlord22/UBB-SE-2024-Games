@@ -5,8 +5,8 @@
         public Guid Id { get; set; }
         public string Username { get; set; }
         public int Coins { get; set; }
-        public int NrItemsBought { get; set; }
-        public int NrTradesPerformed { get; set; }
+        public int AmountOfItemsBought { get; set; }
+        public int AmountOfTradesPerformed { get; set; }
         public DateTime? TradeHallUnlockTime { get; set; } // Nullable.
         public DateTime? LastTimeReceivedWater { get; set; } // Nullable.
 
@@ -15,8 +15,8 @@
             Id = id;
             Username = username;
             Coins = coins;
-            NrItemsBought = nrItemsBought;
-            NrTradesPerformed = nrTradesPerformed;
+            AmountOfItemsBought = nrItemsBought;
+            AmountOfTradesPerformed = nrTradesPerformed;
             TradeHallUnlockTime = tradeHallUnlockTime;
             LastTimeReceivedWater = lastTimeReceivedWater;
         }

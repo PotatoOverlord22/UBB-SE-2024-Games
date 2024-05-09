@@ -7,7 +7,6 @@ namespace HarvestHaven.Repositories
 {
     public class AchievementRepository : IAchievementRepository
     {
-        private readonly string connectionString = DatabaseHelper.GetDatabaseFilePath();
         private readonly IDatabaseProvider databaseProvider;
 
         public AchievementRepository(IDatabaseProvider databaseProvider)
@@ -19,17 +18,17 @@ namespace HarvestHaven.Repositories
         {
             List<Achievement> achievements = new List<Achievement>();
 
-            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("SELECT * FROM Achievements", null))
+            using (IDataReader databaseReader = await databaseProvider.ExecuteReaderAsync("SELECT * FROM Achievements", null))
             {
-                int idOrdinal = reader.GetOrdinal("Id");
-                int descriptionOrdinal = reader.GetOrdinal("Description");
-                int rewardCoinsOrdinal = reader.GetOrdinal("RewardCoins");
+                int idOrdinal = databaseReader.GetOrdinal("Id");
+                int descriptionOrdinal = databaseReader.GetOrdinal("Description");
+                int rewardCoinsOrdinal = databaseReader.GetOrdinal("RewardCoins");
 
-                while (reader.Read())
+                while (databaseReader.Read())
                 {
-                    Guid id = reader.GetGuid(idOrdinal);
-                    string description = reader.GetString(descriptionOrdinal);
-                    int rewardCoins = reader.GetInt32(rewardCoinsOrdinal);
+                    Guid id = databaseReader.GetGuid(idOrdinal);
+                    string description = databaseReader.GetString(descriptionOrdinal);
+                    int rewardCoins = databaseReader.GetInt32(rewardCoinsOrdinal);
 
                     achievements.Add(new Achievement(id, description, rewardCoins));
                 }
@@ -67,39 +66,39 @@ namespace HarvestHaven.Repositories
 
         public async Task AddAchievementAsync(Achievement achievement)
         {
-            var parameters = new Dictionary<string, object>
+            var queryParameters = new Dictionary<string, object>
             {
                 { "@Id", achievement.Id },
                 { "@Description", achievement.Description },
                 { "@RewardCoins", achievement.NumberOfCoinsRewarded }
              };
 
-            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("INSERT INTO Achievements (Id, Description, RewardCoins) VALUES (@Id, @Description, @RewardCoins)", parameters))
+            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("INSERT INTO Achievements (Id, Description, RewardCoins) VALUES (@Id, @Description, @RewardCoins)", queryParameters))
             {
             }
         }
 
         public async Task UpdateAchievementAsync(Achievement achievement)
         {
-            var parameters = new Dictionary<string, object>
+            var queryParameters = new Dictionary<string, object>
             {
                 { "@Id", achievement.Id },
                 { "@Description", achievement.Description },
                 { "@RewardCoins", achievement.NumberOfCoinsRewarded }
             };
 
-            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("UPDATE Achievements SET Description = @Description, RewardCoins = @RewardCoins WHERE Id = @Id", parameters))
+            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("UPDATE Achievements SET Description = @Description, RewardCoins = @RewardCoins WHERE Id = @Id", queryParameters))
             {
             }
         }
         public async Task DeleteAchievementAsync(Guid achievementId)
         {
-            var parameters = new Dictionary<string, object>
+            var queryParameters = new Dictionary<string, object>
             {
                 { "@Id", achievementId }
             };
 
-            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("DELETE FROM Achievements WHERE Id = @Id", parameters))
+            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("DELETE FROM Achievements WHERE Id = @Id", queryParameters))
             {
             }
         }

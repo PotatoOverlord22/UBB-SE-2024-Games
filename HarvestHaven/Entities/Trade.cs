@@ -4,22 +4,22 @@
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public Guid GivenResourceId { get; set; }
-        public int GivenResourceQuantity { get; set; }
-        public Guid RequestedResourceId { get; set; }
-        public int RequestedResourceQuantity { get; set; }
-        public DateTime CreatedTime { get; set; }
+        public Guid ResourceToGiveId { get; set; }
+        public int ResourceToGiveQuantity { get; set; }
+        public Guid ResourceToGetResourceId { get; set; }
+        public int ResourceToGetQuantity { get; set; }
+        public DateTime TradeCreationTime { get; set; }
         public bool IsCompleted { get; set; }
 
         public Trade(Guid id, Guid userId, Guid givenResourceId, int givenResourceQuantity, Guid requestedResourceId, int requestedResourceQuantity, DateTime createdTime, bool isCompleted)
         {
             Id = id;
             UserId = userId;
-            GivenResourceId = givenResourceId;
-            GivenResourceQuantity = givenResourceQuantity;
-            RequestedResourceId = requestedResourceId;
-            RequestedResourceQuantity = requestedResourceQuantity;
-            CreatedTime = createdTime;
+            ResourceToGiveId = givenResourceId;
+            ResourceToGiveQuantity = givenResourceQuantity;
+            ResourceToGetResourceId = requestedResourceId;
+            ResourceToGetQuantity = requestedResourceQuantity;
+            TradeCreationTime = createdTime;
             IsCompleted = isCompleted;
         }
     }

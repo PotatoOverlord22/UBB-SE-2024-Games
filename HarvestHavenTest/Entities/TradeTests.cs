@@ -27,11 +27,11 @@ namespace HarvestHaven.Entities.Tests
             // Assert
             Assert.AreEqual(id, trade.Id);
             Assert.AreEqual(userId, trade.UserId);
-            Assert.AreEqual(givenResourceId, trade.GivenResourceId);
-            Assert.AreEqual(givenResourceQuantity, trade.GivenResourceQuantity);
-            Assert.AreEqual(requestedResourceId, trade.RequestedResourceId);
-            Assert.AreEqual(requestedResourceQuantity, trade.RequestedResourceQuantity);
-            Assert.AreEqual(createdTime, trade.CreatedTime);
+            Assert.AreEqual(givenResourceId, trade.ResourceToGiveId);
+            Assert.AreEqual(givenResourceQuantity, trade.ResourceToGiveQuantity);
+            Assert.AreEqual(requestedResourceId, trade.ResourceToGetResourceId);
+            Assert.AreEqual(requestedResourceQuantity, trade.ResourceToGetQuantity);
+            Assert.AreEqual(createdTime, trade.TradeCreationTime);
             Assert.AreEqual(isCompleted, trade.IsCompleted);
         }
     }

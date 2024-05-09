@@ -20,7 +20,7 @@ namespace HarvestHaven.Entities.Tests
 
             // Assert
             Assert.AreEqual(id, marketSellResource.Id);
-            Assert.AreEqual(resourceId, marketSellResource.ResourceId);
+            Assert.AreEqual(resourceId, marketSellResource.ResourceToSellId);
             Assert.AreEqual(sellPrice, marketSellResource.SellPrice);
         }
     }

@@ -60,16 +60,16 @@ namespace HarvestHaven
         {
             this.Confirm_Cancel_Button.Content = "Cancel";
 
-            Resource resource1 = await resourceService.GetResourceByIdAsync(trade.GivenResourceId);
+            Resource resource1 = await resourceService.GetResourceByIdAsync(trade.ResourceToGiveId);
             ResourceType resourceType1 = resource1.ResourceType;
             Give_TextBox.IsReadOnly = true;
-            Give_TextBox.Text = trade.GivenResourceQuantity.ToString();
+            Give_TextBox.Text = trade.ResourceToGiveQuantity.ToString();
             Give_Button.Source = new BitmapImage(new Uri(tradeService.GetPicturePathByResourceType(resourceType1), UriKind.Relative));
 
-            Resource resource2 = await resourceService.GetResourceByIdAsync(trade.RequestedResourceId);
+            Resource resource2 = await resourceService.GetResourceByIdAsync(trade.ResourceToGetResourceId);
             ResourceType resourceType2 = resource2.ResourceType;
             Get_TextBox.IsReadOnly = true;
-            Get_TextBox.Text = trade.RequestedResourceQuantity.ToString();
+            Get_TextBox.Text = trade.ResourceToGetQuantity.ToString();
             Get_Button.Source = new BitmapImage(new Uri("/Assets/Sprites/backpack_icon.png", UriKind.Relative));
             Get_Button.Source = new BitmapImage(new Uri(tradeService.GetPicturePathByResourceType(resourceType2), UriKind.Relative));
 
@@ -86,14 +86,14 @@ namespace HarvestHaven
                 {
                     TradingPanel tradingPanel = new (item);
 
-                    Resource resource1 = await resourceService.GetResourceByIdAsync(item.RequestedResourceId);
+                    Resource resource1 = await resourceService.GetResourceByIdAsync(item.ResourceToGetResourceId);
                     ResourceType resourceType1 = resource1.ResourceType;
-                    tradingPanel.LabelGive.Content = item.RequestedResourceQuantity;
+                    tradingPanel.LabelGive.Content = item.ResourceToGetQuantity;
                     tradingPanel.ImageGive.Source = new BitmapImage(new Uri(tradeService.GetPicturePathByResourceType(resourceType1), UriKind.Relative));
 
-                    Resource resource2 = await resourceService.GetResourceByIdAsync(item.GivenResourceId);
+                    Resource resource2 = await resourceService.GetResourceByIdAsync(item.ResourceToGiveId);
                     ResourceType resourceType2 = resource2.ResourceType;
-                    tradingPanel.LabelGet.Content = item.GivenResourceQuantity;
+                    tradingPanel.LabelGet.Content = item.ResourceToGiveQuantity;
                     tradingPanel.ImageGet.Source = new BitmapImage(new Uri(tradeService.GetPicturePathByResourceType(resourceType2), UriKind.Relative));
 
                     Trades_List.Items.Add(tradingPanel);

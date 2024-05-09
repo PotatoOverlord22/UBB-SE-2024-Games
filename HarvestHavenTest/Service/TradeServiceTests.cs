@@ -231,7 +231,7 @@ namespace HarvestHaven.Tests.Services
             // Mock user resources
             var userGivenResource = new InventoryResource(Guid.NewGuid(), userId, givenResourceId, givenResourceQuantity);
             var userRequestedResource = new InventoryResource(Guid.NewGuid(), userId, requestedResourceId, requestedResourceQuantity);
-            var initialRequestedResource = new InventoryResource(Guid.NewGuid(), trade.UserId, trade.RequestedResourceId, trade.RequestedResourceQuantity);
+            var initialRequestedResource = new InventoryResource(Guid.NewGuid(), trade.UserId, trade.ResourceToGetResourceId, trade.ResourceToGetQuantity);
 
             // Mock repositories
             var inventoryResourceRepositoryMock = new Mock<IInventoryResourceRepository>();
@@ -239,7 +239,7 @@ namespace HarvestHaven.Tests.Services
                 .ReturnsAsync(userRequestedResource);
             inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(userId, givenResourceId))
                 .ReturnsAsync(userGivenResource);
-            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(trade.UserId, trade.RequestedResourceId))
+            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(trade.UserId, trade.ResourceToGetResourceId))
                 .ReturnsAsync(initialRequestedResource);
 
             var tradeRepositoryMock = new Mock<ITradeRepository>();
@@ -255,8 +255,8 @@ namespace HarvestHaven.Tests.Services
             var achievementServiceMock = new Mock<IAchievementService>();
 
             var resourceRepositoryMock = new Mock<IResourceRepository>();
-            resourceRepositoryMock.Setup(repo => repo.GetResourceByIdAsync(trade.RequestedResourceId))
-                .ReturnsAsync(new Resource(trade.RequestedResourceId, ResourceType.Wheat));
+            resourceRepositoryMock.Setup(repo => repo.GetResourceByIdAsync(trade.ResourceToGetResourceId))
+                .ReturnsAsync(new Resource(trade.ResourceToGetResourceId, ResourceType.Wheat));
 
             var tradeService = new TradeService(
                 achievementServiceMock.Object,
@@ -502,7 +502,7 @@ namespace HarvestHaven.Tests.Services
             var userGivenResource = new InventoryResource(Guid.NewGuid(), userId, givenResourceId, givenResourceQuantity);
 
             var inventoryResourceRepositoryMock = new Mock<IInventoryResourceRepository>();
-            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(userId, trade.GivenResourceId))
+            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(userId, trade.ResourceToGiveId))
                 .ReturnsAsync((InventoryResource)null);
 
             var tradeRepositoryMock = new Mock<ITradeRepository>();

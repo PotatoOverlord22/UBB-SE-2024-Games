@@ -4,17 +4,17 @@
     {
         public Guid Id { get; set; }
         public ItemType ItemType { get; set; }
-        public Guid RequiredResourceId { get; set; }
-        public Guid InteractResourceId { get; set; }
-        public Guid? DestroyResourceId { get; set; } // Nullable.
+        public Guid ResourceToPlaceId { get; set; }
+        public Guid ResourceToInteractId { get; set; }
+        public Guid? ResourceToDestroyId { get; set; } // Nullable.
 
         public Item(Guid id, ItemType itemType, Guid requiredResourceId, Guid interactResourceId, Guid? destroyResourceId)
         {
             Id = id;
             ItemType = itemType;
-            RequiredResourceId = requiredResourceId;
-            InteractResourceId = interactResourceId;
-            DestroyResourceId = destroyResourceId;
+            ResourceToPlaceId = requiredResourceId;
+            ResourceToInteractId = interactResourceId;
+            ResourceToDestroyId = destroyResourceId;
         }
     }
 

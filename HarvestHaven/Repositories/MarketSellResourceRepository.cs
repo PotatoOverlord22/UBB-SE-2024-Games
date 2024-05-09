@@ -66,7 +66,7 @@ namespace HarvestHaven.Repositories
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", marketSellResource.Id);
-                    command.Parameters.AddWithValue("@ResourceId", marketSellResource.ResourceId);
+                    command.Parameters.AddWithValue("@ResourceId", marketSellResource.ResourceToSellId);
                     command.Parameters.AddWithValue("@SellPrice", marketSellResource.SellPrice);
                     await command.ExecuteNonQueryAsync();
                 }
@@ -82,7 +82,7 @@ namespace HarvestHaven.Repositories
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", marketSellResource.Id);
-                    command.Parameters.AddWithValue("@ResourceId", marketSellResource.ResourceId);
+                    command.Parameters.AddWithValue("@ResourceId", marketSellResource.ResourceToSellId);
                     command.Parameters.AddWithValue("@SellPrice", marketSellResource.SellPrice);
                     await command.ExecuteNonQueryAsync();
                 }

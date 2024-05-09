@@ -102,7 +102,7 @@ namespace HarvestHaven.Services
             // Update the user coins and number of items bought both locally and in the database.
             User newUser = GameStateManager.GetCurrentUser();
             newUser.Coins -= marketBuyItem.BuyPrice;
-            newUser.NrItemsBought++;
+            newUser.AmountOfItemsBought++;
             await userRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
 

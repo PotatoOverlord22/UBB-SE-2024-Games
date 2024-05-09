@@ -48,7 +48,7 @@ namespace HarvestHaven.Tests.Services
             achievementServiceMock.Verify(service => service.CheckFarmAchievements(), Times.Once);
             achievementServiceMock.Verify(service => service.CheckMarketAchievements(), Times.Once);
             Assert.AreEqual(currentUser.Coins, 100 - buyPrice);
-            Assert.AreEqual(currentUser.NrItemsBought, 6);
+            Assert.AreEqual(currentUser.AmountOfItemsBought, 6);
         }
 
         [TestMethod]
