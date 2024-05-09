@@ -201,6 +201,106 @@ namespace HarvestHaven.Tests.Services
             // Assert
             farmCellRepositoryMock.Verify(repo => repo.DeleteFarmCellAsync(farmCell.Id), Times.Once);
         }
+        [TestMethod]
+        public async Task InteractWithCell_WhenFarmCellIsNull_ThrowsException()
+        {
+            // Arrange
+            var row = 1;
+            var column = 1;
+            var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
+            farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync((FarmCell) null);
+
+            var farmService = new FarmService(null, farmCellRepositoryMock.Object, null, null);
+
+            // Act & Assert
+            await Assert.ThrowsExceptionAsync<Exception>(async () =>
+            {
+                // Act: Call the method that should throw an exception
+                await farmService.InteractWithCell(row, column);
+            });
+        }
+
+        [TestMethod]
+        public async Task InteractWithCell_WhenFarmCellItemIsNull_ThrowsException()
+        {
+            // Arrange
+            var row = 1;
+            var column = 1;
+            var farmCell = new FarmCell(Guid.NewGuid(), currentUser.Id, row, column, Guid.NewGuid(), DateTime.Now, DateTime.Now);
+            var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
+            farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync(farmCell);
+
+            var itemRepositoryMock = new Mock<IItemRepository>();
+            itemRepositoryMock.Setup(repo => repo.GetItemByIdAsync(farmCell.ItemId)).ReturnsAsync((Item) null);
+
+            var farmService = new FarmService(null, farmCellRepositoryMock.Object, itemRepositoryMock.Object, null);
+
+            // Act & Assert
+            await Assert.ThrowsExceptionAsync<Exception>(async () =>
+            {
+                // Act: Call the method that should throw an exception
+                await farmService.InteractWithCell(row, column);
+            });
+        }
+
+        [TestMethod]
+        public async Task InteractWithCell_WhenRequiredResourceIsNull_ThrowsException()
+        {
+            // Arrange
+            var row = 1;
+            var column = 1;
+            var farmCell = new FarmCell(Guid.NewGuid(), currentUser.Id, row, column, Guid.NewGuid(), DateTime.Now, DateTime.Now);
+            var item = new Item(Guid.NewGuid(), ItemType.CarrotSeeds, Guid.NewGuid(), Guid.NewGuid(), null);
+            var interactResource = new InventoryResource(Guid.NewGuid(), currentUser.Id, item.InteractResourceId, 10);
+
+            var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
+            farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync(farmCell);
+
+            var itemRepositoryMock = new Mock<IItemRepository>();
+            itemRepositoryMock.Setup(repo => repo.GetItemByIdAsync(farmCell.ItemId)).ReturnsAsync(item);
+
+            var inventoryResourceRepositoryMock = new Mock<IInventoryResourceRepository>();
+            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, item.InteractResourceId)).ReturnsAsync(interactResource);
+            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, item.RequiredResourceId)).ReturnsAsync((InventoryResource) null);
+
+            var farmService = new FarmService(null, farmCellRepositoryMock.Object, itemRepositoryMock.Object, inventoryResourceRepositoryMock.Object);
+
+            // Act & Assert
+            await Assert.ThrowsExceptionAsync<Exception>(async () =>
+            {
+                // Act: Call the method that should throw an exception
+                await farmService.InteractWithCell(row, column);
+            });
+        }
+
+        [TestMethod]
+        public async Task InteractWithCell_WhenInteractResourceIsNull_ThrowsException()
+        {
+            // Arrange
+            var row = 1;
+            var column = 1;
+            var farmCell = new FarmCell(Guid.NewGuid(), currentUser.Id, row, column, Guid.NewGuid(), DateTime.Now.AddDays(-3), DateTime.Now); // Set LastTimeEnhanced to a date in the past
+            var item = new Item(Guid.NewGuid(), ItemType.CarrotSeeds, Guid.NewGuid(), Guid.NewGuid(), null);
+            var requiredResource = new InventoryResource(Guid.NewGuid(), currentUser.Id, item.RequiredResourceId, 5);
+
+            var farmCellRepositoryMock = new Mock<IFarmCellRepository>();
+            farmCellRepositoryMock.Setup(repo => repo.GetUserFarmCellByPositionAsync(currentUser.Id, row, column)).ReturnsAsync(farmCell);
+
+            var itemRepositoryMock = new Mock<IItemRepository>();
+            itemRepositoryMock.Setup(repo => repo.GetItemByIdAsync(farmCell.ItemId)).ReturnsAsync(item);
+
+            var inventoryResourceRepositoryMock = new Mock<IInventoryResourceRepository>();
+            inventoryResourceRepositoryMock.Setup(repo => repo.GetUserResourceByResourceIdAsync(currentUser.Id, item.RequiredResourceId)).ReturnsAsync(requiredResource);
+
+            var farmService = new FarmService(null, farmCellRepositoryMock.Object, itemRepositoryMock.Object, inventoryResourceRepositoryMock.Object);
+
+            //Act
+            farmService.InteractWithCell(row, column);
+
+            // Assert
+            inventoryResourceRepositoryMock.Verify(repo => repo.UpdateUserResourceAsync(requiredResource), Times.Once);
+
+        }
 
         [TestMethod]
         public async Task EnchanceCellForUser_WhenValidUserIdAndPosition_UpdatesCellEnhancement()
