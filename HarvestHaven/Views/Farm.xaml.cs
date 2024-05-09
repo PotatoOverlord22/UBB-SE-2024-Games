@@ -131,7 +131,7 @@ namespace HarvestHaven
             #region Update Water
             try
             {
-                InventoryResource water = await userService.GetInventoryResourceByType(ResourceType.Water);
+                InventoryResource water = await userService.GetInventoryResourceByType(ResourceType.Water, GameStateManager.GetCurrentUserId());
 
                 if (water == null)
                 {

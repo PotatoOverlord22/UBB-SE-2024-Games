@@ -52,7 +52,7 @@ namespace HarvestHaven.Services
             return inventoryResourcesMap;
         }
 
-        public async Task<InventoryResource> GetInventoryResourceByType(ResourceType resourceType)
+        public async Task<InventoryResource> GetInventoryResourceByType(ResourceType resourceType, Guid userId)
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
@@ -68,69 +68,9 @@ namespace HarvestHaven.Services
             }
 
             // Get the inventory resource from the database.
-            InventoryResource inventoryResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), resource.Id);
+            InventoryResource inventoryResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(userId, resource.Id);
 
             return inventoryResource;
-        }
-
-        public async Task UpdateUserWater()
-        {
-            // Throw an exception if the user is not logged in.
-            if (GameStateManager.GetCurrentUser() == null)
-            {
-                throw new Exception("User must be logged in!");
-            }
-
-            // Store the time passed between the current time and the last time the user received water.
-            TimeSpan? timePassed = DateTime.UtcNow - GameStateManager.GetCurrentUser().LastTimeReceivedWater;
-
-            // If the user did not receive water yet we assume that he needs to receive water for one interval.
-            if (timePassed == null)
-            {
-                timePassed = TimeSpan.FromHours(Constants.WATER_INTERVAL_IN_HOURS);
-            }
-
-            // Return in case the user received water in less than an hour.
-            if (timePassed.Value.TotalHours < Constants.WATER_INTERVAL_IN_HOURS)
-            {
-                return;
-            }
-
-            // Compute the quantity of water needed for the user.
-            int waterQuantity = (int)timePassed.Value.TotalHours * Constants.WATER_PER_INTERVAL;
-
-            // Get the water resource reference from the database.
-            Resource waterResource = await resourceRepository.GetResourceByTypeAsync(ResourceType.Water);
-            if (waterResource == null)
-            {
-                throw new Exception("Water resource not found in the database.");
-            }
-
-            // Get the user's water from the inventory.
-            InventoryResource waterInventoryResource = await GetInventoryResourceByType(ResourceType.Water);
-
-            // If the water resource exists in the inventory simply update the quantity.
-            if (waterInventoryResource != null)
-            {
-                waterInventoryResource.Quantity += waterQuantity;
-                await inventoryResourceRepository.UpdateUserResourceAsync(waterInventoryResource);
-            }
-            else
-            {
-                // Otherwise add the resource to the inventory.
-                await inventoryResourceRepository.AddUserResourceAsync(
-                    new InventoryResource(
-                        id: Guid.NewGuid(),
-                        userId: GameStateManager.GetCurrentUserId(),
-                        resourceId: waterResource.Id,
-                        quantity: waterQuantity));
-            }
-
-            // Update last time received water to current time.
-            User newUser = GameStateManager.GetCurrentUser();
-            newUser.LastTimeReceivedWater = DateTime.UtcNow;
-            await userRepository.UpdateUserAsync(newUser);
-            GameStateManager.SetCurrentUser(newUser);
         }
 
         #endregion

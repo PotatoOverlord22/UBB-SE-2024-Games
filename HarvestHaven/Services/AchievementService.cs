@@ -229,13 +229,13 @@ namespace HarvestHaven.Services
             }
 
             // Get the neccesary resources from the current user's inventory.
-            InventoryResource wheatInventoryResource = await userService.GetInventoryResourceByType(ResourceType.Wheat);
-            InventoryResource tomatoInventoryResource = await userService.GetInventoryResourceByType(ResourceType.Tomato);
-            InventoryResource cornInventoryResource = await userService.GetInventoryResourceByType(ResourceType.Corn);
-            InventoryResource chickenEggsInventoryResource = await userService.GetInventoryResourceByType(ResourceType.ChickenEgg);
-            InventoryResource duckEggsInventoryResource = await userService.GetInventoryResourceByType(ResourceType.DuckEgg);
-            InventoryResource chickenMeatInventoryResource = await userService.GetInventoryResourceByType(ResourceType.ChickenMeat);
-            InventoryResource duckMeatInventoryResource = await userService.GetInventoryResourceByType(ResourceType.DuckMeat);
+            InventoryResource wheatInventoryResource = await userService.GetInventoryResourceByType(ResourceType.Wheat, GameStateManager.GetCurrentUserId());
+            InventoryResource tomatoInventoryResource = await userService.GetInventoryResourceByType(ResourceType.Tomato, GameStateManager.GetCurrentUserId());
+            InventoryResource cornInventoryResource = await userService.GetInventoryResourceByType(ResourceType.Corn, GameStateManager.GetCurrentUserId());
+            InventoryResource chickenEggsInventoryResource = await userService.GetInventoryResourceByType(ResourceType.ChickenEgg, GameStateManager.GetCurrentUserId());
+            InventoryResource duckEggsInventoryResource = await userService.GetInventoryResourceByType(ResourceType.DuckEgg, GameStateManager.GetCurrentUserId());
+            InventoryResource chickenMeatInventoryResource = await userService.GetInventoryResourceByType(ResourceType.ChickenMeat, GameStateManager.GetCurrentUserId());
+            InventoryResource duckMeatInventoryResource = await userService.GetInventoryResourceByType(ResourceType.DuckMeat, GameStateManager.GetCurrentUserId());
 
             #region Have in your inventory exactly 69 wheat! bccadd9c-c520-4c6e-8efb-8ef7642edde0
             if (wheatInventoryResource != null && wheatInventoryResource.Quantity == 69)
