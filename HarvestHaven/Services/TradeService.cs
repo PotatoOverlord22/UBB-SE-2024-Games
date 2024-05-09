@@ -237,23 +237,23 @@ namespace HarvestHaven.Services
             await achievementService.CheckInventoryAchievements();
         }
 
-        public string GetPicturePathByResourceType(ResourceType resourceType)
-        {
-            string path = string.Empty;
-            return resourceType switch
+             public string GetPicturePathByResourceType(ResourceType resourceType)
             {
-                ResourceType.Carrot => Constants.CarrotPath,
-                ResourceType.Corn => Constants.CornPath,
-                ResourceType.Wheat => Constants.WheatPath,
-                ResourceType.Tomato => Constants.TomatoPath,
-                ResourceType.ChickenMeat => Constants.ChickenPath,
-                ResourceType.DuckMeat => Constants.DuckPath,
-                ResourceType.Mutton => Constants.SheepPath,
-                ResourceType.SheepWool => Constants.WoolPath,
-                ResourceType.ChickenEgg => Constants.ChickenEggPath,
-                ResourceType.DuckEgg => Constants.DuckEggPath,
-                _ => resourceType == ResourceType.CowMilk ? Constants.MilkPath : Constants.CowPath,
-            };
-        }
+                string path = string.Empty;
+                return resourceType switch
+                {
+                    ResourceType.Carrot => Constants.CarrotPath,
+                    ResourceType.Corn => Constants.CornPath,
+                    ResourceType.Wheat => Constants.WheatPath,
+                    ResourceType.Tomato => Constants.TomatoPath,
+                    ResourceType.ChickenMeat => Constants.ChickenPath,
+                    ResourceType.DuckMeat => Constants.DuckPath,
+                    ResourceType.Mutton => Constants.SheepPath,
+                    ResourceType.SheepWool => Constants.WoolPath,
+                    ResourceType.ChickenEgg => Constants.ChickenEggPath,
+                    ResourceType.DuckEgg => Constants.DuckEggPath,
+                    _ => resourceType == ResourceType.CowMilk ? Constants.MilkPath : Constants.CowPath,
+                };
+            }
     }
 }
