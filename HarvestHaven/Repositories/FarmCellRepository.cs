@@ -16,9 +16,9 @@ namespace HarvestHaven.Repositories
         public async Task<List<FarmCell>> GetUserFarmCellsAsync(Guid userId)
         {
             List<FarmCell> farmCells = new List<FarmCell>();
-            var parameters = new Dictionary<string, object> { { "@UserId", userId } };
+            var queryParameters = new Dictionary<string, object> { { "@UserId", userId } };
 
-            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("SELECT * FROM FarmCells WHERE UserId = @UserId", parameters))
+            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("SELECT * FROM FarmCells WHERE UserId = @UserId", queryParameters))
             {
                 while (reader.Read())
                 {
@@ -64,7 +64,7 @@ namespace HarvestHaven.Repositories
 
         public async Task AddFarmCellAsync(FarmCell farmCell)
         {
-            var parameters = new Dictionary<string, object>
+            var queryParameters = new Dictionary<string, object>
             {
                 { "@Id", farmCell.Id },
                 { "@UserId", farmCell.UserId },
@@ -75,12 +75,12 @@ namespace HarvestHaven.Repositories
                 { "@LastTimeInteracted", farmCell.LastTimeInteracted ?? (object)DBNull.Value }
             };
 
-            await databaseProvider.ExecuteReaderAsync("INSERT INTO FarmCells (Id, UserId, Row, [Column], ItemId, LastTimeEnhanced, LastTimeInteracted) VALUES (@Id, @UserId, @Row, @Column, @ItemId, @LastTimeEnhanced, @LastTimeInteracted)", parameters);
+            await databaseProvider.ExecuteReaderAsync("INSERT INTO FarmCells (Id, UserId, Row, [Column], ItemId, LastTimeEnhanced, LastTimeInteracted) VALUES (@Id, @UserId, @Row, @Column, @ItemId, @LastTimeEnhanced, @LastTimeInteracted)", queryParameters);
         }
 
         public async Task UpdateFarmCellAsync(FarmCell farmCell)
         {
-            var parameters = new Dictionary<string, object>
+            var queryParameters = new Dictionary<string, object>
             {
                 { "@Id", farmCell.Id },
                 { "@Row", farmCell.Row },
@@ -90,14 +90,14 @@ namespace HarvestHaven.Repositories
                 { "@LastTimeInteracted", farmCell.LastTimeInteracted ?? (object)DBNull.Value }
             };
 
-            await databaseProvider.ExecuteReaderAsync("UPDATE FarmCells SET Row = @Row, [Column] = @Column, ItemId = @ItemId, LastTimeEnhanced = @LastTimeEnhanced, LastTimeInteracted = @LastTimeInteracted WHERE Id = @Id", parameters);
+            await databaseProvider.ExecuteReaderAsync("UPDATE FarmCells SET Row = @Row, [Column] = @Column, ItemId = @ItemId, LastTimeEnhanced = @LastTimeEnhanced, LastTimeInteracted = @LastTimeInteracted WHERE Id = @Id", queryParameters);
         }
 
         public async Task DeleteFarmCellAsync(Guid farmCellId)
         {
-            var parameters = new Dictionary<string, object> { { "@Id", farmCellId } };
+            var queryParameters = new Dictionary<string, object> { { "@Id", farmCellId } };
 
-            await databaseProvider.ExecuteReaderAsync("DELETE FROM FarmCells WHERE Id = @Id", parameters);
+            await databaseProvider.ExecuteReaderAsync("DELETE FROM FarmCells WHERE Id = @Id", queryParameters);
         }
     }
 }
