@@ -1,4 +1,5 @@
 ﻿using HarvestHaven.Entities;
+using HarvestHaven.Utils;
 
 namespace HarvestHaven.Services
 {
@@ -13,7 +14,7 @@ namespace HarvestHaven.Services
         }
         public async Task<string> GetCorrespondingValueForLabel(string labelName)
         {
-            resources = await userService.GetInventoryResources();
+            resources = await userService.GetInventoryResources(GameStateManager.GetCurrentUserId());
 
             switch (labelName)
             {
