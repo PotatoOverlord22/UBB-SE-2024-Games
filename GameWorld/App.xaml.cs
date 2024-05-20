@@ -1,11 +1,11 @@
 ﻿using System.Windows;
-using GameWorld;
 using GameWorld.Entities;
-using GameWorld.Services;
 using GameWorld.Utils;
+using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
+using GameWorld.Views;
 
-namespace HarvestHaven
+namespace GameWorld
 {
     public partial class App : Application
     {

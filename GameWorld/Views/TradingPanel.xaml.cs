@@ -1,11 +1,8 @@
 ﻿using System.Windows.Controls;
 using GameWorld.Entities;
 
-namespace HarvestHaven
+namespace GameWorld.Views
 {
-    /// <summary>
-    /// Interaction logic for TradingPanel.xaml
-    /// </summary>
     public partial class TradingPanel : StackPanel
     {
         public Trade Trade;

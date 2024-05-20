@@ -1,9 +1,8 @@
 ﻿using System.Windows;
 using GameWorld.Entities;
 using GameWorld.Services;
-using GameWorld.Utils;
 
-namespace HarvestHaven
+namespace GameWorld.Views
 {
     public partial class SellMarket : Window
     {

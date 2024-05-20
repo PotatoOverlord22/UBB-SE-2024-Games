@@ -3,13 +3,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using Microsoft.Extensions.DependencyInjection;
-using GameWorld.Utils;
-using GameWorld;
 using GameWorld.Entities;
 using GameWorld.Services;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace HarvestHaven
+namespace GameWorld.Views
 {
     public partial class VisitedFarm : Window
     {

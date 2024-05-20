@@ -1,9 +1,9 @@
-﻿<Window x:Class="HarvestHaven.TradingUnlocked"
+﻿<Window x:Class="GameWorld.Views.TradingUnlocked"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HarvestHaven"
+        xmlns:local="clr-namespace:GameWorld.Views"
         mc:Ignorable="d"
         Title="TradingUnlocked"
         ResizeMode="NoResize"
@@ -25,13 +25,13 @@
 
     <Grid Height="550" Width="900">
         <Grid.Background>
-            <ImageBrush ImageSource="/Assets/Sprites/market_background.png" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="/Resources/Assets/Sprites/market_background.png" Stretch="UniformToFill"/>
         </Grid.Background>
-        <Image HorizontalAlignment="Left" Height="450" Margin="25,70,0,0" VerticalAlignment="Top" Width="380" Source="/Assets/Sprites/inventory_icon.jpg" Stretch="Fill"/>
-        <Image HorizontalAlignment="Center" Height="60" VerticalAlignment="Top" Width="900" Source="/Assets/Sprites/bar_icon.png" Stretch="Fill" StretchDirection="UpOnly"/>
+        <Image HorizontalAlignment="Left" Height="450" Margin="25,70,0,0" VerticalAlignment="Top" Width="380" Source="/Resources/Assets/Sprites/inventory_icon.jpg" Stretch="Fill"/>
+        <Image HorizontalAlignment="Center" Height="60" VerticalAlignment="Top" Width="900" Source="/Resources/Assets/Sprites/bar_icon.png" Stretch="Fill" StretchDirection="UpOnly"/>
         <Button x:Name="Back_Button" Content="Back" HorizontalAlignment="Left" Margin="700,0,0,0" VerticalAlignment="Top" Height="60" Width="200" FontSize="25" FontWeight="Bold" Foreground="White" VerticalContentAlignment="Center" Padding="0,0,0,0" Click="Back_Button_Click">
             <Button.Background>
-                <ImageBrush ImageSource="/Assets/Sprites/light_bar_icon.png"/>
+                <ImageBrush ImageSource="/Resources/Assets/Sprites/light_bar_icon.png"/>
             </Button.Background>
         </Button>
         <Label Content="Trading Hall" HorizontalAlignment="Left" Margin="35,6,0,0" VerticalAlignment="Top" Height="48" Width="212" Foreground="White" FontWeight="Bold" FontSize="25"/>
@@ -55,19 +55,19 @@
         <StackPanel Orientation="Horizontal" Margin="88,162,563,288" VerticalAlignment="Center">
             <Label Content="Give" HorizontalAlignment="Left" Height="48" Width="85" Foreground="White" FontWeight="Bold" FontSize="35" HorizontalContentAlignment="Center" Margin="0,0,0,8"/>
             <TextBox x:Name="Give_TextBox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" Width="60" Height="44" Background="{x:Null}" Foreground="White" FontWeight="Bold" FontSize="30" TextDecorations="Underline" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}"/>
-            <Image x:Name="Give_Button" MouseDown="Give_Button_Click" Cursor="Hand" Source="/Assets/Sprites/backpack_icon.png" Width="110" Height="90"/>
+            <Image x:Name="Give_Button" MouseDown="Give_Button_Click" Cursor="Hand" Source="/Resources/Assets/Sprites/backpack_icon.png" Width="110" Height="90"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="88,275,562,175">
             <Label Content="Get" HorizontalAlignment="Left" Height="48" Width="85" Foreground="White" FontWeight="Bold" FontSize="35" HorizontalContentAlignment="Center" Margin="0,0,0,8"/>
             <TextBox x:Name="Get_TextBox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" Width="60" Height="44" Background="{x:Null}" Foreground="White" FontWeight="Bold" FontSize="30" TextDecorations="Underline" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}"/>
-            <Image x:Name="Get_Button" MouseDown="Get_Button_Click" Cursor="Hand" Source="/Assets/Sprites/backpack_icon.png" Width="110" Height="90"/>
+            <Image x:Name="Get_Button" MouseDown="Get_Button_Click" Cursor="Hand" Source="/Resources/Assets/Sprites/backpack_icon.png" Width="110" Height="90"/>
         </StackPanel>
             <Button x:Name="Confirm_Cancel_Button" Content="Confirm" HorizontalAlignment="Left" Margin="126,405,0,0" VerticalAlignment="Top" Height="70" Width="174" Foreground="White" Padding="0,0,0,0" FontSize="20" FontWeight="Bold" Click="Confirm_Cancel_Button_Click">
             <Button.Background>
-                <ImageBrush ImageSource="/Assets/Sprites/bar_icon.png"/>
+                <ImageBrush ImageSource="/Resources/Assets/Sprites/bar_icon.png"/>
             </Button.Background>
         </Button>
-        <Image HorizontalAlignment="Left" Height="450" Margin="489,70,0,0" VerticalAlignment="Top" Width="380" Source="/Assets/Sprites/inventory_icon.jpg" Stretch="Fill"/>
+        <Image HorizontalAlignment="Left" Height="450" Margin="489,70,0,0" VerticalAlignment="Top" Width="380" Source="/Resources/Assets/Sprites/inventory_icon.jpg" Stretch="Fill"/>
         <Label Content="All trades" HorizontalAlignment="Left" Margin="573,98,0,0" VerticalAlignment="Top" Height="48" Width="212" Foreground="White" FontWeight="Bold" FontSize="35" HorizontalContentAlignment="Center"/>
         <ListBox x:Name="Trades_List" Margin="520,145,61,75" Background="{x:Null}" BorderBrush="{x:Null}" />
 

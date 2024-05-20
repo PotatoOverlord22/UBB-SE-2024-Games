@@ -4,7 +4,7 @@ using System.Windows.Input;
 using GameWorld.Entities;
 using GameWorld.Services;
 
-namespace HarvestHaven
+namespace GameWorld.Views
 {
     public partial class TradingInventory : Window
     {

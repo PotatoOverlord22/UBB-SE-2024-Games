@@ -2,9 +2,8 @@
 using System.Windows.Input;
 using GameWorld.Entities;
 using GameWorld.Services;
-using GameWorld.Utils;
 
-namespace HarvestHaven
+namespace GameWorld.Views
 {
     public partial class BuyMarket : Window
     {

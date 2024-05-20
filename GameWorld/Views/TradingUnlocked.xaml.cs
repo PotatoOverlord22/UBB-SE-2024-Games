@@ -1,13 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Media.Imaging;
-using static HarvestHaven.TradingInventory;
-using Microsoft.Extensions.DependencyInjection;
-using GameWorld;
+using GameWorld.Entities;
 using GameWorld.Services;
 using GameWorld.Utils;
-using GameWorld.Entities;
+using Microsoft.Extensions.DependencyInjection;
+using static GameWorld.Views.TradingInventory;
 
-namespace HarvestHaven
+namespace GameWorld.Views
 {
     public partial class TradingUnlocked : Window
     {
@@ -51,8 +50,8 @@ namespace HarvestHaven
             Get_TextBox.Text = "0";
             getResource = ResourceType.Water;
             giveResource = ResourceType.Water;
-            Give_Button.Source = new BitmapImage(new Uri("/Assets/Sprites/backpack_icon.png", UriKind.Relative));
-            Get_Button.Source = new BitmapImage(new Uri("/Assets/Sprites/backpack_icon.png", UriKind.Relative));
+            Give_Button.Source = new BitmapImage(new Uri("/Resources/Assets/Sprites/backpack_icon.png", UriKind.Relative));
+            Get_Button.Source = new BitmapImage(new Uri("/Resources/Assets/Sprites/backpack_icon.png", UriKind.Relative));
             this.Get_Button.IsEnabled = true;
             this.Give_Button.IsEnabled = true;
         }
@@ -71,7 +70,7 @@ namespace HarvestHaven
             ResourceType resourceType2 = resource2.ResourceType;
             Get_TextBox.IsReadOnly = true;
             Get_TextBox.Text = trade.ResourceToGetQuantity.ToString();
-            Get_Button.Source = new BitmapImage(new Uri("/Assets/Sprites/backpack_icon.png", UriKind.Relative));
+            Get_Button.Source = new BitmapImage(new Uri("/Resources/Assets/Sprites/backpack_icon.png", UriKind.Relative));
             Get_Button.Source = new BitmapImage(new Uri(tradeService.GetPicturePathByResourceType(resourceType2), UriKind.Relative));
 
             this.Get_Button.IsEnabled = false;
