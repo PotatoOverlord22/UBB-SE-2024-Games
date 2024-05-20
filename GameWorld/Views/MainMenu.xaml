@@ -25,7 +25,7 @@
 
     <StackPanel Height="450" Width="800" Orientation="Vertical">
         <StackPanel.Background>
-            <ImageBrush ImageSource="/Assets/Sprites/start_background.jpg"/>
+            <ImageBrush ImageSource="/Resources/Assets/Sprites/start_background.jpg"/>
         </StackPanel.Background>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label x:Name="TitleLabel" Content="Harvest Haven" Height="145" FontSize="55" FontFamily="Ravie" FontStyle="Normal" Foreground="#FFD4D62A" Margin="0,30,0,0" FontWeight="Heavy">

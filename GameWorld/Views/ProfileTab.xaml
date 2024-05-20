@@ -24,37 +24,37 @@
     </Window.Resources>
 
     <Grid Height="450" Width="800">
-        <Image Source="/Assets/Sprites/Profile_background.PNG" Stretch="Fill"/>
+        <Image Source="/Resources/Assets/Sprites/Profile_background.PNG" Stretch="Fill"/>
         <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="10,378,0,0" VerticalAlignment="Top" Height="62" Width="201" Foreground="White" FontSize="32" Click="BackButton_Click">
             <Button.Background>
-                <ImageBrush ImageSource="/Assets/Sprites/light_bar_icon.PNG"/>
+                <ImageBrush ImageSource="/Resources/Assets/Sprites/light_bar_icon.PNG"/>
             </Button.Background>
         </Button>
         <Button x:Name="achievementButton" Margin="192,120,468,273" Width="140" Content="Achievements" FontSize="15" Foreground="White" Click="AchievementButton_Click">
             <Button.Background>
-                <ImageBrush ImageSource="/Assets/Sprites/Light_bar_icon.PNG"></ImageBrush>
+                <ImageBrush ImageSource="/Resources/Assets/Sprites/Light_bar_icon.PNG"></ImageBrush>
             </Button.Background>
         </Button>
         <Button x:Name="leaderboardButton" Margin="332,120,328,273" Width="140" Content="Leaderboard" FontSize="15" Foreground="White" Click="LeaderboardButton_Click">
             <Button.Background>
-                <ImageBrush ImageSource="/Assets/Sprites/Light_bar_icon.PNG"></ImageBrush>
+                <ImageBrush ImageSource="/Resources/Assets/Sprites/Light_bar_icon.PNG"></ImageBrush>
             </Button.Background>
         </Button>
         <Button x:Name="commentsButton" Margin="470,120,190,273" Width="140" Content="Comments" FontSize="15" Foreground="White" Click="CommentsButton_Click">
             <Button.Background>
-                <ImageBrush ImageSource="/Assets/Sprites/Light_bar_icon.PNG"></ImageBrush>
+                <ImageBrush ImageSource="/Resources/Assets/Sprites/Light_bar_icon.PNG"></ImageBrush>
             </Button.Background>
         </Button>
         <ListBox ItemsSource="{Binding}" x:Name="achievementList" Margin="192,177,197,83" Width="411">
             <ListBox.Resources>
-                <BitmapImage x:Key="FrameImage" UriSource="/Assets/Sprites/button_icon.jpg"/>
-                <BitmapImage x:Key="CoinImage" UriSource="/Assets/Sprites/coin_icon.png"/>
+                <BitmapImage x:Key="FrameImage" UriSource="/Resources/Assets/Sprites/button_icon.jpg"/>
+                <BitmapImage x:Key="CoinImage" UriSource="/Resources/Assets/Sprites/coin_icon.png"/>
             </ListBox.Resources>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <DockPanel LastChildFill="True">
                         <DockPanel.Background>
-                            <ImageBrush ImageSource="/Assets/Sprites/bar_icon.png"/>
+                            <ImageBrush ImageSource="/Resources/Assets/Sprites/bar_icon.png"/>
                         </DockPanel.Background>
                         <DockPanel>
                             <Image Source="{StaticResource FrameImage}" Width="40" Height="40" Margin="12,0,0,0"></Image>
@@ -88,8 +88,8 @@
         </ListBox>
         <ListBox ItemsSource="{Binding}" x:Name="leaderboardList" Margin="192,177,197,83" Width="411">
             <ListBox.Resources>
-                <BitmapImage x:Key="FaceImage" UriSource="/Assets/Sprites/sunglasses_face_icon.png"/>
-                <BitmapImage x:Key="CoinImage" UriSource="/Assets/Sprites/coin_icon.png"/>
+                <BitmapImage x:Key="FaceImage" UriSource="/Resources/Assets/Sprites/sunglasses_face_icon.png"/>
+                <BitmapImage x:Key="CoinImage" UriSource="/Resources/Assets/Sprites/coin_icon.png"/>
             </ListBox.Resources>
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -98,7 +98,7 @@
                             <ControlTemplate TargetType="Button">
                                 <DockPanel >
                                     <DockPanel.Background>
-                                        <ImageBrush ImageSource="/Assets/Sprites/bar_icon.png"/>
+                                        <ImageBrush ImageSource="/Resources/Assets/Sprites/bar_icon.png"/>
                                     </DockPanel.Background>
                                   
                                     <Image Source="{StaticResource FaceImage}" Height="35" Width="35" Margin="9,0,9,0"></Image>
@@ -128,13 +128,13 @@
         </ListBox>
         <ListBox ItemsSource="{Binding}" x:Name="commentList" Margin="192,177,197,83" Width="411">
             <ListBox.Resources>
-                <BitmapImage x:Key="RedXImage" UriSource="/Assets/Sprites/red X.png"/>
+                <BitmapImage x:Key="RedXImage" UriSource="/Resources/Assets/Sprites/red X.png"/>
             </ListBox.Resources>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <DockPanel Height="57">
                         <DockPanel.Background>
-                            <ImageBrush ImageSource="/Assets/Sprites/bar_icon.png"/>
+                            <ImageBrush ImageSource="/Resources/Assets/Sprites/bar_icon.png"/>
                         </DockPanel.Background>
                         <TextBlock Text="{Binding Message}" Foreground="White" FontSize="16" Margin="12,17,0,0"/>
                         <Image Source="{StaticResource RedXImage}" HorizontalAlignment="Right" Width="35" Margin="0,0,12,0"></Image>
