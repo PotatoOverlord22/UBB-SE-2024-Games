@@ -1,0 +1,136 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<OutputType>WinExe</OutputType>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<UseWPF>true</UseWPF>
+		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+		<CodeAnalysisRuleSet>se.ruleset</CodeAnalysisRuleSet>
+	</PropertyGroup>
+	<PropertyGroup>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<CodeAnalysisRuleSet>SE.ruleset</CodeAnalysisRuleSet>
+	</PropertyGroup>
+	<PropertyGroup>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+	</PropertyGroup>
+	<ItemGroup>
+		<Resource Include="Resources\assets\cards\10C.png" />
+		<Resource Include="Resources\assets\cards\10D.png" />
+		<Resource Include="Resources\assets\cards\10H.png" />
+		<Resource Include="Resources\assets\cards\10S.png" />
+		<Resource Include="Resources\assets\cards\2C.png" />
+		<Resource Include="Resources\assets\cards\2D.png" />
+		<Resource Include="Resources\assets\cards\2H.png" />
+		<Resource Include="Resources\assets\cards\2S.png" />
+		<Resource Include="Resources\assets\cards\3C.png" />
+		<Resource Include="Resources\assets\cards\3D.png" />
+		<Resource Include="Resources\assets\cards\3H.png" />
+		<Resource Include="Resources\assets\cards\3S.png" />
+		<Resource Include="Resources\assets\cards\4C.png" />
+		<Resource Include="Resources\assets\cards\4D.png" />
+		<Resource Include="Resources\assets\cards\4H.png" />
+		<Resource Include="Resources\assets\cards\4S.png" />
+		<Resource Include="Resources\assets\cards\5C.png" />
+		<Resource Include="Resources\assets\cards\5D.png" />
+		<Resource Include="Resources\assets\cards\5H.png" />
+		<Resource Include="Resources\assets\cards\5S.png" />
+		<Resource Include="Resources\assets\cards\6C.png" />
+		<Resource Include="Resources\assets\cards\6D.png" />
+		<Resource Include="Resources\assets\cards\6H.png" />
+		<Resource Include="Resources\assets\cards\6S.png" />
+		<Resource Include="Resources\assets\cards\7C.png" />
+		<Resource Include="Resources\assets\cards\7D.png" />
+		<Resource Include="Resources\assets\cards\7H.png" />
+		<Resource Include="Resources\assets\cards\7S.png" />
+		<Resource Include="Resources\assets\cards\8C.png" />
+		<Resource Include="Resources\assets\cards\8D.png" />
+		<Resource Include="Resources\assets\cards\8H.png" />
+		<Resource Include="Resources\assets\cards\8S.png" />
+		<Resource Include="Resources\assets\cards\9C.png" />
+		<Resource Include="Resources\assets\cards\9D.png" />
+		<Resource Include="Resources\assets\cards\9H.png" />
+		<Resource Include="Resources\assets\cards\9S.png" />
+		<Resource Include="Resources\assets\cards\AC.png" />
+		<Resource Include="Resources\assets\cards\AD.png" />
+		<Resource Include="Resources\assets\cards\AH.png" />
+		<Resource Include="Resources\assets\cards\AS.png" />
+		<Resource Include="Resources\assets\cards\back.jpg" />
+		<Resource Include="Resources\assets\cards\downCard.jpg" />
+		<Resource Include="Resources\assets\cards\JC.png" />
+		<Resource Include="Resources\assets\cards\JD.png" />
+		<Resource Include="Resources\assets\cards\JH.png" />
+		<Resource Include="Resources\assets\cards\JS.png" />
+		<Resource Include="Resources\assets\cards\KC.png" />
+		<Resource Include="Resources\assets\cards\KD.png" />
+		<Resource Include="Resources\assets\cards\KH.png" />
+		<Resource Include="Resources\assets\cards\KS.png" />
+		<Resource Include="Resources\assets\cards\QC.png" />
+		<Resource Include="Resources\assets\cards\QD.png" />
+		<Resource Include="Resources\assets\cards\QH.png" />
+		<Resource Include="Resources\assets\cards\QS.png" />
+		<Content Include="Resources\db\models\Challenge.sql" />
+		<Content Include="Resources\db\models\Font.sql" />
+		<Content Include="Resources\db\models\Icon.sql" />
+		<Content Include="Resources\db\models\Request.sql" />
+		<Content Include="Resources\db\models\Table.sql" />
+		<Content Include="Resources\db\models\Title.sql" />
+		<Content Include="Resources\db\models\User.sql" />
+		<Content Include="Resources\db\models\UserFonts.sql" />
+		<Content Include="Resources\db\models\UserIcons.sql" />
+		<Content Include="Resources\db\models\UserTitles.sql" />
+		<Content Include="Resources\db\Populate DB.sql" />
+		<Content Include="Resources\db\queries\challenge.sql" />
+		<Content Include="Resources\db\queries\font.sql" />
+		<Content Include="Resources\db\queries\icon.sql" />
+		<Content Include="Resources\db\queries\request.sql" />
+		<Content Include="Resources\db\queries\table.sql" />
+		<Content Include="Resources\db\queries\title.sql" />
+		<Content Include="Resources\db\queries\user.sql" />
+		<Content Include="Resources\db\queries\userfonts.sql" />
+		<Content Include="Resources\db\queries\usericons.sql" />
+		<Content Include="Resources\db\queries\usertitle.sql" />
+		<Resource Include="Resources\assets\messageicons.png" />
+		<Resource Include="Resources\assets\gametableBG.jpg" />
+		<Resource Include="Resources\assets\challengesicon.png" />
+		<Resource Include="Resources\assets\demo_avatar.jpg" />
+		<Resource Include="Resources\assets\greenchip.png" />
+		<Resource Include="Resources\assets\backarrow.png" />
+		<Content Include="Resources\assets\index.html" />
+		<Resource Include="Resources\assets\money_bag.png" />
+		<Resource Include="Resources\assets\challengeCards.png" />
+		<Resource Include="Resources\assets\lightgreenbackgroundimg.png" />
+		<Resource Include="Resources\assets\greenbackgroundimg.jpg" />
+		<Resource Include="Resources\assets\interntable.png" />
+		<Resource Include="Resources\assets\juniortable.jpg" />
+		<Resource Include="Resources\assets\output-onlinepngtools.png" />
+		<Resource Include="Resources\assets\profilepict.png" />
+		<Resource Include="Resources\assets\RedBackground.jpg" />
+		<Resource Include="Resources\assets\seniortable.jpg" />
+		<Resource Include="Resources\assets\shopping-cart-white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="Resources\assets\leaderboard.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="Resources\assets\pear.jpeg" />
+		<Resource Include="Resources\assets\redchip.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageReference Include="Moq" Version="4.20.70" />
+		<PackageReference Include="NUnit" Version="4.1.0" />
+		<PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+	</ItemGroup>
+</Project>

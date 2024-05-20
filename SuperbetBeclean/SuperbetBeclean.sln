@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperbetBeclean", "SuperbetBeclean.csproj", "{7212958B-43D9-4F97-A01B-3551F8C96D07}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestingBeclean", "TestingBeclean\TestingBeclean.csproj", "{1F417F65-072D-41B7-89A8-58172AE490DA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7212958B-43D9-4F97-A01B-3551F8C96D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7212958B-43D9-4F97-A01B-3551F8C96D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7212958B-43D9-4F97-A01B-3551F8C96D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7212958B-43D9-4F97-A01B-3551F8C96D07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F417F65-072D-41B7-89A8-58172AE490DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F417F65-072D-41B7-89A8-58172AE490DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F417F65-072D-41B7-89A8-58172AE490DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F417F65-072D-41B7-89A8-58172AE490DA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5EE90F01-07B0-4FC2-BB2D-C07B07896E50}
+	EndGlobalSection
+EndGlobal
