@@ -1,9 +1,8 @@
 ﻿using System.Windows;
-using GameWorld;
 using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HarvestHaven
+namespace GameWorld.Views
 {
     public partial class MainMenu : Window
     {

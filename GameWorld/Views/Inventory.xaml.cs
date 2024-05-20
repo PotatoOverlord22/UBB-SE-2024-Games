@@ -1,9 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using GameWorld.Services;
-using GameWorld.Entities;
 
-namespace HarvestHaven
+namespace GameWorld.Views
 {
     public partial class Inventory : Window
     {

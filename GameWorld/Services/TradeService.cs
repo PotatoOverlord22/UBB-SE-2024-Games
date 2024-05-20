@@ -1,5 +1,4 @@
-﻿using Castle.Core.Resource;
-using GameWorld.Entities;
+﻿using GameWorld.Entities;
 using GameWorld.Repositories;
 using GameWorld.Utils;
 

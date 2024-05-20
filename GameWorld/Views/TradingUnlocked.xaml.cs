@@ -1,13 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Media.Imaging;
-using static HarvestHaven.TradingInventory;
-using Microsoft.Extensions.DependencyInjection;
-using GameWorld;
+using GameWorld.Entities;
 using GameWorld.Services;
 using GameWorld.Utils;
-using GameWorld.Entities;
+using Microsoft.Extensions.DependencyInjection;
+using static GameWorld.Views.TradingInventory;
 
-namespace HarvestHaven
+namespace GameWorld.Views
 {
     public partial class TradingUnlocked : Window
     {

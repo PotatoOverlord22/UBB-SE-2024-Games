@@ -1,6 +1,6 @@
 ﻿using GameWorld.Repositories;
-using GameWorld.Services;
 using GameWorld.Utils;
+using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GameWorld

@@ -1,12 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using GameWorld;
 using GameWorld.Entities;
-using GameWorld.Services;
 using GameWorld.Utils;
+using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HarvestHaven
+namespace GameWorld.Views
 {
     public partial class ProfileTab : Window
     {

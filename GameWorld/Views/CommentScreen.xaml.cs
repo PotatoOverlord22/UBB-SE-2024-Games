@@ -1,11 +1,8 @@
 ﻿using System.Windows;
 using GameWorld.Services;
 
-namespace HarvestHaven
+namespace GameWorld.Views
 {
-    /// <summary>
-    /// Interaction logic for CommentScreen.xaml
-    /// </summary>
     public partial class CommentScreen : Window
     {
         private VisitedFarm visitedFarm;
