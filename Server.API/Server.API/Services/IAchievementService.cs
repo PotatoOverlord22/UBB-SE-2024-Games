@@ -5,6 +5,9 @@ namespace Server.API.Services
 {
     public interface IAchievementService
     {
-        Task<ActionResult<IEnumerable<Achievement>>> GetAchievementsAsync();
+        void AddAchievement(Achievement achievement);
+        Task<Achievement> GetAchievementByIdAsync(Guid id);
+        Task<List<Achievement>> GetAchievementsAsync();
+        void UpdateAchievement(Guid id, Achievement achievement);
     }
 }
