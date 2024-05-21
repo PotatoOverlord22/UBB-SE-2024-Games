@@ -1,4 +1,4 @@
-﻿using SuperbetBeclean.Model;
+﻿using SuperbetBeclean.ViewModels;
 
 public class HandRankCalculator
 {

@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using System.Data.SqlClient;
 using System.Windows;
-using SuperbetBeclean.Model;
+using SuperbetBeclean.ViewModels;
 using SuperbetBeclean.Windows;
 
 namespace SuperbetBeclean.Services
@@ -89,11 +89,11 @@ namespace SuperbetBeclean.Services
                     newUser.UserStreak = INITIAL_STREAK;
                 }
                 newUser.UserChips += newUser.UserStreak * DAILY_LOGIN_STREAK_MULTIPLIER;
-                databaseService.UpdateUserChips(newUser.UserID, newUser.UserChips);
-                databaseService.UpdateUserStreak(newUser.UserID, newUser.UserStreak);
+                databaseService.UpdateUserChips(newUser.Id, newUser.UserChips);
+                databaseService.UpdateUserStreak(newUser.Id, newUser.UserStreak);
                 MessageBox.Show("Congratulations, you got your daily bonus!\n" + "Streak: " + newUser.UserStreak + " Bonus: " + (DAILY_LOGIN_STREAK_MULTIPLIER * newUser.UserStreak).ToString());
             }
-            databaseService.UpdateUserLastLogin(newUser.UserID, DateTime.Now);
+            databaseService.UpdateUserLastLogin(newUser.Id, DateTime.Now);
         }
         public int GetIntFromReader(SqlDataReader reader, string columnName)
         {
@@ -184,9 +184,9 @@ namespace SuperbetBeclean.Services
             seniorTable.DisconnectUser(window);
 
             player.UserChips += player.UserStack;
-            databaseService.UpdateUserChips(player.UserID, player.UserChips);
+            databaseService.UpdateUserChips(player.Id, player.UserChips);
             player.UserStack = EMPTY;
-            databaseService.UpdateUserStack(player.UserID, player.UserStack);
+            databaseService.UpdateUserStack(player.Id, player.UserStack);
         }
         public int JoinInternTable(MenuWindow window)
         {

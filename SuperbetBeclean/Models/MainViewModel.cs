@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows.Input;
 using SuperbetBeclean.Services;
+using SuperbetBeclean.ViewModels;
 
 namespace SuperbetBeclean.Models
 {
@@ -29,7 +30,7 @@ namespace SuperbetBeclean.Models
 
         public List<ShopItem> ShopItems { get; set; }
 
-        public MainViewModel(int currentBalance, int userId)
+        public MainViewModel(int currentBalance, Guid userId)
         {
             Balance = currentBalance;
             ShopItems = new List<ShopItem>();
@@ -39,7 +40,7 @@ namespace SuperbetBeclean.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void LoadItems(int userId)
+        private void LoadItems(Guid userId)
         {
             List<ShopItem> ownedItems = dbService.GetAllUserIconsByUserId(userId);
             List<ShopItem> allItems = dbService.GetShopItems();

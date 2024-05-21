@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using SuperbetBeclean.Models;
+using SuperbetBeclean.ViewModels;
 
 namespace SuperbetBeclean.Services
 {
@@ -73,7 +73,7 @@ namespace SuperbetBeclean.Services
             CloseConnection();
         }
 
-        public void UpdateUser(int id, string username, int currentFont, int currentTitle, int currentIcon, int currentTable, int chipsCount, int chipStack, int streakCount, int handsPlayed, int level, DateTime lastLogin)
+        public void UpdateUser(Guid id, string username, int currentFont, int currentTitle, int currentIcon, int currentTable, int chipsCount, int chipStack, int streakCount, int handsPlayed, int level, DateTime lastLogin)
         {
             SqlParameter[] parameters =
             {
@@ -93,7 +93,7 @@ namespace SuperbetBeclean.Services
             ExecuteNonQuery(UPDATE_USER_QUERY, parameters);
         }
 
-        public void UpdateUserFont(int id, int font)
+        public void UpdateUserFont(Guid id, int font)
         {
             SqlParameter[] parameters =
             {
@@ -103,7 +103,7 @@ namespace SuperbetBeclean.Services
             ExecuteNonQuery(UPDATE_USER_FONT_QUERY, parameters);
         }
 
-        public void UpdateUserTitle(int id, int title)
+        public void UpdateUserTitle(Guid id, int title)
         {
             SqlParameter[] parameters =
             {
@@ -113,7 +113,7 @@ namespace SuperbetBeclean.Services
             ExecuteNonQuery(UPDATE_USER_TITLE_QUERY, parameters);
         }
 
-        public void UpdateUserIcon(int id, int icon)
+        public void UpdateUserIcon(Guid id, int icon)
         {
             SqlParameter[] parameters =
             {
@@ -123,7 +123,7 @@ namespace SuperbetBeclean.Services
             ExecuteNonQuery(UPDATE_USER_ICON_QUERY, parameters);
         }
 
-        public void UpdateUserChips(int id, int chips)
+        public void UpdateUserChips(Guid id, int chips)
         {
             SqlParameter[] parameters =
             {
@@ -133,7 +133,7 @@ namespace SuperbetBeclean.Services
             ExecuteNonQuery(UPDATE_USER_CHIPS_QUERY, parameters);
         }
 
-        public void UpdateUserStack(int id, int stack)
+        public void UpdateUserStack(Guid id, int stack)
         {
             SqlParameter[] parameters =
             {
@@ -143,7 +143,7 @@ namespace SuperbetBeclean.Services
             ExecuteNonQuery(UPDATE_USER_STACK_QUERY, parameters);
         }
 
-        public void UpdateUserStreak(int id, int streak)
+        public void UpdateUserStreak(Guid id, int streak)
         {
             SqlParameter[] parameters =
             {
@@ -153,7 +153,7 @@ namespace SuperbetBeclean.Services
             ExecuteNonQuery(UPDATE_USER_STREAK_QUERY, parameters);
         }
 
-        public void UpdateUserHandsPlayed(int id, int handsPlayed)
+        public void UpdateUserHandsPlayed(Guid id, int handsPlayed)
         {
             SqlParameter[] parameters =
             {
@@ -163,7 +163,7 @@ namespace SuperbetBeclean.Services
             ExecuteNonQuery(UPDATE_USER_HANDS_PLAYED_QUERY, parameters);
         }
 
-        public void UpdateUserLevel(int id, int level)
+        public void UpdateUserLevel(Guid id, int level)
         {
             SqlParameter[] parameters =
             {
@@ -173,7 +173,7 @@ namespace SuperbetBeclean.Services
             ExecuteNonQuery(UPDATE_USER_LEVEL_QUERY, parameters);
         }
 
-        public void UpdateUserLastLogin(int id, DateTime lastLogin)
+        public void UpdateUserLastLogin(Guid id, DateTime lastLogin)
         {
             SqlParameter[] parameters =
             {
@@ -306,7 +306,7 @@ namespace SuperbetBeclean.Services
             return shopItems;
         }
 
-        public List<ShopItem> GetAllUserIconsByUserId(int userId)
+        public List<ShopItem> GetAllUserIconsByUserId(Guid userId)
         {
             List<ShopItem> userIcons = new List<ShopItem>();
 
@@ -335,7 +335,7 @@ namespace SuperbetBeclean.Services
             return userIcons;
         }
 
-        public void CreateUserIcon(int userId, int iconId)
+        public void CreateUserIcon(Guid userId, int iconId)
         {
             OpenConnection();
             using (SqlCommand command = new SqlCommand(CREATE_USER_ICON_QUERY, connection))
@@ -370,7 +370,7 @@ namespace SuperbetBeclean.Services
             return iconId;
         }
 
-        public void SetCurrentIcon(int userId, int iconId)
+        public void SetCurrentIcon(Guid userId, int iconId)
         {
             OpenConnection();
             using (SqlCommand command = new SqlCommand(SET_CURRENT_ICON_QUERY, connection))
@@ -382,7 +382,7 @@ namespace SuperbetBeclean.Services
                 command.ExecuteNonQuery();
             }
         }
-        public List<string> GetAllRequestsByToUserID(int toUser)
+        public List<string> GetAllRequestsByToUserID(Guid toUser)
         {
             List<string> requests = new List<string>();
 
@@ -401,8 +401,8 @@ namespace SuperbetBeclean.Services
                         // Format the date to include only the date portion without the time
                         string formattedDate = requestDate.ToShortDateString();
 
-                        int fromUserID = Convert.ToInt32(reader["request_fromUser"]);
-                        int toUserID = Convert.ToInt32(reader["request_toUser"]);
+                        Guid fromUserID = (Guid)reader["request_fromUser"];
+                        Guid toUserID = (Guid)reader["request_toUser"];
 
                         // Get usernames corresponding to user IDs
                         string fromUserName = GetUserNameByUserId(fromUserID);
@@ -417,7 +417,7 @@ namespace SuperbetBeclean.Services
             return requests;
         }
 
-        public List<Tuple<int, int>> GetAllRequestsByToUserIDSimplified(int toUser)
+        public List<Tuple<int, int>> GetAllRequestsByToUserIDSimplified(Guid toUser)
         {
             List<Tuple<int, int>> requests = new List<Tuple<int, int>>();
 
@@ -441,7 +441,7 @@ namespace SuperbetBeclean.Services
 
             return requests;
         }
-        public void CreateRequest(int fromUser, int toUser)
+        public void CreateRequest(Guid fromUser, Guid toUser)
         {
             OpenConnection();
             using (SqlCommand command = new SqlCommand(CREATE_REQUEST_QUERY, connection))
@@ -453,7 +453,7 @@ namespace SuperbetBeclean.Services
                 command.ExecuteNonQuery();
             }
         }
-        public string GetUserNameByUserId(int userId)
+        public string GetUserNameByUserId(Guid userId)
         {
             string username = null;
 
@@ -504,7 +504,7 @@ namespace SuperbetBeclean.Services
 
             return userId;
         }
-        public int GetChipsByUserId(int userId)
+        public int GetChipsByUserId(Guid userId)
         {
             int chips = CONVERSION_ERROR_VALUE;
 
@@ -525,7 +525,7 @@ namespace SuperbetBeclean.Services
 
             return chips;
         }
-        public void DeleteRequestsByUserId(int userId)
+        public void DeleteRequestsByUserId(Guid userId)
         {
             OpenConnection();
             using (SqlCommand command = new SqlCommand(DELETE_REQUESTS_BY_USER_ID, connection))

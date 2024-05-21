@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using SuperbetBeclean.Model;
+using SuperbetBeclean.ViewModels;
 using SuperbetBeclean.Services;
 using SuperbetBeclean.Windows;
 

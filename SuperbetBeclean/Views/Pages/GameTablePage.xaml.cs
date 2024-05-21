@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using SuperbetBeclean.Model;
+using SuperbetBeclean.ViewModels;
 using SuperbetBeclean.Services;
 using SuperbetBeclean.Windows;
 
@@ -219,7 +219,7 @@ namespace SuperbetBeclean.Pages
                 TextBlock playerLevel = FindName("Player" + player.UserTablePlace + "LvlTextBox") as TextBlock;
                 Image playerIcon = FindName("Player" + player.UserTablePlace + "IconImg") as Image;
                 playerBorder.Visibility = Visibility.Visible;
-                playerName.Text = player.UserName;
+                playerName.Text = player.Username;
                 playerLevel.Text = player.UserLevel.ToString();
                 Uri uri = new Uri(player.UserCurrentIconPath, UriKind.Absolute);
                 playerIcon.Source = new BitmapImage(uri);

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using SuperbetBeclean.Model;
+using SuperbetBeclean.ViewModels;
 using SuperbetBeclean.Models;
 using SuperbetBeclean.Windows;
 

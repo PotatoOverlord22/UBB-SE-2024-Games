@@ -1,4 +1,4 @@
-namespace SuperbetBeclean.ViewModels
+namespace GameWorld.Entities
 {
     public class PlayingCard
     {

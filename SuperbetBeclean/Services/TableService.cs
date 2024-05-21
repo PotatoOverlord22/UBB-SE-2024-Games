@@ -1,5 +1,5 @@
 using System.Data.SqlClient;
-using SuperbetBeclean.Model;
+using SuperbetBeclean.ViewModels;
 using SuperbetBeclean.Windows;
 
 namespace SuperbetBeclean.Services
@@ -66,9 +66,9 @@ namespace SuperbetBeclean.Services
         private void ReloadPlayerStackWithChips(User player)
         {
             player.UserChips -= buyIn;
-            databaseService.UpdateUserChips(player.UserID, player.UserChips);
+            databaseService.UpdateUserChips(player.Id, player.UserChips);
             player.UserStack = buyIn;
-            databaseService.UpdateUserStack(player.UserID, player.UserStack);
+            databaseService.UpdateUserStack(player.Id, player.UserStack);
         }
 
         private PlayingCard DealCard(User player, int index)
@@ -197,7 +197,7 @@ namespace SuperbetBeclean.Services
         }
         private void FoldPlayer(User player, Queue<MenuWindow> activePlayers)
         {
-            Console.WriteLine(player.UserName + " folded!");
+            Console.WriteLine(player.Username + " folded!");
             player.UserStatus = WAITING;
             player.UserBet = 0;
             foreach (MenuWindow window in activePlayers)
@@ -307,7 +307,7 @@ namespace SuperbetBeclean.Services
                     }
 
                     int currentBet = -1;
-                    int idOfPlayerWithMaxBet = -1;
+                    Guid idOfPlayerWithMaxBet = Guid.Empty;
 
                     while (numberOfPlayersThatCanBet >= 2)
                     {
@@ -320,7 +320,7 @@ namespace SuperbetBeclean.Services
                             continue;
                         }
 
-                        if (player.UserID == idOfPlayerWithMaxBet)
+                        if (player.Id == idOfPlayerWithMaxBet)
                         {
                             break;
                         }
@@ -346,13 +346,13 @@ namespace SuperbetBeclean.Services
                             int extraBet = playerBet - player.UserBet;
                             player.UserStack -= extraBet;
                             tablePot += extraBet;
-                            databaseService.UpdateUserStack(player.UserID, player.UserStack);
+                            databaseService.UpdateUserStack(player.Id, player.UserStack);
                             player.UserBet = playerBet;
 
                             if (playerBet > currentBet)
                             {
                                 currentBet = playerBet;
-                                idOfPlayerWithMaxBet = player.UserID;
+                                idOfPlayerWithMaxBet = player.Id;
                             }
                         }
 
@@ -365,9 +365,9 @@ namespace SuperbetBeclean.Services
                 List<User> winners = DetermineWinners(allActivePlayers);
                 foreach (User winner in winners)
                 {
-                    Console.WriteLine("Winner: " + winner.UserName);
+                    Console.WriteLine("Winner: " + winner.Username);
                     winner.UserStack += Convert.ToInt32(tablePot / winners.Count);
-                    databaseService.UpdateUserStack(winner.UserID, winner.UserStack);
+                    databaseService.UpdateUserStack(winner.Id, winner.UserStack);
                     DisplayWinner(allActivePlayers, winner);
                 }
                 await Task.Delay(3000);
@@ -470,10 +470,10 @@ namespace SuperbetBeclean.Services
             }
 
             player.UserChips -= buyIn;
-            databaseService.UpdateUserChips(player.UserID, player.UserChips);
+            databaseService.UpdateUserChips(player.Id, player.UserChips);
 
             player.UserStack = buyIn;
-            databaseService.UpdateUserStack(player.UserID, player.UserStack);
+            databaseService.UpdateUserStack(player.Id, player.UserStack);
 
             player.UserStatus = WAITING;
             for (int i = 1; i <= FULL; i++)

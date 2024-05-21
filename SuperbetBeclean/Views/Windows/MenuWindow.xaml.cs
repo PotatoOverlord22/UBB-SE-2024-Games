@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using SuperbetBeclean.Model;
+using SuperbetBeclean.ViewModels;
 using SuperbetBeclean.Pages;
 using SuperbetBeclean.Services;
 
@@ -16,7 +16,7 @@ namespace SuperbetBeclean.Windows
             InitializeComponent();
             this.service = service;
             this.user = user;
-            this.Title = this.user.UserName;
+            this.Title = this.user.Username;
             MenuFrame.Navigate(new MainMenu(MenuFrame, this, service, this.user));
             gamePages = new Dictionary<string, GameTablePage>();
             gamePages.Add("intern", new GameTablePage(MenuFrame, this, this.service, "intern"));
@@ -100,7 +100,7 @@ namespace SuperbetBeclean.Windows
 
         public string UserName()
         {
-            return user.UserName;
+            return user.Username;
         }
 
         public int UserLevel()
@@ -122,9 +122,9 @@ namespace SuperbetBeclean.Windows
         {
             return user.UserCurrentIconPath;
         }
-        public int UserId()
+        public Guid UserId()
         {
-            return user.UserID;
+            return user.Id;
         }
         public GameTablePage InternPage()
         {
