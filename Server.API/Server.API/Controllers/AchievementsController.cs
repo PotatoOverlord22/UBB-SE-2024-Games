@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Server.API.Models;
 using Server.API.Services;
-using Server.API.Utils;
 
 namespace Server.API.Controllers
 {
