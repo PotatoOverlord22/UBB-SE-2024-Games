@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GameWorld\GameWorld.csproj" />
-    <ProjectReference Include="..\HarvestHaven\GameWorld.csproj" />
   </ItemGroup>
 
   <ItemGroup>

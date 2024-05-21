@@ -27,11 +27,11 @@ namespace SuperbetBeclean.Services
         void CreateUserIcon(Guid userId, int iconId);
         int GetIconIDByIconName(string iconName);
         void SetCurrentIcon(Guid userId, int iconId);
-        List<string> GetAllRequestsByToUserID(int toUser);
+        List<string> GetAllRequestsByToUserID(Guid toUser);
         List<Tuple<int, int>> GetAllRequestsByToUserIDSimplified(Guid toUser);
         void CreateRequest(Guid fromUser, Guid toUser);
         string GetUserNameByUserId(Guid userId);
-        int GetUserIdByUserName(string username);
+        Guid GetUserIdByUserName(string username);
         int GetChipsByUserId(Guid userId);
         void DeleteRequestsByUserId(Guid userId);
     }

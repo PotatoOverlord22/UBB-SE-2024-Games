@@ -100,6 +100,10 @@ namespace SuperbetBeclean.Services
             const int DEFAULT_VALUE = 0;
             return reader.IsDBNull(reader.GetOrdinal(columnName)) ? DEFAULT_VALUE : reader.GetInt32(reader.GetOrdinal(columnName));
         }
+        public Guid GetGuidFromReader(SqlDataReader reader, string columnName)
+        {
+            return reader.IsDBNull(reader.GetOrdinal(columnName)) ? Guid.Empty : reader.GetGuid(reader.GetOrdinal(columnName));
+        }
         public string GetStringFromReader(SqlDataReader reader, string columnName)
         {
             return reader.IsDBNull(reader.GetOrdinal(columnName)) ? string.Empty : reader.GetString(reader.GetOrdinal(columnName));
@@ -111,7 +115,7 @@ namespace SuperbetBeclean.Services
 
         public User CreateUserFromReader(SqlDataReader reader)
         {
-            int userID = GetIntFromReader(reader, "user_id");
+            Guid userID = GetGuidFromReader(reader, "user_id");
             string userName = GetStringFromReader(reader, "user_username");
             int currentFont = GetIntFromReader(reader, "user_currentFont");
             int currentTitle = GetIntFromReader(reader, "user_currentTitle");
@@ -123,7 +127,9 @@ namespace SuperbetBeclean.Services
             int handsPlayed = GetIntFromReader(reader, "user_handsPlayed");
             int level = GetIntFromReader(reader, "user_level");
             DateTime lastLogin = GetDateFromReader(reader, "user_lastLogin");
-            return new User(userID, userName, currentFont, currentTitle, currentIconPath, currentTable, chips, stack, streak, handsPlayed, level, lastLogin);
+            return new User(userID, userName, currentFont, currentTitle,
+                userCurrentIconPath: currentIconPath, userCurrentTable: currentTable, userChips: chips, userStack: stack,
+                userStreak: streak, userHandsPlayed: handsPlayed, userLevel: level, userLastLogin: lastLogin);
         }
         private void OpenUserWindow(User user)
         {

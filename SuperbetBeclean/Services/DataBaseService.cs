@@ -483,9 +483,9 @@ namespace SuperbetBeclean.Services
         }
 
         private const int NAME_MAX_LENGTH = 128;
-        public int GetUserIdByUserName(string username)
+        public Guid GetUserIdByUserName(string username)
         {
-            int userId = CONVERSION_ERROR_VALUE;
+            Guid userId = Guid.Empty;
 
             OpenConnection();
             using (SqlCommand command = new SqlCommand(GET_USER_ID_BY_USER_NAME_QUERY, connection))
@@ -497,7 +497,7 @@ namespace SuperbetBeclean.Services
                 {
                     if (reader.Read())
                     {
-                        userId = Convert.ToInt32(reader["user_id"]);
+                        userId = (Guid)reader["user_id"];
                     }
                 }
             }

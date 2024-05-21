@@ -1,6 +1,6 @@
 ﻿using GameWorld.Entities;
 using GameWorld.Repositories;
-using GameWorld.Resources.Utils;
+using GameWorld.Utils;
 using Moq;
 
 namespace GameWorld.Services.Tests
