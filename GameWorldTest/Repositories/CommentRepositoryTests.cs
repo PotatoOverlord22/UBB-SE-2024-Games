@@ -1,5 +1,5 @@
 ﻿using GameWorld.Entities;
-using GameWorld.Resources.Utils;
+using GameWorld.Utils;
 using Moq;
 using System.Data;
 

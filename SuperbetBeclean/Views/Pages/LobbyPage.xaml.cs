@@ -3,9 +3,9 @@ using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using SuperbetBeclean.Model;
 using SuperbetBeclean.Services;
 using SuperbetBeclean.Windows;
+using SuperbetBeclean.Models;
 
 namespace SuperbetBeclean.Pages
 {

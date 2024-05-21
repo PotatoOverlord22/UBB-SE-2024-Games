@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using System.Data.SqlClient;
 using System.Windows;
-using SuperbetBeclean.Model;
+using SuperbetBeclean.ViewModels;
 using SuperbetBeclean.Windows;
 
 namespace SuperbetBeclean.Services
@@ -89,16 +89,20 @@ namespace SuperbetBeclean.Services
                     newUser.UserStreak = INITIAL_STREAK;
                 }
                 newUser.UserChips += newUser.UserStreak * DAILY_LOGIN_STREAK_MULTIPLIER;
-                databaseService.UpdateUserChips(newUser.UserID, newUser.UserChips);
-                databaseService.UpdateUserStreak(newUser.UserID, newUser.UserStreak);
+                databaseService.UpdateUserChips(newUser.Id, newUser.UserChips);
+                databaseService.UpdateUserStreak(newUser.Id, newUser.UserStreak);
                 MessageBox.Show("Congratulations, you got your daily bonus!\n" + "Streak: " + newUser.UserStreak + " Bonus: " + (DAILY_LOGIN_STREAK_MULTIPLIER * newUser.UserStreak).ToString());
             }
-            databaseService.UpdateUserLastLogin(newUser.UserID, DateTime.Now);
+            databaseService.UpdateUserLastLogin(newUser.Id, DateTime.Now);
         }
         public int GetIntFromReader(SqlDataReader reader, string columnName)
         {
             const int DEFAULT_VALUE = 0;
             return reader.IsDBNull(reader.GetOrdinal(columnName)) ? DEFAULT_VALUE : reader.GetInt32(reader.GetOrdinal(columnName));
+        }
+        public Guid GetGuidFromReader(SqlDataReader reader, string columnName)
+        {
+            return reader.IsDBNull(reader.GetOrdinal(columnName)) ? Guid.Empty : reader.GetGuid(reader.GetOrdinal(columnName));
         }
         public string GetStringFromReader(SqlDataReader reader, string columnName)
         {
@@ -111,7 +115,7 @@ namespace SuperbetBeclean.Services
 
         public User CreateUserFromReader(SqlDataReader reader)
         {
-            int userID = GetIntFromReader(reader, "user_id");
+            Guid userID = GetGuidFromReader(reader, "user_id");
             string userName = GetStringFromReader(reader, "user_username");
             int currentFont = GetIntFromReader(reader, "user_currentFont");
             int currentTitle = GetIntFromReader(reader, "user_currentTitle");
@@ -123,7 +127,9 @@ namespace SuperbetBeclean.Services
             int handsPlayed = GetIntFromReader(reader, "user_handsPlayed");
             int level = GetIntFromReader(reader, "user_level");
             DateTime lastLogin = GetDateFromReader(reader, "user_lastLogin");
-            return new User(userID, userName, currentFont, currentTitle, currentIconPath, currentTable, chips, stack, streak, handsPlayed, level, lastLogin);
+            return new User(userID, userName, currentFont, currentTitle,
+                userCurrentIconPath: currentIconPath, userCurrentTable: currentTable, userChips: chips, userStack: stack,
+                userStreak: streak, userHandsPlayed: handsPlayed, userLevel: level, userLastLogin: lastLogin);
         }
         private void OpenUserWindow(User user)
         {
@@ -184,9 +190,9 @@ namespace SuperbetBeclean.Services
             seniorTable.DisconnectUser(window);
 
             player.UserChips += player.UserStack;
-            databaseService.UpdateUserChips(player.UserID, player.UserChips);
+            databaseService.UpdateUserChips(player.Id, player.UserChips);
             player.UserStack = EMPTY;
-            databaseService.UpdateUserStack(player.UserID, player.UserStack);
+            databaseService.UpdateUserStack(player.Id, player.UserStack);
         }
         public int JoinInternTable(MenuWindow window)
         {

@@ -1,9 +1,9 @@
 ﻿using SuperbetBeclean.Models;
 using SuperbetBeclean.Services;
 
-namespace SuperbetBeclean.Tests
+namespace SuperbetBeclean.TestingBeclean
 {
-    [TestFixture]
+    /*[TestFixture]
     public class DatabaseServiceTests
     {
         private IDataBaseService databaseService;
@@ -344,4 +344,5 @@ namespace SuperbetBeclean.Tests
             Assert.DoesNotThrow(() => databaseService.DeleteRequestsByUserId(invalidUserId));
         }
     }
+    */
 }

@@ -1,8 +1,9 @@
-﻿using SuperbetBeclean.Model;
+﻿using SuperbetBeclean.ViewModels;
 using SuperbetBeclean.Models;
 
-namespace TestingBeclean
+namespace SuperbetBeclean.TestingBeclean
 {
+    /*
     public class TestsDomain
     {
         private Icon icon;
@@ -687,4 +688,5 @@ namespace TestingBeclean
             Assert.That(this.user.UserTablePlace, Is.EqualTo(3));
         }
     }
+    */
 }

@@ -1,5 +1,5 @@
 ﻿using System.Data.SqlClient;
-using SuperbetBeclean.Model;
+using SuperbetBeclean.Models;
 using SuperbetBeclean.Windows;
 
 namespace SuperbetBeclean.Services
