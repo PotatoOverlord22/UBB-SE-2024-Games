@@ -2,40 +2,35 @@
 {
     public class Title
     {
-        private int titleID;
-        private string titleName;
-        private int titlePrice;
-        private string titleContent;
-
         private const int DEFAULT_TITLE_ID = 0;
         private const string DEFAULT_TITLE_NAME = "";
         private const int DEFAULT_TITLE_PRICE = 0;
         private const string DEFAULT_TITLE_CONTENT = "";
 
-        public Title(int titleID = DEFAULT_TITLE_ID, string titleName = DEFAULT_TITLE_NAME,
+        public Title(Guid titleID = new Guid(), string titleName = DEFAULT_TITLE_NAME,
             int titlePrice = DEFAULT_TITLE_PRICE, string titleContent = DEFAULT_TITLE_CONTENT)
         {
-            this.titleID = titleID;
-            this.titleName = titleName;
-            this.titlePrice = titlePrice;
-            this.titleContent = titleContent;
+            this.TitleID = titleID;
+            this.TitleName = titleName;
+            this.TitlePrice = titlePrice;
+            this.TitleContent = titleContent;
         }
 
-        public int TitleID
+        public Guid TitleID
         {
-            get { return titleID; } set { titleID = value; }
+            get;  set;
         }
         public string TitleName
         {
-            get { return titleName; } set { titleName = value; }
+            get; set;
         }
         public int TitlePrice
         {
-            get { return titlePrice; } set { titlePrice = value; }
+            get; set;
         }
         public string TitleContent
         {
-            get { return titleContent; } set { titleContent = value; }
+            get; set;
         }
     }
 }
