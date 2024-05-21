@@ -1,7 +1,7 @@
 ﻿using SuperbetBeclean.ViewModels;
 using SuperbetBeclean.Models;
 
-namespace TestingBeclean
+namespace SuperbetBeclean.TestingBeclean
 {
     /*
     public class TestsDomain

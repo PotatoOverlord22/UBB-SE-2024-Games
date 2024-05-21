@@ -2,9 +2,9 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using SuperbetBeclean.ViewModels;
 using SuperbetBeclean.Services;
 using SuperbetBeclean.Windows;
+using SuperbetBeclean.Models;
 
 namespace SuperbetBeclean.Pages
 {

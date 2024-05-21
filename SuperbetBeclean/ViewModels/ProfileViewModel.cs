@@ -1,8 +1,8 @@
-﻿using SuperbetBeclean.Services;
+﻿using SuperbetBeclean.Models;
+using SuperbetBeclean.Services;
 using SuperbetBeclean.Windows;
-using SuperbetBeclean.ViewModels;
 
-namespace SuperbetBeclean.Models
+namespace SuperbetBeclean.ViewModels
 {
     internal class ProfileViewModel
     {

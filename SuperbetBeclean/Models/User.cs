@@ -1,4 +1,4 @@
-﻿namespace SuperbetBeclean.ViewModels
+﻿namespace SuperbetBeclean.Models
 {
     public class User
     {
@@ -50,7 +50,7 @@
             int userStack = DEFAULT_USER_STACK, int userStreak = DEFAULT_USER_STREAK,
             int userHandsPlayed = DEFAULT_USER_HANDS_PLAYED, int userLevel = DEFAULT_USER_LEVEL,
             int userStatus = DEFAULT_USER_STATUS, int userBet = DEFAULT_USER_BET,
-            int userTablePlace = DEFAULT_USER_TABLE_PLACE, DateTime userLastLogin = default(DateTime))
+            int userTablePlace = DEFAULT_USER_TABLE_PLACE, DateTime userLastLogin = default)
         {
             Id = id;
             Username = username;

@@ -1,4 +1,4 @@
-﻿using SuperbetBeclean.ViewModels;
+﻿using SuperbetBeclean.Models;
 
 namespace SuperbetBeclean.TestingBeclean
 {

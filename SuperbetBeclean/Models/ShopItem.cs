@@ -1,4 +1,4 @@
-﻿namespace SuperbetBeclean.ViewModels
+﻿namespace SuperbetBeclean.Models
 {
     public class ShopItem
     {

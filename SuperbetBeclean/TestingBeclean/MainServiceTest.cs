@@ -2,7 +2,7 @@
 using SuperbetBeclean.ViewModels;
 using SuperbetBeclean.Services;
 
-namespace TestingBeclean.MainServiceTests
+namespace SuperbetBeclean.TestingBeclean
 {
     /*
     [Apartment(ApartmentState.STA)]

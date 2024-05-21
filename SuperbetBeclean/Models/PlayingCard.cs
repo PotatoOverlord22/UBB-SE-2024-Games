@@ -1,4 +1,4 @@
-namespace SuperbetBeclean.ViewModels
+namespace SuperbetBeclean.Models
 {
     public class PlayingCard
     {
@@ -37,11 +37,13 @@ namespace SuperbetBeclean.ViewModels
 
         public string Value
         {
-            get { return value; } set { this.value = value; }
+            get { return value; }
+            set { this.value = value; }
         }
         public string Suit
         {
-            get { return suit; } set { suit = value; }
+            get { return suit; }
+            set { suit = value; }
         }
         public string CompleteInformation()
         {

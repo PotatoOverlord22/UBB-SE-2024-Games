@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using SuperbetBeclean.ViewModels;
 using SuperbetBeclean.Pages;
 using SuperbetBeclean.Services;
+using SuperbetBeclean.Models;
 
 namespace SuperbetBeclean.Windows
 {

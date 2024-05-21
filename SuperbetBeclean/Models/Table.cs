@@ -1,4 +1,4 @@
-﻿namespace SuperbetBeclean.ViewModels
+﻿namespace SuperbetBeclean.Models
 {
     public class Table
     {
@@ -21,19 +21,23 @@
 
         public int TableID
         {
-            get { return tableID; } set { tableID = value; }
+            get { return tableID; }
+            set { tableID = value; }
         }
         public string TableName
         {
-            get { return tableName; } set { tableName = value; }
+            get { return tableName; }
+            set { tableName = value; }
         }
         public int TableBuyIn
         {
-            get { return tableBuyIn; } set { tableBuyIn = value; }
+            get { return tableBuyIn; }
+            set { tableBuyIn = value; }
         }
         public int TablePlayerLimit
         {
-            get { return tablePlayerLimit; } set { tablePlayerLimit = value; }
+            get { return tablePlayerLimit; }
+            set { tablePlayerLimit = value; }
         }
     }
 }

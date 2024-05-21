@@ -1,4 +1,4 @@
-﻿namespace SuperbetBeclean.ViewModels
+﻿namespace SuperbetBeclean.Models
 {
     public class Challenge
     {
@@ -29,23 +29,28 @@
 
         public int ChallengeID
         {
-            get { return challengeID; } set { challengeID = value; }
+            get { return challengeID; }
+            set { challengeID = value; }
         }
         public string ChallengeDescription
         {
-            get { return challengeDescription; } set { challengeDescription = value; }
+            get { return challengeDescription; }
+            set { challengeDescription = value; }
         }
         public string ChallengeRule
         {
-            get { return challengeRule; } set { challengeRule = value; }
+            get { return challengeRule; }
+            set { challengeRule = value; }
         }
         public int ChallengeAmount
         {
-            get { return challengeAmount; } set { challengeAmount = value; }
+            get { return challengeAmount; }
+            set { challengeAmount = value; }
         }
         public int ChallengeReward
         {
-            get { return challengeReward; } set { challengeReward = value; }
+            get { return challengeReward; }
+            set { challengeReward = value; }
         }
     }
 }

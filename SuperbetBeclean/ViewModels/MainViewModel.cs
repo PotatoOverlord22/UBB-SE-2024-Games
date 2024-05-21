@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Windows.Input;
+using SuperbetBeclean.Models;
 using SuperbetBeclean.Services;
-using SuperbetBeclean.ViewModels;
 
-namespace SuperbetBeclean.Models
+namespace SuperbetBeclean.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {

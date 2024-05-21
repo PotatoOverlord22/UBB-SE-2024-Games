@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using SuperbetBeclean.ViewModels;
+using SuperbetBeclean.Models;
 
 namespace SuperbetBeclean.Services
 {

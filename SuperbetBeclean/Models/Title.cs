@@ -1,4 +1,4 @@
-﻿namespace SuperbetBeclean.ViewModels
+﻿namespace SuperbetBeclean.Models
 {
     public class Title
     {
@@ -23,19 +23,23 @@
 
         public int TitleID
         {
-            get { return titleID; } set { titleID = value; }
+            get { return titleID; }
+            set { titleID = value; }
         }
         public string TitleName
         {
-            get { return titleName; } set { titleName = value; }
+            get { return titleName; }
+            set { titleName = value; }
         }
         public int TitlePrice
         {
-            get { return titlePrice; } set { titlePrice = value; }
+            get { return titlePrice; }
+            set { titlePrice = value; }
         }
         public string TitleContent
         {
-            get { return titleContent; } set { titleContent = value; }
+            get { return titleContent; }
+            set { titleContent = value; }
         }
     }
 }

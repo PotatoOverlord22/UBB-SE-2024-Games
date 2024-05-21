@@ -1,4 +1,4 @@
-﻿namespace SuperbetBeclean.ViewModels
+﻿namespace SuperbetBeclean.Models
 {
     public class Icon
     {
@@ -22,19 +22,23 @@
 
         public int IconID
         {
-            get { return iconID; } set { iconID = value;  }
+            get { return iconID; }
+            set { iconID = value; }
         }
         public string IconName
         {
-            get { return iconName; } set { iconName = value; }
+            get { return iconName; }
+            set { iconName = value; }
         }
         public int IconPrice
         {
-            get { return iconPrice; } set { iconPrice = value; }
+            get { return iconPrice; }
+            set { iconPrice = value; }
         }
         public string IconPath
         {
-            get { return iconPath; } set { iconPath = value; }
+            get { return iconPath; }
+            set { iconPath = value; }
         }
     }
 }

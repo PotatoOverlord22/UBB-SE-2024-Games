@@ -5,7 +5,7 @@ using SuperbetBeclean.ViewModels;
 using SuperbetBeclean.Services;
 using SuperbetBeclean.Windows;
 
-namespace TestingBeclean
+namespace SuperbetBeclean.TestingBeclean
 {
     /*
     [TestFixture]

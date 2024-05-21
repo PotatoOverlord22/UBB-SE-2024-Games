@@ -1,4 +1,4 @@
-﻿namespace SuperbetBeclean.ViewModels
+﻿namespace SuperbetBeclean.Models
 {
     public class Font
     {
@@ -12,7 +12,7 @@
         private const int DEFAULT_FONT_PRICE = 0;
         private const string DEFAULT_FONT_TYPE = "";
 
-        public Font(int fontID = DEFAULT_FONT_ID,  string fontName = DEFAULT_FONT_NAME, int fontPrice = DEFAULT_FONT_PRICE, string fontType = DEFAULT_FONT_TYPE)
+        public Font(int fontID = DEFAULT_FONT_ID, string fontName = DEFAULT_FONT_NAME, int fontPrice = DEFAULT_FONT_PRICE, string fontType = DEFAULT_FONT_TYPE)
         {
             this.fontID = fontID;
             this.fontName = fontName;
@@ -22,11 +22,13 @@
 
         public int FontID
         {
-            get { return fontID; } set { fontID = value; }
+            get { return fontID; }
+            set { fontID = value; }
         }
         public string FontName
         {
-            get { return fontName; } set { fontName = value; }
+            get { return fontName; }
+            set { fontName = value; }
         }
         public int FontPrice
         {

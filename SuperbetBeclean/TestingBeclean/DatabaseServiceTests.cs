@@ -1,7 +1,7 @@
 ﻿using SuperbetBeclean.Models;
 using SuperbetBeclean.Services;
 
-namespace SuperbetBeclean.Tests
+namespace SuperbetBeclean.TestingBeclean
 {
     /*[TestFixture]
     public class DatabaseServiceTests

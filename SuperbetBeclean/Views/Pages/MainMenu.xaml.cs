@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using SuperbetBeclean.ViewModels;
 using SuperbetBeclean.Services;
 using SuperbetBeclean.Windows;
+using SuperbetBeclean.Models;
 
 namespace SuperbetBeclean.Pages
 {
