@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace GameWorld.Utils
+namespace GameWorld.Resources.Utils
 {
     public class DatabaseHelper
     {

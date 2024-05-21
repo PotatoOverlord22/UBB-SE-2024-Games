@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Media.Imaging;
-using GameWorld.Entities;
+using GameWorld.Models;
+using GameWorld.Resources.Utils;
 using GameWorld.Services;
-using GameWorld.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using static GameWorld.Views.TradingInventory;
 

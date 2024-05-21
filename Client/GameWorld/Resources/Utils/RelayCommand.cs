@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace GameWorld.Utils
+namespace GameWorld.Resources.Utils
 {
     public class RelayCommand<T> : ICommand
     {

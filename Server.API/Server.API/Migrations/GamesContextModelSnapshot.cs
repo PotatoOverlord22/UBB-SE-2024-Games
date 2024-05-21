@@ -198,7 +198,7 @@ namespace Server.API.Migrations
                     b.Property<int>("ItemType")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("ResourceToDestroyIdId")
+                    b.Property<Guid?>("ResourceToDestroyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("ResourceToInteractId")
@@ -209,7 +209,7 @@ namespace Server.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ResourceToDestroyIdId");
+                    b.HasIndex("ResourceToDestroyId");
 
                     b.HasIndex("ResourceToInteractId");
 
@@ -344,7 +344,7 @@ namespace Server.API.Migrations
 
             modelBuilder.Entity("Server.API.Models.Title", b =>
                 {
-                    b.Property<Guid>("TitleID")
+                    b.Property<Guid>("TitleId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -359,7 +359,7 @@ namespace Server.API.Migrations
                     b.Property<int>("TitlePrice")
                         .HasColumnType("int");
 
-                    b.HasKey("TitleID");
+                    b.HasKey("TitleId");
 
                     b.ToTable("Titles");
                 });
@@ -439,7 +439,7 @@ namespace Server.API.Migrations
                     b.Property<Guid>("UserCurrentTableTableID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("UserCurrentTitleTitleID")
+                    b.Property<Guid>("UserCurrentTitleTitleId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("UserHandsPlayed")
@@ -473,9 +473,33 @@ namespace Server.API.Migrations
 
                     b.HasIndex("UserCurrentTableTableID");
 
-                    b.HasIndex("UserCurrentTitleTitleID");
+                    b.HasIndex("UserCurrentTitleTitleId");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Server.API.Models.UserAchievement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AchievementId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("AchievementRewardedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AchievementId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserAchievements");
                 });
 
             modelBuilder.Entity("Server.API.Models.Comment", b =>
@@ -529,9 +553,9 @@ namespace Server.API.Migrations
 
             modelBuilder.Entity("Server.API.Models.Item", b =>
                 {
-                    b.HasOne("Server.API.Models.Resource", "ResourceToDestroyId")
+                    b.HasOne("Server.API.Models.Resource", "ResourceToDestroy")
                         .WithMany()
-                        .HasForeignKey("ResourceToDestroyIdId");
+                        .HasForeignKey("ResourceToDestroyId");
 
                     b.HasOne("Server.API.Models.Resource", "ResourceToInteract")
                         .WithMany()
@@ -541,7 +565,7 @@ namespace Server.API.Migrations
                         .WithMany()
                         .HasForeignKey("ResourceToPlaceId");
 
-                    b.Navigation("ResourceToDestroyId");
+                    b.Navigation("ResourceToDestroy");
 
                     b.Navigation("ResourceToInteract");
 
@@ -623,7 +647,7 @@ namespace Server.API.Migrations
 
                     b.HasOne("Server.API.Models.Title", "UserCurrentTitle")
                         .WithMany()
-                        .HasForeignKey("UserCurrentTitleTitleID")
+                        .HasForeignKey("UserCurrentTitleTitleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -632,6 +656,25 @@ namespace Server.API.Migrations
                     b.Navigation("UserCurrentTable");
 
                     b.Navigation("UserCurrentTitle");
+                });
+
+            modelBuilder.Entity("Server.API.Models.UserAchievement", b =>
+                {
+                    b.HasOne("Server.API.Models.Achievement", "Achievement")
+                        .WithMany()
+                        .HasForeignKey("AchievementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Server.API.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Achievement");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Server.API.Models.User", b =>

@@ -2,24 +2,19 @@ namespace Server.API.Models
 {
     public class Challenge
     {
-        private Guid challengeID;
+        private Guid challengeId;
         private string challengeDescription;
         private string challengeRule;
         private int challengeAmount;
         private int challengeReward;
 
-        private const string DEFAULT_CHALLENGE_DESCRIPTION = "";
-        private const string DEFAULT_CHALLENGE_RULE = "";
-        private const int DEFAULT_CHALLENGE_AMOUNT = 0;
-        private const int DEFAULT_CHALLENGE_REWARD = 0;
-
         public Challenge(Guid challengeId,
-            string challengeDescription = DEFAULT_CHALLENGE_DESCRIPTION,
-            string challengeRule = DEFAULT_CHALLENGE_RULE,
-            int challengeAmount = DEFAULT_CHALLENGE_AMOUNT,
-            int challengeReward = DEFAULT_CHALLENGE_REWARD)
+            string challengeDescription,
+            string challengeRule,
+            int challengeAmount,
+            int challengeReward)
         {
-            this.challengeID = challengeId;
+            this.challengeId = challengeId;
             this.challengeDescription = challengeDescription;
             this.challengeRule = challengeRule;
             this.challengeAmount = challengeAmount;
@@ -28,8 +23,8 @@ namespace Server.API.Models
 
         public Guid ChallengeId
         {
-            get { return challengeID; }
-            set { challengeID = value; }
+            get { return challengeId; }
+            set { challengeId = value; }
         }
         public string ChallengeDescription
         {

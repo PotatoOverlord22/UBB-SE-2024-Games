@@ -1,6 +1,6 @@
-﻿using GameWorld.Entities;
+﻿using GameWorld.Models;
 using GameWorld.Repositories;
-using GameWorld.Utils;
+using GameWorld.Resources.Utils;
 
 namespace GameWorld.Services
 {
@@ -48,7 +48,6 @@ namespace GameWorld.Services
         }
         public async Task BuyItem(int row, int column, ItemType itemType)
         {
-            #region Validation
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
             {
@@ -87,15 +86,13 @@ namespace GameWorld.Services
                 }
             }
 
-            #endregion
-
             // Add a new farm cell in the database.
             await farmCellRepository.AddFarmCellAsync(new FarmCell(
                 id: Guid.NewGuid(),
-                userId: GameStateManager.GetCurrentUserId(),
+                user: GameStateManager.GetCurrentUser(),
                 row: row,
                 column: column,
-                itemId: item.Id,
+                item: item,
                 lastTimeEnhanced: null,
                 lastTimeInteracted: null));
 
@@ -115,7 +112,6 @@ namespace GameWorld.Services
 
         public async Task SellResource(ResourceType resourceType)
         {
-            #region Validation
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
             {
@@ -144,7 +140,6 @@ namespace GameWorld.Services
             {
                 throw new Exception("You do not own any " + resource.ResourceType.ToString() + "!");
             }
-            #endregion
 
             // Update the inventory resource quantity in the database.
             inventoryResource.Quantity--;

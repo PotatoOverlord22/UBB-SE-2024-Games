@@ -1,6 +1,6 @@
 ﻿using System.Data;
-using GameWorld.Entities;
-using GameWorld.Utils;
+using GameWorld.Models;
+using GameWorld.Resources.Utils;
 
 namespace GameWorld.Repositories
 {

@@ -24,5 +24,7 @@ namespace Server.API.Utils
         public DbSet<Table> Tables { get; set; }
         public DbSet<Title> Titles { get; set; }
         public DbSet<Trade> Trades { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserAchievement> UserAchievements { get; set; }
     }
 }

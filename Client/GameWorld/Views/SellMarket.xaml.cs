@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using GameWorld.Entities;
+using GameWorld.Models;
 using GameWorld.Services;
 
 namespace GameWorld.Views

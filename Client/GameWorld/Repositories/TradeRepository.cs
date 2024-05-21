@@ -1,5 +1,5 @@
-﻿using GameWorld.Entities;
-using GameWorld.Utils;
+﻿using GameWorld.Models;
+using GameWorld.Resources.Utils;
 using Microsoft.Data.SqlClient;
 
 namespace GameWorld.Repositories

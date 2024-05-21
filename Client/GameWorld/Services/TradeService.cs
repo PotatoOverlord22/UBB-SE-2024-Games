@@ -1,6 +1,6 @@
-﻿using GameWorld.Entities;
+﻿using GameWorld.Models;
 using GameWorld.Repositories;
-using GameWorld.Utils;
+using GameWorld.Resources.Utils;
 
 namespace GameWorld.Services
 {
@@ -99,7 +99,6 @@ namespace GameWorld.Services
 
         public async Task PerformTradeAsync(Guid tradeId)
         {
-            #region Validation
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
             {
@@ -126,7 +125,6 @@ namespace GameWorld.Services
             {
                 throw new Exception($"You don't have that amount of {requestedResource.ResourceType.ToString()}!");
             }
-            #endregion
 
             // Update the user's inventory resources by removing the requested trade resource quantity.
             userRequestedResource.Quantity -= trade.ResourceToGetQuantity;
@@ -195,7 +193,6 @@ namespace GameWorld.Services
 
         public async Task CancelTradeAsync(Guid tradeId)
         {
-            #region Validation
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
             {
@@ -208,7 +205,6 @@ namespace GameWorld.Services
             {
                 throw new Exception("Trade not found in the database!");
             }
-            #endregion
 
             // Get the user's given trade resource from the inventory.
             InventoryResource userGivenResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), trade.ResourceToGiveId);

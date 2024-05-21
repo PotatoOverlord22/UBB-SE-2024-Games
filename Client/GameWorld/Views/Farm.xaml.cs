@@ -3,10 +3,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using GameWorld.Entities;
-using GameWorld.Utils;
 using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
+using GameWorld.Resources.Utils;
+using GameWorld.Models;
 
 namespace GameWorld.Views
 {

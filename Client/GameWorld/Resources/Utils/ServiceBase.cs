@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace GameWorld.Utils
+namespace GameWorld.Resources.Utils
 {
     public class ServiceBase : INotifyPropertyChanged
     {
