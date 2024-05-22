@@ -2,20 +2,16 @@ namespace Server.API.Models
 {
     public class Title
     {
-        private const string DEFAULT_TITLE_NAME = "";
-        private const int DEFAULT_TITLE_PRICE = 0;
-        private const string DEFAULT_TITLE_CONTENT = "";
-
-        public Title(Guid titleID = new Guid(), string titleName = DEFAULT_TITLE_NAME,
-            int titlePrice = DEFAULT_TITLE_PRICE, string titleContent = DEFAULT_TITLE_CONTENT)
+        public Title(Guid titleId, string titleName,
+            int titlePrice, string titleContent)
         {
-            this.TitleID = titleID;
+            this.TitleId = titleId;
             this.TitleName = titleName;
             this.TitlePrice = titlePrice;
             this.TitleContent = titleContent;
         }
 
-        public Guid TitleID
+        public Guid TitleId
         {
             get; set;
         }

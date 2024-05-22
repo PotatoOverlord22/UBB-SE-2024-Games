@@ -1,4 +1,6 @@
-﻿namespace GameWorld.Entities.Tests
+﻿using GameWorld.Models;
+
+namespace GameWorld.Entities.Tests
 {
     [TestClass()]
     public class UserAchievementTests

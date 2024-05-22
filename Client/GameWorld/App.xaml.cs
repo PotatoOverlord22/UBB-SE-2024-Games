@@ -1,9 +1,9 @@
 ﻿using System.Windows;
-using GameWorld.Entities;
-using GameWorld.Utils;
 using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
 using GameWorld.Views;
+using GameWorld.Resources.Utils;
+using GameWorld.Models;
 
 namespace GameWorld
 {

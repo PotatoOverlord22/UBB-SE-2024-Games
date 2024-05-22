@@ -6,7 +6,7 @@ namespace Server.API.Models
         public ItemType ItemType { get; set; }
         public Resource? ResourceToPlace { get; set; }
         public Resource? ResourceToInteract { get; set; }
-        public Resource? ResourceToDestroyId { get; set; } // Nullable.
+        public Resource? ResourceToDestroy { get; set; } // Nullable.
     }
 
     public enum ItemType

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using GameWorld.Entities;
+using GameWorld.Models;
 using GameWorld.Repositories;
-using GameWorld.Utils;
+using GameWorld.Resources.Utils;
 
 namespace GameWorld.Services
 {
@@ -77,8 +77,6 @@ namespace GameWorld.Services
             // Get all the user farm cells.
             List<FarmCell> farmCells = await farmCellRepository.GetUserFarmCellsAsync(GameStateManager.GetCurrentUserId());
 
-            #region Put 5 cows on grids so it makes an X shape! d532eeca-7163-4b27-8135-dbca4cee057a
-
             async Task<bool> IsCowAtPosition(int row, int column, List<FarmCell> farmCells)
             {
                 // Go throguh all the farm cells.
@@ -91,7 +89,7 @@ namespace GameWorld.Services
                     }
 
                     // Get the item from the cell.
-                    Item cellItem = await itemRepository.GetItemByIdAsync(cell.ItemId);
+                    Item cellItem = await itemRepository.GetItemByIdAsync(cell.Item.Id);
 
                     return cellItem?.ItemType == ItemType.Cow;
                 }
@@ -104,7 +102,7 @@ namespace GameWorld.Services
             foreach (FarmCell cell in farmCells)
             {
                 // Get the item from the cell and skip null items or non-cow items.
-                Item item = await itemRepository.GetItemByIdAsync(cell.ItemId);
+                Item item = await itemRepository.GetItemByIdAsync(cell.Item.Id);
                 if (item == null || item.ItemType != ItemType.Cow)
                 {
                     continue;
@@ -120,9 +118,6 @@ namespace GameWorld.Services
                     break;
                 }
             }
-            #endregion
-
-            #region Have the same number of cows, sheep, duck, chicken on your farm! a3b0c4bb-2f1b-4189-9be0-0cc25bf65868
 
             // Initialize the counters.
             int cows = 0, sheeps = 0, ducks = 0, chickens = 0;
@@ -130,7 +125,7 @@ namespace GameWorld.Services
             foreach (FarmCell cell in farmCells)
             {
                 // Get the item from the cell and skip null items.
-                Item item = await itemRepository.GetItemByIdAsync(cell.ItemId);
+                Item item = await itemRepository.GetItemByIdAsync(cell.Item.Id);
                 if (item == null)
                 {
                     continue;
@@ -149,10 +144,6 @@ namespace GameWorld.Services
             {
                 await AddUserAchievement(Guid.Parse("a3b0c4bb-2f1b-4189-9be0-0cc25bf65868"));
             }
-
-            #endregion
-
-            #region Put carrot/wheat/tomato/sheep/chicken/cow in each corner of the land! 37b6e693-c25b-4a1d-ae9e-904148be486c
 
             // Define the target item types.
             ItemType[] targetItemTypes = { ItemType.CarrotSeeds, ItemType.WheatSeeds, ItemType.TomatoSeeds, ItemType.Sheep, ItemType.Chicken, ItemType.Cow };
@@ -178,8 +169,6 @@ namespace GameWorld.Services
             {
                 await AddUserAchievement(Guid.Parse("37b6e693-c25b-4a1d-ae9e-904148be486c"));
             }
-
-            #endregion
         }
 
         public async Task CheckTradeAchievements(Guid otherUserInvolvedId)
@@ -190,34 +179,26 @@ namespace GameWorld.Services
                 throw new Exception("User must be logged in!");
             }
 
-            #region Trade with a player! 15a0ffbb-3e0a-4a5e-8a87-4bf35395622e
             if (GameStateManager.GetCurrentUser().AmountOfTradesPerformed >= 1)
             {
                 await AddUserAchievement(Guid.Parse("15a0ffbb-3e0a-4a5e-8a87-4bf35395622e"));
             }
-            #endregion
 
-            #region Trade with 3 players! 8f01cc9d-e620-4719-96af-e3c078a85b4d
             if (GameStateManager.GetCurrentUser().AmountOfTradesPerformed >= 3)
             {
                 await AddUserAchievement(Guid.Parse("8f01cc9d-e620-4719-96af-e3c078a85b4d"));
             }
-            #endregion
 
-            #region Trade with 5 players! bf6f36e4-718a-4b9e-a991-e02d64257cbf
             if (GameStateManager.GetCurrentUser().AmountOfTradesPerformed >= 5)
             {
                 await AddUserAchievement(Guid.Parse("bf6f36e4-718a-4b9e-a991-e02d64257cbf"));
             }
-            #endregion
 
-            #region Make the very first trade provided by a player! a8f407e3-5338-4bf8-bd20-61bf6fa78aa9
             User otherUser = await userRepository.GetUserByIdAsync(otherUserInvolvedId);
             if (otherUser != null && otherUser.AmountOfTradesPerformed == 1)
             {
                 await AddUserAchievement(Guid.Parse("a8f407e3-5338-4bf8-bd20-61bf6fa78aa9"));
             }
-            #endregion
         }
 
         public async Task CheckInventoryAchievements()
@@ -237,41 +218,31 @@ namespace GameWorld.Services
             InventoryResource chickenMeatInventoryResource = await userService.GetInventoryResourceByType(ResourceType.ChickenMeat, GameStateManager.GetCurrentUserId());
             InventoryResource duckMeatInventoryResource = await userService.GetInventoryResourceByType(ResourceType.DuckMeat, GameStateManager.GetCurrentUserId());
 
-            #region Have in your inventory exactly 69 wheat! bccadd9c-c520-4c6e-8efb-8ef7642edde0
             if (wheatInventoryResource != null && wheatInventoryResource.Quantity == 69)
             {
                 await AddUserAchievement(Guid.Parse("bccadd9c-c520-4c6e-8efb-8ef7642edde0"));
             }
-            #endregion
 
-            #region Collect exactly 25 eggs! be3aba07-1741-4194-b282-103919dcca0f
             int? sum = chickenEggsInventoryResource?.Quantity + duckEggsInventoryResource?.Quantity;
             if (sum != null && sum == 25)
             {
                 await AddUserAchievement(Guid.Parse("be3aba07-1741-4194-b282-103919dcca0f"));
             }
-            #endregion
 
-            #region Have the same amount of chicken and duck meat! 902d847c-c056-4a77-8573-581c22521f7a
             if (chickenMeatInventoryResource != null && duckMeatInventoryResource != null && chickenMeatInventoryResource.Quantity == duckMeatInventoryResource.Quantity)
             {
                 await AddUserAchievement(Guid.Parse("902d847c-c056-4a77-8573-581c22521f7a"));
             }
-            #endregion
 
-            #region Have the same amount of chicken and duck eggs! 1bbe52db-494a-4af1-9997-37d4202b7165
             if (chickenEggsInventoryResource != null && duckEggsInventoryResource != null && chickenEggsInventoryResource.Quantity == duckEggsInventoryResource.Quantity)
             {
                 await AddUserAchievement(Guid.Parse("1bbe52db-494a-4af1-9997-37d4202b7165"));
             }
-            #endregion
 
-            #region Sell all of your tomatoes/chicken eggs or duck eggs/corn! e6149f4d-3f2f-485d-ad7b-e4c5f5660f35
             if ((tomatoInventoryResource?.Quantity == 0 && chickenEggsInventoryResource?.Quantity == 0) || (duckEggsInventoryResource?.Quantity == 0 && cornInventoryResource?.Quantity == 0))
             {
                 await AddUserAchievement(Guid.Parse("e6149f4d-3f2f-485d-ad7b-e4c5f5660f35"));
             }
-            #endregion
         }
 
         public async Task CheckMarketAchievements()
@@ -282,12 +253,10 @@ namespace GameWorld.Services
                 throw new Exception("User must be logged in!");
             }
 
-            #region Buy 15 items from the shop! ec7fafef-4a9b-48bd-8cf2-0a667d63f254
             if (GameStateManager.GetCurrentUser().AmountOfItemsBought >= 15)
             {
                 await AddUserAchievement(Guid.Parse("ec7fafef-4a9b-48bd-8cf2-0a667d63f254"));
             }
-            #endregion
         }
 
         private async Task AddUserAchievement(Guid achievementId)
@@ -304,7 +273,7 @@ namespace GameWorld.Services
             // Return in case the user has already completed the given achievement.
             foreach (UserAchievement userAchievement in userAchievements)
             {
-                if (userAchievement.AchievementId == achievementId)
+                if (userAchievement.Achievement.Id == achievementId)
                 {
                     return;
                 }
@@ -320,8 +289,8 @@ namespace GameWorld.Services
             // Add the achievement to the user acheivements in the database.
             await userAchievementRepository.AddUserAchievementAsync(new UserAchievement(
                 id: Guid.NewGuid(),
-                userId: GameStateManager.GetCurrentUserId(),
-                achievementId: achievementId,
+                user: GameStateManager.GetCurrentUser(),
+                achievement: await achievementRepository.GetAchievementByIdAsync(achievementId),
                 createdTime: DateTime.UtcNow));
 
             // Update the user coins both in the database and locally.

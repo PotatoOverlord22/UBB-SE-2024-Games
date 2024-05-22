@@ -1,7 +1,7 @@
 ﻿using GameWorld.Repositories;
-using GameWorld.Utils;
 using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
+using GameWorld.Resources.Utils;
 
 namespace GameWorld
 {

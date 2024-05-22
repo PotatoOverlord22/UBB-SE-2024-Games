@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using GameWorld.Entities;
+using GameWorld.Models;
 using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
 

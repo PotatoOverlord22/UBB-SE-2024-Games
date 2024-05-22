@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using GameWorld.Entities;
+using GameWorld.Models;
 using GameWorld.Services;
 
 namespace GameWorld.Views

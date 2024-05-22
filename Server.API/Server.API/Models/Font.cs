@@ -6,11 +6,8 @@ namespace Server.API.Models
         private string fontName;
         private int fontPrice;
         private string fontType;
-        private const string DEFAULT_FONT_NAME = "";
-        private const int DEFAULT_FONT_PRICE = 0;
-        private const string DEFAULT_FONT_TYPE = "";
 
-        public Font(Guid fontID = new Guid(), string fontName = DEFAULT_FONT_NAME, int fontPrice = DEFAULT_FONT_PRICE, string fontType = DEFAULT_FONT_TYPE)
+        public Font(Guid fontID, string fontName, int fontPrice, string fontType)
         {
             this.fontID = fontID;
             this.fontName = fontName;

@@ -1,4 +1,4 @@
-﻿using GameWorld.Entities;
+﻿using GameWorld.Models;
 
 namespace GameWorld.Services
 {

@@ -1,6 +1,6 @@
 ﻿using System.Data;
 using Microsoft.Data.SqlClient;
-namespace GameWorld.Utils
+namespace GameWorld.Resources.Utils
 {
     public interface IDatabaseProvider
     {

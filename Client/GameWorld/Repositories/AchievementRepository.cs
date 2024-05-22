@@ -1,104 +1,107 @@
-﻿using System.Data;
-using GameWorld.Entities;
-using GameWorld.Utils;
+﻿using System.Net.Http;
+using System.Net.Http.Json;
+using GameWorld.Models;
+using GameWorld.Resources.Utils;
+using Newtonsoft.Json;
 
 namespace GameWorld.Repositories
 {
     public class AchievementRepository : IAchievementRepository
     {
-        private readonly IDatabaseProvider databaseProvider;
-
-        public AchievementRepository(IDatabaseProvider databaseProvider)
+        public async Task<Achievement> GetAchievementByIdAsync(Guid achievementId)
         {
-            this.databaseProvider = databaseProvider;
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync($"{Apis.ACHIEVEMENTS_BASE_URL}/{achievementId}");
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    var achievement = JsonConvert.DeserializeObject<Achievement>(apiResponse);
+                    return achievement;
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    Console.WriteLine($"No achievement with id {achievementId} found");
+                    return null;
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
 
         public async Task<List<Achievement>> GetAllAchievementsAsync()
         {
-            List<Achievement> achievements = new List<Achievement>();
-
-            using (IDataReader databaseReader = await databaseProvider.ExecuteReaderAsync("SELECT * FROM Achievements", null))
+            using (var httpClient = new HttpClient())
             {
-                int idOrdinal = databaseReader.GetOrdinal("Id");
-                int descriptionOrdinal = databaseReader.GetOrdinal("Description");
-                int rewardCoinsOrdinal = databaseReader.GetOrdinal("RewardCoins");
-
-                while (databaseReader.Read())
+                var response = await httpClient.GetAsync(Apis.ACHIEVEMENTS_BASE_URL);
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
                 {
-                    Guid id = databaseReader.GetGuid(idOrdinal);
-                    string description = databaseReader.GetString(descriptionOrdinal);
-                    int rewardCoins = databaseReader.GetInt32(rewardCoinsOrdinal);
-
-                    achievements.Add(new Achievement(id, description, rewardCoins));
+                    List<Achievement>? achievements = JsonConvert.DeserializeObject<List<Achievement>>(apiResponse);
+                    return achievements;
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    Console.WriteLine("No achievements found");
+                    return null;
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
                 }
             }
-
-            return achievements;
         }
-
-        public async Task<Achievement> GetAchievementByIdAsync(Guid achievementId)
-        {
-            Achievement achievement = null;
-
-            var parameters = new Dictionary<string, object>
-            {
-                 { "@Id", achievementId }
-            };
-
-            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("SELECT * FROM Achievements WHERE Id = @Id", parameters))
-            {
-                int idOrdinal = reader.GetOrdinal("Id");
-                int descriptionOrdinal = reader.GetOrdinal("Description");
-                int rewardCoinsOrdinal = reader.GetOrdinal("RewardCoins");
-                if (reader.Read())
-                {
-                    Guid id = reader.GetGuid(idOrdinal);
-                    string description = reader.GetString(descriptionOrdinal);
-                    int rewardCoins = reader.GetInt32(rewardCoinsOrdinal);
-
-                    achievement = new Achievement(id, description, rewardCoins);
-                }
-            }
-
-            return achievement;
-        }
-
         public async Task AddAchievementAsync(Achievement achievement)
         {
-            var queryParameters = new Dictionary<string, object>
+            using (var httpClient = new HttpClient())
             {
-                { "@Id", achievement.Id },
-                { "@Description", achievement.Description },
-                { "@RewardCoins", achievement.NumberOfCoinsRewarded }
-             };
+                var response = await httpClient.PostAsync(Apis.ACHIEVEMENTS_BASE_URL, JsonContent.Create(achievement));
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Achievement added successfully.");
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
+        }
 
-            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("INSERT INTO Achievements (Id, Description, RewardCoins) VALUES (@Id, @Description, @RewardCoins)", queryParameters))
+        public async Task DeleteAchievementAsync(Guid achievementId)
+        {
+            using (var httpClient = new HttpClient())
             {
+                var response = await httpClient.DeleteAsync($"{Apis.ACHIEVEMENTS_BASE_URL}/{achievementId}");
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Achievement deleted successfully.");
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
             }
         }
 
         public async Task UpdateAchievementAsync(Achievement achievement)
         {
-            var queryParameters = new Dictionary<string, object>
+            using (var httpClient = new HttpClient())
             {
-                { "@Id", achievement.Id },
-                { "@Description", achievement.Description },
-                { "@RewardCoins", achievement.NumberOfCoinsRewarded }
-            };
+                string jsonSerialized = JsonConvert.SerializeObject(achievement);
+                var content = JsonContent.Create(jsonSerialized);
+                string endpoint = $"{Apis.ACHIEVEMENTS_BASE_URL}/{achievement}";
 
-            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("UPDATE Achievements SET Description = @Description, RewardCoins = @RewardCoins WHERE Id = @Id", queryParameters))
-            {
-            }
-        }
-        public async Task DeleteAchievementAsync(Guid achievementId)
-        {
-            var queryParameters = new Dictionary<string, object>
-            {
-                { "@Id", achievementId }
-            };
-
-            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("DELETE FROM Achievements WHERE Id = @Id", queryParameters))
-            {
+                var response = await httpClient.PutAsync(endpoint, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Achievement updated successfully.");
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
             }
         }
     }
