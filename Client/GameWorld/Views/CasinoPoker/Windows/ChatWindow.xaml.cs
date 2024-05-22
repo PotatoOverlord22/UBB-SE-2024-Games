@@ -1,17 +1,18 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using GameWorld.Services;
 
 namespace GameWorld.Views
 {
     public partial class ChatWindow : Window
     {
-      /*  private IChatService chatService;
+        private IChatService chatService;
         public ChatWindow(IChatService chatService)
         {
             InitializeComponent();
             this.chatService = chatService;
-        }*/
+        }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -38,7 +39,7 @@ namespace GameWorld.Views
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            /*chatService.NewMessage(chatInputTextBox.Text + "\n", this);*/
+            chatService.NewMessage(chatInputTextBox.Text + "\n", this);
         }
 
         private void MessagingBox_TextChanged(object sender, TextChangedEventArgs e)

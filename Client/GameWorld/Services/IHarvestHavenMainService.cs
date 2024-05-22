@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameWorld.Services
 {
-    public interface IMainMenuService
+    public interface IHarvestHavenMainService
     {
     }
 }

@@ -1,19 +1,18 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using GameWorld.Services;
 
 namespace GameWorld.Views
 {
-    public partial class LoginPage : Page
+    public partial class LoginPage : Window
     {
-        private Frame mainFrame;
-       /* private MainWindow mainWindow;*/
+        private ICasinoPokerMainService service;
 
-       /* public LoginPage(Frame mainFrame, MainWindow mainWindow)
+        public LoginPage(ICasinoPokerMainService service)
         {
             InitializeComponent();
-            this.mainFrame = mainFrame;
-            this.mainWindow = mainWindow;
-        }*/
+            this.service = service;
+        }
         private void OnTextBoxGotFocus(object sender, RoutedEventArgs e)
         {
             // Clear the text when the TextBox gets focus
@@ -33,8 +32,13 @@ namespace GameWorld.Views
 
         private void OnClickLoginButton(object sender, RoutedEventArgs e)
         {
-           /* mainWindow.OpenNewWindow(inputNameLoginFirstPage.Text);*/
+            OpenNewWindow(inputNameLoginFirstPage.Text);
             inputNameLoginFirstPage.Text = string.Empty;
+        }
+
+        public void OpenNewWindow(string username)
+        {
+            service.AddWindow(username);
         }
     }
 }

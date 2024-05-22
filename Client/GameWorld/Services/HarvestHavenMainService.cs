@@ -3,7 +3,7 @@ using GameWorld.Resources.Utils;
 
 namespace GameWorld.Services
 {
-    public class MainMenuService : ServiceBase, IMainMenuService
+    public class HarvestHavenMainService : ServiceBase, IHarvestHavenMainService
     {
         private string userName;
         public string UserName
@@ -27,7 +27,7 @@ namespace GameWorld.Services
             }
         }
 
-        public MainMenuService()
+        public HarvestHavenMainService()
         {
             User? user = GameStateManager.GetCurrentUser();
             if (user != null)

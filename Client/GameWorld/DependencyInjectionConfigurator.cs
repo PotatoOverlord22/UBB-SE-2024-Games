@@ -31,9 +31,13 @@ namespace GameWorld
             services.AddSingleton<ITradeService, TradeService>();
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IResourceService, ResourceService>();
-            services.AddSingleton<IMainMenuService, MainMenuService>();
+            services.AddSingleton<IHarvestHavenMainService, HarvestHavenMainService>();
             services.AddSingleton<IInventoryService, InventoryService>();
-
+            services.AddSingleton<IItemService, ItemService>();
+            services.AddSingleton<ICasinoPokerMainService, CasinoPokerMainService>();
+            services.AddSingleton<IChatService, ChatService>();
+            services.AddSingleton<IDatabaseProvider, DatabaseProvider>();
+            services.AddSingleton<ITableService, TableService>();
             return services;
         }
 

@@ -9,16 +9,18 @@ namespace GameWorld
 {
     public partial class App : Application
     {
-        private readonly IUserService userService;
+       /* private readonly IUserService userService;*/
         public App()
         {
             DependencyInjectionConfigurator.Init();
-            userService = DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>();
+            /*userService = DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>();
+            MainMenu mainMenu = new MainMenu(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IHarvestHavenMainMenuService>());
+            mainMenu.Show();*/
             SetCurrentUser().Wait();
-
-            MainMenu mainMenu = new MainMenu(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IMainMenuService>());
+            MainMenu mainMenu = new MainMenu();
             mainMenu.Show();
         }
+
         private async Task SetCurrentUser()
         {
             /*User user = await userService.GetUserByIdAsync(Guid.Parse("19d3b857-9e75-4b0d-a0bc-cb945db12620"));*/

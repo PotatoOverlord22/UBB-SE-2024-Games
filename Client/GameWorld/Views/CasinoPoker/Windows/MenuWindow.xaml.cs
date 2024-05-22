@@ -1,29 +1,30 @@
 ﻿using System.Windows;
 using GameWorld.Models;
+using GameWorld.Services;
 namespace GameWorld.Views
 {
     public partial class MenuWindow : Window
     {
         private User user;
-       /* private IMainService service;*/
+        private ICasinoPokerMainService service;
         private Dictionary<string, GameTablePage> gamePages;
 
-       /* public MenuWindow(User user, MainService service)
+        public MenuWindow(User user, ICasinoPokerMainService service)
         {
             InitializeComponent();
             this.service = service;
             this.user = user;
             this.Title = this.user.Username;
-            MenuFrame.Navigate(new MainMenu(MenuFrame, this, service, this.user));
+            MenuFrame.Navigate(new PokerMainMenu(MenuFrame, this, service, this.user));
             gamePages = new Dictionary<string, GameTablePage>();
             gamePages.Add("intern", new GameTablePage(MenuFrame, this, this.service, "intern"));
             gamePages.Add("junior", new GameTablePage(MenuFrame, this, this.service, "junior"));
             gamePages.Add("senior", new GameTablePage(MenuFrame, this, this.service, "senior"));
             Closed += DisconnectUser;
-        }*/
+        }
         public void DisconnectUser(object sender, System.EventArgs systemEvent)
         {
-           /* service.DisconnectUser(this);*/
+            service.DisconnectUser(this);
         }
 
         async public Task<int> StartTime(string table, int minBet, int maxBet)
@@ -35,7 +36,7 @@ namespace GameWorld.Views
 
         public void UpdateChips(string table, User player)
         {
-            /*gamePages[table].UpdateChips(player);*/
+            gamePages[table].UpdateChips(player);
         }
         public void ResetCards(string table)
         {

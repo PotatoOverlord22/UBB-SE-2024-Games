@@ -12,7 +12,7 @@ namespace GameWorld.Views
         public ShopPage(Frame mainFrame, MenuWindow menuWindow)
         {
             InitializeComponent();
-           /* DataContext = new MainViewModel(menuWindow.UserChips(), menuWindow.UserId());*/
+            DataContext = new MainViewModel(menuWindow.UserChips(), menuWindow.UserId());
             this.mainFrame = mainFrame;
         }
 
