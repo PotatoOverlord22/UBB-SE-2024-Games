@@ -29,7 +29,7 @@ public class AchievementService : IAchievementService
         return achievement;
     }
 
-    public void UpdateAchievement(Guid id, Achievement achievement)
+    public async Task UpdateAchievementAsync(Guid id, Achievement achievement)
     {
         if (context.Achievements.Find(id) == null)
         {
@@ -37,14 +37,16 @@ public class AchievementService : IAchievementService
         }
 
         context.Achievements.Update(achievement);
+        await context.SaveChangesAsync();
     }
 
-    public void AddAchievement(Achievement achievement)
+    public async Task AddAchievement(Achievement achievement)
     {
         context.Achievements.Add(achievement);
+        await context.SaveChangesAsync();
     }
 
-    public void DeleteAchievement(Guid id)
+    public async Task DeleteAchievementAsync(Guid id)
     {
         var achievement = context.Achievements.Find(id);
         if (achievement == null)
@@ -52,5 +54,6 @@ public class AchievementService : IAchievementService
             throw new KeyNotFoundException("Achievement not found");
         }
         context.Achievements.Remove(achievement);
+        await context.SaveChangesAsync();
     }
 }
