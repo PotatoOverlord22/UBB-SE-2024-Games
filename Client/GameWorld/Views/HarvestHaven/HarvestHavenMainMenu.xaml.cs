@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace GameWorld.Views
 {
-    public partial class MainMenu : Window
+    public partial class HarvestHavenMainMenu : Window
     {
-        public MainMenu(IMainMenuService service)
+        public HarvestHavenMainMenu(IHarvestHavenMainService service)
         {
             InitializeComponent();
             DataContext = service;

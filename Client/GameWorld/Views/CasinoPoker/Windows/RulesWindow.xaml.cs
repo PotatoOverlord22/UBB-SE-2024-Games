@@ -6,7 +6,7 @@ namespace GameWorld.Views
     using System.Windows;
     public partial class RulesWindow : Window
     {
-        private const string HtmlFilePath = @".\assets\index.html";
+        private const string HtmlFilePath = "Resources/Assets/CasinoPoker/index.html";
 
         public RulesWindow()
         {
@@ -20,10 +20,8 @@ namespace GameWorld.Views
         }
         private void LoadHtmlContent()
         {
-            string solutionDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-
-            // Combine the solution directory with the relative HTML file path
-            string htmlFilePath = Path.Combine(solutionDirectory, HtmlFilePath);
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string htmlFilePath = Path.Combine(currentDirectory, HtmlFilePath);
 
             if (File.Exists(htmlFilePath))
             {

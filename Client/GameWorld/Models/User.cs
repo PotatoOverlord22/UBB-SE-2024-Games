@@ -30,7 +30,7 @@
         // private const int DEFAULT_USER_ID = 0;
         // private const string DEFAULT_USER_NAME = "";
         private const int DEFAULT_USER_CURRENT_TITLE = 0;
-        private const string DEFAULT_USER_CURRENT_ICON_PATH = "";
+        private const string DEFAULT_USER_CURRENT_ICON_PATH = "pack://application:,,,/Resources/Assets/CasinoPoker/profilepict.png";
         private const int DEFAULT_USER_CHIPS = 0;
         private const int DEFAULT_USER_STACK = 0;
         private const int DEFAULT_USER_STREAK = 0;

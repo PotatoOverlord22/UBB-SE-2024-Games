@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using GameWorld.Models;
+using GameWorld.Services;
 
 namespace GameWorld.Views
 {
@@ -10,7 +11,7 @@ namespace GameWorld.Views
     {
         private MenuWindow mainWindow;
         private Frame mainFrame;
-      /*  private IMainService service;*/
+        private ICasinoPokerMainService service;
 
         private const int TIMER_STARTING_VALUE = 0;
         private const int TIMER_ENDED_VALUE = -1;
@@ -25,9 +26,9 @@ namespace GameWorld.Views
         private string action = string.Empty;
         private string tableType;
         // private ChatWindow chatWindow;
-     /*   private IChatService chatService;*/
+        private IChatService chatService;
 
-       /* public GameTablePage(Frame mainFrame, MenuWindow mainWindow, IMainService service, string tableType)
+        public GameTablePage(Frame mainFrame, MenuWindow mainWindow, ICasinoPokerMainService service, string tableType)
         {
             InitializeComponent();
             Loaded += GameTablePage_Loaded;
@@ -50,7 +51,7 @@ namespace GameWorld.Views
                 PlayerChipsTextBox.Text = player.UserChips.ToString();
             });
         }
-*/
+
         private void GameTablePage_Loaded(object sender, RoutedEventArgs e)
         {
             Window window = Window.GetWindow(this);
@@ -63,10 +64,10 @@ namespace GameWorld.Views
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
-           /* chatService.CloseChat(mainWindow);
+            chatService.CloseChat(mainWindow);
             mainFrame.NavigationService.GoBack();
             action = "Fold";
-            mainWindow.DisconnectUser(sender, e);*/
+            mainWindow.DisconnectUser(sender, e);
         }
 
         public void EndTimer()
@@ -113,9 +114,9 @@ namespace GameWorld.Views
                 playerBet.Content = "-";
                 Image playerCard1 = FindName("Player" + player.UserTablePlace + "Card1") as Image;
                 Image playerCard2 = FindName("Player" + player.UserTablePlace + "Card2") as Image;
-                Uri uri1 = new Uri("/assets/cards/" + player.UserCurrentHand[0].CompleteInformation() + ".png", UriKind.Relative);
+                Uri uri1 = new Uri("/Resources/Assets/CasinoPoker/cards/" + player.UserCurrentHand[0].CompleteInformation() + ".png", UriKind.Relative);
                 playerCard1.Source = new BitmapImage(uri1);
-                Uri uri2 = new Uri("/assets/cards/" + player.UserCurrentHand[1].CompleteInformation() + ".png", UriKind.Relative);
+                Uri uri2 = new Uri("/Resources/Assets/CasinoPoker/cards/" + player.UserCurrentHand[1].CompleteInformation() + ".png", UriKind.Relative);
                 playerCard2.Source = new BitmapImage(uri2);
             });
         }
@@ -183,7 +184,7 @@ namespace GameWorld.Views
                 Image playerCard = FindName("Player" + player + "Card" + card) as Image;
                 if (visible == false)
                 {
-                    Uri uri = new Uri("/assets/cards/downCard.jpg", UriKind.Relative);
+                    Uri uri = new Uri("/Resources/Assets/CasinoPoker/cards/downCard.jpg", UriKind.Relative);
                     playerCard.Source = new BitmapImage(uri);
                 }
                 else
@@ -253,7 +254,7 @@ namespace GameWorld.Views
             Application.Current.Dispatcher.Invoke(() =>
             {
                 Image playerCard = FindName("CardTable" + card) as Image;
-                Uri uri = new Uri("/assets/cards/" + cardValue + ".png", UriKind.Relative);
+                Uri uri = new Uri("/Resources/Assets/CasinoPoker/cards/" + cardValue + ".png", UriKind.Relative);
                 playerCard.Source = new BitmapImage(uri);
                 playerCard.Visibility = Visibility.Visible;
             });
@@ -377,7 +378,7 @@ namespace GameWorld.Views
 
         private void MessageButton_Click(object sender, RoutedEventArgs e)
         {
-           /* chatService.NewChat(mainWindow, tableType);*/
+            chatService.NewChat(mainWindow, tableType);
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

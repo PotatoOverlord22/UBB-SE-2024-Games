@@ -14,7 +14,7 @@ namespace GameWorld.Services.Tests
             var user = new User(Guid.NewGuid(), expectedUserName, 100, 0, 0, null, null);
             GameStateManager.SetCurrentUser(user);
 
-            var mainMenuService = new MainMenuService();
+            var mainMenuService = new HarvestHavenMainService();
 
             // Assert
             Assert.AreEqual(expectedUserName, mainMenuService.UserName);
@@ -26,7 +26,7 @@ namespace GameWorld.Services.Tests
             // Arrange
             GameStateManager.SetCurrentUser(null);
 
-            var mainMenuService = new MainMenuService();
+            var mainMenuService = new HarvestHavenMainService();
 
             // Act
 
@@ -43,7 +43,7 @@ namespace GameWorld.Services.Tests
             var user = new User(Guid.NewGuid(), expectedUserName, 100, 0, 0, null, null);
             GameStateManager.SetCurrentUser(user);
 
-            var mainMenuService = new MainMenuService();
+            var mainMenuService = new HarvestHavenMainService();
 
             // Act
             var result = mainMenuService.WelcomeUserMessage;
@@ -59,7 +59,7 @@ namespace GameWorld.Services.Tests
             var expectedMessage = "Welcome, !";
             GameStateManager.SetCurrentUser(null);
 
-            var mainMenuService = new MainMenuService();
+            var mainMenuService = new HarvestHavenMainService();
 
             // Act
             var result = mainMenuService.WelcomeUserMessage;
