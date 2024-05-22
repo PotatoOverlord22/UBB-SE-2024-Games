@@ -4,7 +4,7 @@ using Server.API.Services;
 
 namespace Server.API.Controllers
 {
-    [Route("api/achievements")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AchievementsController : ControllerBase
     {
