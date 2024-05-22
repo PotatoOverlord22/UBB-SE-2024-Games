@@ -28,11 +28,12 @@ public class ItemService : IItemService
 
         return item;
     }
-    public void AddItem(Item item)
+    public async Task AddItemAsync(Item item)
     {
         context.Items.Add(item);
+        await context.SaveChangesAsync();
     }
-    public void DeleteItem(Guid id)
+    public async Task DeleteItemAsync(Guid id)
     {
         var item = context.Items.Find(id);
         if (item == null)
@@ -40,13 +41,15 @@ public class ItemService : IItemService
             throw new KeyNotFoundException("Item not found");
         }
         context.Items.Remove(item);
+        await context.SaveChangesAsync();
     }
-    public void UpdateItem(Guid id, Item item)
+    public async Task UpdateItemAsync(Guid id, Item item)
     {
         if (context.Items.Find(id) == null)
         {
             throw new KeyNotFoundException("Item not found");
         }
         context.Items.Update(item);
+        await context.SaveChangesAsync();
     }
 }

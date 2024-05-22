@@ -46,7 +46,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                itemService.UpdateItem(id, item);
+                await itemService.UpdateItemAsync(id, item);
             }
             catch (KeyNotFoundException)
             {
@@ -62,7 +62,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                itemService.AddItem(item);
+                await itemService.AddItemAsync(item);
             }
             catch (Exception)
             {
@@ -77,7 +77,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                itemService.DeleteItem(id);
+                await itemService.DeleteItemAsync(id);
             }
             catch (KeyNotFoundException)
             {
