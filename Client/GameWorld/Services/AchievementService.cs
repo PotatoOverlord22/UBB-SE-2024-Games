@@ -53,7 +53,7 @@ namespace GameWorld.Services
             foreach (UserAchievement userAchievement in userAchievements)
             {
                 // Get the corresponding achievement from the database.
-                Achievement achievement = await achievementRepository.GetAchievementByIdAsync(userAchievement.AchievementId);
+                Achievement achievement = await achievementRepository.GetAchievementByIdAsync(userAchievement.User.Id);
                 if (achievement == null)
                 {
                     throw new Exception($"No corresponding achievement found for the user achievement with id: {userAchievement.Id}");
@@ -155,7 +155,7 @@ namespace GameWorld.Services
             foreach (FarmCell cell in farmCells)
             {
                 // Get the item from the cell and skip null items..
-                Item item = await itemRepository.GetItemByIdAsync(cell.ItemId);
+                Item item = await itemRepository.GetItemByIdAsync(cell.Item.Id);
                 if (item != null && targetItemTypes.Contains(item.ItemType))
                 {
                     // Mark the row and column positions for cells containing one of the target item types.

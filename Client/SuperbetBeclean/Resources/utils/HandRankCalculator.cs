@@ -1,5 +1,6 @@
-﻿using SuperbetBeclean.Models;
-
+﻿using System;
+using System.Collections.Generic;
+using SuperbetBeclean.Models;
 public class HandRankCalculator
 {
     private Dictionary<string, int> cardValues;

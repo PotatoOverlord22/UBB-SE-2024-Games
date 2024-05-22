@@ -11,7 +11,7 @@ namespace GameWorld.Repositories
         public async Task<List<Trade>> GetAllTradesAsync()
         {
             List<Trade> trades = new List<Trade>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
+         /*   using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM Trades", connection))
@@ -32,14 +32,14 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
             return trades;
         }
 
         public async Task<List<Trade>> GetAllTradesExceptCreatedByUser(Guid userId)
         {
             List<Trade> trades = new List<Trade>();
-            string query = "SELECT * FROM Trades WHERE UserId <> @UserId";
+           /* string query = "SELECT * FROM Trades WHERE UserId <> @UserId";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -65,14 +65,14 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
             return trades;
         }
 
         public async Task<Trade> GetTradeByIdAsync(Guid tradeId)
         {
             Trade? trade = null;
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            /*using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM Trades Where Id = @Id", connection))
@@ -94,14 +94,14 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
             return trade;
         }
 
         public async Task<Trade> GetUserTradeAsync(Guid userId)
         {
             Trade userTrade = null;
-            using (SqlConnection connection = new SqlConnection(connectionString))
+          /*  using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM Trades WHERE UserId = @UserId";
@@ -124,13 +124,13 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
             return userTrade;
         }
 
         public async Task CreateTradeAsync(Trade trade)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO Trades (Id, UserId, GivenResourceId, GivenResourceQuantity, RequestedResourceId, RequestedResourceQuantity, CreatedTime, IsCompleted) VALUES (@Id, @UserId, @GivenResourceId, @GivenResourceQuantity, @RequestedResourceId, @RequestedResourceQuantity, @CreatedTime, @IsCompleted)";
@@ -146,13 +146,13 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@IsCompleted", trade.IsCompleted);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
 
         public async Task UpdateTradeAsync(Trade trade)
         {
             // Create the SQL connection and release the resources after use.
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("UPDATE Trades SET IsCompleted = @IsCompleted WHERE Id = @Id", connection))
@@ -161,12 +161,12 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@IsCompleted", trade.IsCompleted);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
 
         public async Task DeleteTradeAsync(Guid tradeId)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM Trades WHERE Id = @Id";
@@ -175,7 +175,7 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@Id", tradeId);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
     }
 }

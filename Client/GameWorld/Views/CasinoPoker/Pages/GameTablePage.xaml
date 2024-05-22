@@ -1,0 +1,517 @@
+﻿<Page x:Class="GameWorld.Views.GameTablePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" d:DesignWidth="816" 
+      Title="GameTablePage"   MinHeight="660" MinWidth="816" Height="672">
+    <Page.Resources>
+        <Style TargetType="Button" x:Key="RoundedButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="80
+               
+                    " Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button" x:Key="HorizontalButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CustomSliderStyle" TargetType="{x:Type Slider}">
+            <Setter Property="Maximum" Value="100" />
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Foreground" Value="Red" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Slider}">
+                        <Grid>
+                            <Rectangle Fill="{TemplateBinding Background}" Height="4" VerticalAlignment="Center" />
+                            <Track x:Name="PART_Track">
+                                <Track.Thumb>
+                                    <Thumb Width="15" Height="15">
+                                        <Thumb.Template>
+                                            <ControlTemplate>
+                                                <Ellipse Fill="{TemplateBinding Foreground}" />
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid Background="#232323" Margin="0,0,0,10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="106*"/>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="89*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="521"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="12"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#424242" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Background="WhiteSmoke" Width="250" Height="44" CornerRadius="20,20,20,20" HorizontalAlignment="Center" Margin="0,3,0,3">
+
+
+                <Grid  Width="207" Height="38" HorizontalAlignment="Center" >
+                    <TextBlock x:Name="PlayerNameTextBox" HorizontalAlignment="Left" Margin="50,3,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="157"/>
+                    <TextBlock x:Name="PlayerLvlTextBox" Text="lvlTemp" Margin="50,19,103,0"/>
+                    <TextBlock x:Name="PlayerChipsTextBox" Text="chipsTemp" Margin="119,19,0,0"/>
+                    <Image x:Name="PlayerIconImg"  HorizontalAlignment="Left" Height="36" Width="36" Source="/Resources/Assets/CasinoPoker/profilepict.png" Margin="4,0,0,1" Stretch="UniformToFill" Cursor="Hand"/>
+                </Grid>
+            </Border>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="51*"/>
+                    <ColumnDefinition Width="61*"/>
+                    <ColumnDefinition Width="41*"/>
+                    <ColumnDefinition Width="51*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="ChallengesBttn" Style="{StaticResource RoundedButtonStyle}" Content="" Width="40" BorderBrush="White" Foreground="Black" HorizontalAlignment="Right" Grid.Column="1" Cursor="Hand" Margin="65,5,0,5" Click="ChallengesButton_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Assets/CasinoPoker/challengesicon.png" TileMode="Tile" Stretch="Uniform"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="MsgBttn" Style="{StaticResource RoundedButtonStyle}" Content="" Width="40" BorderBrush="White" HorizontalAlignment="Center" Grid.Column="2" Cursor="Hand" Margin="0,5,0,5" Click="MessageButton_Click" >
+                    <Button.Foreground>
+                        <ImageBrush Stretch="Fill"/>
+                    </Button.Foreground>
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Assets/CasinoPoker/messageicons.png" Stretch="Uniform"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="QuitBttn" Style="{StaticResource HorizontalButtonStyle}" Content="Quit" HorizontalAlignment="Center" Width="82" Background="White" BorderBrush="White" FontSize="16" Grid.Column="3" Cursor="Hand"  Margin="0,13,0,13" Click="QuitButton_Click"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1" Grid.ColumnSpan="3" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/Assets/CasinoPoker/gametableBG.jpg" Stretch="Fill"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="229*"/>
+                <ColumnDefinition Width="131*"/>
+
+                <ColumnDefinition Width="99*"/>
+                <ColumnDefinition Width="131*"/>
+                <ColumnDefinition Width="228*"/>
+
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="Corner1" Width="128" Height="128" Margin="79,80,21,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="Player2Card1" Grid.Column="0" Source="/Resources/Assets/CasinoPoker/cards/downCard.jpg" Height="80" Width="55" HorizontalAlignment="Right" Visibility="Hidden"/>
+                <Image x:Name="Player2Card2" Grid.Column="1"  Source="/Resources/Assets/CasinoPoker/cards/downCard.jpg" Height="80" Width="55" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Margin="0,33,0,15" Visibility="Hidden">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="22"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Grid>
+            <Grid x:Name="Corner2" Width="128" Height="128"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Margin="79,100,21,0" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="Player3Card1" Grid.Column="0" Source="/Resources/Assets/CasinoPoker/cards/downCard.jpg" Height="80" Width="55" HorizontalAlignment="Right" Visibility="Hidden"/>
+                <Image x:Name="Player3Card2" Grid.Column="1"  Source="/Resources/Assets/CasinoPoker/cards/downCard.jpg" Height="80" Width="55" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Margin="0,33,0,15" Visibility="Hidden">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="22"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Grid>
+
+            <Grid x:Name="Corner3" Width="128" Height="128" Grid.Row="1" Grid.Column="4" VerticalAlignment="Top" Margin="44,97,55,0" Grid.RowSpan="2" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="Player6Card1" Grid.Column="0" Source="/Resources/Assets/CasinoPoker/cards/downCard.jpg" Height="80" Width="55" HorizontalAlignment="Right" Visibility="Hidden"/>
+                <Image x:Name="Player6Card2" Grid.Column="1"  Source="/Resources/Assets/CasinoPoker/cards/downCard.jpg" Height="80" Width="55" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Margin="0,33,0,15" Visibility="Hidden">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="22"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Grid>
+
+            <Grid x:Name="Corner4" Width="128" Height="128"  Grid.Row="0" Grid.Column="4" VerticalAlignment="Bottom" Margin="10,0,89,100" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="Player7Card1" Grid.Column="0" Source="/Resources/Assets/CasinoPoker/cards/downCard.jpg" Height="80" Width="55" HorizontalAlignment="Right" Visibility="Hidden"/>
+                <Image x:Name="Player7Card2" Grid.Column="1"  Source="/Resources/Assets/CasinoPoker/cards/downCard.jpg" Height="80" Width="55" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Margin="0,33,0,15" Visibility="Hidden">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="22"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Grid>
+            <Grid x:Name="Cols1" Width="108" Height="128" Grid.Row="0" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="Player1Card1" Grid.Column="0" Source="/Resources/Assets/CasinoPoker/cards/downCard.jpg" Height="80" Width="55" HorizontalAlignment="Right" Visibility="Hidden"/>
+                <Image x:Name="Player1Card2" Grid.Column="1"  Source="/Resources/Assets/CasinoPoker/cards/downCard.jpg" Height="80" Width="55" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Margin="0,33,0,15" Visibility="Hidden">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="22"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Grid>
+            <Grid x:Name="Cols2" Width="108" Height="128" Grid.Row="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="Player4Card1" Grid.Column="0" Source="/Resources/Assets/CasinoPoker/cards/downCard.jpg" Height="80" Width="55" HorizontalAlignment="Right" Visibility="Hidden"/>
+                <Image x:Name="Player4Card2" Grid.Column="1"  Source="/Resources/Assets/CasinoPoker/cards/downCard.jpg" Height="80" Width="55" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Margin="0,33,0,15" Visibility="Hidden">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="22"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Grid>
+            <Grid x:Name="Cols3" Width="108" Height="128" Grid.Row="2" Grid.Column="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="Player5Card1" Grid.Column="0" Source="/Resources/Assets/CasinoPoker/cards/downCard.jpg" Height="80" Width="55" HorizontalAlignment="Right" Visibility="Hidden"/>
+                <Image x:Name="Player5Card2" Grid.Column="1"  Source="/Resources/Assets/CasinoPoker/cards/downCard.jpg" Height="80" Width="55" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Margin="0,33,0,15" Visibility="Hidden">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="22"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Grid>
+            <Grid x:Name="Cols4" Width="108" Height="128" Grid.Row="0" Grid.Column="3"  Visibility="Hidden">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="Player8Card1" Grid.Column="0" Source="/Resources/Assets/CasinoPoker/cards/downCard.jpg" Height="80" Width="55" HorizontalAlignment="Right"/>
+                <Image x:Name="Player8Card2" Grid.Column="1"  Source="/Resources/Assets/CasinoPoker/cards/downCard.jpg" Height="80" Width="55" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Margin="0,33,0,15">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="22"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Grid>
+            <Grid Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" Height="NaN" Margin="0,12,0,12" Grid.Row="1" Width="275">
+
+                <Image x:Name="CardTable1" Source="/Resources/Assets/CasinoPoker/cards/9D.png" Height="80" Width="45" HorizontalAlignment="Left" Visibility="Hidden"/>
+                <Image x:Name="CardTable2" Source="/Resources/Assets/CasinoPoker/cards/9D.png" Height="80" Width="45" HorizontalAlignment="Left"  Margin="58,0,0,0" Visibility="Hidden"/>
+                <Image x:Name="CardTable3" Source="/Resources/Assets/CasinoPoker/cards/9D.png" Height="80" Width="45" HorizontalAlignment="Center" Visibility="Hidden"/>
+                <Image x:Name="CardTable4" Source="/Resources/Assets/CasinoPoker/cards/9D.png" Height="80" Width="45" HorizontalAlignment="Left" Margin="171,0,0,0" Visibility="Hidden"/>
+                <Image x:Name="CardTable5" Source="/Resources/Assets/CasinoPoker/cards/9D.png" Height="80" Width="45" HorizontalAlignment="Left" Margin="229,0,0,0" Visibility="Hidden"/>
+
+            </Grid>
+
+
+            <!--DOWN PROFILES  UP TABLE CARDS-->
+            <Border x:Name="Player1Border" Grid.Row="0" Grid.Column="1" Background="WhiteSmoke" Width="108" HorizontalAlignment="Center"  CornerRadius="10,10,10,10" Margin="0,10,0,150" Visibility="Hidden">
+                <Grid x:Name="Player1Grid"  Background="WhiteSmoke" Width="99" HorizontalAlignment="Center" Margin="0,6,0,5">
+                    <TextBlock x:Name="Player1NameTextBox" HorizontalAlignment="Left" Margin="38,3,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="62"/>
+                    <TextBlock x:Name="Player1LvlTextBox" Text="lvlTemp" Margin="38,19,-1,0"/>
+                    <Image x:Name="Player1IconImg"  HorizontalAlignment="Left" Height="30" Width="30" Source="/Resources/Assets/CasinoPoker/profilepict.png" Margin="0,4,0,3" Stretch="UniformToFill" Cursor="Hand"/>
+                </Grid>
+            </Border>
+
+            <Border x:Name="Player2Border" Grid.Row="0" Grid.Column="0" Background="WhiteSmoke" Width="112" Height="48" HorizontalAlignment="Left" Visibility="Hidden" CornerRadius="10,10,10,10" VerticalAlignment="Top" Margin="45,40,0,0">
+                <Grid x:Name="Player2Grid"  Background="WhiteSmoke" Width="108" Height="38" HorizontalAlignment="Center" Margin="0,5,0,5" >
+                    <TextBlock x:Name="Player2NameTextBox" HorizontalAlignment="Left" Margin="50,3,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="62"/>
+                    <TextBlock x:Name="Player2LvlTextBox" Text="lvlTemp" Margin="50,19,0,0" />
+                    <Image x:Name="Player2IconImg"  HorizontalAlignment="Left" Height="30" Width="30" Source="/Resources/Assets/CasinoPoker/profilepict.png" Margin="4,1,0,1" Stretch="UniformToFill" Cursor="Hand"/>
+                </Grid>
+            </Border>
+            <Border x:Name="Player3Border" Grid.Row="2" Grid.Column="0" Background="WhiteSmoke" Width="112" Height="48" HorizontalAlignment="Left" Visibility="Hidden" CornerRadius="10,10,10,10" VerticalAlignment="Bottom" Margin="37,0,0,43">
+                <Grid x:Name="Player3Grid"  Background="WhiteSmoke" Width="108" Height="38" HorizontalAlignment="Center" Margin="0,5,0,5" >
+                    <TextBlock x:Name="Player3NameTextBox" HorizontalAlignment="Left" Margin="50,3,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="62"/>
+                    <TextBlock x:Name="Player3LvlTextBox" Text="lvlTemp" Margin="50,19,0,0" />
+                    <Image x:Name="Player3IconImg"  HorizontalAlignment="Left" Height="30" Width="30" Source="/Resources/Assets/CasinoPoker/profilepict.png" Margin="4,1,0,1" Stretch="UniformToFill" Cursor="Hand"/>
+                </Grid>
+            </Border>
+            <Border x:Name="Player4Border" Grid.Row="2" Grid.Column="1" Background="WhiteSmoke" Width="108" HorizontalAlignment="Center"  CornerRadius="10,10,10,10" Margin="0,160,0,0" Visibility="Hidden" VerticalAlignment="Top">
+                <Grid x:Name="Player4Grid"  Background="WhiteSmoke" Width="99" HorizontalAlignment="Center" Margin="0,6,0,5">
+                    <TextBlock x:Name="Player4NameTextBox" HorizontalAlignment="Left" Margin="38,3,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="62"/>
+                    <TextBlock x:Name="Player4LvlTextBox" Text="lvlTemp" Margin="38,19,-1,0"/>
+                    <Image x:Name="Player4IconImg"  HorizontalAlignment="Left" Height="30" Width="30" Source="/Resources/Assets/CasinoPoker/profilepict.png" Margin="0,4,0,3" Stretch="UniformToFill" Cursor="Hand"/>
+                </Grid>
+            </Border>
+            <Border x:Name="Player5Border" Grid.Row="2" Grid.Column="3" Background="WhiteSmoke" Width="108" HorizontalAlignment="Center"  CornerRadius="10,10,10,10" Margin="0,10,0,0" Visibility="Hidden" VerticalAlignment="Bottom">
+                <Grid x:Name="Player5Grid"  Background="WhiteSmoke" Width="99" HorizontalAlignment="Center" Margin="0,6,0,5" >
+                    <TextBlock x:Name="Player5NameTextBox" HorizontalAlignment="Left" Margin="38,3,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="62"/>
+                    <TextBlock x:Name="Player5LvlTextBox" Text="lvlTemp" Margin="38,19,-1,0"/>
+                    <Image x:Name="Player5IconImg"  HorizontalAlignment="Left" Height="30" Width="30" Source="/Resources/Assets/CasinoPoker/profilepict.png" Margin="0,4,0,3" Stretch="UniformToFill" Cursor="Hand"/>
+                </Grid>
+            </Border>
+            <Border x:Name="Player6Border" Grid.Row="2" Grid.Column="4" Background="WhiteSmoke" Width="112" Height="48" HorizontalAlignment="Right" Visibility="Hidden" CornerRadius="10,10,10,10" Margin="0,0,20,35" VerticalAlignment="Bottom">
+                <Grid x:Name="Player6Grid"  Background="WhiteSmoke" Width="108" Height="38" HorizontalAlignment="Center" Margin="0,5,0,5" >
+                    <TextBlock x:Name="Player6NameTextBox" HorizontalAlignment="Left" Margin="50,3,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="62"/>
+                    <TextBlock x:Name="Player6LvlTextBox" Text="lvlTemp" Margin="50,19,0,0" />
+                    <Image x:Name="Player6IconImg"  HorizontalAlignment="Left" Height="30" Width="30" Source="/Resources/Assets/CasinoPoker/profilepict.png" Margin="4,1,0,1" Stretch="UniformToFill" Cursor="Hand"/>
+                </Grid>
+            </Border>
+            <Border x:Name="Player7Border" Grid.Row="0" Grid.Column="4" Background="WhiteSmoke" Width="112" Height="48" HorizontalAlignment="Right" Visibility="Hidden" CornerRadius="10,10,10,10" VerticalAlignment="Top" Margin="0,55,33,0">
+                <Grid  x:Name="Player7Grid" Background="WhiteSmoke" Width="108" Height="38" HorizontalAlignment="Center" Margin="0,5,0,5" >
+                    <TextBlock x:Name="Player7NameTextBox" HorizontalAlignment="Left" Margin="50,3,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="62"/>
+                    <TextBlock x:Name="Player7LvlTextBox" Text="lvlTemp" Margin="50,19,0,0" />
+                    <Image x:Name="Player7IconImg"  HorizontalAlignment="Left" Height="30" Width="30" Source="/Resources/Assets/CasinoPoker/profilepict.png" Margin="4,1,0,1" Stretch="UniformToFill" Cursor="Hand"/>
+                </Grid>
+            </Border>
+            <Border x:Name="Player8Border" Grid.Row="0" Grid.Column="3" Background="WhiteSmoke" Width="108" HorizontalAlignment="Center"  CornerRadius="10,10,10,10" Margin="0,4,0,156" Visibility="Hidden">
+                <Grid x:Name="Player8Grid" Background="WhiteSmoke" Width="99" HorizontalAlignment="Center" Margin="0,6,0,5">
+                    <TextBlock x:Name="Player8NameTextBox" HorizontalAlignment="Left" Margin="38,3,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="62"/>
+                    <TextBlock x:Name="Player8LvlTextBox" Text="lvlTemp" Margin="38,19,-1,0"/>
+                    <Image x:Name="Player8IconImg"  HorizontalAlignment="Left" Height="30" Width="30" Source="/Resources/Assets/CasinoPoker/profilepict.png" Margin="0,4,0,3" Stretch="UniformToFill" Cursor="Hand"/>
+                </Grid>
+            </Border>
+
+            <!-- UP PROFILES  DOWN BET FIELDS-->
+            <Border Grid.Row="0" Grid.Column="1" CornerRadius="10"  Background="WhiteSmoke" Width="98" Height="67" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="131,137,1,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="PotText" Grid.Row="0" Background="WhiteSmoke" Content="POT:" FontSize="16" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Label x:Name="PotValue" Grid.Row="1" Background="WhiteSmoke" Content="0"  FontSize="16" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+                </Grid>
+            </Border>
+            <Border x:Name="Player1MoneyData" Grid.Row="0" Grid.Column="1" CornerRadius="10"  Background="WhiteSmoke" Visibility="Hidden" Margin="25,168,25,0" Height="40" Width="75" >
+                <Grid Width="75">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="Player1Stack" Content="Stack:" FontSize="9" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Height="23" Width="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                    <Label x:Name="Player1Bet" Grid.Row="1" Content="Bet:"  FontSize="9" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Height="24" Width="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+
+                </Grid>
+            </Border>
+            <Border x:Name="Player2MoneyData" Grid.ColumnSpan="2" Grid.Column="0" CornerRadius="10"  Background="WhiteSmoke" Height="40" Width="68" Visibility="Hidden" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,115,65" Grid.RowSpan="2" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="Player2Stack" Content="Stack:" FontSize="9" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center" Height="24" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="68" />
+                    <Label x:Name="Player2Bet" Grid.Row="1" Content="Bet:"  FontSize="9" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Left" Height="24" Width="68" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+
+                </Grid>
+            </Border>
+            <Border x:Name="Player3MoneyData" Grid.Row="1" Grid.Column="0" CornerRadius="10"  Background="WhiteSmoke" Height="40" Width="68" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,95,97,0" Grid.RowSpan="2" Grid.ColumnSpan="2" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="Player3Stack" Content="Stack:" FontSize="9" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center" Height="24" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="68" />
+                    <Label x:Name="Player3Bet" Grid.Row="1" Content="Bet:"  FontSize="9" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Left" Height="24" Width="68" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+
+                </Grid>
+            </Border>
+            <Border x:Name="Player4MoneyData" Grid.Row="2" Grid.Column="1" CornerRadius="10"  Background="WhiteSmoke" Visibility="Hidden" Margin="56,10,0,0" VerticalAlignment="Top" Height="40" Width="75" >
+                <Grid Margin="3,0,-3,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="Player4Stack" Content="Stack:" FontSize="9" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center" Height="24" Width="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="-3,0,0,0" />
+                    <Label x:Name="Player4Bet" Grid.Row="1" Content="Bet:"  FontSize="9" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Left" Height="24" Width="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="-3,0,0,0" />
+
+                </Grid>
+            </Border>
+            <Border x:Name="Player5MoneyData" Grid.Row="2" Grid.Column="2" CornerRadius="10"  Background="WhiteSmoke" Visibility="Hidden" Margin="91,12,64,0" VerticalAlignment="Top" Height="40" Width="75" Grid.ColumnSpan="2" >
+                <Grid Margin="-1,0,1,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="Player5Stack" Content="Stack:" FontSize="9" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Height="22" Width="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                    <Label x:Name="Player5Bet" Grid.Row="1" Content="Bet:"  FontSize="9" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Height="22" Width="72" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+
+                </Grid>
+            </Border>
+            <Border x:Name="Player6MoneyData" Grid.Row="1" Grid.Column="3" CornerRadius="10"  Background="WhiteSmoke" Height="40" Width="68" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="104,94,0,0" Grid.RowSpan="2" Grid.ColumnSpan="2" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="Player6Stack" Content="Stack:" FontSize="9" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center" Height="24" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="68" />
+                    <Label x:Name="Player6Bet" Grid.Row="1" Content="Bet:"  FontSize="9" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Left" Height="24" Width="68" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+
+                </Grid>
+            </Border>
+            <Border x:Name="Player7MoneyData" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="3" CornerRadius="10"  Background="WhiteSmoke" Height="40" Width="68" Visibility="Hidden" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="116,0,0,60" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="Player7Stack" Content="Stack:" FontSize="9" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center" Height="24" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="68" />
+                    <Label x:Name="Player7Bet" Grid.Row="1" Content="Bet:"  FontSize="9" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Left" Height="24" Width="68" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+
+                </Grid>
+            </Border>
+            <Border x:Name="Player8MoneyData" Grid.Row="0" Grid.Column="3" CornerRadius="10"  Background="WhiteSmoke" Visibility="Hidden" Margin="25,0,25,0" VerticalAlignment="Bottom" Height="40" Width="75" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="Player8Stack" Content="Stack:" FontSize="9" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Height="24" Width="76" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                    <Label x:Name="Player8Bet" Grid.Row="1" Content="Bet:"  FontSize="9" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Height="24" Width="75" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+
+                </Grid>
+            </Border>
+
+        </Grid>
+        <Grid Grid.Row="2" Background="#232323" Grid.ColumnSpan="3" Grid.RowSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.ColumnSpan="2" Margin="99,0,64,18"
+                  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Border  CornerRadius="10" Background="WhiteSmoke" Margin="8,13,8,13" Grid.RowSpan="2">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label x:Name="CurrentBetText" Grid.Row="0" Background="WhiteSmoke" Content="Your current bet:" FontSize="16" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Label x:Name="CurrentBetValue" Grid.Row="1" Background="WhiteSmoke" Content="0" Width="125" FontSize="16" Foreground="Black" HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+
+                    </Grid>
+                </Border>
+            </Grid>
+            <Grid Grid.Column="1" Grid.ColumnSpan="2" Margin="163,0,0,18">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Margin="-60,27,0,0" Grid.RowSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="51*"/>
+                        <ColumnDefinition Width="173*"/>
+                        <ColumnDefinition Width="51*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="MinValueBet" Content="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White" Width="93" Height="37" HorizontalContentAlignment="Center"/>
+                    <Slider x:Name="SliderBet"  Style="{StaticResource CustomSliderStyle}"  TickPlacement="BottomRight" TickFrequency="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="345" Foreground="Red" Background="White" ValueChanged="Slider_ValueChanged" Height="30"/>
+                    <Label x:Name="MaxValueBet"  Content="MAX" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White" Height="37" Width="93" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="SliderValueBet" Content="0" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.Column="1" Margin="0,26,0,0" Height="32" Width="305" HorizontalContentAlignment="Center"/>
+                </Grid>
+
+                <Grid Grid.Row="0" Margin="-60,0,0,1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button  Grid.Column="0" x:Name="RaiseBttn" Style="{StaticResource HorizontalButtonStyle}" Content="Raise" HorizontalAlignment="Center" Height="24" Width="82" Background="White" BorderBrush="White" FontSize="16" Cursor="Hand" Click="RaiseButton_Click" />
+                    <Button  Grid.Column="1" x:Name="CallBtn" Style="{StaticResource HorizontalButtonStyle}" Content="Call" HorizontalAlignment="Center" Height="24" Width="82" Background="White" BorderBrush="White" FontSize="16" Cursor="Hand" Click="CallButton_Click" />
+                    <Button  Grid.Column="2" x:Name="FoldBttn" Style="{StaticResource HorizontalButtonStyle}" Content="Fold" HorizontalAlignment="Center" Height="24" Width="82" Background="White" BorderBrush="White" FontSize="16" Cursor="Hand" Click="FoldButton_Click" />
+                </Grid>
+            </Grid>
+            <TextBlock x:Name="PlayerTimer" Text="Time: " Margin="15,31,15,52"  Foreground="White" FontSize="17"/>
+        </Grid>
+    </Grid>
+</Page>

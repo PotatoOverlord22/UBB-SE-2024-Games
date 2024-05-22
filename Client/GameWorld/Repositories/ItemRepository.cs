@@ -11,7 +11,7 @@ namespace GameWorld.Repositories
         public async Task<List<Item>> GetAllItemsAsync()
         {
             List<Item> items = new List<Item>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM Items", connection))
@@ -29,14 +29,14 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
             return items;
         }
 
         public async Task<Item> GetItemByIdAsync(Guid itemId)
         {
             Item item = null;
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM Items WHERE Id = @Id";
@@ -56,14 +56,14 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
             return item;
         }
 
         public async Task<Item> GetItemByTypeAsync(ItemType itemType)
         {
             Item item = null;
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM Items WHERE ItemType = @ItemType";
@@ -83,13 +83,13 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
             return item;
         }
 
         public async Task CreateItemAsync(Item item)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO Items (Id, ItemType, RequiredResourceId, InteractResourceId, DestroyResourceId) VALUES (@Id, @ItemType, @RequiredResourceId, @InteractResourceId, @DestroyResourceId)";
@@ -102,12 +102,12 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@DestroyResourceId", item.ResourceToDestroyId ?? (object)DBNull.Value);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
 
         public async Task UpdateItemAsync(Item item)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE Items SET ItemType = @ItemType, RequiredResourceId = @RequiredResourceId, InteractResourceId = @InteractResourceId, DestroyResourceId = @DestroyResourceId WHERE Id = @Id";
@@ -120,11 +120,11 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@DestroyResourceId", item.ResourceToDestroyId ?? (object)DBNull.Value);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
 
         public async Task DeleteItemAsync(Guid itemId)
-        {
+        {/*
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
@@ -134,7 +134,7 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@Id", itemId);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
     }
 }

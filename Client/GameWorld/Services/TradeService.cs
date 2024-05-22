@@ -88,10 +88,10 @@ namespace GameWorld.Services
             // Create the trade in the database.
             await tradeRepository.CreateTradeAsync(new Trade(
                 id: Guid.NewGuid(),
-                userId: GameStateManager.GetCurrentUserId(),
-                givenResourceId: givenResource.Id,
+                user: null,
+                givenResource: givenResource,
                 givenResourceQuantity: givenResourceQuantityInt,
-                requestedResourceId: requestedResource.Id,
+                requestedResource: requestedResource,
                 requestedResourceQuantity: requestedResourceQuantityInt,
                 createdTime: DateTime.UtcNow,
                 isCompleted: false));
@@ -113,7 +113,7 @@ namespace GameWorld.Services
             }
 
             // Get the trade's requested resource from the database.
-            Resource requestedResource = await resourceRepository.GetResourceByIdAsync(trade.ResourceToGetResourceId);
+            Resource requestedResource = await resourceRepository.GetResourceByIdAsync(trade.ResourceToGetResource.Id);
             if (requestedResource == null)
             {
                 throw new Exception("Requested resource not found in the database!");
@@ -131,7 +131,7 @@ namespace GameWorld.Services
             await inventoryResourceRepository.UpdateUserResourceAsync(userRequestedResource);
 
             // Get the user's given trade resource from the inventory.
-            InventoryResource userGivenResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), trade.ResourceToGiveId);
+            InventoryResource userGivenResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), trade.ResourceToGive.Id);
             // If the user already has this resource in his inventory simply update the quantity.
             if (userGivenResource != null)
             {
@@ -143,13 +143,13 @@ namespace GameWorld.Services
                 // Otherwise create the entry in the database.
                 await inventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
                     id: Guid.NewGuid(),
-                    userId: GameStateManager.GetCurrentUserId(),
-                    resourceId: trade.ResourceToGiveId,
+                    owner: null,
+                    resource: trade.ResourceToGive,
                     quantity: trade.ResourceToGiveQuantity));
             }
 
             // FOR THE OTHER USER INVOLVED. Get the user's requested trade resource from the inventory of the user who iniated the trade.
-            InventoryResource initialRequestedResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(trade.UserId, trade.ResourceToGetResourceId);
+            InventoryResource initialRequestedResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(trade.User.Id, trade.ResourceToGetResource.Id);
 
             // If the user already has this resource in his inventory simply update the quantity.
             if (initialRequestedResource != null)
@@ -162,8 +162,8 @@ namespace GameWorld.Services
                 // Otherwise create the entry in the database.
                 await inventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
                     id: Guid.NewGuid(),
-                    userId: trade.UserId,
-                    resourceId: trade.ResourceToGetResourceId,
+                    owner: trade.User,
+                    resource: trade.ResourceToGetResource,
                     quantity: trade.ResourceToGetQuantity));
             }
 
@@ -171,7 +171,7 @@ namespace GameWorld.Services
             await tradeRepository.DeleteTradeAsync(trade.Id);
 
             // Increase the other user's number of trades.
-            User otherUser = await userRepository.GetUserByIdAsync(trade.UserId);
+            User otherUser = await userRepository.GetUserByIdAsync(trade.User.Id);
             if (otherUser == null)
             {
                 throw new Exception("The user that created the trade with cannot be found in the database.");
@@ -187,7 +187,7 @@ namespace GameWorld.Services
             GameStateManager.SetCurrentUser(newUser);
 
             // Check achievements.
-            await achievementService.CheckTradeAchievements(trade.UserId);
+            await achievementService.CheckTradeAchievements(trade.User.Id);
             await achievementService.CheckInventoryAchievements();
         }
 
@@ -207,7 +207,7 @@ namespace GameWorld.Services
             }
 
             // Get the user's given trade resource from the inventory.
-            InventoryResource userGivenResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), trade.ResourceToGiveId);
+            InventoryResource userGivenResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), trade.ResourceToGive.Id);
 
             // If the user already has this resource in his inventory simply update the quantity.
             if (userGivenResource != null)
@@ -220,8 +220,8 @@ namespace GameWorld.Services
                 // Otherwise create the entry in the database.
                 await inventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
                     id: Guid.NewGuid(),
-                    userId: GameStateManager.GetCurrentUserId(),
-                    resourceId: trade.ResourceToGiveId,
+                    owner: null,
+                    resource: trade.ResourceToGive,
                     quantity: trade.ResourceToGiveQuantity));
             }
 

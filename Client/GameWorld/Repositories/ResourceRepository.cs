@@ -11,7 +11,7 @@ namespace GameWorld.Repositories
         public async Task<List<Resource>> GetAllResourcesAsync()
         {
             List<Resource> resources = new List<Resource>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            /*using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM Resources", connection))
@@ -26,14 +26,14 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
             return resources;
         }
 
         public async Task<Resource> GetResourceByIdAsync(Guid resourceId)
         {
             Resource resource = null;
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            /*using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM Resources WHERE Id = @Id";
@@ -50,14 +50,14 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
             return resource;
         }
 
         public async Task<Resource> GetResourceByTypeAsync(ResourceType resourceType)
         {
             Resource resource = null;
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM Resources WHERE ResourceType = @ResourceType";
@@ -74,13 +74,13 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
             return resource;
         }
 
         public async Task AddResourceAsync(Resource resource)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO Resources (Id, ResourceType) VALUES (@Id, @ResourceType)";
@@ -90,12 +90,12 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@ResourceType", resource.ResourceType.ToString());
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
 
         public async Task UpdateResourceAsync(Resource resource)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE Resources SET ResourceType = @ResourceType WHERE Id = @Id";
@@ -105,12 +105,12 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@ResourceType", resource.ResourceType.ToString());
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
 
         public async Task DeleteResourceAsync(Guid resourceId)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM Resources WHERE Id = @Id";
@@ -119,7 +119,7 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@Id", resourceId);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
     }
 }

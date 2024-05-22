@@ -11,7 +11,7 @@ namespace GameWorld.Repositories
         public async Task<List<UserAchievement>> GetAllUserAchievementsAsync(Guid userId)
         {
             List<UserAchievement> userAchievements = new List<UserAchievement>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM UserAchievements WHERE UserId = @UserId", connection))
@@ -29,13 +29,13 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
             return userAchievements;
         }
 
         public async Task AddUserAchievementAsync(UserAchievement userAchievement)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO UserAchievements (Id, UserId, AchievementId, CreatedTime) VALUES (@Id, @UserId, @AchievementId, @CreatedTime)";
@@ -47,12 +47,12 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@CreatedTime", userAchievement.AchievementRewardedTime);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
 
         public async Task UpdateUserAchievementAsync(UserAchievement userAchievement)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE UserAchievements SET UserId = @UserId, AchievementId = @AchievementId, CreatedTime = @CreatedTime WHERE Id = @Id";
@@ -64,12 +64,12 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@CreatedTime", userAchievement.AchievementRewardedTime);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
 
         public async Task DeleteUserAchievementAsync(Guid userAchievementId)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            /*using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM UserAchievements WHERE Id = @Id";
@@ -78,7 +78,7 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@Id", userAchievementId);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
     }
 }

@@ -21,7 +21,8 @@ namespace GameWorld
         }
         private async Task SetCurrentUser()
         {
-            User user = await userService.GetUserByIdAsync(Guid.Parse("19d3b857-9e75-4b0d-a0bc-cb945db12620"));
+            /*User user = await userService.GetUserByIdAsync(Guid.Parse("19d3b857-9e75-4b0d-a0bc-cb945db12620"));*/
+            User user = new User(Guid.NewGuid(), "test");
             GameStateManager.SetCurrentUser(user);
         }
     }
