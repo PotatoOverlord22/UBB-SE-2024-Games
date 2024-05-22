@@ -7,6 +7,7 @@ namespace Server.API.Utils
         public static void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IAchievementService, AchievementService>();
+            services.AddScoped<IItemService, ItemService>();
         }
     }
 }
