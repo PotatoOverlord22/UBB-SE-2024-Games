@@ -5,10 +5,10 @@ namespace Server.API.Services
 {
     public interface IAchievementService
     {
-        void AddAchievement(Achievement achievement);
-        void DeleteAchievement(Guid id);
+        Task AddAchievement(Achievement achievement);
+        Task DeleteAchievementAsync(Guid id);
         Task<Achievement> GetAchievementByIdAsync(Guid id);
         Task<List<Achievement>> GetAchievementsAsync();
-        void UpdateAchievement(Guid id, Achievement achievement);
+        Task UpdateAchievementAsync(Guid id, Achievement achievement);
     }
 }

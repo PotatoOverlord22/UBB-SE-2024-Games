@@ -46,7 +46,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                achievementService.UpdateAchievement(id, achievement);
+                await achievementService.UpdateAchievementAsync(id, achievement);
             }
             catch (KeyNotFoundException e)
             {
@@ -62,7 +62,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                achievementService.AddAchievement(achievement);
+                await achievementService.AddAchievement(achievement);
             }
             catch (Exception e)
             {
@@ -77,7 +77,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                achievementService.DeleteAchievement(id);
+                await achievementService.DeleteAchievementAsync(id);
             }
             catch (KeyNotFoundException e)
             {
