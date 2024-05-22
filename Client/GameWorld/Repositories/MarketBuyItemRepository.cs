@@ -11,7 +11,7 @@ namespace GameWorld.Repositories
         public async Task<List<MarketBuyItem>> GetAllMarketBuyItemsAsync()
         {
             List<MarketBuyItem> marketBuyItems = new List<MarketBuyItem>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM MarketBuyItems", connection))
@@ -27,14 +27,14 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
             return marketBuyItems;
         }
 
         public async Task<MarketBuyItem> GetMarketBuyItemByItemIdAsync(Guid itemId)
         {
             MarketBuyItem? marketBuyItem = null;
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM MarketBuyItems WHERE ItemId = @ItemId", connection))
@@ -51,13 +51,13 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
             return marketBuyItem;
         }
 
         public async Task AddMarketBuyItemAsync(MarketBuyItem marketBuyItem)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO MarketBuyItems (Id, ItemId, BuyPrice) VALUES (@Id, @ItemId, @BuyPrice)";
@@ -68,12 +68,12 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@BuyPrice", marketBuyItem.BuyPrice);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
 
         public async Task UpdateMarketBuyItemAsync(MarketBuyItem marketBuyItem)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE MarketBuyItems SET ItemId = @ItemId, BuyPrice = @BuyPrice WHERE Id = @Id";
@@ -84,12 +84,12 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@BuyPrice", marketBuyItem.BuyPrice);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
 
         public async Task DeleteMarketBuyItemAsync(Guid marketBuyItemId)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM MarketBuyItems WHERE Id = @Id";
@@ -98,7 +98,7 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@Id", marketBuyItemId);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
     }
 }

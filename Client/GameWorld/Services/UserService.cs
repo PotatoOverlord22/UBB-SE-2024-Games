@@ -39,7 +39,7 @@ namespace GameWorld.Services
             foreach (InventoryResource inventoryResource in inventoryResources)
             {
                 // Get the corresponding resource from the database.
-                Resource resourceOfUser = await resourceRepository.GetResourceByIdAsync(inventoryResource.ResourceId);
+                Resource resourceOfUser = await resourceRepository.GetResourceByIdAsync(inventoryResource.Resource.Id);
                 if (resourceOfUser == null)
                 {
                     throw new Exception($"No corresponding resource found for the inventory resource with id: {inventoryResource.Id}");
@@ -121,7 +121,7 @@ namespace GameWorld.Services
         #endregion
 
         #region Comments
-        public async Task AddCommentForAnotherUser(Guid targetUserId, string message)
+        public async Task AddCommentForAnotherUser(User targetUser, string message)
         {
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
@@ -131,9 +131,9 @@ namespace GameWorld.Services
 
             await commentRepository.CreateCommentAsync(new Comment(
                id: Guid.NewGuid(),
-               posterUserId: targetUserId,
+               poster: targetUser,
                commentMessage: message,
-               commentCreationTime: DateTime.UtcNow));
+               creationTime: DateTime.UtcNow));
         }
 
         public async Task<List<Comment>> GetMyComments()

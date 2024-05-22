@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table style="border: none;border-collapse:collapse;">
+        <tbody>
+            <tr>
+                <td style="border: 1pt solid black;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>&ldquo;Player&rdquo;</span></p>
+                </td>
+                <td style="border-top: 1pt solid black;border-right: 1pt solid black;border-bottom: 1pt solid black;border-image: initial;border-left: none;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>refers to a user that enters the application. From the beginning, every player has the same interface and options in the game, but they develop their own available options and games they can play based on their decisions and luck.</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>&ldquo;Table&rdquo;</span></p>
+                </td>
+                <td style="border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>refers to the place the game is conducted. The tables can be different in certain aspects depending on some factors. Not all players may be eligible to play at every table.</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>&ldquo;Turn&rdquo;</span></p>
+                </td>
+                <td style="border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>refers to an action the player takes at a certain time in the game. Depending on the player&rsquo;s state in the game, he may have to choose one action from a list of available options. If the action also has a timer and the player doesn&rsquo;t choose one in the period of time, a default action will be played instead, depending on the context (more about the available actions at specific times in the game later on in the contract).</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>&ldquo;Round&rdquo;</span></p>
+                </td>
+                <td style="border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>refers to a series of turns in the game which at the end will determine the winner/s for a current prize pot. In a round, there may be multiple winners and the prize pot is split according to the rules. A player may choose not to play a certain round or leave the table mid-round, but there may be some money penalty (more about penalties later on in the contract). A player may leave the table whenever he wants, and if he leaves before the start of the round, there are no penalties.</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>&ldquo;Inventory&rdquo;</span></p>
+                </td>
+                <td style="border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>refers to the in-game collection of items a player has acquired by purchasing them with money or by receiving them in certain rewards (more about the in-game items later on in the contract).</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>&ldquo;Shop&rdquo;</span></p>
+                </td>
+                <td style="border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>refers to the place a player can buy in-game items using chips.</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>&ldquo;Bonus&rdquo;</span></p>
+                </td>
+                <td style="border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>refers to a free amount of money a player can earn by doing certain tasks at certain times.</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>&ldquo;Challenge&rdquo;</span></p>
+                </td>
+                <td style="border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>refers to a task a player can complete in-game to earn an in-game reward (more on the type of the rewards and the challenges later on in the contract).</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>&ldquo;Balance&rdquo;</span></p>
+                </td>
+                <td style="border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>refers to the total amount of money a player has in his account.</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>&ldquo;Bet&rdquo;</span></p>
+                </td>
+                <td style="border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>refers to a possible action a player can make on his turn, that consists of paying a certain amount of money to continue playing in that round or to make others withdraw from the round.&nbsp;</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>&ldquo;Blind&rdquo;</span></p>
+                </td>
+                <td style="border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>refers to a certain amount of money that is mandatory to be paid to play in that certain round. This is only applicable for certain players at certain times before the start of the round. The specific blind is only paid by one player before the round and then it&rsquo;s assigned to another player (more about the blinds later in the contract).&nbsp;</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>&ldquo;Hand&rdquo;</span></p>
+                </td>
+                <td style="border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>refers to a set of cards the player may use to his advantage in the game. Depending on the context, the term can be referred to the set of two cards the player has during a round or the set of five cards the player can form from the seven available to him (his two cards and the tables&rsquo; five cards) that determines his ranking in the round.</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>&ldquo;Dealer&rdquo;</span></p>
+                </td>
+                <td style="border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>refers to the virtual player that administers some aspects of the game (more about the dealer&rsquo;s roles will be found later on in the contract). The dealer will be a computer that will manage all the game necessities to ensure the game outcome is correct and the game mechanism is fair.</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>&ldquo;Buy-in&rdquo;</span></p>
+                </td>
+                <td style="border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>refers to the initial sum of the money stack for a table. This is the money required for a player to join a game and can differ from table to table.</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>&ldquo;Stack&rdquo;</span></p>
+                </td>
+                <td style="border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>refers to an amount of money a player has during a game at a certain table. This stack has an initial value when joining a table and is restocked from the balance when it drops to zero. All the winning and losses are reflected on this money amount. There is no maximum limit.</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>&ldquo;Chips&rdquo;</span></p>
+                </td>
+                <td style="border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;padding: 5pt;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-family:"Arial",sans-serif;color:black;'>refers to the in-game money currency. This currency can be only used inside the game for playing at the tables and buying items.</span></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-indent:.5in;line-height:normal;'><strong><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>2. Requirements regarding: [ GAME RULES ]</span></strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><strong><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>In this section of the contract, the rules, game actions and game mechanism are defined, explained and detailed.</span></strong></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;line-height:normal;background:white;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:#38761D;'>As a player, I want to know how this game is played, what defines a win, what defines a defeat&nbsp;</span></p>
+    <ul style="margin-bottom:0in;margin-top:0in;" type="disc">
+        <li style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;color:black;text-align:justify;line-height:normal;vertical-align:baseline;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>The game is Texas Hold&apos;em style poker, where each player is dealt by the dealer two private cards and shares five community cards with the other players.</span></li>
+        <li style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;color:black;text-align:justify;line-height:normal;vertical-align:baseline;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>Players aim to create the best possible hand (of 5 cards) combination using their two private cards and the community cards.</span></li>
+        <li style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;color:black;text-align:justify;line-height:normal;vertical-align:baseline;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>The game uses one Standard 52-card deck, which has 13 possible values and 4 possible suits. The deck is shuffled by the dealer each round.</span></li>
+        <li style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;color:black;text-align:justify;line-height:normal;vertical-align:baseline;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>The possible values of the cards are: 2, 3, 4, 5, 6, 7, 8, 9, 10, J (Jack), Q (Queen), K (King), A (Ace).</span></li>
+        <li style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;color:black;text-align:justify;line-height:normal;vertical-align:baseline;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>The possible suits of the cards are: Hearts, Spades, Diamonds, Clubs.&nbsp;</span></li>
+        <li style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;color:black;text-align:justify;line-height:normal;vertical-align:baseline;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>The order of the cards from low to high (which will be relevant in the next explanations) is: 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A. The suit of the cards in determining the winner is irrelevant (if it&rsquo;s not mandatory for that certain hand to have a specific suit). In a hand implying a straight (which will be explained below), the ace (A) can also be used as a 1, therefore preceding a 2.</span></li>
+        <li style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;color:black;text-align:justify;line-height:normal;vertical-align:baseline;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>The ranking of the hands is the following (from best to worst, also explained ):&nbsp;</span></li>
+    </ul>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;text-indent:.5in;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>1.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Royal Flush:</span></p>
+    <ul style="list-style-type: disc;margin-left:1in;">
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>10, J, Q, K, A, all of the same suit.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>This is the highest-ranking hand in poker and consists of a straight flush of the highest cards.</span></li>
+    </ul>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;text-indent:.5in;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>2.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Straight Flush:</span></p>
+    <ul style="list-style-type: disc;margin-left:1in;">
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Five consecutive cards of the same suit.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>For example, 8, 9, 10, J, Q, all of hearts.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>If two players have straight flushes, the one with the highest-ranking card at the top of the sequence wins.&nbsp; &nbsp; &nbsp;&nbsp;</span></li>
+    </ul>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;text-indent:.5in;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>&nbsp; &nbsp; &nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;text-indent:.5in;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>3.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Four of a Kind (Quads):</span></p>
+    <ul style="list-style-type: disc;margin-left:96.3px;">
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Four cards of the same value and one other card.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>For example, A, A, A, A, 7.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>In the event of a tie, the player with the highest-ranking set of four wins. If the tie persists, the player with the highest-ranking fifth card wins.</span></li>
+    </ul>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;text-indent:.5in;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>4.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Full house:</span></p>
+    <ul style="list-style-type: disc;margin-left:1in;">
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Three cards of one rank and two cards of another rank.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>For example, K, K, K, Q, Q.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>If two players have full houses, the player with the highest-ranking three cards of one rank wins. If the tie persists, the player with the highest-ranking two cards of another rank wins.</span></li>
+    </ul>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;text-indent:.5in;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;text-indent:.5in;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>5.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Flush:</span></p>
+    <ul style="list-style-type: disc;margin-left:1in;">
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Five cards of the same suit, not in a consecutive sequence.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>For example, 2, 5, 7, 9, K, all of diamonds.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>If two players have flushes, the one with the highest-ranking card wins, and if necessary, the next highest-ranking cards are compared one by one until a player has a higher one, and that player wins.</span></li>
+    </ul>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;text-indent:.5in;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>6.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Straight:</span></p>
+    <ul style="list-style-type: disc;margin-left:1in;">
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Five consecutive cards of mixed suits.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>For example, 4, 5, 6, 7, 8, of any combination of suits.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>If two players have straights, the one with the highest-ranking card at the top of the sequence wins.</span></li>
+    </ul>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;text-indent:.5in;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>7.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Three of a Kind (Trips):</span></p>
+    <ul style="list-style-type: disc;margin-left:1in;">
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Three cards of the same rank and two cards with two other ranks.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>For example, J, J, J, 4, 9.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>If two players have three of a kind, the one with the highest-ranking set of three wins. If the tie persists, the other two cards are compared one by one (with the highest card first) and the player that wins a comparison first wins the hand.</span></li>
+    </ul>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;text-indent:.5in;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>8.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Two Pairs:</span></p>
+    <ul style="list-style-type: disc;margin-left:1in;">
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Two cards of the same rank, two other cards of the same rank (but different from the first) and another card with a different rank.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>For example, A, A, Q, Q, 5.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>If two players have two pairs, the player with the highest-ranking pair wins, and if necessary, the second-highest pair is compared. If the tie persists, the player with the highest-ranking fifth card wins.</span></li>
+    </ul>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;text-indent:.5in;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>9.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;One Pair:</span></p>
+    <ul style="list-style-type: disc;margin-left:1in;">
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Two cards of the same rank and three cards with three other different ranks.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>For example, 7, 7, 9, J, 3.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>If two players have one pair, the player with the highest-ranking pair wins, and if necessary, the next highest-ranking cards are compared one by one until a player has a higher one, and that player wins.</span></li>
+    </ul>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;text-indent:.5in;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>10.&nbsp; &nbsp; &nbsp; &nbsp;High Card:</span></p>
+    <div style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;'>
+        <ul style="margin-bottom:0in;list-style-type: disc;margin-left:1in;">
+            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;'><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>When none of the above hands are made, the highest card in the hand determines the winner, and if necessary, the next highest-ranking cards are compared one by one until a player has a higher one, and that player wins.</span></li>
+        </ul>
+    </div>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>Defining some concepts are how is the game going:</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'><br>&nbsp;</span></p>
+    <div style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;'>
+        <ol style="margin-bottom:0in;list-style-type: decimal;margin-left:0.5in;">
+            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;'><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Small Blind (SB) and Big Blind (BB):</span></li>
+        </ol>
+    </div>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'><br>&nbsp;</span></p>
+    <ul style="list-style-type: disc;margin-left:1in;">
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Before any cards are dealt, two players are required to post (predefined) blinds, known as the small blind and the big blind and are different depending on the table the game is played.&nbsp;</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>The small blind is half the size of the big blind. These bets ensure there is money in the pot to play for in each hand.&nbsp;</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>At the end of a round, the blinds are moved to the next players in clockwise order.</span></li>
+    </ul>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'><br>&nbsp;</span></p>
+    <div style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;'>
+        <ol style="margin-bottom:0in;list-style-type: undefined;margin-left:0.5in;">
+            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;'><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Dealing Cards:</span></li>
+        </ol>
+    </div>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'><br>&nbsp;</span></p>
+    <div style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;'>
+        <ul style="margin-bottom:0in;list-style-type: disc;margin-left:1in;">
+            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;'><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>After the blinds are posted, each player at the table is dealt two private cards face down, one at a time in clockwise order, known as private cards or pocket cards.</span></li>
+        </ul>
+    </div>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'><br>&nbsp;</span></p>
+    <div style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;'>
+        <ol style="margin-bottom:0in;list-style-type: undefined;margin-left:0.5in;">
+            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;'><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Betting Rounds:</span></li>
+        </ol>
+    </div>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;text-indent:.5in;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>The action starts with the player to the left of the big blind and moves clockwise around the table.</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;text-indent:.5in;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>Players have several options during their turn:</span></p>
+    <ul style="list-style-type: disc;margin-left:1in;">
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Bet: Wager a sum of money that is no more than the player&rsquo;s current stack. This action is only available if there is no current bet.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Fold: Discard their hand and forfeit any chance of winning the current pot (withdrawing from the current round). Any bets made in the current betting round will also be lost for the player (they will go to the prize pot).</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Call: Match the current bet.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Raise: Wager a sum of money greater than the size of the current bet. This will make the new bet.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Check: Decline to bet if no previous bets have been made (or if your bet already matches the current one). This passes the action to the next player without putting more chips into the pot.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>All-In: A player bets all his available money from the stack (because he doesn&rsquo;t have enough money to match the bet). In that case, they remain eligible to win the portion of the pot they contributed to based on their bet. However, they cannot win any further bets made after they went all-in (they are skipped until the showdown).</span></li>
+    </ul>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;The betting rounds end when all players either fold or match the current bet.</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;text-indent:.5in;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>4. Community Cards:</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'><br>&nbsp;</span></p>
+    <div style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;'>
+        <ul style="margin-bottom:0in;list-style-type: disc;margin-left:0.5in;">
+            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;'><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>After the first round of betting, the dealer places three community cards face up on the table. This is called the flop. Another round of betting occurs.</span></li>
+        </ul>
+    </div>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>5. Fourth Street (Turn):</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'><br>&nbsp;</span></p>
+    <div style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;'>
+        <ul style="margin-bottom:0in;list-style-type: disc;margin-left:0.5in;">
+            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;'><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Following the flop, the dealer places a fourth community card face up on the table. This is called the turn or fourth street. Another round of betting occurs.</span></li>
+        </ul>
+    </div>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>6. Fifth Street (River):</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'><br>&nbsp;</span></p>
+    <div style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;'>
+        <ul style="margin-bottom:0in;list-style-type: disc;margin-left:0.5in;">
+            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;'><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>After the betting on the turn is complete, the dealer places a fifth and final community card face up on the table. This is called the river or fifth street. One last round of betting occurs.</span></li>
+        </ul>
+    </div>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>7. Showdown:</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'><br>&nbsp;</span></p>
+    <ul style="list-style-type: disc;margin-left:0.5in;">
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>If there are two or more players remaining after the final betting round, a showdown occurs.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Players reveal their private/hole cards, and the player with the best five-card hand wins the pot.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>If there are no ways to determine the winner of a round, taking into account all the criterias described above, the pot is split evenly among them, creating a split pot.</span></li>
+    </ul>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>So, we can define winning when a player either:</span></p>
+    <ol start="1" style="list-style-type: lower-alpha;margin-left:-0.5in;">
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Has the best hand at the showdown when all cards are revealed.</span></li>
+    </ol>
+    <ol start="2" style="list-style-type: lower-alpha;margin-left:1in;">
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>Forces all other players to fold before the showdown, thus winning the pot without revealing their hand.</span></li>
+    </ol>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:11.0pt;font-family:"Aptos",sans-serif;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
+    <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;font-size:11.0pt;font-family:"Aptos",sans-serif;text-align:justify;line-height:normal;'><span style='font-size:16px;font-family:"Times New Roman",serif;color:black;'>In the opposite, a loss is declared when a player either:</span></p>
+    <ol start="1" style="list-style-type: lower-alpha;margin-left:1in;">
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>has a weaker hand than another player at the showdown.</span></li>
+        <li><span style='font-family:"Times New Roman",serif;font-size:12.0pt;color:black;'>folds their hand after betting chips into the pot and being forced to surrender those chips.</span></li>
+    </ol>
+</body>
+</html>

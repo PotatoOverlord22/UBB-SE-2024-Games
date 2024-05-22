@@ -11,7 +11,7 @@ namespace GameWorld.Repositories
         public async Task<List<MarketSellResource>> GetAllSellResourcesAsync()
         {
             List<MarketSellResource> sellResources = new List<MarketSellResource>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM MarketSellResources", connection))
@@ -27,7 +27,7 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
             return sellResources;
         }
 
@@ -35,7 +35,7 @@ namespace GameWorld.Repositories
         {
             MarketSellResource? sellResource = null;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM MarketSellResources WHERE ResourceId = @ResourceId", connection))
@@ -52,14 +52,14 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
 
             return sellResource;
         }
 
         public async Task AddMarketSellResourceAsync(MarketSellResource marketSellResource)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "INSERT INTO MarketSellResources (Id, ResourceId, SellPrice) VALUES (@Id, @ResourceId, @SellPrice)";
@@ -70,12 +70,12 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@SellPrice", marketSellResource.SellPrice);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
 
         public async Task UpdateMarketSellResourceAsync(MarketSellResource marketSellResource)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "UPDATE MarketSellResources SET ResourceId = @ResourceId, SellPrice = @SellPrice WHERE Id = @Id";
@@ -86,12 +86,12 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@SellPrice", marketSellResource.SellPrice);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
 
         public async Task DeleteMarketSellResourceAsync(Guid marketSellResourceId)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            /*using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "DELETE FROM MarketSellResources WHERE Id = @Id";
@@ -100,7 +100,7 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@Id", marketSellResourceId);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
     }
 }

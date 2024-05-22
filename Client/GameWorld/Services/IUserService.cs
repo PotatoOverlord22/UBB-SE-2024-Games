@@ -9,7 +9,7 @@ namespace GameWorld.Services
         Task<InventoryResource> GetInventoryResourceByType(ResourceType resourceType, Guid userId);
         bool IsTradeHallUnlocked();
         Task UnlockTradeHall();
-        Task AddCommentForAnotherUser(Guid targetUserId, string message);
+        Task AddCommentForAnotherUser(User targetUser, string message);
         Task<List<Comment>> GetMyComments();
         Task DeleteComment(Guid commentId);
         Task<List<User>> GetAllUsersSortedByCoinsAsync();

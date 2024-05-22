@@ -12,7 +12,7 @@ namespace GameWorld.Repositories
 
         public async Task AddUserAsync(User user)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+          /*  using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("INSERT INTO Users (Id, Username, Coins, NrItemsBought, NrTradesPerformed, TradeHallUnlockTime, LastTimeReceivedWater) VALUES (@Id, @Username, @Coins, @NrItemsBought, @NrTradesPerformed, @TradeHallUnlockTime, @LastTimeReceivedWater)", connection))
@@ -26,13 +26,13 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@LastTimeReceivedWater", user.LastTimeReceivedWater ?? (object)DBNull.Value);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
 
         public async Task<User> GetUserByIdAsync(Guid userId)
         {
             User? user = null;
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 string query = "SELECT * FROM Users WHERE Id = @Id";
@@ -54,14 +54,14 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
             return user;
         }
 
         public async Task<List<User>> GetAllUsersAsync()
         {
             List<User> users = new List<User>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("SELECT * FROM Users", connection))
@@ -81,13 +81,13 @@ namespace GameWorld.Repositories
                         }
                     }
                 }
-            }
+            }*/
             return users;
         }
 
         public async Task UpdateUserAsync(User user)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           /* using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("UPDATE Users SET Username = @Username, Coins = @Coins, NrItemsBought = @NrItemsBought, NrTradesPerformed = @NrTradesPerformed, TradeHallUnlockTime = @TradeHallUnlockTime, LastTimeReceivedWater = @LastTimeReceivedWater WHERE Id = @Id", connection))
@@ -101,12 +101,12 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@LastTimeReceivedWater", user.LastTimeReceivedWater ?? (object)DBNull.Value);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
 
         public async Task DeleteUserByIdAsync(Guid userId)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            /*using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand command = new SqlCommand("DELETE FROM Users WHERE Id = @Id", connection))
@@ -114,12 +114,12 @@ namespace GameWorld.Repositories
                     command.Parameters.AddWithValue("@Id", userId);
                     await command.ExecuteNonQueryAsync();
                 }
-            }
+            }*/
         }
 
         #endregion
 
-        #region Helper Functions
+      /*  #region Helper Functions
         public async Task TestAsync()
         {
             try
@@ -192,6 +192,6 @@ namespace GameWorld.Repositories
             }
         }
 
-        #endregion
+        #endregion*/
     }
 }

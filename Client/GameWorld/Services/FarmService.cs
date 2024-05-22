@@ -36,7 +36,7 @@ namespace GameWorld.Services
                 }
 
                 // Get the item from the current cell.
-                Item item = await itemRepository.GetItemByIdAsync(cell.ItemId);
+                Item item = await itemRepository.GetItemByIdAsync(cell.Item.Id);
                 if (item == null)
                 {
                     throw new Exception($"Item from farmCell with id {cell.Id} not found.");
@@ -66,14 +66,14 @@ namespace GameWorld.Services
             }
 
             // Get the item from the farm cell.
-            Item farmCellItem = await itemRepository.GetItemByIdAsync(farmCell.ItemId);
+            Item farmCellItem = await itemRepository.GetItemByIdAsync(farmCell.Item.Id);
             if (farmCellItem == null)
             {
                 throw new Exception("Item from the farm cell was not found in the database!");
             }
 
             // Get the required resource of the farm cell item from the inventory.
-            InventoryResource requiredResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.ResourceToPlaceId);
+            InventoryResource requiredResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.ResourceToPlace.Id);
             if (requiredResource == null || requiredResource.Quantity <= 0)
             {
                 throw new Exception("You don't have the resource required for this farm cell.");
@@ -85,7 +85,7 @@ namespace GameWorld.Services
             await inventoryResourceRepository.UpdateUserResourceAsync(requiredResource);
 
             // Get the user's interact farm cell item resource from the inventory.
-            InventoryResource interactResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.ResourceToInteractId);
+            InventoryResource interactResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.ResourceToInteract.Id);
 
             // Define the interact resource quantity amount.
             int interactResourceAmount = DateTime.UtcNow - farmCell.LastTimeEnhanced < TimeSpan.FromDays(Constants.ENCHANCE_DURATION_IN_DAYS) ? 2 : 1;
@@ -101,8 +101,8 @@ namespace GameWorld.Services
                 // Otherwise create the entry in the database.
                 await inventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
                     id: Guid.NewGuid(),
-                    userId: GameStateManager.GetCurrentUserId(),
-                    resourceId: farmCellItem.ResourceToInteractId,
+                    owner: null,
+                    resource: farmCellItem.ResourceToInteract,
                     quantity: interactResourceAmount));
             }
 
@@ -131,7 +131,7 @@ namespace GameWorld.Services
             }
 
             // Get the item from the farm cell.
-            Item farmCellItem = await itemRepository.GetItemByIdAsync(farmCell.ItemId);
+            Item farmCellItem = await itemRepository.GetItemByIdAsync(farmCell.Item.Id);
             if (farmCellItem == null)
             {
                 throw new Exception("Item from the farm cell was not found in the database!");
@@ -139,10 +139,10 @@ namespace GameWorld.Services
             #endregion
 
             // If the farm cell item has a destroy resource.
-            if (farmCellItem.ResourceToDestroyId != null)
+            if (farmCellItem.ResourceToDestroy.Id != null)
             {
                 // Get the user's destroy farm cell item resource from the inventory.
-                InventoryResource destroyResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.ResourceToDestroyId.Value);
+                InventoryResource destroyResource = await inventoryResourceRepository.GetUserResourceByResourceIdAsync(GameStateManager.GetCurrentUserId(), farmCellItem.ResourceToDestroy.Id);
 
                 // Define the destroy resource quantity amount.
                 int destroyResourceAmount = DateTime.UtcNow - farmCell.LastTimeEnhanced < TimeSpan.FromDays(Constants.ENCHANCE_DURATION_IN_DAYS) ? 2 : 1;
@@ -158,8 +158,8 @@ namespace GameWorld.Services
                     // Otherwise create the entry in the database.
                     await inventoryResourceRepository.AddUserResourceAsync(new InventoryResource(
                         id: Guid.NewGuid(),
-                        userId: GameStateManager.GetCurrentUserId(),
-                        resourceId: farmCellItem.ResourceToDestroyId.Value,
+                        owner: null,
+                        resource: farmCellItem.ResourceToDestroy,
                         quantity: destroyResourceAmount));
                 }
             }
