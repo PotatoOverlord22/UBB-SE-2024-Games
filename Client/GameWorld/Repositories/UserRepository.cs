@@ -1,197 +1,101 @@
-﻿using GameWorld.Models;
+﻿using System.Net.Http;
+using System.Net.Http.Json;
+using GameWorld.Models;
 using GameWorld.Resources.Utils;
-using Microsoft.Data.SqlClient;
+using GameWorld.Services;
+using Newtonsoft.Json;
 
 namespace GameWorld.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly string connectionString = DatabaseHelper.GetDatabaseFilePath();
+        private readonly HttpClient httpClient;
 
-        #region CRUD
+        public UserRepository()
+        {
+            this.httpClient = new HttpClient();
+        }
 
         public async Task AddUserAsync(User user)
         {
-          /*  using (SqlConnection connection = new SqlConnection(connectionString))
+            var response = await httpClient.PostAsync(Apis.USERS_BASE_URL, JsonContent.Create(user));
+            if (response.IsSuccessStatusCode)
             {
-                await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand("INSERT INTO Users (Id, Username, Coins, NrItemsBought, NrTradesPerformed, TradeHallUnlockTime, LastTimeReceivedWater) VALUES (@Id, @Username, @Coins, @NrItemsBought, @NrTradesPerformed, @TradeHallUnlockTime, @LastTimeReceivedWater)", connection))
-                {
-                    command.Parameters.AddWithValue("@Id", user.Id);
-                    command.Parameters.AddWithValue("@Username", user.Username);
-                    command.Parameters.AddWithValue("@Coins", user.Coins);
-                    command.Parameters.AddWithValue("@NrItemsBought", user.AmountOfItemsBought);
-                    command.Parameters.AddWithValue("@NrTradesPerformed", user.AmountOfTradesPerformed);
-                    command.Parameters.AddWithValue("@TradeHallUnlockTime", user.TradeHallUnlockTime ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@LastTimeReceivedWater", user.LastTimeReceivedWater ?? (object)DBNull.Value);
-                    await command.ExecuteNonQueryAsync();
-                }
-            }*/
-        }
-
-        public async Task<User> GetUserByIdAsync(Guid userId)
-        {
-            User? user = null;
-           /* using (SqlConnection connection = new SqlConnection(connectionString))
+                Console.WriteLine("User added successfully.");
+            }
+            else
             {
-                await connection.OpenAsync();
-                string query = "SELECT * FROM Users WHERE Id = @Id";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Id", userId);
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                    {
-                        if (await reader.ReadAsync())
-                        {
-                            user = new User(
-                                id: (Guid)reader["Id"],
-                                username: (string)reader["Username"],
-                                coins: (int)reader["Coins"],
-                                nrItemsBought: (int)reader["NrItemsBought"],
-                                nrTradesPerformed: (int)reader["NrTradesPerformed"],
-                                tradeHallUnlockTime: reader["TradeHallUnlockTime"] != DBNull.Value ? (DateTime)reader["TradeHallUnlockTime"] : null,
-                                lastTimeReceivedWater: reader["LastTimeReceivedWater"] != DBNull.Value ? (DateTime)reader["LastTimeReceivedWater"] : null);
-                        }
-                    }
-                }
-            }*/
-            return user;
-        }
-
-        public async Task<List<User>> GetAllUsersAsync()
-        {
-            List<User> users = new List<User>();
-           /* using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand("SELECT * FROM Users", connection))
-                {
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            users.Add(new User(
-                                id: (Guid)reader["Id"],
-                                username: (string)reader["Username"],
-                                coins: (int)reader["Coins"],
-                                nrItemsBought: (int)reader["NrItemsBought"],
-                                nrTradesPerformed: (int)reader["NrTradesPerformed"],
-                                tradeHallUnlockTime: reader["TradeHallUnlockTime"] != DBNull.Value ? (DateTime)reader["TradeHallUnlockTime"] : null,
-                                lastTimeReceivedWater: reader["LastTimeReceivedWater"] != DBNull.Value ? (DateTime)reader["LastTimeReceivedWater"] : null));
-                        }
-                    }
-                }
-            }*/
-            return users;
-        }
-
-        public async Task UpdateUserAsync(User user)
-        {
-           /* using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand("UPDATE Users SET Username = @Username, Coins = @Coins, NrItemsBought = @NrItemsBought, NrTradesPerformed = @NrTradesPerformed, TradeHallUnlockTime = @TradeHallUnlockTime, LastTimeReceivedWater = @LastTimeReceivedWater WHERE Id = @Id", connection))
-                {
-                    command.Parameters.AddWithValue("@Id", user.Id);
-                    command.Parameters.AddWithValue("@Username", user.Username);
-                    command.Parameters.AddWithValue("@Coins", user.Coins);
-                    command.Parameters.AddWithValue("@NrItemsBought", user.AmountOfItemsBought);
-                    command.Parameters.AddWithValue("@NrTradesPerformed", user.AmountOfTradesPerformed);
-                    command.Parameters.AddWithValue("@TradeHallUnlockTime", user.TradeHallUnlockTime ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@LastTimeReceivedWater", user.LastTimeReceivedWater ?? (object)DBNull.Value);
-                    await command.ExecuteNonQueryAsync();
-                }
-            }*/
+                throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+            }
         }
 
         public async Task DeleteUserByIdAsync(Guid userId)
         {
-            /*using (SqlConnection connection = new SqlConnection(connectionString))
+            var response = await httpClient.DeleteAsync($"{Apis.USERS_BASE_URL}/{userId}");
+            if (response.IsSuccessStatusCode)
             {
-                await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand("DELETE FROM Users WHERE Id = @Id", connection))
-                {
-                    command.Parameters.AddWithValue("@Id", userId);
-                    await command.ExecuteNonQueryAsync();
-                }
-            }*/
+                Console.WriteLine("User deleted successfully.");
+            }
+            else
+            {
+                throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+            }
         }
 
-        #endregion
-
-      /*  #region Helper Functions
-        public async Task TestAsync()
+        public async Task<List<User>> GetAllUsersAsync()
         {
-            try
+            var response = await httpClient.GetAsync(Apis.USERS_BASE_URL);
+            string apiResponse = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
             {
-                List<User> users = await GetAllUsersAsync();
-
-                if (users != null && users.Count > 0)
-                {
-                    Console.WriteLine("Initial Users:");
-                    foreach (var user in users)
-                    {
-                        Console.WriteLine($"Username: {user.Username}, Coins: {user.Coins}");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No users found.");
-                }
-
-                User newUser = new User(
-                    id: Guid.NewGuid(),
-                    username: "NewUser",
-                    coins: 100,
-                    nrItemsBought: 0,
-                    nrTradesPerformed: 0,
-                    tradeHallUnlockTime: DateTime.UtcNow,
-                    lastTimeReceivedWater: DateTime.UtcNow);
-                await AddUserAsync(newUser);
-                Console.WriteLine($"New user added: {newUser.Username}");
-
-                users = await GetAllUsersAsync();
-                if (users != null && users.Count > 0)
-                {
-                    Console.WriteLine("\nUpdated Users:");
-                    foreach (var user in users)
-                    {
-                        Console.WriteLine($"Username: {user.Username}, Coins: {user.Coins}");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No users found.");
-                }
-
-                newUser.Coins += 50;
-                await UpdateUserAsync(newUser);
-                Console.WriteLine($"\nUser {newUser.Username} updated. New coins: {newUser.Coins}");
-
-                // Uncomment to delete the newly added user
-                await DeleteUserByIdAsync(newUser.Id);
-                Console.WriteLine($"\nUser {newUser.Username} deleted.");
-
-                users = await GetAllUsersAsync();
-                if (users != null && users.Count > 0)
-                {
-                    Console.WriteLine("\nUsers after deletion:");
-                    foreach (var user in users)
-                    {
-                        Console.WriteLine($"Username: {user.Username}, Coins: {user.Coins}");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No users found.");
-                }
+                List<User>? users = JsonConvert.DeserializeObject<List<User>>(apiResponse);
+                return users;
             }
-            catch (Exception ex)
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                Console.WriteLine($"Error occurred: {ex.Message}");
+                Console.WriteLine("No users found");
+                return new List<User>();
+            }
+            else
+            {
+                throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
             }
         }
 
-        #endregion*/
+        public async Task<User> GetUserByIdAsync(Guid userId)
+        {
+            var response = await httpClient.GetAsync($"{Apis.USERS_BASE_URL}/{userId}");
+            string apiResponse = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                var user = JsonConvert.DeserializeObject<User>(apiResponse);
+                return user;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                throw new Exception($"No User with id {userId} found");
+            }
+            else
+            {
+                throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+            }
+        }
+
+        public async Task UpdateUserAsync(User user)
+        {
+            string jsonSerialized = JsonConvert.SerializeObject(user);
+            var content = JsonContent.Create(jsonSerialized);
+            string endpoint = $"{Apis.USERS_BASE_URL}/{user.Id}";
+
+            var response = await httpClient.PutAsync(endpoint, content);
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("User updated successfully.");
+            }
+            else
+            {
+                throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+            }
+        }
     }
 }

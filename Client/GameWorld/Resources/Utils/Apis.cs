@@ -8,5 +8,6 @@
         public static readonly string RESOURCES_BASE_URL = "https://localhost:8080/api/Resources";
         public static readonly string INVENTORY_RESOURCES_BASE_URL = "https://localhost:8080/api/InventoryResources";
         public static readonly string MARKET_BUY_ITEM = "https://localhost:8080/api/MarketBuyItem";
+        public static readonly string USERS_BASE_URL = "https://localhost:8080/api/Users";
     }
 }
