@@ -1,8 +1,8 @@
-﻿using GameWorld.Models;
+﻿using Server.API.Models;
 
-namespace GameWorld.Repositories
+namespace Server.API.Services
 {
-    public interface IMarketBuyItemRepository
+    public interface IMarketBuyItemService
     {
         Task<List<MarketBuyItem>> GetAllMarketBuyItemsAsync();
         Task<MarketBuyItem> GetMarketBuyItemByItemIdAsync(Guid itemId);
