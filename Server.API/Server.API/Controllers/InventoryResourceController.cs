@@ -24,7 +24,7 @@ namespace Server.API.Controllers
 
         // Get Achievement by id
         // api/achievements/5
-        [HttpGet("{userId}, {resourceId}")]
+        [HttpGet("userId={userId}&resourceId={resourceId}")]
         public async Task<ActionResult<InventoryResource>> GetUserResourceByResourceIdAsync(Guid id, Guid resourceID)
         {
             var userResources = await inventoryResourceService.GetUserResourceByResourceIdAsync(id, resourceID);
@@ -56,11 +56,11 @@ namespace Server.API.Controllers
         // Add achievement
         // POST: api/achievements
         [HttpPost]
-        public async Task<IActionResult> AddinventoryResource(InventoryResource achievement)
+        public async Task<IActionResult> AddinventoryResource(InventoryResource inventoryResource)
         {
             try
             {
-                await inventoryResourceService.AddUserResourceAsync(achievement);
+                await inventoryResourceService.AddUserResourceAsync(inventoryResource);
             }
             catch (Exception e)
             {

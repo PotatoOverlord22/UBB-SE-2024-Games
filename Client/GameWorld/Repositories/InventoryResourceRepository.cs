@@ -36,7 +36,7 @@ namespace GameWorld.Repositories
             using var httpClient = new HttpClient();
             try
             {
-                var response = await httpClient.GetAsync($"{Apis.INVENTORY_RESOURCES_BASE_URL}/{resourceId}");
+                var response = await httpClient.GetAsync($"{Apis.INVENTORY_RESOURCES_BASE_URL}/userId={userId}&resourceId={resourceId}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadFromJsonAsync<InventoryResource>() ?? throw new Exception("Response content from getting all resources by user from the backend is invalid: ");
