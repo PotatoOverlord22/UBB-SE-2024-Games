@@ -13,5 +13,8 @@ namespace GameWorld.Services
         Task<List<Comment>> GetMyComments();
         Task DeleteComment(Guid commentId);
         Task<List<User>> GetAllUsersSortedByCoinsAsync();
+        List<string> GetAllRequestsByToUserID(Guid toUser);
+        List<Tuple<Guid, Guid>> GetAllRequestsByToUserIDSimplified(Guid toUser);
+        int GetChipsByUserId(Guid userId);
     }
 }

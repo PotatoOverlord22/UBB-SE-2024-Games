@@ -111,7 +111,7 @@ namespace GameWorld.Views
         private void ShopBttn_Click(object sender, RoutedEventArgs e)
         {
             string currentUserName = mainWindow.UserName();
-            RequestsWindow requestWindow = new RequestsWindow(currentUserName, this, mainWindow.UserName());
+            RequestsWindow requestWindow = new RequestsWindow(user, this, mainWindow.UserName());
             requestWindow.Show();
         }
     }

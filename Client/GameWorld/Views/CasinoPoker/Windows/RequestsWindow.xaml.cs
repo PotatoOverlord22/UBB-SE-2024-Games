@@ -2,32 +2,31 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using GameWorld.Models;
 using GameWorld.Services;
 namespace GameWorld.Views
 {
     public partial class RequestsWindow : Window
     {
-        private string currentUserName;
         private List<string> requests;
         private IDataBaseService dbService;
         private string connectionString;
         private LobbyPage lobbyPage;
-        public string UserName;
-        public RequestsWindow(string currentUserName, LobbyPage lobbyPage, string userName)
+        private User currentUser;
+        public RequestsWindow(User currentUser, LobbyPage lobbyPage, string userName)
         {
             InitializeComponent();
-            UserName = userName;
+            this.currentUser = currentUser;
             dbService = new DataBaseService(); // Initialize the database service
-            this.currentUserName = currentUserName;
             this.lobbyPage = lobbyPage;
             // Call a method to load and display requests
             LoadRequests();
-            chipsInRequestPage.Text = dbService.GetChipsByUserId(dbService.GetUserIdByUserName(currentUserName)).ToString();
+            chipsInRequestPage.Text = dbService.GetChipsByUserId(currentUser.Id).ToString();
         }
 
         private void LoadRequests()
         {
-            requests = dbService.GetAllRequestsByToUserID(dbService.GetUserIdByUserName(currentUserName)); // Get requests from the database
+            requests = dbService.GetAllRequestsByToUserID(currentUser.Id); // Get requests from the database
             RequestsStackPanel.Children.Clear();
             // Create and add request items dynamically
             foreach (string requestInfo in requests)
@@ -63,7 +62,7 @@ namespace GameWorld.Views
         // Accept all
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            List<Tuple<Guid, Guid>> requests = dbService.GetAllRequestsByToUserIDSimplified(dbService.GetUserIdByUserName(currentUserName));
+            List<Tuple<Guid, Guid>> requests = dbService.GetAllRequestsByToUserIDSimplified(currentUser.Id);
 
             foreach (Tuple<Guid, Guid> request in requests)
             {
@@ -77,7 +76,7 @@ namespace GameWorld.Views
                     if (window.GetType() == typeof(RequestsWindow))
                     {
                         RequestsWindow requestWindow = (RequestsWindow)window;
-                        if (requestWindow.UserName == dbService.GetUserNameByUserId(fromUserID))
+                        if (requestWindow.currentUser.Id == fromUserID)
                         {
                             // _lobbyPage.PlayerChipsTextBox.Text = _dbService.GetChipsByUserId(fromUserID).ToString();
                             requestWindow.chipsInRequestPage.Text = dbService.GetChipsByUserId(fromUserID).ToString();
@@ -86,31 +85,24 @@ namespace GameWorld.Views
                     }
                 }
             }
-            dbService.DeleteRequestsByUserId(dbService.GetUserIdByUserName(currentUserName));
+            // dbService.DeleteRequestsByUserId(currentUser.Id);
             LoadRequests();
         }
         // Decline all
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            dbService.DeleteRequestsByUserId(dbService.GetUserIdByUserName(currentUserName));
+            // dbService.DeleteRequestsByUserId(currentUser.Id);
             LoadRequests();
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            if (dbService.GetChipsByUserId(dbService.GetUserIdByUserName(currentUserName)) == 0)
+            if (dbService.GetChipsByUserId(currentUser.Id) == 0)
             {
                 try
                 {
                     string playerToSend = playerToSendRequest.Text;
-                    if (dbService.GetUserIdByUserName(playerToSend) == null)
-                    {
-                        MessageBox.Show("Can't find the specified player.");
-                        return;
-                    }
-                    Guid firstPlayerID = dbService.GetUserIdByUserName(currentUserName);
-                    Guid secondPlayerID = dbService.GetUserIdByUserName(playerToSend);
-                    dbService.CreateRequest(firstPlayerID, secondPlayerID);
+                    MessageBox.Show($"Sent request from player {currentUser.Username} to {playerToSend}");
                 }
                 catch
                 {

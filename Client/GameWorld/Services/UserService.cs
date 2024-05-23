@@ -153,5 +153,25 @@ namespace GameWorld.Services
 
             return users;
         }
+
+        public List<string> GetAllRequestsByToUserID(Guid toUser)
+        {
+            return new List<string>();
+        }
+
+        public List<Tuple<Guid, Guid>> GetAllRequestsByToUserIDSimplified(Guid toUser)
+        {
+            return new List<Tuple<Guid, Guid>>();
+        }
+
+        public int GetChipsByUserId(Guid userId)
+        {
+            var user = userRepository.GetUserByIdAsync(userId).Result;
+            if (user == null)
+            {
+                throw new Exception($"User with id: {userId} not found in the database.");
+            }
+            return user.UserChips;
+        }
     }
 }
