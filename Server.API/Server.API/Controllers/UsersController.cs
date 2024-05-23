@@ -70,7 +70,8 @@ namespace Server.API.Controllers
             try
             {
                 await userService.UpdateUserChipsAsync(id, chips);
-            } catch (KeyNotFoundException e)
+            }
+            catch (KeyNotFoundException e)
             {
                 return NotFound();
             }
