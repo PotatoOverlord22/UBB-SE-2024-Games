@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
@@ -84,7 +86,7 @@ namespace GameWorld.Repositories
                 var sentContent = JsonConvert.SerializeObject(resource);
                 var content = new StringContent(sentContent, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync($"{base_URL}/resources", content);
+                var response = await httpClient.PostAsync($"{base_URL}", content);
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception exception)

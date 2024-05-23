@@ -10,6 +10,7 @@ namespace Server.API.Utils
             services.AddScoped<IItemService, ItemService>();
             services.AddScoped<IResourceService, ResourceService>();
             services.AddScoped<IInventoryResourceService, InventoryResourceService>();
+            services.AddScoped<IMarketBuyItemService, MarketBuyItemService>();
             services.AddScoped<IUserService, UserService>();
         }
     }
