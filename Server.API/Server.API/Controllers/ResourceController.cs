@@ -41,7 +41,7 @@ namespace Server.API.Controllers
                 return resource;
             }
 
-            [HttpGet("{type}")]
+            [HttpGet("/type/{type}")]
             public async Task<ActionResult<Resource>> GetResourceByType(ResourceType resourceType)
             {
                 var resource = await resourceService.GetResourceByTypeAsync(resourceType);

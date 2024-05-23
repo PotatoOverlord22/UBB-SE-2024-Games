@@ -1,6 +1,5 @@
 ﻿using GameWorld.Models;
 using GameWorld.Views;
-using Microsoft.Data.SqlClient;
 
 namespace GameWorld.Services
 {
@@ -15,10 +14,10 @@ namespace GameWorld.Services
         int JoinInternTable(MenuWindow window);
         int JoinJuniorTable(MenuWindow window);
         int JoinSeniorTable(MenuWindow window);
-   /*     User FetchUser(SqlConnection sqlConnection, string userName);
-        User CreateUserFromReader(SqlDataReader reader);
-        DateTime GetDateFromReader(SqlDataReader reader, string columnName);
-        string GetStringFromReader(SqlDataReader reader, string columnName);
-        int GetIntFromReader(SqlDataReader reader, string columnName);*/
+        /*     User FetchUser(SqlConnection sqlConnection, string userName);
+             User CreateUserFromReader(SqlDataReader reader);
+             DateTime GetDateFromReader(SqlDataReader reader, string columnName);
+             string GetStringFromReader(SqlDataReader reader, string columnName);
+             int GetIntFromReader(SqlDataReader reader, string columnName);*/
     }
 }

@@ -39,8 +39,6 @@ namespace GameWorld.Services
 
         public async Task CreateTradeAsync(ResourceType givenResourceType, string givenResourceQuantity, ResourceType requestedResourceType, string requestedResourceQuantity)
         {
-            #region Validation
-
             int givenResourceQuantityInt = Convert.ToInt32(givenResourceQuantity);
             int requestedResourceQuantityInt = Convert.ToInt32(requestedResourceQuantity);
 
@@ -79,7 +77,6 @@ namespace GameWorld.Services
             {
                 throw new Exception("Select the resources to give and get!");
             }
-            #endregion
 
             // Update the user's resource quantity in the database.
             userGivenResource.Quantity -= requestedResourceQuantityInt;

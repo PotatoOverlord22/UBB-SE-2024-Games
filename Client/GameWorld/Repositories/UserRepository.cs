@@ -2,7 +2,6 @@
 using System.Net.Http.Json;
 using GameWorld.Models;
 using GameWorld.Resources.Utils;
-using GameWorld.Services;
 using Newtonsoft.Json;
 
 namespace GameWorld.Repositories
@@ -97,5 +96,47 @@ namespace GameWorld.Repositories
                 throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
             }
         }
+
+        public async Task UpdateUserChipsAsync(Guid userId, int chips)
+        {
+            var content = JsonContent.Create(chips);
+
+            HttpResponseMessage response;
+            try
+            {
+                response = await httpClient.PutAsync($"{Apis.USERS_BASE_URL}/{userId}/chips", content);
+            }
+            catch (HttpRequestException e)
+            {
+                throw new Exception("Request error: " + e.Message, e);
+            }
+
+            // Check the response
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("User chips updated successfully.");
+            }
+            else
+            {
+                // Optionally read the response content for more detailed error messages
+                var responseContent = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}, {responseContent}");
+            }
+        }
+
+        public async Task UpdateUserStreak(Guid id, int streak)
+        {
+            User user = await GetUserByIdAsync(id);
+            user.UserStreak = streak;
+            await UpdateUserAsync(user);
+        }
+
+        public async Task UpdateUserLastLogin(Guid id, DateTime lastLogin)
+        {
+            User user = await GetUserByIdAsync(id);
+            user.UserLastLogin = lastLogin;
+            await UpdateUserAsync(user);
+        }
+
     }
 }

@@ -10,5 +10,6 @@ namespace Server.API.Services
         Task<User> GetUserByIdAsync(Guid id);
         Task<List<User>> GetUsersAsync();
         Task UpdateUserAsync(Guid id, User user);
+        Task UpdateUserChipsAsync(Guid id, int chips);
     }
 }

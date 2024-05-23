@@ -49,13 +49,28 @@ namespace Server.API.Controllers
         // UPDATE a user
         // PUT: api/users/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(Guid id, User user)
+        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] User user)
         {
             try
             {
                 await userService.UpdateUserAsync(id, user);
             }
             catch (KeyNotFoundException e)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+        // Update user chips
+        // PUT: api/users/5/chips
+        [HttpPut("{id}/chips")]
+        public async Task<IActionResult> UpdateUserChips(Guid id, [FromBody] int chips)
+        {
+            try
+            {
+                await userService.UpdateUserChipsAsync(id, chips);
+            } catch (KeyNotFoundException e)
             {
                 return NotFound();
             }
