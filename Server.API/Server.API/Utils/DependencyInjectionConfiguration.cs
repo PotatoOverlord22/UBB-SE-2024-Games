@@ -14,6 +14,7 @@ namespace Server.API.Utils
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFarmCellService, FarmCellService>();
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IMarketSellResourceService, MarketSellResourceService>();
         }
     }
 }
