@@ -21,8 +21,7 @@ namespace GameWorld.Repositories
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
-                    Console.WriteLine($"No achievement with id {achievementId} found");
-                    return null;
+                    throw new Exception($"No achievement with id {achievementId} found");
                 }
                 else
                 {
@@ -45,7 +44,7 @@ namespace GameWorld.Repositories
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
                     Console.WriteLine("No achievements found");
-                    return null;
+                    return new List<Achievement>();
                 }
                 else
                 {
@@ -91,7 +90,7 @@ namespace GameWorld.Repositories
             {
                 string jsonSerialized = JsonConvert.SerializeObject(achievement);
                 var content = JsonContent.Create(jsonSerialized);
-                string endpoint = $"{Apis.ACHIEVEMENTS_BASE_URL}/{achievement}";
+                string endpoint = $"{Apis.ACHIEVEMENTS_BASE_URL}/{achievement.Id}";
 
                 var response = await httpClient.PutAsync(endpoint, content);
                 if (response.IsSuccessStatusCode)
