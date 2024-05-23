@@ -15,10 +15,10 @@ namespace GameWorld.Repositories
         private readonly HttpClient httpClient;
         private readonly string base_URL;
 
-        public ResourceRepository(HttpClient httpClient)
+        public ResourceRepository()
         {
-            this.httpClient = httpClient;
-            this.base_URL = "Resources/Utils/Apis";
+            this.httpClient = new HttpClient();
+            this.base_URL = Apis.RESOURCES_BASE_URL;
         }
 
         public async Task<List<Resource>> GetAllResourcesAsync()
