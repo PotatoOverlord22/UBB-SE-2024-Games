@@ -1,13 +1,13 @@
-﻿using Microsoft.Data.SqlClient;
-using GameWorld.Resources.Utils;
+﻿using System.Net.Http;
+using System.Net.Http.Json;
 using GameWorld.Models;
+using GameWorld.Resources.Utils;
+using Newtonsoft.Json;
 
 namespace GameWorld.Repositories
 {
     public class ItemRepository : IItemRepository
     {
-        private readonly string connectionString = DatabaseHelper.GetDatabaseFilePath();
-
         public async Task<List<Item>> GetAllItemsAsync()
         {
             List<Item> items = new List<Item>();
@@ -17,7 +17,7 @@ namespace GameWorld.Repositories
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 if (response.IsSuccessStatusCode)
                 {
-                    List<Item>? items = JsonConvert.DeserializeObject<List<Item>>(apiResponse);
+                    items = JsonConvert.DeserializeObject<List<Item>>(apiResponse);
                     return items;
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -41,7 +41,7 @@ namespace GameWorld.Repositories
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 if (response.IsSuccessStatusCode)
                 {
-                    <Item> item = JsonConvert.DeserializeObject<Item>(apiResponse);
+                    Item item = JsonConvert.DeserializeObject<Item>(apiResponse);
                     return item;
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -64,7 +64,7 @@ namespace GameWorld.Repositories
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 if (response.IsSuccessStatusCode)
                 {
-                    <Item> item = JsonConvert.DeserializeObject<Item>(apiResponse);
+                    Item item = JsonConvert.DeserializeObject<Item>(apiResponse);
                     return item;
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)

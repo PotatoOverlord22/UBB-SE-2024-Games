@@ -3,7 +3,7 @@ using GameWorld.Views;
 
 namespace GameWorld.ViewModels
 {
-    internal class ProfileViewModel
+    public class ProfileViewModel
     {
         /*private IDataBaseService databaseService;*/
 

@@ -18,14 +18,10 @@ namespace GameWorld.Services
             this.resourceRepository = resourceRepository;
             this.commentRepository = commentRepository;
         }
-        #region Authentification
         public async Task<User> GetUserByIdAsync(Guid userId)
         {
             return await userRepository.GetUserByIdAsync(userId);
         }
-        #endregion
-
-        #region Inventory
 
         public async Task<Dictionary<InventoryResource, Resource>> GetInventoryResources(Guid userId)
         {
@@ -73,10 +69,6 @@ namespace GameWorld.Services
             return inventoryResource;
         }
 
-        #endregion
-
-        #region TradeHall
-
         public bool IsTradeHallUnlocked()
         {
             // Throw an exception if the user is not logged in.
@@ -90,7 +82,6 @@ namespace GameWorld.Services
 
         public async Task UnlockTradeHall()
         {
-            #region Validation
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
             {
@@ -108,7 +99,6 @@ namespace GameWorld.Services
             {
                 throw new Exception("You don't have enough coins to unlock the trade hall.");
             }
-            #endregion
 
             // Decrease the user coins and the trade hall unlock time.
             User newUser = GameStateManager.GetCurrentUser();
@@ -117,10 +107,6 @@ namespace GameWorld.Services
             await userRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
         }
-
-        #endregion
-
-        #region Comments
         public async Task AddCommentForAnotherUser(User targetUser, string message)
         {
             // Throw an exception if the user is not logged in.
@@ -157,10 +143,6 @@ namespace GameWorld.Services
 
             await commentRepository.DeleteCommentAsync(commentId);
         }
-
-        #endregion
-
-        #region Leaderboard
         public async Task<List<User>> GetAllUsersSortedByCoinsAsync()
         {
             // Get a list with all the users from the database.
@@ -171,7 +153,5 @@ namespace GameWorld.Services
 
             return users;
         }
-
-        #endregion
     }
 }
