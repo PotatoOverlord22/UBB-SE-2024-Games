@@ -1,103 +1,105 @@
 ﻿using System.Data;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
 using GameWorld.Models;
 using GameWorld.Resources.Utils;
-
 namespace GameWorld.Repositories
 {
     public class FarmCellRepository : IFarmCellRepository
     {
-        /*private readonly IDatabaseProvider databaseProvider;
-
-        public FarmCellRepository(IDatabaseProvider databaseProvider)
-        {
-            this.databaseProvider = databaseProvider;
-        }*/
-
         public async Task<List<FarmCell>> GetUserFarmCellsAsync(Guid userId)
         {
-            List<FarmCell> farmCells = new List<FarmCell>();
-           /* var queryParameters = new Dictionary<string, object> { { "@UserId", userId } };
-
-            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("SELECT * FROM FarmCells WHERE UserId = @UserId", queryParameters))
+            using var httpClient = new HttpClient();
+            try
             {
-                while (reader.Read())
+                var response = await httpClient.GetAsync($"{Apis.FARM_CELL}/{userId}");
+                if (response.IsSuccessStatusCode)
                 {
-                    farmCells.Add(new FarmCell(
-                        id: reader.GetGuid(reader.GetOrdinal("Id")),
-                        userId: userId,
-                        row: reader.GetInt32(reader.GetOrdinal("Row")),
-                        column: reader.GetInt32(reader.GetOrdinal("Column")),
-                        itemId: reader.GetGuid(reader.GetOrdinal("ItemId")),
-                        lastTimeEnhanced: reader.IsDBNull(reader.GetOrdinal("LastTimeEnhanced")) ? null : reader.GetDateTime(reader.GetOrdinal("LastTimeEnhanced")),
-                        lastTimeInteracted: reader.IsDBNull(reader.GetOrdinal("LastTimeInteracted")) ? null : reader.GetDateTime(reader.GetOrdinal("LastTimeInteracted"))));
+                    return await response.Content.ReadFromJsonAsync<List<FarmCell>>() ?? throw new Exception("Response content from getting all farm cells from the backend is invalid: ");
                 }
-            }*/
-            return farmCells;
+                else
+                {
+                    throw new Exception($"Error getting farm cells: {response.ReasonPhrase}");
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Error getting the farm cells from backend" + exception.Message);
+            }
         }
 
         public async Task<FarmCell> GetUserFarmCellByPositionAsync(Guid userId, int row, int column)
         {
-            FarmCell farmCell = null;
-           /* var parameters = new Dictionary<string, object>
+            using var httpClient = new HttpClient();
+            try
             {
-                { "@UserId", userId },
-                { "@Row", row },
-                { "@Column", column }
-            };
-
-            using (IDataReader reader = await databaseProvider.ExecuteReaderAsync("SELECT * FROM FarmCells WHERE UserId = @UserId AND Row = @Row AND [Column] = @Column", parameters))
-            {
-                if (reader.Read())
+                var response = await httpClient.GetAsync($"{Apis.FARM_CELL}/userId={userId}&row={row}&column={column}");
+                if (response.IsSuccessStatusCode)
                 {
-                    farmCell = new FarmCell(
-                        id: reader.GetGuid(reader.GetOrdinal("Id")),
-                        userId: userId,
-                        row: row,
-                        column: column,
-                        itemId: reader.GetGuid(reader.GetOrdinal("ItemId")),
-                        lastTimeEnhanced: reader.IsDBNull(reader.GetOrdinal("LastTimeEnhanced")) ? null : reader.GetDateTime(reader.GetOrdinal("LastTimeEnhanced")),
-                        lastTimeInteracted: reader.IsDBNull(reader.GetOrdinal("LastTimeInteracted")) ? null : reader.GetDateTime(reader.GetOrdinal("LastTimeInteracted")));
+                    return await response.Content.ReadFromJsonAsync<FarmCell>() ?? throw new Exception("Response content from getting all farm cells by user from the backend is invalid: ");
                 }
-            }*/
-            return farmCell;
+                else
+                {
+                    throw new Exception($"Error getting user resource by resource ID: {response.ReasonPhrase}");
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new Exception($"Exception getting user resource by resource ID: {exception.Message}");
+            }
         }
 
         public async Task AddFarmCellAsync(FarmCell farmCell)
         {
-           /* var queryParameters = new Dictionary<string, object>
+            using var httpClient = new HttpClient();
+            try
             {
-                { "@Id", farmCell.Id },
-                { "@UserId", farmCell.UserId },
-                { "@Row", farmCell.Row },
-                { "@Column", farmCell.Column },
-                { "@ItemId", farmCell.ItemId },
-                { "@LastTimeEnhanced", farmCell.LastTimeEnhanced ?? (object)DBNull.Value },
-                { "@LastTimeInteracted", farmCell.LastTimeInteracted ?? (object)DBNull.Value }
-            };
-
-            await databaseProvider.ExecuteReaderAsync("INSERT INTO FarmCells (Id, UserId, Row, [Column], ItemId, LastTimeEnhanced, LastTimeInteracted) VALUES (@Id, @UserId, @Row, @Column, @ItemId, @LastTimeEnhanced, @LastTimeInteracted)", queryParameters);*/
+                var response = await httpClient.PostAsJsonAsync(Apis.FARM_CELL, farmCell);
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception($"Error adding farm cell: {response.ReasonPhrase}");
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new Exception($"Exception adding farm cell: {exception.Message}");
+            }
         }
 
         public async Task UpdateFarmCellAsync(FarmCell farmCell)
         {
-           /* var queryParameters = new Dictionary<string, object>
+            using var httpClient = new HttpClient();
+            try
             {
-                { "@Id", farmCell.Id },
-                { "@Row", farmCell.Row },
-                { "@Column", farmCell.Column },
-                { "@ItemId", farmCell.ItemId },
-                { "@LastTimeEnhanced", farmCell.LastTimeEnhanced ?? (object)DBNull.Value },
-                { "@LastTimeInteracted", farmCell.LastTimeInteracted ?? (object)DBNull.Value }
-            };
-
-            await databaseProvider.ExecuteReaderAsync("UPDATE FarmCells SET Row = @Row, [Column] = @Column, ItemId = @ItemId, LastTimeEnhanced = @LastTimeEnhanced, LastTimeInteracted = @LastTimeInteracted WHERE Id = @Id", queryParameters);*/
+                var response = await httpClient.PutAsJsonAsync($"{Apis.FARM_CELL}/{farmCell.Id}", farmCell);
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception($"Error updating farm cell: {response.ReasonPhrase}");
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new Exception($"Exception updating farm cell: {exception.Message}");
+            }
         }
 
         public async Task DeleteFarmCellAsync(Guid farmCellId)
         {
-            /*var queryParameters = new Dictionary<string, object> { { "@Id", farmCellId } };
-
-            await databaseProvider.ExecuteReaderAsync("DELETE FROM FarmCells WHERE Id = @Id", queryParameters);*/
+            using var httpClient = new HttpClient();
+            try
+            {
+                var response = await httpClient.DeleteAsync($"{Apis.FARM_CELL}/{farmCellId}");
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.Error.WriteLine($"Error deleting farm cell: {response.ReasonPhrase}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Exception deleting farm cell: {ex.Message}");
+            }
         }
     }
 }
