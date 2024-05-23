@@ -7,8 +7,8 @@ namespace Server.API.Services
     {
         Task AddCommentAsync(Comment comment);
         Task DeleteCommentAsync(Guid id);
-        Task<ActionResult<Achievement>> GetCommentByIdAsync(Guid id);
-        Task<ActionResult<IEnumerable<Comment>>> GetCommentsAsync();
+        Task<Comment> GetCommentByIdAsync(Guid id);
+        Task<List<Comment>> GetCommentsAsync();
         Task UpdateCommentAsync(Guid id, Comment comment);
     }
 }
