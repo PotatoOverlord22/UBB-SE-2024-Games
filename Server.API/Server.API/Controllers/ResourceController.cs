@@ -4,10 +4,10 @@ using Server.API.Services;
 
 namespace Server.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ResourceController
     {
-        [Route("api/[controller]")]
-        [ApiController]
         public class ResourcesController : ControllerBase
         {
             private readonly IResourceService resourceService;
