@@ -1,13 +1,7 @@
-﻿using System;
-using System.Data;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
+﻿using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
-using GameWorld.Resources.Utils;
 using GameWorld.Models;
+using GameWorld.Resources.Utils;
 using Newtonsoft.Json;
 
 namespace GameWorld.Repositories

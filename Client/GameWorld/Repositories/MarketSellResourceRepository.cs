@@ -6,8 +6,6 @@ namespace GameWorld.Repositories
 {
     public class MarketSellResourceRepository : IMarketSellResourceRepository
     {
-        private readonly string connectionString = DatabaseHelper.GetDatabaseFilePath();
-
         public async Task<List<MarketSellResource>> GetAllSellResourcesAsync()
         {
             List<MarketSellResource> sellResources = new List<MarketSellResource>();

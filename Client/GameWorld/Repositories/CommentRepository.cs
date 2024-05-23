@@ -1,76 +1,87 @@
 ﻿using System.Data;
+using System.Net.Http.Json;
+using System.Net.Http;
 using GameWorld.Models;
 using GameWorld.Resources.Utils;
+using Newtonsoft.Json;
 
 namespace GameWorld.Repositories
 {
     public class CommentRepository : ICommentRepository
     {
-       /* private readonly IDatabaseProvider databaseProvider;
-
-        public CommentRepository(IDatabaseProvider databaseProvider)
-        {
-            this.databaseProvider = databaseProvider;
-        }*/
-
         public async Task CreateCommentAsync(Comment comment)
         {
-           /* var queryParameters = new Dictionary<string, object>
+            using (var httpClient = new HttpClient())
             {
-                { "@Id", comment.Id },
-                { "@UserId", comment.PosterUserId },
-                { "@Message", comment.CommentMessage },
-                { "@CreatedTime", comment.CreationTime }
-            };
-
-            await databaseProvider.ExecuteReaderAsync(
-                "INSERT INTO Comments (Id, UserId, Message, CreatedTime) VALUES (@Id, @UserId, @Message, @CreatedTime)",
-                queryParameters);*/
+                var response = await httpClient.PostAsync(Apis.COMMENTS_BASE_URL, JsonContent.Create(comment));
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Comment added successfully.");
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
 
         public async Task<List<Comment>> GetUserCommentsAsync(Guid userId)
         {
-            /*  List<Comment> userComments = new List<Comment>();
-              var queryParameters = new Dictionary<string, object> { { "@UserId", userId } };
-
-              using (IDataReader databaseReader = await databaseProvider.ExecuteReaderAsync("SELECT * FROM Comments WHERE UserId = @UserId", queryParameters))
-              {
-                  int idOrdinal = databaseReader.GetOrdinal("Id");
-                  int userIdOrdinal = databaseReader.GetOrdinal("UserId");
-                  int messageOrdinal = databaseReader.GetOrdinal("Message");
-                  int createdTimeOrdinal = databaseReader.GetOrdinal("CreatedTime");
-
-                  while (databaseReader.Read())
-                  {
-                      userComments.Add(new Comment(
-                          id: databaseReader.GetGuid(idOrdinal),
-                          posterUserId: databaseReader.GetGuid(userIdOrdinal),
-                          commentMessage: databaseReader.GetString(messageOrdinal),
-                          commentCreationTime: databaseReader.GetDateTime(createdTimeOrdinal)));
-                  }
-              }
-              return userComments;*/
-            return null;
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync($"{Apis.COMMENTS_BASE_URL}?userId={userId}");
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    List<Comment>? comments = JsonConvert.DeserializeObject<List<Comment>>(apiResponse);
+                    return comments;
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    Console.WriteLine("No comments found for the user");
+                    return null;
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
 
         public async Task UpdateCommentAsync(Comment comment)
         {
-            /*var queryParameters = new Dictionary<string, object>
+            using (var httpClient = new HttpClient())
             {
-                { "@Id", comment.Id },
-                { "@Message", comment.CommentMessage }
-            };
+                string jsonSerialized = JsonConvert.SerializeObject(comment);
+                var content = JsonContent.Create(jsonSerialized);
+                string endpoint = $"{Apis.COMMENTS_BASE_URL}/{comment}";
 
-            await databaseProvider.ExecuteReaderAsync(
-                "UPDATE Comments SET Message = @Message WHERE Id = @Id",
-                queryParameters);*/
+                var response = await httpClient.PutAsync(endpoint, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Comment updated successfully.");
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
 
         public async Task DeleteCommentAsync(Guid commentId)
         {
-            /*var queryParameters = new Dictionary<string, object> { { "@Id", commentId } };
-
-            await databaseProvider.ExecuteReaderAsync("DELETE FROM Comments WHERE Id = @Id", queryParameters);*/
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.DeleteAsync($"{Apis.COMMENTS_BASE_URL}/{commentId}");
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Comment deleted successfully.");
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
     }
 }
