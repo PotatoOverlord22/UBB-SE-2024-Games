@@ -9,6 +9,7 @@ namespace Server.API.Utils
             services.AddScoped<IAchievementService, AchievementService>();
             services.AddScoped<IItemService, ItemService>();
             services.AddScoped<IResourceService, ResourceService>();
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }
