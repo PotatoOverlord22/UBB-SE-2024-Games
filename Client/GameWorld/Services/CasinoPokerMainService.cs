@@ -1,11 +1,8 @@
-﻿using System.Configuration;
-using System.Windows;
-using Microsoft.Data.SqlClient;
-using GameWorld.ViewModels;
-using GameWorld.Views;
+﻿using System.Windows;
 using GameWorld.Models;
 using GameWorld.Resources.Utils;
-using Microsoft.Extensions.DependencyInjection;
+using GameWorld.Views;
+using Microsoft.Data.SqlClient;
 
 namespace GameWorld.Services
 {

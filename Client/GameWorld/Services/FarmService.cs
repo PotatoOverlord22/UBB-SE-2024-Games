@@ -51,7 +51,6 @@ namespace GameWorld.Services
 
         public async Task InteractWithCell(int row, int column)
         {
-            #region Validation
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
             {
@@ -78,7 +77,6 @@ namespace GameWorld.Services
             {
                 throw new Exception("You don't have the resource required for this farm cell.");
             }
-            #endregion
 
             // Update the user's inventory by decreasing the required resource from the farm cell item.
             requiredResource.Quantity--;
@@ -116,7 +114,6 @@ namespace GameWorld.Services
 
         public async Task DestroyCell(int row, int column)
         {
-            #region Validation
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
             {
@@ -136,7 +133,6 @@ namespace GameWorld.Services
             {
                 throw new Exception("Item from the farm cell was not found in the database!");
             }
-            #endregion
 
             // If the farm cell item has a destroy resource.
             if (farmCellItem.ResourceToDestroy.Id != null)
@@ -173,7 +169,6 @@ namespace GameWorld.Services
 
         public async Task EnchanceCellForUser(Guid targetUserId, int row, int column)
         {
-            #region Validation
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
             {
@@ -198,7 +193,6 @@ namespace GameWorld.Services
             {
                 throw new Exception("Cell is already enhanced!");
             }
-            #endregion
 
             // Enhance the cell.
             farmCell.LastTimeEnhanced = DateTime.UtcNow;
@@ -207,7 +201,6 @@ namespace GameWorld.Services
 
         public async Task<bool> IsCellEnchanced(Guid userId, int row, int column)
         {
-            #region Validation
             // Throw an exception if the user is not logged in.
             if (GameStateManager.GetCurrentUser() == null)
             {
@@ -220,7 +213,6 @@ namespace GameWorld.Services
             {
                 throw new Exception("No farm cell found at the given position for the target user in the database!");
             }
-            #endregion
 
             // Return whether the cell is enhanced or not.
             return DateTime.UtcNow - farmCell.LastTimeEnhanced < TimeSpan.FromDays(Constants.ENCHANCE_DURATION_IN_DAYS);

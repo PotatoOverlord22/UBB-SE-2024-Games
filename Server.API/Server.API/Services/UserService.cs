@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Server.API.Models;
 using Server.API.Utils;
 
@@ -52,6 +51,23 @@ namespace Server.API.Services
             }
 
             gamesContext.Users.Update(user);
+            await gamesContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateUserChipsAsync(Guid id, int chips)
+        {
+            // Find the user by ID
+            var user = await gamesContext.Users.FindAsync(id);
+
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found");
+            }
+
+            // Update the user's chips
+            user.UserChips = chips;
+
+            // Save changes to the database
             await gamesContext.SaveChangesAsync();
         }
     }

@@ -8,8 +8,6 @@ namespace GameWorld.Repositories
 {
     public class ItemRepository : IItemRepository
     {
-        private readonly string connectionString = DatabaseHelper.GetDatabaseFilePath();
-
         public async Task<List<Item>> GetAllItemsAsync()
         {
             List<Item> items = new List<Item>();
