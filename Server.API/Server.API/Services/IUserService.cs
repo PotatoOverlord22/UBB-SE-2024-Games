@@ -11,5 +11,6 @@ namespace Server.API.Services
         Task<List<User>> GetUsersAsync();
         Task UpdateUserAsync(Guid id, User user);
         Task UpdateUserChipsAsync(Guid id, int chips);
+        Task<List<User>> GetPokerLeaderboardAsync();
     }
 }

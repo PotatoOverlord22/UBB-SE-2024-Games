@@ -12,5 +12,6 @@ namespace GameWorld.Repositories
         Task UpdateUserChipsAsync(Guid id, int chips);
         Task UpdateUserStreak(Guid id, int streak);
         Task UpdateUserLastLogin(Guid id, DateTime lastLogin);
+        Task UpdateUserStack(Guid id, int stack);
     }
 }
