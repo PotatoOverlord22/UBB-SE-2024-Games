@@ -4,5 +4,6 @@
     public static class Apis
     {
         public static readonly string ACHIEVEMENTS_BASE_URL = "https://localhost:8080/api/Achievements";
+        public static readonly string ITEMS_BASE_URL = "https://localhost:8080/api/Items";
     }
 }

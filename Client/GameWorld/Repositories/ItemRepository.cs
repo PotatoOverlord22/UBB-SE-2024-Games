@@ -11,130 +11,124 @@ namespace GameWorld.Repositories
         public async Task<List<Item>> GetAllItemsAsync()
         {
             List<Item> items = new List<Item>();
-           /* using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var httpClient = new HttpClient())
             {
-                await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand("SELECT * FROM Items", connection))
+                var response = await httpClient.GetAsync(Apis.ITEMS_BASE_URL);
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
                 {
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            items.Add(new Item(
-                                id: (Guid)reader["Id"],
-                                itemType: ((string)reader["ItemType"]).ToEnum<ItemType>(),
-                                requiredResourceId: (Guid)reader["RequiredResourceId"],
-                                interactResourceId: (Guid)reader["InteractResourceId"],
-                                destroyResourceId: reader["DestroyResourceId"] != DBNull.Value ? (Guid?)reader["DestroyResourceId"] : null));
-                        }
-                    }
+                    List<Item>? items = JsonConvert.DeserializeObject<List<Item>>(apiResponse);
+                    return items;
                 }
-            }*/
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    Console.WriteLine("No items found");
+                    return null;
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
             return items;
         }
 
         public async Task<Item> GetItemByIdAsync(Guid itemId)
         {
-            Item item = null;
-           /* using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var httpClient = new HttpClient())
             {
-                await connection.OpenAsync();
-                string query = "SELECT * FROM Items WHERE Id = @Id";
-                using (SqlCommand command = new SqlCommand(query, connection))
+                var response = await httpClient.GetAsync($"{Apis.ITEMS_BASE_URL}/{itemId}");
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
                 {
-                    command.Parameters.AddWithValue("@Id", itemId);
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                    {
-                        if (await reader.ReadAsync())
-                        {
-                            item = new Item(
-                                id: (Guid)reader["Id"],
-                                itemType: ((string)reader["ItemType"]).ToEnum<ItemType>(),
-                                requiredResourceId: (Guid)reader["RequiredResourceId"],
-                                interactResourceId: (Guid)reader["InteractResourceId"],
-                                destroyResourceId: reader["DestroyResourceId"] != DBNull.Value ? (Guid?)reader["DestroyResourceId"] : null);
-                        }
-                    }
+                    <Item> item = JsonConvert.DeserializeObject<Item>(apiResponse);
+                    return item;
                 }
-            }*/
-            return item;
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    Console.WriteLine($"No item with id: {itemId} was found");
+                    return null;
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
 
         public async Task<Item> GetItemByTypeAsync(ItemType itemType)
         {
-            Item item = null;
-           /* using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var httpClient = new HttpClient())
             {
-                await connection.OpenAsync();
-                string query = "SELECT * FROM Items WHERE ItemType = @ItemType";
-                using (SqlCommand command = new SqlCommand(query, connection))
+                var response = await httpClient.GetAsync($"{Apis.ITEMS_BASE_URL}/{itemType}");
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
                 {
-                    command.Parameters.AddWithValue("@ItemType", itemType.ToString());
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                    {
-                        if (await reader.ReadAsync())
-                        {
-                            item = new Item(
-                                id: (Guid)reader["Id"],
-                                itemType: ((string)reader["ItemType"]).ToEnum<ItemType>(),
-                                requiredResourceId: (Guid)reader["RequiredResourceId"],
-                                interactResourceId: (Guid)reader["InteractResourceId"],
-                                destroyResourceId: reader["DestroyResourceId"] != DBNull.Value ? (Guid?)reader["DestroyResourceId"] : null);
-                        }
-                    }
+                    <Item> item = JsonConvert.DeserializeObject<Item>(apiResponse);
+                    return item;
                 }
-            }*/
-            return item;
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    Console.WriteLine($"No item with type: {itemType} was found");
+                    return null;
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
 
         public async Task CreateItemAsync(Item item)
         {
-           /* using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var httpClient = new HttpClient())
             {
-                await connection.OpenAsync();
-                string query = "INSERT INTO Items (Id, ItemType, RequiredResourceId, InteractResourceId, DestroyResourceId) VALUES (@Id, @ItemType, @RequiredResourceId, @InteractResourceId, @DestroyResourceId)";
-                using (SqlCommand command = new SqlCommand(query, connection))
+                var response = await httpClient.PostAsync(Apis.ITEMS_BASE_URL, JsonContent.Create(item));
+                if (response.IsSuccessStatusCode)
                 {
-                    command.Parameters.AddWithValue("@Id", item.Id);
-                    command.Parameters.AddWithValue("@ItemType", item.ItemType.ToString());
-                    command.Parameters.AddWithValue("@RequiredResourceId", item.ResourceToPlaceId);
-                    command.Parameters.AddWithValue("@InteractResourceId", item.ResourceToInteractId);
-                    command.Parameters.AddWithValue("@DestroyResourceId", item.ResourceToDestroyId ?? (object)DBNull.Value);
-                    await command.ExecuteNonQueryAsync();
+                    Console.WriteLine("Item added successfully.");
                 }
-            }*/
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
 
         public async Task UpdateItemAsync(Item item)
         {
-           /* using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var httpClient = new HttpClient())
             {
-                await connection.OpenAsync();
-                string query = "UPDATE Items SET ItemType = @ItemType, RequiredResourceId = @RequiredResourceId, InteractResourceId = @InteractResourceId, DestroyResourceId = @DestroyResourceId WHERE Id = @Id";
-                using (SqlCommand command = new SqlCommand(query, connection))
+                string jsonSerialized = JsonConvert.SerializeObject(item);
+                var content = JsonContent.Create(jsonSerialized);
+                string endpoint = $"{Apis.ITEMS_BASE_URL}/{item}";
+
+                var response = await httpClient.PutAsync(endpoint, content);
+                if (response.IsSuccessStatusCode)
                 {
-                    command.Parameters.AddWithValue("@Id", item.Id);
-                    command.Parameters.AddWithValue("@ItemType", item.ItemType.ToString());
-                    command.Parameters.AddWithValue("@RequiredResourceId", item.ResourceToPlaceId);
-                    command.Parameters.AddWithValue("@InteractResourceId", item.ResourceToInteractId);
-                    command.Parameters.AddWithValue("@DestroyResourceId", item.ResourceToDestroyId ?? (object)DBNull.Value);
-                    await command.ExecuteNonQueryAsync();
+                    Console.WriteLine("Item updated successfully.");
                 }
-            }*/
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
 
         public async Task DeleteItemAsync(Guid itemId)
-        {/*
-            using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            using (var httpClient = new HttpClient())
             {
-                await connection.OpenAsync();
-                string query = "DELETE FROM Items WHERE Id = @Id";
-                using (SqlCommand command = new SqlCommand(query, connection))
+                var response = await httpClient.DeleteAsync($"{Apis.ITEMS_BASE_URL}/{itemId}");
+                if (response.IsSuccessStatusCode)
                 {
-                    command.Parameters.AddWithValue("@Id", itemId);
-                    await command.ExecuteNonQueryAsync();
+                    Console.WriteLine("Item deleted successfully.");
                 }
-            }*/
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
     }
 }
