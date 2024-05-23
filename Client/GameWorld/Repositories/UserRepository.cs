@@ -137,6 +137,5 @@ namespace GameWorld.Repositories
             user.UserLastLogin = lastLogin;
             await UpdateUserAsync(user);
         }
-
     }
 }

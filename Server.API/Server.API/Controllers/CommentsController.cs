@@ -27,7 +27,7 @@ namespace Server.API.Controllers
         // Get Comments by id
         // api/comments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Achievement>> GetCommentById(Guid id)
+        public async Task<ActionResult<Comment>> GetCommentById(Guid id)
         {
             var comment = await commentService.GetCommentByIdAsync(id);
 

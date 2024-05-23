@@ -12,48 +12,48 @@ public class CommentService : ICommentService
         this.context = context;
     }
 
-    public async Task<List<Comment>> GetAchievementsAsync()
+    public async Task<List<Comment>> GetCommentsAsync()
     {
-        return await context.Achievements.ToListAsync();
+        return await context.Comments.ToListAsync();
     }
 
-    public async Task<Comment> GetAchievementByIdAsync(Guid id)
+    public async Task<Comment> GetCommentByIdAsync(Guid id)
     {
-        var comment = await context.Achievements.FindAsync(id);
+        var comment = await context.Comments.FindAsync(id);
 
         if (comment == null)
         {
-            throw new KeyNotFoundException("Achievement not found");
+            throw new KeyNotFoundException("Comment not found");
         }
 
         return comment;
     }
 
-    public async Task UpdateAchievementAsync(Guid id, Comment achievement)
+    public async Task UpdateCommentAsync(Guid id, Comment comment)
     {
-        if (context.Achievements.Find(id) == null)
+        if (context.Comments.Find(id) == null)
         {
-            throw new KeyNotFoundException("Achievement not found");
+            throw new KeyNotFoundException("Comment not found");
         }
 
-        context.Achievements.Update(achievement);
+        context.Comments.Update(comment);
         await context.SaveChangesAsync();
     }
 
-    public async Task AddAchievement(Comment achievement)
+    public async Task AddCommentAsync(Comment comment)
     {
-        context.Achievements.Add(achievement);
+        context.Comments.Add(comment);
         await context.SaveChangesAsync();
     }
 
-    public async Task DeleteAchievementAsync(Guid id)
+    public async Task DeleteCommentAsync(Guid id)
     {
-        var achievement = context.Achievements.Find(id);
-        if (achievement == null)
+        var comment = context.Comments.Find(id);
+        if (comment == null)
         {
-            throw new KeyNotFoundException("Achievement not found");
+            throw new KeyNotFoundException("Comment not found");
         }
-        context.Achievements.Remove(achievement);
+        context.Comments.Remove(comment);
         await context.SaveChangesAsync();
     }
 }
