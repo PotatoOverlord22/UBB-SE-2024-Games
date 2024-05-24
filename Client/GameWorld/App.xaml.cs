@@ -25,15 +25,13 @@ namespace GameWorld
             try
             {
                 user = await userService.GetUserByIdAsync(Guid.Parse(Constants.TEST_USER_ID));
+                user.UserCurrentIconPath = "pack://application:,,,/Resources/Assets/CasinoPoker/profilepict.png";
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-            finally
-            {
-                GameStateManager.SetCurrentUser(user);
-            }
+            GameStateManager.SetCurrentUser(user);
         }
     }
 }
