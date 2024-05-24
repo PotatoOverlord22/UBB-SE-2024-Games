@@ -14,6 +14,14 @@ namespace Server.API.Utils
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFarmCellService, FarmCellService>();
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IPlayingCardService, PlayingCardService>();
+            services.AddScoped<IIconService, IconService>();
+            services.AddScoped<IFontService, FontService>();
+            services.AddScoped<ITradeService, TradeService>();
+            services.AddScoped<IShopItemService, ShopItemService>();
+            services.AddScoped<ITitleService, TitleService>();
+            services.AddScoped<ITableService, TableService>();
+            services.AddScoped<IChallengeService, ChallengeService>();
         }
     }
 }
