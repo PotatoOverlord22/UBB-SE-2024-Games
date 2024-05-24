@@ -33,8 +33,6 @@ namespace GameWorld.Views
             InitializeComponent();
             RefreshGUI();
         }
-
-        #region Screen Transitions
         private void InventoryButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Inventory inventoryScreen = new Inventory(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IInventoryService>());
@@ -117,7 +115,6 @@ namespace GameWorld.Views
 
             this.Hide();
         }
-        #endregion
 
         public async void RefreshGUI()
         {
@@ -128,7 +125,6 @@ namespace GameWorld.Views
                 ProfileLabel.Content = user.Username;
             }
 
-            #region Update Water
             try
             {
                 InventoryResource water = await userService.GetInventoryResourceByType(ResourceType.Water, GameStateManager.GetCurrentUserId());
@@ -146,14 +142,11 @@ namespace GameWorld.Views
             {
                 MessageBox.Show(e.Message);
             }
-            #endregion
 
-            #region Deleting Old Item Icons
             foreach (Image img in itemIcons)
             {
                 FarmGrid.Children.Remove(img);
             }
-            #endregion
 
             #region Farm Rendering
             try

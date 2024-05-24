@@ -13,5 +13,6 @@
         public static readonly string COMMENTS_BASE_URL = "https://localhost:8080/api/Comments";
         public static readonly string MARKET_SELL_RESOURCE = "https://localhost:8080/api/MarketSellResource";
         public static readonly string POKER_LEADERBOARD_URL = "https://localhost:8080/api/Users/poker-leaderboard";
+        public static readonly string TRADES_BASE_URL = "https://localhost:8080/api/Trades";
     }
 }

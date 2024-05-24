@@ -27,7 +27,7 @@ namespace Server.API.Services
         }
         public async Task<Resource> GetResourceByTypeAsync(ResourceType resourceType)
         {
-            var resource = await context.Resources.FirstOrDefaultAsync(r => r.ResourceType == resourceType) ?? throw new KeyNotFoundException("Resource not found");
+            var resource = await context.Resources.FirstOrDefaultAsync(resource => resource.ResourceType == resourceType) ?? throw new KeyNotFoundException("Resource not found");
             return resource;
         }
         public async Task AddResourceAsync(Resource resource)

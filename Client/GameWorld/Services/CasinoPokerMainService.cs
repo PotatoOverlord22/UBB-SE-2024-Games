@@ -75,6 +75,7 @@ namespace GameWorld.Services
 
         public void NewUserLogin(User newUser)
         {
+            Console.WriteLine("New user login");
             if (DateTime.Now.Date != newUser.UserLastLogin.Date)
             {
                 var diffDates = DateTime.Now.Date - newUser.UserLastLogin.Date;
@@ -95,6 +96,7 @@ namespace GameWorld.Services
         }
         private void OpenUserWindow(User user)
         {
+            Console.WriteLine("Open user window");
             MenuWindow menuWindow = new MenuWindow(user, this);
             menuWindow.Show();
             openedUsersWindows.Add(menuWindow);
