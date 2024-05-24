@@ -27,16 +27,16 @@ namespace GameWorld.Services
         private int bigBlind;
         private List<MenuWindow> users;
         private CardDeck deck;
-        private DataBaseService databaseService;
+        private IUserService userService;
         private Random random;
         private HandRankCalculator rankCalculator;
 
         private PlayingCard[] communityCards;
         private int[] freeSpace;
 
-        public TableService(int buyIn, int smallBlind, int bigBlind, string tableType, DataBaseService databaseService)
+        public TableService(int buyIn, int smallBlind, int bigBlind, string tableType, IUserService userService)
         {
-            this.databaseService = databaseService;
+            this.userService = userService;
             this.tableType = tableType;
             users = new List<MenuWindow>();
             rankCalculator = new HandRankCalculator();
@@ -53,7 +53,7 @@ namespace GameWorld.Services
             mutex = new Mutex();
 
             random = new Random();
-            this.databaseService = databaseService;
+            this.userService = userService;
         }
 
         public PlayingCard GenerateCard()
@@ -67,9 +67,9 @@ namespace GameWorld.Services
         private void ReloadPlayerStackWithChips(User player)
         {
             player.UserChips -= buyIn;
-            databaseService.UpdateUserChips(player.Id, player.UserChips);
+            userService.UpdateUserChips(player.Id, player.UserChips);
             player.UserStack = buyIn;
-            databaseService.UpdateUserStack(player.Id, player.UserStack);
+            userService.UpdateUserStack(player.Id, player.UserStack);
         }
 
         private PlayingCard DealCard(User player, int index)
@@ -347,7 +347,7 @@ namespace GameWorld.Services
                             int extraBet = playerBet - player.UserBet;
                             player.UserStack -= extraBet;
                             tablePot += extraBet;
-                            databaseService.UpdateUserStack(player.Id, player.UserStack);
+                            userService.UpdateUserStack(player.Id, player.UserStack);
                             player.UserBet = playerBet;
 
                             if (playerBet > currentBet)
@@ -368,7 +368,7 @@ namespace GameWorld.Services
                 {
                     Console.WriteLine("Winner: " + winner.Username);
                     winner.UserStack += Convert.ToInt32(tablePot / winners.Count);
-                    databaseService.UpdateUserStack(winner.Id, winner.UserStack);
+                    userService.UpdateUserStack(winner.Id, winner.UserStack);
                     DisplayWinner(allActivePlayers, winner);
                 }
                 await Task.Delay(3000);
@@ -471,10 +471,10 @@ namespace GameWorld.Services
             }
 
             player.UserChips -= buyIn;
-            databaseService.UpdateUserChips(player.Id, player.UserChips);
+            userService.UpdateUserChips(player.Id, player.UserChips);
 
             player.UserStack = buyIn;
-            databaseService.UpdateUserStack(player.Id, player.UserStack);
+            userService.UpdateUserStack(player.Id, player.UserStack);
 
             player.UserStatus = WAITING;
             for (int i = 1; i <= FULL; i++)

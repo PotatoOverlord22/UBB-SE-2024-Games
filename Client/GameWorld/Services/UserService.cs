@@ -11,6 +11,8 @@ namespace GameWorld.Services
         private readonly IResourceRepository resourceRepository;
         private readonly ICommentRepository commentRepository;
 
+        private const int FIRST_USER_RANK = 1;
+
         public UserService(IUserRepository userRepository, IInventoryResourceRepository inventoryResourceRepository, IResourceRepository resourceRepository, ICommentRepository commentRepository)
         {
             this.userRepository = userRepository;
@@ -172,6 +174,44 @@ namespace GameWorld.Services
                 throw new Exception($"User with id: {userId} not found in the database.");
             }
             return user.UserChips;
+        }
+
+        public List<string> GetLeaderboard()
+        {
+            List<string> leaderboardAsString = new List<string>();
+            List<User> leaderboard = userRepository.GetPokerLeaderboard().Result;
+            int rank = FIRST_USER_RANK;
+            leaderboard.Reverse();
+            foreach (User user in leaderboard)
+            {
+                leaderboardAsString.Add($"{rank}. {user.Username} - Lvl: {user.UserLevel} - Chips: {user.UserChips}");
+                rank++;
+            }
+            return leaderboardAsString;
+        }
+
+        public void UpdateUserChips(Guid id, int userChips)
+        {
+            // TODO validation
+            userRepository.UpdateUserChipsAsync(id, userChips);
+        }
+
+        public void UpdateUserStreak(Guid id, int userStreak)
+        {
+            // TODO validation
+            userRepository.UpdateUserStreak(id, userStreak);
+        }
+
+        public void UpdateUserLastLogin(Guid id, DateTime now)
+        {
+            // TODO Validation
+            userRepository.UpdateUserLastLogin(id, now);
+        }
+
+        public void UpdateUserStack(Guid id, int userStack)
+        {
+            // TODO validation
+            userRepository.UpdateUserStack(id, userStack);
         }
     }
 }

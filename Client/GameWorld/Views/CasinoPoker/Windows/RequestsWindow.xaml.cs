@@ -9,24 +9,23 @@ namespace GameWorld.Views
     public partial class RequestsWindow : Window
     {
         private List<string> requests;
-        private IDataBaseService dbService;
-        private string connectionString;
+        private IUserService userService;
         private LobbyPage lobbyPage;
         private User currentUser;
-        public RequestsWindow(User currentUser, LobbyPage lobbyPage, string userName)
+        public RequestsWindow(User currentUser, LobbyPage lobbyPage, string userName, IUserService userService)
         {
             InitializeComponent();
             this.currentUser = currentUser;
-            dbService = new DataBaseService(); // Initialize the database service
+            this.userService = userService; // Initialize the database service
             this.lobbyPage = lobbyPage;
             // Call a method to load and display requests
             LoadRequests();
-            chipsInRequestPage.Text = dbService.GetChipsByUserId(currentUser.Id).ToString();
+            chipsInRequestPage.Text = userService.GetChipsByUserId(currentUser.Id).ToString();
         }
 
         private void LoadRequests()
         {
-            requests = dbService.GetAllRequestsByToUserID(currentUser.Id); // Get requests from the database
+            requests = userService.GetAllRequestsByToUserID(currentUser.Id); // Get requests from the database
             RequestsStackPanel.Children.Clear();
             // Create and add request items dynamically
             foreach (string requestInfo in requests)
@@ -62,14 +61,14 @@ namespace GameWorld.Views
         // Accept all
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            List<Tuple<Guid, Guid>> requests = dbService.GetAllRequestsByToUserIDSimplified(currentUser.Id);
+            List<Tuple<Guid, Guid>> requests = userService.GetAllRequestsByToUserIDSimplified(currentUser.Id);
 
             foreach (Tuple<Guid, Guid> request in requests)
             {
                 Guid fromUserID = request.Item1;
                 Guid toUserID = request.Item2;
-                int numberChips = dbService.GetChipsByUserId(fromUserID) + 3000;
-                dbService.UpdateUserChips(fromUserID, dbService.GetChipsByUserId(fromUserID) + 3000);
+                int numberChips = userService.GetChipsByUserId(fromUserID) + 3000;
+                userService.UpdateUserChips(fromUserID, userService.GetChipsByUserId(fromUserID) + 3000);
 
                 foreach (Window window in Application.Current.Windows)
                 {
@@ -79,8 +78,8 @@ namespace GameWorld.Views
                         if (requestWindow.currentUser.Id == fromUserID)
                         {
                             // _lobbyPage.PlayerChipsTextBox.Text = _dbService.GetChipsByUserId(fromUserID).ToString();
-                            requestWindow.chipsInRequestPage.Text = dbService.GetChipsByUserId(fromUserID).ToString();
-                            requestWindow.lobbyPage.PlayerChipsTextBox.Text = dbService.GetChipsByUserId(fromUserID).ToString();
+                            requestWindow.chipsInRequestPage.Text = userService.GetChipsByUserId(fromUserID).ToString();
+                            requestWindow.lobbyPage.PlayerChipsTextBox.Text = userService.GetChipsByUserId(fromUserID).ToString();
                         }
                     }
                 }
@@ -97,7 +96,7 @@ namespace GameWorld.Views
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            if (dbService.GetChipsByUserId(currentUser.Id) == 0)
+            if (userService.GetChipsByUserId(currentUser.Id) == 0)
             {
                 try
                 {

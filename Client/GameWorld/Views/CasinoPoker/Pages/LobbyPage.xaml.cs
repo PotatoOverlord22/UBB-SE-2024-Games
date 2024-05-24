@@ -11,11 +11,11 @@ namespace GameWorld.Views
         private Frame mainFrame;
         private MenuWindow mainWindow;
         private ICasinoPokerMainService service;
-        private DataBaseService dbService;
+        private IUserService userService;
         private User user;
-        public LobbyPage(Frame mainFrame, MenuWindow menuWindow, ICasinoPokerMainService service, User user)
+        public LobbyPage(Frame mainFrame, MenuWindow menuWindow, ICasinoPokerMainService service, User user, IUserService userService)
         {
-            dbService = new DataBaseService();
+            this.userService = userService;
             InitializeComponent();
             this.mainFrame = mainFrame;
             mainWindow = menuWindow;
@@ -41,7 +41,7 @@ namespace GameWorld.Views
         private void OnClickLeaderboardButton(object sender, System.Windows.RoutedEventArgs e)
         {
             List<string> strings;
-            strings = dbService.GetLeaderboard();
+            strings = userService.GetLeaderboard();
             mainFrame.Navigate(new LeaderboardPage(mainFrame, strings));
         }
         public string ReturnUserNameOfLobbyPage()
@@ -110,8 +110,7 @@ namespace GameWorld.Views
 
         private void ShopBttn_Click(object sender, RoutedEventArgs e)
         {
-            string currentUserName = mainWindow.UserName();
-            RequestsWindow requestWindow = new RequestsWindow(user, this, mainWindow.UserName());
+            RequestsWindow requestWindow = new RequestsWindow(user, this, mainWindow.UserName(), userService);
             requestWindow.Show();
         }
     }

@@ -2,7 +2,7 @@
 using GameWorld.Models;
 using GameWorld.Repositories;
 using GameWorld.Resources.Utils;
-using GameWorld.Services.Interfaces;
+using GameWorld.Services;
 using Moq;
 
 namespace GameWorld.Services.Tests

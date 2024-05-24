@@ -13,5 +13,6 @@ namespace GameWorld.Repositories
         Task UpdateUserStreak(Guid id, int streak);
         Task UpdateUserLastLogin(Guid id, DateTime lastLogin);
         Task UpdateUserStack(Guid id, int stack);
+        Task<List<User>> GetPokerLeaderboard();
     }
 }
