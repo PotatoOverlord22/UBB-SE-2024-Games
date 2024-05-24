@@ -4,6 +4,8 @@ using Server.API.Services;
 
 namespace Server.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ChallengeController : ControllerBase
     {
         private readonly IChallengeService challengeService;

@@ -4,11 +4,13 @@ using Server.API.Services;
 
 namespace Server.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class MarketSellResourceController : ControllerBase
     {
-        private readonly MarketSellResourceService marketSellResourceService;
+        private readonly IMarketSellResourceService marketSellResourceService;
 
-        public MarketSellResourceController(MarketSellResourceService marketSellResourceService)
+        public MarketSellResourceController(IMarketSellResourceService marketSellResourceService)
         {
             this.marketSellResourceService = marketSellResourceService;
         }
@@ -21,9 +23,9 @@ namespace Server.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<MarketBuyItem>> GetMarketSellResourceByResourceIdAsync(Guid marketSellResourceId)
+        public async Task<ActionResult<MarketSellResource>> GetMarketSellResourceByResourceIdAsync(Guid marketSellResourceId)
         {
-            var marketSellResource = await marketSellResourceService.GetMarketBuyItemByItemIdAsync(marketSellResourceId);
+            var marketSellResource = await marketSellResourceService.GetMarketSellResourceByResourceIdAsync(marketSellResourceId);
 
             if (marketSellResource == null)
             {
