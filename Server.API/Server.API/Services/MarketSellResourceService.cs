@@ -13,18 +13,18 @@ namespace Server.API.Services
             this.context = context;
         }
 
-        public async Task GetAllMarketSellResourcesAsync()
+        public async Task<List<MarketSellResource>> GetAllMarketSellResourcesAsync()
         {
             return await context.MarketSellResources.ToListAsync();
         }
 
-        public async Task GetMarketSellResourceByResourceIdAsync(Guid resourceId)
+        public async Task<MarketSellResource> GetMarketSellResourceByResourceIdAsync(Guid resourceId)
         {
-            var marketSellItem = await context.MarketSellItems.FindAsync(resourceId) ?? throw new KeyNotFoundException("Market buy item not found");
+            var marketSellItem = await context.MarketSellResources.FindAsync(resourceId) ?? throw new KeyNotFoundException("Market sell item not found");
             return marketSellItem;
         }
 
-        public async Task AddMarketSellResourceAsync(IMarketSellResource marketSellResource)
+        public async Task AddMarketSellResourceAsync(MarketSellResource marketSellResource)
         {
             context.MarketSellResources.Add(marketSellResource);
             await context.SaveChangesAsync();
