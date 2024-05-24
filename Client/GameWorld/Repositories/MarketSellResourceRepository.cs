@@ -1,6 +1,8 @@
-﻿using Microsoft.Data.SqlClient;
-using GameWorld.Resources.Utils;
+﻿using System.Net.Http;
+using System.Text;
 using GameWorld.Models;
+using GameWorld.Resources.Utils;
+using Newtonsoft.Json;
 
 namespace GameWorld.Repositories
 {
@@ -10,6 +12,7 @@ namespace GameWorld.Repositories
         {
             try
             {
+                HttpClient httpClient = new HttpClient();
                 var response = await httpClient.GetAsync($"{Apis.MARKET_SELL_RESOURCE}");
                 response.EnsureSuccessStatusCode();
                 string responseContent = await response.Content.ReadAsStringAsync();

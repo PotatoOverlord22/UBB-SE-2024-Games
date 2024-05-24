@@ -98,7 +98,7 @@
                             <ControlTemplate TargetType="Button">
                                 <DockPanel >
                                     <DockPanel.Background>
-                                        <ImageBrush ImageSource="/Resources/Assets/Sprites/bar_icon.png"/>
+                                        <ImageBrush ImageSource="/Resources/Assets/HarvestHaven/Sprites/bar_icon.png"/>
                                     </DockPanel.Background>
                                   
                                     <Image Source="{StaticResource FaceImage}" Height="35" Width="35" Margin="9,0,9,0"></Image>
