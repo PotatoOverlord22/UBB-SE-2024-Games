@@ -70,5 +70,16 @@ namespace Server.API.Services
             // Save changes to the database
             await gamesContext.SaveChangesAsync();
         }
+
+        public async Task<List<User>> GetPokerLeaderboardAsync()
+        {
+            var leaderboard = await gamesContext.Users
+                .OrderByDescending(user => user.UserChips)
+                .ThenByDescending(user => user.UserLevel)
+                .ThenBy(user => user.Username)
+                .ToListAsync();
+
+            return leaderboard;
+        }
     }
 }

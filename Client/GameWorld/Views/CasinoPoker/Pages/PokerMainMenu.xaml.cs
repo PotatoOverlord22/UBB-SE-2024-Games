@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using GameWorld.Models;
 using GameWorld.Services;
+using Microsoft.Extensions.DependencyInjection;
 namespace GameWorld.Views
 {
     public partial class PokerMainMenu : Page
@@ -27,7 +28,7 @@ namespace GameWorld.Views
 
         private void OnClickPlayButton(object sender, RoutedEventArgs e)
         {
-            mainFrame.Navigate(new LobbyPage(mainFrame, menuWindow, service, user));
+            mainFrame.Navigate(new LobbyPage(mainFrame, menuWindow, service, user, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>()));
         }
 
         private void OnClickQuitButton(object sender, RoutedEventArgs e)

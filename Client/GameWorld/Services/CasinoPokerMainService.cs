@@ -10,7 +10,7 @@ namespace GameWorld.Services
     {
         private List<MenuWindow> openedUsersWindows;
         private SqlConnection sqlConnection;
-        private DataBaseService databaseService;
+        private IUserService userService;
         private const int FULL = 8;
         private const int EMPTY = 0;
         private const int INACTIVE = 0;
@@ -46,13 +46,13 @@ namespace GameWorld.Services
         private const int DAYS_BETWEEN_LOGIN_BONUSES = 1;
 
         // Task internTask, juniorTask, seniorTask;
-        public CasinoPokerMainService()
+        public CasinoPokerMainService(IUserService userService)
         {
-            databaseService = new DataBaseService();
+            this.userService = userService;
             openedUsersWindows = new List<MenuWindow>();
-            internTable = new TableService(INTERN_BUY_IN, INTERN_SMALL_BLIND, INTERN_BIG_BLIND, INTERN, databaseService);
-            juniorTable = new TableService(JUNIOR_BUY_IN, JUNIOR_SMALL_BLIND, JUNIOR_BIG_BLIND, JUNIOR, databaseService);
-            seniorTable = new TableService(SENIOR_BUY_IN, SENIOR_SMALL_BLIND, SENIOR_BIG_BLIND, SENIOR, databaseService);
+            internTable = new TableService(INTERN_BUY_IN, INTERN_SMALL_BLIND, INTERN_BIG_BLIND, INTERN, userService);
+            juniorTable = new TableService(JUNIOR_BUY_IN, JUNIOR_SMALL_BLIND, JUNIOR_BIG_BLIND, JUNIOR, userService);
+            seniorTable = new TableService(SENIOR_BUY_IN, SENIOR_SMALL_BLIND, SENIOR_BIG_BLIND, SENIOR, userService);
             // chatWindowIntern = new ChatWindow();
             // chatWindowJuniorm = new ChatWindow();
             // chatWindowSenior = new ChatWindow();
@@ -87,11 +87,11 @@ namespace GameWorld.Services
                     newUser.UserStreak = INITIAL_STREAK;
                 }
                 newUser.UserChips += newUser.UserStreak * DAILY_LOGIN_STREAK_MULTIPLIER;
-                databaseService.UpdateUserChips(newUser.Id, newUser.UserChips);
-                databaseService.UpdateUserStreak(newUser.Id, newUser.UserStreak);
+                userService.UpdateUserChips(newUser.Id, newUser.UserChips);
+                userService.UpdateUserStreak(newUser.Id, newUser.UserStreak);
                 MessageBox.Show("Congratulations, you got your daily bonus!\n" + "Streak: " + newUser.UserStreak + " Bonus: " + (DAILY_LOGIN_STREAK_MULTIPLIER * newUser.UserStreak).ToString());
             }
-            databaseService.UpdateUserLastLogin(newUser.Id, DateTime.Now);
+            userService.UpdateUserLastLogin(newUser.Id, DateTime.Now);
         }
      /*   public int GetIntFromReader(SqlDataReader reader, string columnName)
         {
@@ -188,9 +188,9 @@ namespace GameWorld.Services
             seniorTable.DisconnectUser(window);
 
             player.UserChips += player.UserStack;
-            databaseService.UpdateUserChips(player.Id, player.UserChips);
+            userService.UpdateUserChips(player.Id, player.UserChips);
             player.UserStack = EMPTY;
-            databaseService.UpdateUserStack(player.Id, player.UserStack);
+            userService.UpdateUserStack(player.Id, player.UserStack);
         }
         public int JoinInternTable(MenuWindow window)
         {
