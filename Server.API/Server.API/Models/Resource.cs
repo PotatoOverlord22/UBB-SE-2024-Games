@@ -8,18 +8,18 @@ namespace Server.API.Models
 
     public enum ResourceType
     {
-        Water,
-        Wheat,
-        Corn,
-        Carrot,
-        Tomato,
-        ChickenEgg,
-        DuckEgg,
-        SheepWool,
-        CowMilk,
-        ChickenMeat,
-        DuckMeat,
-        Mutton,
-        Steak
+        Water = 0,
+        Wheat = 1,
+        Corn = 2,
+        Carrot = 3,
+        Tomato = 4,
+        ChickenEgg = 5,
+        DuckEgg = 6,
+        SheepWool = 7,
+        CowMilk = 8,
+        ChickenMeat = 9,
+        DuckMeat = 10,
+        Mutton = 11,
+        Steak = 12,
     }
 }

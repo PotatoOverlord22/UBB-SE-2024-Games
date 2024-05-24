@@ -60,6 +60,7 @@ namespace GameWorld.Repositories
         {
             try
             {
+                Console.WriteLine($"{base_URL}/type/{(int)resourceType}");
                 var response = await httpClient.GetAsync($"{base_URL}/type/{resourceType}");
                 response.EnsureSuccessStatusCode();
 

@@ -1,181 +1,156 @@
 ﻿using GameWorld.Models;
 using GameWorld.Resources.Utils;
-using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
 
 namespace GameWorld.Repositories
 {
     public class TradeRepository : ITradeRepository
     {
-        private readonly string connectionString = DatabaseHelper.GetDatabaseFilePath();
-
         public async Task<List<Trade>> GetAllTradesAsync()
         {
-            List<Trade> trades = new List<Trade>();
-         /*   using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var httpClient = new HttpClient())
             {
-                await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand("SELECT * FROM Trades", connection))
+                var response = await httpClient.GetAsync(Apis.TRADES_BASE_URL);
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
                 {
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            trades.Add(new Trade(
-                                id: (Guid)reader["Id"],
-                                userId: (Guid)reader["UserId"],
-                                givenResourceId: (Guid)reader["GivenResourceId"],
-                                givenResourceQuantity: (int)reader["GivenResourceQuantity"],
-                                requestedResourceId: (Guid)reader["RequestedResourceId"],
-                                requestedResourceQuantity: (int)reader["RequestedResourceQuantity"],
-                                createdTime: (DateTime)reader["CreatedTime"],
-                                isCompleted: (bool)reader["IsCompleted"]));
-                        }
-                    }
+                    List<Trade> trades = JsonConvert.DeserializeObject<List<Trade>>(apiResponse);
+                    return trades;
                 }
-            }*/
-            return trades;
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    Console.WriteLine("No trades found");
+                    return new List<Trade>();
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
 
         public async Task<List<Trade>> GetAllTradesExceptCreatedByUser(Guid userId)
         {
-            List<Trade> trades = new List<Trade>();
-           /* string query = "SELECT * FROM Trades WHERE UserId <> @UserId";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var httpClient = new HttpClient())
             {
-                await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand(query, connection))
+                var response = await httpClient.GetAsync($"{Apis.TRADES_BASE_URL}/except/{userId}");
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
                 {
-                    command.Parameters.AddWithValue("@UserId", userId);
-
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            Trade trade = new Trade(
-                                id: (Guid)reader["Id"],
-                                userId: (Guid)reader["UserId"],
-                                givenResourceId: (Guid)reader["GivenResourceId"],
-                                givenResourceQuantity: (int)reader["GivenResourceQuantity"],
-                                requestedResourceId: (Guid)reader["RequestedResourceId"],
-                                requestedResourceQuantity: (int)reader["RequestedResourceQuantity"],
-                                createdTime: (DateTime)reader["CreatedTime"],
-                                isCompleted: (bool)reader["IsCompleted"]);
-                            trades.Add(trade);
-                        }
-                    }
+                    List<Trade> trades = JsonConvert.DeserializeObject<List<Trade>>(apiResponse);
+                    return trades;
                 }
-            }*/
-            return trades;
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    Console.WriteLine("No trades found");
+                    return new List<Trade>();
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
 
         public async Task<Trade> GetTradeByIdAsync(Guid tradeId)
         {
-            Trade? trade = null;
-            /*using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var httpClient = new HttpClient())
             {
-                await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand("SELECT * FROM Trades Where Id = @Id", connection))
+                var response = await httpClient.GetAsync($"{Apis.TRADES_BASE_URL}/{tradeId}");
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
                 {
-                    command.Parameters.AddWithValue("@Id", tradeId);
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                    {
-                        if (await reader.ReadAsync())
-                        {
-                            trade = new Trade(
-                                id: (Guid)reader["Id"],
-                                userId: (Guid)reader["UserId"],
-                                givenResourceId: (Guid)reader["GivenResourceId"],
-                                givenResourceQuantity: (int)reader["GivenResourceQuantity"],
-                                requestedResourceId: (Guid)reader["RequestedResourceId"],
-                                requestedResourceQuantity: (int)reader["RequestedResourceQuantity"],
-                                createdTime: (DateTime)reader["CreatedTime"],
-                                isCompleted: (bool)reader["IsCompleted"]);
-                        }
-                    }
+                    Trade trade = JsonConvert.DeserializeObject<Trade>(apiResponse);
+                    return trade;
                 }
-            }*/
-            return trade;
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    throw new Exception($"No trade with id {tradeId} found");
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
 
         public async Task<Trade> GetUserTradeAsync(Guid userId)
         {
-            Trade userTrade = null;
-          /*  using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var httpClient = new HttpClient())
             {
-                await connection.OpenAsync();
-                string query = "SELECT * FROM Trades WHERE UserId = @UserId";
-                using (SqlCommand command = new SqlCommand(query, connection))
+                var response = await httpClient.GetAsync($"{Apis.TRADES_BASE_URL}/user/{userId}");
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
                 {
-                    command.Parameters.AddWithValue("@UserId", userId);
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                    {
-                        if (await reader.ReadAsync())
-                        {
-                            userTrade = new Trade(
-                                id: (Guid)reader["Id"],
-                                userId: (Guid)reader["UserId"],
-                                givenResourceId: (Guid)reader["GivenResourceId"],
-                                givenResourceQuantity: (int)reader["GivenResourceQuantity"],
-                                requestedResourceId: (Guid)reader["RequestedResourceId"],
-                                requestedResourceQuantity: (int)reader["RequestedResourceQuantity"],
-                                createdTime: (DateTime)reader["CreatedTime"],
-                                isCompleted: (bool)reader["IsCompleted"]);
-                        }
-                    }
+                    Trade trade = JsonConvert.DeserializeObject<Trade>(apiResponse);
+                    return trade;
                 }
-            }*/
-            return userTrade;
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    throw new Exception($"No trade found for user with id {userId}");
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
 
         public async Task CreateTradeAsync(Trade trade)
         {
-           /* using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var httpClient = new HttpClient())
             {
-                await connection.OpenAsync();
-                string query = "INSERT INTO Trades (Id, UserId, GivenResourceId, GivenResourceQuantity, RequestedResourceId, RequestedResourceQuantity, CreatedTime, IsCompleted) VALUES (@Id, @UserId, @GivenResourceId, @GivenResourceQuantity, @RequestedResourceId, @RequestedResourceQuantity, @CreatedTime, @IsCompleted)";
-                using (SqlCommand command = new SqlCommand(query, connection))
+                var response = await httpClient.PostAsync(Apis.TRADES_BASE_URL, JsonContent.Create(trade));
+                if (response.IsSuccessStatusCode)
                 {
-                    command.Parameters.AddWithValue("@Id", trade.Id);
-                    command.Parameters.AddWithValue("@UserId", trade.UserId);
-                    command.Parameters.AddWithValue("@GivenResourceId", trade.ResourceToGiveId);
-                    command.Parameters.AddWithValue("@GivenResourceQuantity", trade.ResourceToGiveQuantity);
-                    command.Parameters.AddWithValue("@RequestedResourceId", trade.ResourceToGetResourceId);
-                    command.Parameters.AddWithValue("@RequestedResourceQuantity", trade.ResourceToGetQuantity);
-                    command.Parameters.AddWithValue("@CreatedTime", trade.TradeCreationTime);
-                    command.Parameters.AddWithValue("@IsCompleted", trade.IsCompleted);
-                    await command.ExecuteNonQueryAsync();
+                    Console.WriteLine("Trade created successfully.");
                 }
-            }*/
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
 
         public async Task UpdateTradeAsync(Trade trade)
         {
-            // Create the SQL connection and release the resources after use.
-           /* using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var httpClient = new HttpClient())
             {
-                await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand("UPDATE Trades SET IsCompleted = @IsCompleted WHERE Id = @Id", connection))
+                string jsonSerialized = JsonConvert.SerializeObject(trade);
+                var content = JsonContent.Create(jsonSerialized);
+                string endpoint = $"{Apis.TRADES_BASE_URL}/{trade.Id}";
+
+                var response = await httpClient.PutAsync(endpoint, content);
+                if (response.IsSuccessStatusCode)
                 {
-                    command.Parameters.AddWithValue("@Id", trade.Id);
-                    command.Parameters.AddWithValue("@IsCompleted", trade.IsCompleted);
-                    await command.ExecuteNonQueryAsync();
+                    Console.WriteLine("Trade updated successfully.");
                 }
-            }*/
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
 
         public async Task DeleteTradeAsync(Guid tradeId)
         {
-           /* using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var httpClient = new HttpClient())
             {
-                await connection.OpenAsync();
-                string query = "DELETE FROM Trades WHERE Id = @Id";
-                using (SqlCommand command = new SqlCommand(query, connection))
+                var response = await httpClient.DeleteAsync($"{Apis.TRADES_BASE_URL}/{tradeId}");
+                if (response.IsSuccessStatusCode)
                 {
-                    command.Parameters.AddWithValue("@Id", tradeId);
-                    await command.ExecuteNonQueryAsync();
+                    Console.WriteLine("Trade deleted successfully.");
                 }
-            }*/
+                else
+                {
+                    throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+                }
+            }
         }
     }
 }
