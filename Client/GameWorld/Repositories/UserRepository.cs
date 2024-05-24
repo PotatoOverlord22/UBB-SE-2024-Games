@@ -137,5 +137,32 @@ namespace GameWorld.Repositories
             user.UserLastLogin = lastLogin;
             await UpdateUserAsync(user);
         }
+
+        public async Task UpdateUserStack(Guid id, int stack)
+        {
+            User user = await GetUserByIdAsync(id);
+            user.UserStack = stack;
+            await UpdateUserAsync(user);
+        }
+
+        public async Task<List<User>> GetPokerLeaderboard()
+        {
+            var response = await httpClient.GetAsync(Apis.POKER_LEADERBOARD_URL);
+            string apiResponse = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                List<User>? leaderboard = JsonConvert.DeserializeObject<List<User>>(apiResponse);
+                return leaderboard;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                Console.WriteLine("No users found");
+                return new List<User>();
+            }
+            else
+            {
+                throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+            }
+        }
     }
 }

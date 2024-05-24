@@ -31,6 +31,22 @@ namespace Server.API.Controllers
                 }
         }
 
+        // Get the poker leaderboard
+        // GET: api/users/poker-leaderboard
+        [HttpGet("poker-leaderboard")]
+        public async Task<ActionResult<IEnumerable<User>>> GetPokerLeaderboard()
+        {
+            try
+            {
+                var leaderboard = await userService.GetPokerLeaderboardAsync();
+                return leaderboard;
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+        }
+
         // Get user by id
         // api/users/5
         [HttpGet("{id}")]
