@@ -8,8 +8,6 @@ namespace GameWorld.ViewModels
     {
         private int balance;
 
-      /*  private IDataBaseService dbService;*/
-
         public int Balance
         {
             get
@@ -31,10 +29,9 @@ namespace GameWorld.ViewModels
 
         public MainViewModel(int currentBalance, Guid userId)
         {
-           /* Balance = currentBalance;
+            Balance = currentBalance;
             ShopItems = new List<ShopItem>();
-            dbService = new DataBaseService();
-            LoadItems(userId);*/
+            LoadItems(userId);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
