@@ -22,6 +22,7 @@ namespace Server.API.Utils
             services.AddScoped<ITitleService, TitleService>();
             services.AddScoped<ITableService, TableService>();
             services.AddScoped<IChallengeService, ChallengeService>();
+            services.AddScoped<IMarketSellResourceService, MarketSellResourceService>();
         }
     }
 }
