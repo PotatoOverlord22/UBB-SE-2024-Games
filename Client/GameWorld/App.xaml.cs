@@ -9,13 +9,11 @@ namespace GameWorld
 {
     public partial class App : Application
     {
-       /* private readonly IUserService userService;*/
+        private readonly IUserService userService;
         public App()
         {
             DependencyInjectionConfigurator.Init();
-            /*userService = DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>();
-            MainMenu mainMenu = new MainMenu(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IHarvestHavenMainMenuService>());
-            mainMenu.Show();*/
+            userService = DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>();
             SetCurrentUser().Wait();
             MainMenu mainMenu = new MainMenu();
             mainMenu.Show();
@@ -23,9 +21,19 @@ namespace GameWorld
 
         private async Task SetCurrentUser()
         {
-            /*User user = await userService.GetUserByIdAsync(Guid.Parse("19d3b857-9e75-4b0d-a0bc-cb945db12620"));*/
-            User user = new User(Guid.NewGuid(), "test");
-            GameStateManager.SetCurrentUser(user);
+            User user = new User(new Guid(), "test");
+            try
+            {
+                user = await userService.GetUserByIdAsync(Guid.Parse(Constants.TEST_USER_ID));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                GameStateManager.SetCurrentUser(user);
+            }
         }
     }
 }
