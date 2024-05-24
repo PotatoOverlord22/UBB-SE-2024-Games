@@ -91,7 +91,7 @@
                 <TextBlock x:Name="PlayerNameTextBox" HorizontalAlignment="Left" Margin="50,3,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="157"/>
                 <TextBlock x:Name="PlayerLevelTextBox" Text="lvlTemp" Margin="50,19,103,0"/>
                 <TextBlock x:Name="PlayerChipsTextBox" Text="chipsTemp" Margin="119,19,28,0"/>
-                <Image x:Name="PlayerIconImg"  HorizontalAlignment="Left" Height="36" Width="36" Margin="4,0,0,1" Stretch="UniformToFill" Cursor="Hand" MouseLeftButtonDown="PlayerIconImg_MouseLeftButtonDown"/>
+                <Image x:Name="PlayerIconImg" HorizontalAlignment="Left" Height="36" Width="36" Margin="4,0,0,1" Stretch="UniformToFill" Cursor="Hand" MouseLeftButtonDown="PlayerIconImg_MouseLeftButtonDown"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="1">

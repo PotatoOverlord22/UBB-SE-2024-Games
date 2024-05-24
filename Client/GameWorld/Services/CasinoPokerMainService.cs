@@ -93,72 +93,14 @@ namespace GameWorld.Services
             }
             userService.UpdateUserLastLogin(newUser.Id, DateTime.Now);
         }
-     /*   public int GetIntFromReader(SqlDataReader reader, string columnName)
-        {
-            const int DEFAULT_VALUE = 0;
-            return reader.IsDBNull(reader.GetOrdinal(columnName)) ? DEFAULT_VALUE : reader.GetInt32(reader.GetOrdinal(columnName));
-        }
-        public Guid GetGuidFromReader(SqlDataReader reader, string columnName)
-        {
-            return reader.IsDBNull(reader.GetOrdinal(columnName)) ? Guid.Empty : reader.GetGuid(reader.GetOrdinal(columnName));
-        }
-        public string GetStringFromReader(SqlDataReader reader, string columnName)
-        {
-            return reader.IsDBNull(reader.GetOrdinal(columnName)) ? string.Empty : reader.GetString(reader.GetOrdinal(columnName));
-        }
-        public DateTime GetDateFromReader(SqlDataReader reader, string columnName)
-        {
-            return reader.IsDBNull(reader.GetOrdinal(columnName)) ? default : reader.GetDateTime(reader.GetOrdinal(columnName));
-        }
-
-        public User CreateUserFromReader(SqlDataReader reader)
-        {
-            Guid userID = GetGuidFromReader(reader, "user_id");
-            string userName = GetStringFromReader(reader, "user_username");
-            int currentFont = GetIntFromReader(reader, "user_currentFont");
-            int currentTitle = GetIntFromReader(reader, "user_currentTitle");
-            string currentIconPath = reader.IsDBNull(reader.GetOrdinal("user_currentIcon")) ? ConfigurationManager.AppSettings["DEFAULT_ICON_PATH"] : databaseService.GetIconPath(reader.GetInt32(reader.GetOrdinal("user_currentIcon")));
-            int currentTable = GetIntFromReader(reader, "user_currentTable");
-            int chips = GetIntFromReader(reader, "user_chips");
-            int stack = GetIntFromReader(reader, "user_stack");
-            int streak = GetIntFromReader(reader, "user_streak");
-            int handsPlayed = GetIntFromReader(reader, "user_handsPlayed");
-            int level = GetIntFromReader(reader, "user_level");
-            DateTime lastLogin = GetDateFromReader(reader, "user_lastLogin");
-            return new User(userID, userName, currentFont, currentTitle,
-                userCurrentIconPath: currentIconPath, userCurrentTable: currentTable, userChips: chips, userStack: stack,
-                userStreak: streak, userHandsPlayed: handsPlayed, userLevel: level, userLastLogin: lastLogin);
-        }*/
         private void OpenUserWindow(User user)
         {
             MenuWindow menuWindow = new MenuWindow(user, this);
             menuWindow.Show();
             openedUsersWindows.Add(menuWindow);
         }
-        /*  public User FetchUser(SqlConnection sqlConnection, string userName)
-          {
-              using (SqlCommand command = new SqlCommand("EXEC getUser @username", sqlConnection))
-              {
-                  command.Parameters.AddWithValue("@username", userName);
-                  using (SqlDataReader reader = command.ExecuteReader())
-                  {
-                      if (reader.HasRows)
-                      {
-                          reader.Read();
-                          User newUser = CreateUserFromReader(reader);
-                          reader.Close();
-                          return newUser;
-                      }
-                      else
-                      {
-                          return null;
-                      }
-                  }
-              }
-          }*/
         public void AddWindow(string username)
         {
-            /*sqlConnection.Open();*/
             User user = GameStateManager.GetCurrentUser();
             try
             {
@@ -176,7 +118,6 @@ namespace GameWorld.Services
             {
                 Console.WriteLine("Error: " + ex.Message);
             }
-            /*sqlConnection.Close();*/
         }
         public void DisconnectUser(MenuWindow window)
         {

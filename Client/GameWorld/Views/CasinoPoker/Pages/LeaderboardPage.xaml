@@ -11,7 +11,7 @@
         <Image Source="/Resources/assets/greenbackgroundimg.jpg" Stretch="Fill"/>
         <!-- ListView on Image -->
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Source="/Resources/assets/redchip.png" Stretch="None"/>
+            <Image Source="/Resources/Assets/CasinoPoker/redchip.png" Stretch="None"/>
             <ListView x:Name="listViewLeaderboard" Margin="234,150,234,44" BorderThickness="0">
                 <ListView.Background>
                     <ImageBrush/>
