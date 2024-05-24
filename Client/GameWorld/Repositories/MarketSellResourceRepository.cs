@@ -8,97 +8,84 @@ namespace GameWorld.Repositories
     {
         public async Task<List<MarketSellResource>> GetAllSellResourcesAsync()
         {
-            List<MarketSellResource> sellResources = new List<MarketSellResource>();
-           /* using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand("SELECT * FROM MarketSellResources", connection))
-                {
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            sellResources.Add(new MarketSellResource(
-                                id: (Guid)reader["Id"],
-                                resourceId: (Guid)reader["ResourceId"],
-                                sellPrice: (int)reader["SellPrice"]));
-                        }
-                    }
-                }
-            }*/
-            return sellResources;
+                var response = await httpClient.GetAsync($"{Apis.MARKET_SELL_RESOURCE}");
+                response.EnsureSuccessStatusCode();
+                string responseContent = await response.Content.ReadAsStringAsync();
+                var resources = JsonConvert.DeserializeObject<List<MarketSellResource>>(responseContent) ?? throw new Exception("Response content from getting all market sell resources from the backend is invalid: ");
+                return resources;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Error on getting all market sell resources from the Server: " + exception.Message);
+            }
         }
 
         public async Task<MarketSellResource> GetMarketSellResourceByResourceIdAsync(Guid resourceId)
         {
-            MarketSellResource? sellResource = null;
-
-           /* using (SqlConnection connection = new SqlConnection(connectionString))
+            using var httpClient = new HttpClient();
+            try
             {
-                await connection.OpenAsync();
-                using (SqlCommand command = new SqlCommand("SELECT * FROM MarketSellResources WHERE ResourceId = @ResourceId", connection))
-                {
-                    command.Parameters.AddWithValue("@ResourceId", resourceId);
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                    {
-                        if (await reader.ReadAsync())
-                        {
-                            sellResource = new MarketSellResource(
-                                id: (Guid)reader["Id"],
-                                resourceId: (Guid)reader["ResourceId"],
-                                sellPrice: (int)reader["SellPrice"]);
-                        }
-                    }
-                }
-            }*/
+                var response = await httpClient.GetAsync($"{Apis.MARKET_SELL_RESOURCE}/{resourceId}");
+                response.EnsureSuccessStatusCode();
 
-            return sellResource;
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var resources = JsonConvert.DeserializeObject<MarketSellResource>(responseContent) ?? throw new Exception("Response content from getting market sell resource by ID from the backend is invalid: ");
+                return resources;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Error on getting market sell resource by ID from the Server: " + exception.Message);
+            }
         }
 
         public async Task AddMarketSellResourceAsync(MarketSellResource marketSellResource)
         {
-           /* using (SqlConnection connection = new SqlConnection(connectionString))
+            using var httpClient = new HttpClient();
+            try
             {
-                await connection.OpenAsync();
-                string query = "INSERT INTO MarketSellResources (Id, ResourceId, SellPrice) VALUES (@Id, @ResourceId, @SellPrice)";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Id", marketSellResource.Id);
-                    command.Parameters.AddWithValue("@ResourceId", marketSellResource.ResourceToSellId);
-                    command.Parameters.AddWithValue("@SellPrice", marketSellResource.SellPrice);
-                    await command.ExecuteNonQueryAsync();
-                }
-            }*/
+                var sentContent = JsonConvert.SerializeObject(marketSellResource);
+                var content = new StringContent(sentContent, Encoding.UTF8, "application/json");
+
+                var response = await httpClient.PostAsync($"{Apis.MARKET_SELL_RESOURCE}", content);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Error on sending market sell resource to the Server: " + exception.Message);
+            }
         }
 
         public async Task UpdateMarketSellResourceAsync(MarketSellResource marketSellResource)
         {
-           /* using (SqlConnection connection = new SqlConnection(connectionString))
+            using var httpClient = new HttpClient();
+            try
             {
-                await connection.OpenAsync();
-                string query = "UPDATE MarketSellResources SET ResourceId = @ResourceId, SellPrice = @SellPrice WHERE Id = @Id";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Id", marketSellResource.Id);
-                    command.Parameters.AddWithValue("@ResourceId", marketSellResource.ResourceToSellId);
-                    command.Parameters.AddWithValue("@SellPrice", marketSellResource.SellPrice);
-                    await command.ExecuteNonQueryAsync();
-                }
-            }*/
+                var putContent = JsonConvert.SerializeObject(marketSellResource);
+                var content = new StringContent(putContent, Encoding.UTF8, "application/json");
+
+                var response = await httpClient.PutAsync($"{Apis.MARKET_SELL_RESOURCE}/{marketSellResource.Id}", content);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Error on putting market sell resource to the Server: " + exception.Message);
+            }
         }
 
         public async Task DeleteMarketSellResourceAsync(Guid marketSellResourceId)
         {
-            /*using (SqlConnection connection = new SqlConnection(connectionString))
+            using var httpClient = new HttpClient();
+            try
             {
-                await connection.OpenAsync();
-                string query = "DELETE FROM MarketSellResources WHERE Id = @Id";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Id", marketSellResourceId);
-                    await command.ExecuteNonQueryAsync();
-                }
-            }*/
+                var response = await httpClient.DeleteAsync($"{Apis.MARKET_SELL_RESOURCE}/{marketSellResourceId}");
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Error on DELETE market sell resource to the Server: " + exception.Message);
+            }
         }
     }
 }
