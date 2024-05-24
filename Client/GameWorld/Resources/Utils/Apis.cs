@@ -11,5 +11,6 @@
         public static readonly string USERS_BASE_URL = "https://localhost:8080/api/Users";
         public static readonly string FARM_CELL = "https://localhost:8080/api/Users";
         public static readonly string COMMENTS_BASE_URL = "https://localhost:8080/api/Comments";
+        public static readonly string MARKET_SELL_RESOURCE = "https://localhost:8080/api/MarketSellResource";
     }
 }
