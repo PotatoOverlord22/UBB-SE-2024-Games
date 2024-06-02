@@ -3,6 +3,8 @@ using System.Windows.Controls;
 using GameWorldClassLibrary.Models;
 using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
+using GameWorldClassLibrary.Services;
+using GameWorld.Resources.Utils;
 namespace GameWorld.Views
 {
     public partial class PokerMainMenu : Page

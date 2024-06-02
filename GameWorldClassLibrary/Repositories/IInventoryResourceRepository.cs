@@ -1,6 +1,6 @@
 ﻿using GameWorldClassLibrary.Models;
 
-namespace GameWorld.Repositories
+namespace GameWorldClassLibrary.Repositories
 {
     public interface IInventoryResourceRepository
     {

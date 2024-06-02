@@ -5,8 +5,10 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
-using GameWorld.Resources.Utils;
 using GameWorldClassLibrary.Models;
+using GameWorldClassLibrary.Services;
+using GameWorldClassLibrary.Utils;
+using GameWorld.Resources.Utils;
 
 namespace GameWorld.Views
 {

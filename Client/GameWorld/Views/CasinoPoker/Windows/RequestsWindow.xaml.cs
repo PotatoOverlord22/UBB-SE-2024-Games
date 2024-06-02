@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using GameWorldClassLibrary.Models;
-using GameWorld.Services;
+using GameWorldClassLibrary.Services;
 namespace GameWorld.Views
 {
     public partial class RequestsWindow : Window

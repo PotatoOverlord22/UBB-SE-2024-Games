@@ -1,4 +1,4 @@
-﻿namespace GameWorld.Resources.Utils
+﻿namespace GameWorldClassLibrary.Utils
 {
     public static class Constants
     {

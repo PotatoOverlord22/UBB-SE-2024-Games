@@ -6,7 +6,7 @@ namespace Server.API.Utils
     {
         public static void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IAchievementRepository, AchievementRepository>();
+            services.AddScoped<GameWorldClassLibrary.Repositories.IAchievementRepository, GameWorldClassLibrary.Repositories.AchievementRepositoryDB>();
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<IResourceRepository, ResourceRepository>();
             services.AddScoped<IInventoryResourceRepository, InventoryResourceRepository>();

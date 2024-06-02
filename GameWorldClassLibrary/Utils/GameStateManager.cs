@@ -1,7 +1,7 @@
 ﻿using System;
 using GameWorldClassLibrary.Models;
 
-namespace GameWorld.Resources.Utils
+namespace GameWorldClassLibrary.Utils
 {
     public static class GameStateManager
     {

@@ -6,7 +6,7 @@ using System.Net.Http;
 using GameWorldClassLibrary.Models;
 using GameWorld.Resources.Utils;
 
-namespace GameWorld.Repositories
+namespace GameWorldClassLibrary.Repositories
 {
     public class InventoryResourceRepository : IInventoryResourceRepository
     {

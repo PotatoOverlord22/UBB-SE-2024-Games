@@ -1,8 +1,8 @@
 ﻿using GameWorldClassLibrary.Models;
-using GameWorld.Repositories;
-using GameWorld.Resources.Utils;
+using GameWorldClassLibrary.Repositories;
+using GameWorldClassLibrary.Utils;
 
-namespace GameWorld.Services
+namespace GameWorldClassLibrary.Services
 {
     public class UserService : IUserService
     {

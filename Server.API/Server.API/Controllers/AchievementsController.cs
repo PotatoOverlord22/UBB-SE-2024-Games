@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Server.API.Repositories;
 using GameWorldClassLibrary.Models;
+using GameWorldClassLibrary.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -20,7 +20,7 @@ namespace Server.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Achievement>>> GetAchivements()
         {
-            var achievements = await achievementService.GetAchievementsAsync();
+            var achievements = await achievementService.GetAllAchievementsAsync();
             return achievements;
         }
 
@@ -46,7 +46,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                await achievementService.UpdateAchievementAsync(id, achievement);
+                await achievementService.UpdateAchievementAsync(achievement);
             }
             catch (KeyNotFoundException e)
             {
@@ -62,7 +62,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                await achievementService.AddAchievement(achievement);
+                await achievementService.AddAchievementAsync(achievement);
             }
             catch (Exception e)
             {

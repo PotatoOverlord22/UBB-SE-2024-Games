@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using GameWorldClassLibrary.Models;
 using GameWorld.Services;
+using GameWorldClassLibrary.Services;
 
 namespace GameWorld.Views
 {

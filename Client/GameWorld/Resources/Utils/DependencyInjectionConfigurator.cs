@@ -1,9 +1,10 @@
 ﻿using GameWorld.Repositories;
 using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
-using GameWorld.Resources.Utils;
+using GameWorldClassLibrary.Services;
+using GameWorldClassLibrary.Repositories;
 
-namespace GameWorld
+namespace GameWorld.Resources.Utils
 {
     public static class DependencyInjectionConfigurator
     {

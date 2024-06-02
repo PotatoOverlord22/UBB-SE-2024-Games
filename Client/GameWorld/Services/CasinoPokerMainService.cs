@@ -1,8 +1,9 @@
 ﻿using System.Windows;
 using GameWorldClassLibrary.Models;
-using GameWorld.Resources.Utils;
 using GameWorld.Views;
 using Microsoft.Data.SqlClient;
+using GameWorldClassLibrary.Services;
+using GameWorldClassLibrary.Utils;
 
 namespace GameWorld.Services
 {

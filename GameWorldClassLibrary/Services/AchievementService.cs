@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using GameWorldClassLibrary.Models;
-using GameWorld.Repositories;
-using GameWorld.Resources.Utils;
+using GameWorldClassLibrary.Repositories;
+using GameWorldClassLibrary.Utils;
 
-namespace GameWorld.Services
+namespace GameWorldClassLibrary.Services
 {
     public class AchievementService : IAchievementService
     {
@@ -239,7 +239,7 @@ namespace GameWorld.Services
                 await AddUserAchievement(Guid.Parse("1bbe52db-494a-4af1-9997-37d4202b7165"));
             }
 
-            if ((tomatoInventoryResource?.Quantity == 0 && chickenEggsInventoryResource?.Quantity == 0) || (duckEggsInventoryResource?.Quantity == 0 && cornInventoryResource?.Quantity == 0))
+            if (tomatoInventoryResource?.Quantity == 0 && chickenEggsInventoryResource?.Quantity == 0 || duckEggsInventoryResource?.Quantity == 0 && cornInventoryResource?.Quantity == 0)
             {
                 await AddUserAchievement(Guid.Parse("e6149f4d-3f2f-485d-ad7b-e4c5f5660f35"));
             }
@@ -298,8 +298,6 @@ namespace GameWorld.Services
             newUser.Coins += achievement.NumberOfCoinsRewarded;
             await userRepository.UpdateUserAsync(newUser);
             GameStateManager.SetCurrentUser(newUser);
-
-            MessageBox.Show($"Congratulations you unlocked a new achievement! {achievement.Description}");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using GameWorldClassLibrary.Models;
 
-namespace GameWorld.Services
+namespace GameWorldClassLibrary.Services
 {
     public interface IAchievementService
     {
