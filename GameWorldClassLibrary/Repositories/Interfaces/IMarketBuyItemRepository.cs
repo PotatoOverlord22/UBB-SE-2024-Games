@@ -1,6 +1,6 @@
 ﻿using GameWorldClassLibrary.Models;
 
-namespace GameWorldClassLibrary.Repositories.Interfaces
+namespace GameWorldClassLibrary.Repositories
 {
     public interface IMarketBuyItemRepository
     {

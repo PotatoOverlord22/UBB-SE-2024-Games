@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GameWorldClassLibrary.Models;
-using Server.API.Repositories;
+using GameWorldClassLibrary.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -18,7 +18,7 @@ namespace Server.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MarketSellResource>>> GetAllMarketSellResourcesAsync()
         {
-            var marketSellResources = await marketSellResourceService.GetAllMarketSellResourcesAsync();
+            var marketSellResources = await marketSellResourceService.GetAllSellResourcesAsync();
             return marketSellResources;
         }
 

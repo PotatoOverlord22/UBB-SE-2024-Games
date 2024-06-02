@@ -1,6 +1,6 @@
 ﻿using GameWorldClassLibrary.Models;
 
-namespace GameWorldClassLibrary.Services.Interfaces
+namespace GameWorldClassLibrary.Services
 {
     public interface IFarmService
     {

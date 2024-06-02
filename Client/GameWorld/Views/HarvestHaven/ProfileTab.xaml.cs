@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using GameWorldClassLibrary.Models;
 using GameWorldClassLibrary.Utils;
 using GameWorld.Resources.Utils;
-using GameWorldClassLibrary.Services.Interfaces;
+using GameWorldClassLibrary.Services;
 
 namespace GameWorld.Views
 {

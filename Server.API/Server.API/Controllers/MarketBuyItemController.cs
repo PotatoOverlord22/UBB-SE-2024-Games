@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GameWorldClassLibrary.Models;
-using Server.API.Repositories;
+using GameWorldClassLibrary.Repositories;
 
 namespace Server.API.Controllers
 {
     public class MarketBuyItemController : ControllerBase
     {
-        private readonly MarketBuyItemRepository marketBuyItemService;
+        private readonly IMarketBuyItemRepository marketBuyItemService;
 
-        public MarketBuyItemController(MarketBuyItemRepository marketBuyItemService)
+        public MarketBuyItemController(IMarketBuyItemRepository marketBuyItemService)
         {
             this.marketBuyItemService = marketBuyItemService;
         }
