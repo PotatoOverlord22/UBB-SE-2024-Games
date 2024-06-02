@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using GameWorld.Models;
+using GameWorldClassLibrary.Models;
 using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
 namespace GameWorld.Views

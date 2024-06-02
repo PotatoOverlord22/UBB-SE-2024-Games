@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Server.API.Models;
+using GameWorldClassLibrary.Models;
 namespace Server.API.Utils
 {
     public class GamesContext : DbContext

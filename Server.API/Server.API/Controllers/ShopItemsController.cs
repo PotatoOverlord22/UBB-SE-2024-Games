@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Server.API.Models;
-using Server.API.Services;
+using GameWorldClassLibrary.Models;
+using Server.API.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -8,9 +8,9 @@ namespace Server.API.Controllers
     [ApiController]
     public class ShopItemsController : ControllerBase
     {
-        private readonly IShopItemService shopItemsService;
+        private readonly IShopItemRepository shopItemsService;
 
-        public ShopItemsController(IShopItemService shopItemsService)
+        public ShopItemsController(IShopItemRepository shopItemsService)
         {
             this.shopItemsService = shopItemsService;
         }

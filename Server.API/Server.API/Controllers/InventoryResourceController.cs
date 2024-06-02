@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Server.API.Models;
-using Server.API.Services;
+using GameWorldClassLibrary.Models;
+using Server.API.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -8,9 +8,9 @@ namespace Server.API.Controllers
     [ApiController]
     public class InventoryResourceController : ControllerBase
     {
-        private readonly IInventoryResourceService inventoryResourceService;
+        private readonly IInventoryResourceRepository inventoryResourceService;
 
-        public InventoryResourceController(IInventoryResourceService inventoryResourceService)
+        public InventoryResourceController(IInventoryResourceRepository inventoryResourceService)
         {
             this.inventoryResourceService = inventoryResourceService;
         }

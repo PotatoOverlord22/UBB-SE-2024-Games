@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Server.API.Models;
-using Server.API.Services;
+using GameWorldClassLibrary.Models;
+using Server.API.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -8,9 +8,9 @@ namespace Server.API.Controllers
     [ApiController]
     public class IconsController : ControllerBase
     {
-        private readonly IIconService iconService;
+        private readonly IIconRepository iconService;
 
-        public IconsController(IIconService iconService)
+        public IconsController(IIconRepository iconService)
         {
             this.iconService = iconService;
         }

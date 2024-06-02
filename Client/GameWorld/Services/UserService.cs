@@ -1,4 +1,4 @@
-﻿using GameWorld.Models;
+﻿using GameWorldClassLibrary.Models;
 using GameWorld.Repositories;
 using GameWorld.Resources.Utils;
 

@@ -1,4 +1,4 @@
-﻿using GameWorld.Models;
+﻿using GameWorldClassLibrary.Models;
 using GameWorld.Resources.Utils;
 using Newtonsoft.Json;
 using System;

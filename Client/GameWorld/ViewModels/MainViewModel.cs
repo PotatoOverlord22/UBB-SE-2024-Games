@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows.Input;
-using GameWorld.Models;
+using GameWorldClassLibrary.Models;
 
 namespace GameWorld.ViewModels
 {

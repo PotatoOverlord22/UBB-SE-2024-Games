@@ -1,4 +1,4 @@
-﻿using GameWorld.Models;
+﻿using GameWorldClassLibrary.Models;
 using GameWorld.Repositories;
 using GameWorld.Resources.Utils;
 
@@ -86,11 +86,11 @@ namespace GameWorld.Services
             await tradeRepository.CreateTradeAsync(new Trade(
                 id: Guid.NewGuid(),
                 user: null,
-                givenResource: givenResource,
-                givenResourceQuantity: givenResourceQuantityInt,
-                requestedResource: requestedResource,
-                requestedResourceQuantity: requestedResourceQuantityInt,
-                createdTime: DateTime.UtcNow,
+                resourceToGive: givenResource,
+                resourceToGiveQuantity: givenResourceQuantityInt,
+                resourceToGetResource: requestedResource,
+                resourceToGetQuantity: requestedResourceQuantityInt,
+                tradeCreationTime: DateTime.UtcNow,
                 isCompleted: false));
         }
 

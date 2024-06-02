@@ -25,36 +25,36 @@ namespace GameWorld
     {
         public static IServiceCollection ConfigureServices(this IServiceCollection services)
         {
-            services.AddSingleton<IAchievementService, AchievementService>();
-            services.AddSingleton<IMarketService, MarketService>();
-            services.AddSingleton<IFarmService, FarmService>();
-            services.AddSingleton<ITradeService, TradeService>();
-            services.AddSingleton<IUserService, UserService>();
-            services.AddSingleton<IResourceService, ResourceService>();
-            services.AddSingleton<IHarvestHavenMainService, HarvestHavenMainService>();
-            services.AddSingleton<IInventoryService, InventoryService>();
-            services.AddSingleton<IItemService, ItemService>();
-            services.AddSingleton<ICasinoPokerMainService, CasinoPokerMainService>();
-            services.AddSingleton<IChatService, ChatService>();
-            services.AddSingleton<IDatabaseProvider, DatabaseProvider>();
-            services.AddSingleton<ITableService, TableService>();
+            services.AddScoped<IAchievementService, AchievementService>();
+            services.AddScoped<IMarketService, MarketService>();
+            services.AddScoped<IFarmService, FarmService>();
+            services.AddScoped<ITradeService, TradeService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IResourceService, ResourceService>();
+            services.AddScoped<IHarvestHavenMainService, HarvestHavenMainService>();
+            services.AddScoped<IInventoryService, InventoryService>();
+            services.AddScoped<IItemService, ItemService>();
+            services.AddScoped<ICasinoPokerMainService, CasinoPokerMainService>();
+            services.AddScoped<IChatService, ChatService>();
+            services.AddScoped<IDatabaseProvider, DatabaseProvider>();
+            services.AddScoped<ITableService, TableService>();
             return services;
         }
 
         public static IServiceCollection ConfigureRepositories(this IServiceCollection services)
         {
-            services.AddSingleton<IDatabaseProvider, DatabaseProvider>();
-            services.AddTransient<IAchievementRepository, AchievementRepository>();
-            services.AddTransient<ICommentRepository, CommentRepository>();
-            services.AddTransient<IFarmCellRepository, FarmCellRepository>();
-            services.AddTransient<IInventoryResourceRepository, InventoryResourceRepository>();
-            services.AddTransient<IItemRepository, ItemRepository>();
-            services.AddTransient<IMarketBuyItemRepository, MarketBuyItemRepository>();
-            services.AddTransient<IMarketSellResourceRepository, MarketSellResourceRepository>();
-            services.AddTransient<IResourceRepository, ResourceRepository>();
-            services.AddTransient<ITradeRepository, TradeRepository>();
-            services.AddTransient<IUserAchievementRepository, UserAchievementRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddScoped<IDatabaseProvider, DatabaseProvider>();
+            services.AddScoped<IAchievementRepository, AchievementRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IFarmCellRepository, FarmCellRepository>();
+            services.AddScoped<IInventoryResourceRepository, InventoryResourceRepository>();
+            services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IMarketBuyItemRepository, MarketBuyItemRepository>();
+            services.AddScoped<IMarketSellResourceRepository, MarketSellResourceRepository>();
+            services.AddScoped<IResourceRepository, ResourceRepository>();
+            services.AddScoped<ITradeRepository, TradeRepository>();
+            services.AddScoped<IUserAchievementRepository, UserAchievementRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }

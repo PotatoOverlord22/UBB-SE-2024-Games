@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Server.API.Models;
-using Server.API.Services;
+using GameWorldClassLibrary.Models;
+using Server.API.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -8,9 +8,9 @@ namespace Server.API.Controllers
     [ApiController]
     public class ChallengeController : ControllerBase
     {
-        private readonly IChallengeService challengeService;
+        private readonly IChallengeRepository challengeService;
 
-        public ChallengeController(IChallengeService challengeService)
+        public ChallengeController(IChallengeRepository challengeService)
         {
             this.challengeService = challengeService;
         }

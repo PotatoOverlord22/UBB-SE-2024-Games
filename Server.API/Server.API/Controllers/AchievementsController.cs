@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Server.API.Models;
-using Server.API.Services;
+using Server.API.Repositories;
+using GameWorldClassLibrary.Models;
 
 namespace Server.API.Controllers
 {
@@ -8,9 +8,9 @@ namespace Server.API.Controllers
     [ApiController]
     public class AchievementsController : ControllerBase
     {
-        private readonly IAchievementService achievementService;
+        private readonly IAchievementRepository achievementService;
 
-        public AchievementsController(IAchievementService achievementService)
+        public AchievementsController(IAchievementRepository achievementService)
         {
             this.achievementService = achievementService;
         }

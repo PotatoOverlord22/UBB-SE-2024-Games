@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using GameWorld.Models;
+using GameWorldClassLibrary.Models;
 using GameWorld.Services;
 
 namespace GameWorld.Views

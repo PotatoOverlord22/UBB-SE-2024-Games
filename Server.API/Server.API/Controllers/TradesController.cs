@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Server.API.Models;
-using Server.API.Services;
+using GameWorldClassLibrary.Models;
+using Server.API.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -8,9 +8,9 @@ namespace Server.API.Controllers
     [ApiController]
     public class TradesController : ControllerBase
     {
-        private readonly ITradeService tradeService;
+        private readonly ITradeRepository tradeService;
 
-        public TradesController(ITradeService titleService)
+        public TradesController(ITradeRepository titleService)
         {
             this.tradeService = titleService;
         }

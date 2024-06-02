@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Server.API.Models;
-using Server.API.Services;
+using GameWorldClassLibrary.Models;
+using Server.API.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -8,9 +8,9 @@ namespace Server.API.Controllers
     [ApiController]
     public class MarketSellResourceController : ControllerBase
     {
-        private readonly IMarketSellResourceService marketSellResourceService;
+        private readonly IMarketSellResourceRepository marketSellResourceService;
 
-        public MarketSellResourceController(IMarketSellResourceService marketSellResourceService)
+        public MarketSellResourceController(IMarketSellResourceRepository marketSellResourceService)
         {
             this.marketSellResourceService = marketSellResourceService;
         }

@@ -1,4 +1,4 @@
-using GameWorld.Models;
+using GameWorldClassLibrary.Models;
 using GameWorld.Resources.Utils;
 using GameWorld.Views;
 using Microsoft.Data.SqlClient;

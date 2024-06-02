@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Server.API.Models;
-using Server.API.Services;
+using GameWorldClassLibrary.Models;
+using Server.API.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -8,9 +8,9 @@ namespace Server.API.Controllers
     [ApiController]
     public class FarmCellController : ControllerBase
     {
-        private readonly IFarmCellService farmCellService;
+        private readonly IFarmCellRepository farmCellService;
 
-        public FarmCellController(IFarmCellService farmCellService)
+        public FarmCellController(IFarmCellRepository farmCellService)
         {
             this.farmCellService = farmCellService;
         }
