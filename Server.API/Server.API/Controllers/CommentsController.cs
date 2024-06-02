@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Server.API.Models;
-using Server.API.Services;
+using Server.API.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -8,9 +8,9 @@ namespace Server.API.Controllers
     [ApiController]
     public class CommentsController : ControllerBase
     {
-        private readonly ICommentService commentService;
+        private readonly ICommentRepository commentService;
 
-        public CommentsController(ICommentService commentService)
+        public CommentsController(ICommentRepository commentService)
         {
             this.commentService = commentService;
         }

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Server.API.Models;
-using Server.API.Services;
+using Server.API.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -8,9 +8,9 @@ namespace Server.API.Controllers
     [ApiController]
     public class TablesController : ControllerBase
     {
-        private readonly ITableService tableService;
+        private readonly ITableRepository tableService;
 
-        public TablesController(ITableService tableService)
+        public TablesController(ITableRepository tableService)
         {
             this.tableService = tableService;
         }

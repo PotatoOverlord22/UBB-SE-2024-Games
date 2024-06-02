@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Server.API.Models;
-using Server.API.Services;
+using Server.API.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -8,9 +8,9 @@ namespace Server.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserService userService;
+        private readonly IUserRepository userService;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserRepository userService)
         {
             this.userService = userService;
         }

@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Server.API.Models;
-using Server.API.Services;
+using Server.API.Repositories;
 
 namespace Server.API.Controllers
 {
     public class MarketBuyItemController : ControllerBase
     {
-        private readonly MarketBuyItemService marketBuyItemService;
+        private readonly MarketBuyItemRepository marketBuyItemService;
 
-        public MarketBuyItemController(MarketBuyItemService marketBuyItemService)
+        public MarketBuyItemController(MarketBuyItemRepository marketBuyItemService)
         {
             this.marketBuyItemService = marketBuyItemService;
         }

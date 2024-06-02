@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Server.API.Models;
-using Server.API.Services;
+using Server.API.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -8,9 +8,9 @@ namespace Server.API.Controllers
     [ApiController]
     public class PlayingCardsController : ControllerBase
     {
-        private readonly IPlayingCardService playingCardService;
+        private readonly IPlayingCardRepository playingCardService;
 
-        public PlayingCardsController(IPlayingCardService playingCardsService)
+        public PlayingCardsController(IPlayingCardRepository playingCardsService)
         {
             this.playingCardService = playingCardsService;
         }

@@ -1,4 +1,4 @@
-﻿using Server.API.Services;
+﻿using Server.API.Repositories;
 
 namespace Server.API.Utils
 {
@@ -6,23 +6,23 @@ namespace Server.API.Utils
     {
         public static void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IAchievementService, AchievementService>();
-            services.AddScoped<IItemService, ItemService>();
-            services.AddScoped<IResourceService, ResourceService>();
-            services.AddScoped<IInventoryResourceService, InventoryResourceService>();
-            services.AddScoped<IMarketBuyItemService, MarketBuyItemService>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IFarmCellService, FarmCellService>();
-            services.AddScoped<ICommentService, CommentService>();
-            services.AddScoped<IPlayingCardService, PlayingCardService>();
-            services.AddScoped<IIconService, IconService>();
-            services.AddScoped<IFontService, FontService>();
-            services.AddScoped<ITradeService, TradeService>();
-            services.AddScoped<IShopItemService, ShopItemService>();
-            services.AddScoped<ITitleService, TitleService>();
-            services.AddScoped<ITableService, TableService>();
-            services.AddScoped<IChallengeService, ChallengeService>();
-            services.AddScoped<IMarketSellResourceService, MarketSellResourceService>();
+            services.AddScoped<IAchievementRepository, AchievementRepository>();
+            services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IResourceRepository, ResourceRepository>();
+            services.AddScoped<IInventoryResourceRepository, InventoryResourceRepository>();
+            services.AddScoped<IMarketBuyItemRepository, MarketBuyItemRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IFarmCellRepository, FarmCellRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IPlayingCardRepository, PlayingCardRepository>();
+            services.AddScoped<IIconRepository, IconRepository>();
+            services.AddScoped<IFontRepository, FontRepository>();
+            services.AddScoped<ITradeRepository, TradeRepository>();
+            services.AddScoped<IShopItemRepository, ShopItemRepository>();
+            services.AddScoped<ITitleRepository, TitleRepository>();
+            services.AddScoped<ITableRepository, TableRepository>();
+            services.AddScoped<IChallengeRepository, ChallengeRepository>();
+            services.AddScoped<IMarketSellResourceRepository, MarketSellResourceRepository>();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Server.API.Models;
-using Server.API.Services;
+using Server.API.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -10,9 +10,9 @@ namespace Server.API.Controllers
     {
         public class ResourcesController : ControllerBase
         {
-            private readonly IResourceService resourceService;
+            private readonly IResourceRepository resourceService;
 
-            public ResourcesController(IResourceService resourceService)
+            public ResourcesController(IResourceRepository resourceService)
             {
                 this.resourceService = resourceService;
             }
