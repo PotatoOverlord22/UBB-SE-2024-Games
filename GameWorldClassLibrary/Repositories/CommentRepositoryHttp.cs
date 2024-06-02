@@ -1,12 +1,9 @@
-﻿using System.Data;
-using System.Net.Http.Json;
-using System.Net.Http;
+﻿using System.Net.Http.Json;
 using GameWorldClassLibrary.Models;
-using GameWorld.Resources.Utils;
 using Newtonsoft.Json;
-using GameWorldClassLibrary.Repositories;
+using GameWorldClassLibrary.Utils;
 
-namespace GameWorld.Repositories
+namespace GameWorldClassLibrary.Repositories
 {
     public class CommentRepositoryHttp : ICommentRepository
     {
@@ -15,7 +12,7 @@ namespace GameWorld.Repositories
         {
             this.httpClient = httpClient;
         }
-        public async Task CreateCommentAsync(Comment comment)
+        public async Task AddCommentAsync(Comment comment)
         {
             var response = await httpClient.PostAsync(Apis.COMMENTS_BASE_URL, JsonContent.Create(comment));
             if (response.IsSuccessStatusCode)
@@ -71,6 +68,40 @@ namespace GameWorld.Repositories
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Comment deleted successfully.");
+            }
+            else
+            {
+                throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+            }
+        }
+
+        public async Task<Comment> GetCommentByIdAsync(Guid id)
+        {
+            var response = await httpClient.GetAsync($"{Apis.COMMENTS_BASE_URL}/{id}");
+            string apiResponse = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                Comment? comment = JsonConvert.DeserializeObject<Comment>(apiResponse);
+                return comment ?? throw new KeyNotFoundException("Comment not found");
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                throw new KeyNotFoundException("Comment not found");
+            }
+            else
+            {
+                throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+            }
+        }
+
+        public async Task<List<Comment>> GetCommentsAsync()
+        {
+            var response = await httpClient.GetAsync(Apis.COMMENTS_BASE_URL);
+            string apiResponse = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                List<Comment>? comments = JsonConvert.DeserializeObject<List<Comment>>(apiResponse);
+                return comments ?? new List<Comment>();
             }
             else
             {

@@ -1,11 +1,9 @@
-﻿using System.Net.Http;
-using System.Net.Http.Json;
-using GameWorldClassLibrary.Models;
-using GameWorld.Resources.Utils;
+﻿using GameWorldClassLibrary.Models;
 using Newtonsoft.Json;
-using GameWorldClassLibrary.Repositories;
+using System.Net.Http.Json;
+using GameWorldClassLibrary.Utils;
 
-namespace GameWorld.Repositories
+namespace GameWorldClassLibrary.Repositories
 {
     public class AchievementRepositoryHttp : IAchievementRepository
     {

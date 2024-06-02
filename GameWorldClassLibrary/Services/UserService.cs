@@ -1,5 +1,6 @@
 ﻿using GameWorldClassLibrary.Models;
 using GameWorldClassLibrary.Repositories;
+using GameWorldClassLibrary.Services;
 using GameWorldClassLibrary.Utils;
 
 namespace GameWorldClassLibrary.Services
@@ -117,7 +118,7 @@ namespace GameWorldClassLibrary.Services
                 throw new Exception("User must be logged in!");
             }
 
-            await commentRepository.CreateCommentAsync(new Comment(
+            await commentRepository.AddCommentAsync(new Comment(
                id: Guid.NewGuid(),
                poster: targetUser,
                commentMessage: message,

@@ -1,7 +1,7 @@
 ﻿using GameWorldClassLibrary.Models;
-using GameWorldClassLibrary.Repositories;
 using GameWorldClassLibrary.Utils;
-using GameWorldClassLibrary.Services.Interfaces;
+using GameWorldClassLibrary.Services;
+using GameWorldClassLibrary.Repositories;
 
 namespace GameWorldClassLibrary.Services
 {

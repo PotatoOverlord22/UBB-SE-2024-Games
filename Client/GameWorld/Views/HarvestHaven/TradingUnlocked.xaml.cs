@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using static GameWorld.Views.TradingInventory;
 using GameWorldClassLibrary.Utils;
 using GameWorld.Resources.Utils;
-using GameWorldClassLibrary.Services.Interfaces;
+using GameWorldClassLibrary.Services;
 
 namespace GameWorld.Views
 {

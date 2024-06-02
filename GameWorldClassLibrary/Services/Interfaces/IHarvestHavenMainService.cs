@@ -1,4 +1,4 @@
-﻿namespace GameWorldClassLibrary.Services.Interfaces
+﻿namespace GameWorldClassLibrary.Services
 {
     public interface IHarvestHavenMainService
     {

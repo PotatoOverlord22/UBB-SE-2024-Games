@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GameWorldClassLibrary.Models;
-using Server.API.Repositories;
+using GameWorldClassLibrary.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -22,7 +22,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                var users = await userService.GetUsersAsync();
+                var users = await userService.GetAllUsersAsync();
                 return users;
             }
             catch (Exception e)
@@ -38,7 +38,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                var leaderboard = await userService.GetPokerLeaderboardAsync();
+                var leaderboard = await userService.GetPokerLeaderboard();
                 return leaderboard;
             }
             catch (Exception e)
@@ -69,7 +69,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                await userService.UpdateUserAsync(id, user);
+                await userService.UpdateUserAsync(user);
             }
             catch (KeyNotFoundException e)
             {
@@ -101,7 +101,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                await userService.AddUser(user);
+                await userService.AddUserAsync(user);
             }
             catch (Exception e)
             {
@@ -116,7 +116,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                await userService.DeleteUserAsync(id);
+                await userService.DeleteUserByIdAsync(id);
             }
             catch (KeyNotFoundException e)
             {

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using GameWorld.Resources.Utils;
-using GameWorldClassLibrary.Services.Interfaces;
+using GameWorldClassLibrary.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GameWorld.Views
@@ -16,14 +16,6 @@ namespace GameWorld.Views
         {
             HarvestHavenMainMenu harvestHavenMainMenu = new HarvestHavenMainMenu(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IHarvestHavenMainService>());
             harvestHavenMainMenu.Show();
-            this.Close();
-        }
-        private void PlayPokerButton_Click(object sender, RoutedEventArgs e)
-        {
-            LoginPage loginPage = new LoginPage(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ICasinoPokerMainService>());
-            loginPage.Show();
-            /* MenuWindow mainMenu = new MenuWindow(GameStateManager.GetCurrentUser(), DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ICasinoPokerMainService>());
-             mainMenu.Show();*/
             this.Close();
         }
     }

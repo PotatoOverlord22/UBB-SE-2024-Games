@@ -4,7 +4,7 @@ using GameWorld.Views;
 using GameWorld.Resources.Utils;
 using GameWorldClassLibrary.Models;
 using GameWorldClassLibrary.Utils;
-using GameWorldClassLibrary.Services.Interfaces;
+using GameWorldClassLibrary.Services;
 
 namespace GameWorld
 {

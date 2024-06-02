@@ -1,5 +1,6 @@
 ﻿using GameWorldClassLibrary.Models;
 using GameWorldClassLibrary.Repositories;
+using GameWorldClassLibrary.Services;
 
 namespace GameWorldClassLibrary.Services
 {
