@@ -1,4 +1,4 @@
-namespace Server.API.Models
+namespace GameWorldClassLibrary.Models
 {
     public class Achievement
     {
@@ -6,6 +6,7 @@ namespace Server.API.Models
         public string Description { get; set; }
         public int NumberOfCoinsRewarded { get; set; }
 
+        public Achievement() { }
         public Achievement(Guid id, string description, int numberOfCoinsRewarded)
         {
             Id = id;

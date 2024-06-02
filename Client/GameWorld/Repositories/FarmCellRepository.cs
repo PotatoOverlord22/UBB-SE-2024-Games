@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
-using GameWorld.Models;
+using GameWorldClassLibrary.Models;
 using GameWorld.Resources.Utils;
 namespace GameWorld.Repositories
 {

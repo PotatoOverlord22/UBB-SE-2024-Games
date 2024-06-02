@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Server.API.Models;
+using GameWorldClassLibrary.Models;
 using Server.API.Repositories;
 using Server.API.Utils;
 

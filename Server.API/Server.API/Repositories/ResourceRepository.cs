@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Any;
-using Server.API.Models;
+using GameWorldClassLibrary.Models;
 using Server.API.Utils;
 
 namespace Server.API.Repositories

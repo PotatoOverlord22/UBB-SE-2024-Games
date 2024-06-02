@@ -1,4 +1,4 @@
-﻿using Server.API.Models;
+﻿using GameWorldClassLibrary.Models;
 using Server.API.Utils;
 using Microsoft.EntityFrameworkCore;
 

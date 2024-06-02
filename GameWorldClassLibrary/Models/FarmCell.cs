@@ -13,5 +13,19 @@ namespace GameWorldClassLibrary.Models
         public Item Item { get; set; }
         public DateTime? LastTimeEnhanced { get; set; } // Nullable.
         public DateTime? LastTimeInteracted { get; set; } // Nullable.
+
+        // Parameterless constructor for EF Core
+        public FarmCell() { }
+
+        public FarmCell(Guid id, User user, int row, int column, Item item, DateTime? lastTimeEnhanced, DateTime? lastTimeInteracted)
+        {
+            Id = id;
+            User = user;
+            Row = row;
+            Column = column;
+            Item = item;
+            LastTimeEnhanced = lastTimeEnhanced;
+            LastTimeInteracted = lastTimeInteracted;
+        }
     }
 }

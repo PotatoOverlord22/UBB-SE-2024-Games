@@ -1,4 +1,4 @@
-namespace GameWorld.Models
+﻿namespace GameWorldClassLibrary.Models
 {
     public class CardDeck
     {

@@ -10,5 +10,15 @@ namespace GameWorldClassLibrary.Models
         [ForeignKey("AchievementId")]
         public Achievement Achievement { get; set; }
         public DateTime AchievementRewardedTime { get; set; }
+
+        public UserAchievement() { }
+
+        public UserAchievement(Guid id, User user, Achievement achievement, DateTime achievementRewardedTime)
+        {
+            Id = id;
+            User = user;
+            Achievement = achievement;
+            AchievementRewardedTime = achievementRewardedTime;
+        }
     }
 }

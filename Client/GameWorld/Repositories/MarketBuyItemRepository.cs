@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using GameWorld.Resources.Utils;
-using GameWorld.Models;
+using GameWorldClassLibrary.Models;
 using Newtonsoft.Json;
 namespace GameWorld.Repositories
 {

@@ -43,5 +43,14 @@ namespace GameWorldClassLibrary.Models
         }
 
         public Guid Id { get => id; set => id = value; }
+
+        public PlayingCard() { }
+
+        public PlayingCard(string value, string suit)
+        {
+            Id = Guid.NewGuid();
+            this.value = value;
+            this.suit = suit;
+        }
     }
 }

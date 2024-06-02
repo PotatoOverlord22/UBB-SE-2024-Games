@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Server.API.Models;
+﻿using GameWorldClassLibrary.Models;
 
 namespace Server.API.Repositories
 {

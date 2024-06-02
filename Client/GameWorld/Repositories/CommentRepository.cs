@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Net.Http.Json;
 using System.Net.Http;
-using GameWorld.Models;
+using GameWorldClassLibrary.Models;
 using GameWorld.Resources.Utils;
 using Newtonsoft.Json;
 

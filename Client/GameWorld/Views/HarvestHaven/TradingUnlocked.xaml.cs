@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Media.Imaging;
-using GameWorld.Models;
+using GameWorldClassLibrary.Models;
 using GameWorld.Resources.Utils;
 using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;

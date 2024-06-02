@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using GameWorld.Models;
+using GameWorldClassLibrary.Models;
 using GameWorld.Repositories;
 using GameWorld.Resources.Utils;
 
@@ -291,7 +291,7 @@ namespace GameWorld.Services
                 id: Guid.NewGuid(),
                 user: GameStateManager.GetCurrentUser(),
                 achievement: await achievementRepository.GetAchievementByIdAsync(achievementId),
-                createdTime: DateTime.UtcNow));
+                achievementRewardedTime: DateTime.UtcNow));
 
             // Update the user coins both in the database and locally.
             User newUser = GameStateManager.GetCurrentUser();

@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using GameWorld.Models;
+using GameWorldClassLibrary.Models;
 
 namespace GameWorld.Views
 {

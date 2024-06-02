@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using GameWorld.Resources.Utils;
-using GameWorld.Models;
+using GameWorldClassLibrary.Models;
 
 namespace GameWorld.Repositories
 {
