@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using GameWorldClassLibrary.Models;
-using GameWorldClassLibrary.Services;
+using GameWorldClassLibrary.Services.Interfaces;
 namespace GameWorld.Views
 {
     public partial class CommentScreen : Window

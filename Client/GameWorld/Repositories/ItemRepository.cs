@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 using GameWorldClassLibrary.Models;
 using GameWorld.Resources.Utils;
 using Newtonsoft.Json;
-using GameWorldClassLibrary.Repositories;
+using GameWorldClassLibrary.Repositories.Interfaces;
 
 namespace GameWorld.Repositories
 {

@@ -3,8 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using GameWorld.Views;
 using GameWorld.Resources.Utils;
 using GameWorldClassLibrary.Models;
-using GameWorldClassLibrary.Services;
 using GameWorldClassLibrary.Utils;
+using GameWorldClassLibrary.Services.Interfaces;
 
 namespace GameWorld
 {

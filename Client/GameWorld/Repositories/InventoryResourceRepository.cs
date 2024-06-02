@@ -5,6 +5,7 @@ using System.Net.Http.Json;
 using System.Net.Http;
 using GameWorldClassLibrary.Models;
 using GameWorld.Resources.Utils;
+using GameWorldClassLibrary.Repositories.Interfaces;
 
 namespace GameWorldClassLibrary.Repositories
 {

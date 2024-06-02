@@ -6,7 +6,7 @@ using System.Text;
 using GameWorld.Resources.Utils;
 using GameWorldClassLibrary.Models;
 using Newtonsoft.Json;
-using GameWorldClassLibrary.Repositories;
+using GameWorldClassLibrary.Repositories.Interfaces;
 namespace GameWorld.Repositories
 {
     public class MarketBuyItemRepository : IMarketBuyItemRepository

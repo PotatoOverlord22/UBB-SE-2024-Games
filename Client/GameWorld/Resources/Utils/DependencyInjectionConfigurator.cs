@@ -1,8 +1,9 @@
 ﻿using GameWorld.Repositories;
-using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
 using GameWorldClassLibrary.Services;
 using GameWorldClassLibrary.Repositories;
+using GameWorldClassLibrary.Services.Interfaces;
+using GameWorldClassLibrary.Repositories.Interfaces;
 
 namespace GameWorld.Resources.Utils
 {
@@ -45,8 +46,8 @@ namespace GameWorld.Resources.Utils
         public static IServiceCollection ConfigureRepositories(this IServiceCollection services)
         {
             services.AddScoped<IDatabaseProvider, DatabaseProvider>();
-            services.AddScoped<IAchievementRepository, AchievementRepository>();
-            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IAchievementRepository, AchievementRepositoryHttp>();
+            services.AddScoped<ICommentRepository, CommentRepositoryHttp>();
             services.AddScoped<IFarmCellRepository, FarmCellRepository>();
             services.AddScoped<IInventoryResourceRepository, InventoryResourceRepository>();
             services.AddScoped<IItemRepository, ItemRepository>();

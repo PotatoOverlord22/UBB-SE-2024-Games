@@ -1,11 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Media.Imaging;
 using GameWorldClassLibrary.Models;
-using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
 using static GameWorld.Views.TradingInventory;
 using GameWorldClassLibrary.Utils;
 using GameWorld.Resources.Utils;
+using GameWorldClassLibrary.Services.Interfaces;
 
 namespace GameWorld.Views
 {

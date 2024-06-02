@@ -1,11 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
 using GameWorldClassLibrary.Models;
-using GameWorldClassLibrary.Services;
 using GameWorldClassLibrary.Utils;
 using GameWorld.Resources.Utils;
+using GameWorldClassLibrary.Services.Interfaces;
 
 namespace GameWorld.Views
 {

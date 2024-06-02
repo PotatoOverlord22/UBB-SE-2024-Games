@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using GameWorldClassLibrary.Models;
 using GameWorld.Resources.Utils;
-using GameWorldClassLibrary.Repositories;
+using GameWorldClassLibrary.Repositories.Interfaces;
 namespace GameWorld.Repositories
 {
     public class FarmCellRepository : IFarmCellRepository
