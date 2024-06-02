@@ -40,7 +40,8 @@ namespace GameWorld.Views
             }
             else
             {
-                List<object> list = [Router.AiDifficulty];
+                List<object> list = new List<object>();
+                list.Add(Router.AiDifficulty);
                 switch (Router.GameType)
                 {
                     case "Obstruction":

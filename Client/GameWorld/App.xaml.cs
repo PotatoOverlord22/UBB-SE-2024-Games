@@ -25,8 +25,7 @@ namespace GameWorld
             User user = new User(new Guid(), "test");
             try
             {
-                user = await userService.GetUserByIdAsync(Guid.Parse(Constants.TEST_USER_ID));
-                user.UserCurrentIconPath = "pack://application:,,,/Resources/Assets/CasinoPoker/profilepict.png";
+                user = await userService.GetUserByUsername("TestUser");
             }
             catch (Exception e)
             {

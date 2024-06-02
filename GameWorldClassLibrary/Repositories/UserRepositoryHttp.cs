@@ -123,24 +123,10 @@ namespace GameWorldClassLibrary.Repositories
             }
         }
 
-        public async Task UpdateUserStreak(Guid id, int streak)
-        {
-            User user = await GetUserByIdAsync(id);
-            user.UserStreak = streak;
-            await UpdateUserAsync(user);
-        }
-
         public async Task UpdateUserLastLogin(Guid id, DateTime lastLogin)
         {
             User user = await GetUserByIdAsync(id);
             user.UserLastLogin = lastLogin;
-            await UpdateUserAsync(user);
-        }
-
-        public async Task UpdateUserStack(Guid id, int stack)
-        {
-            User user = await GetUserByIdAsync(id);
-            user.UserStack = stack;
             await UpdateUserAsync(user);
         }
 
@@ -157,6 +143,26 @@ namespace GameWorldClassLibrary.Repositories
             {
                 Console.WriteLine("No users found");
                 return new List<User>();
+            }
+            else
+            {
+                throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+            }
+        }
+
+        public async Task<User> GetUserByUsername(string username)
+        {
+            var response = await httpClient.GetAsync($"{Apis.USERS_USERNAME_URL}/{username}");
+            string apiResponse = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                User user = JsonConvert.DeserializeObject<User>(apiResponse);
+                return user;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                Console.WriteLine("No users found");
+                throw new Exception("No users found with the name " + username);
             }
             else
             {

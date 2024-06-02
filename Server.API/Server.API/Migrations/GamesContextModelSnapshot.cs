@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Server.API.Utils;
 
 #nullable disable
 
@@ -18,12 +17,12 @@ namespace Server.API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.5")
+                .HasAnnotation("ProductVersion", "8.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Server.API.Models.Achievement", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.Achievement", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,32 +40,7 @@ namespace Server.API.Migrations
                     b.ToTable("Achievements");
                 });
 
-            modelBuilder.Entity("Server.API.Models.Challenge", b =>
-                {
-                    b.Property<Guid>("ChallengeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ChallengeAmount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ChallengeDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ChallengeReward")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ChallengeRule")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ChallengeId");
-
-                    b.ToTable("Challenges");
-                });
-
-            modelBuilder.Entity("Server.API.Models.Comment", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.Comment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -89,7 +63,7 @@ namespace Server.API.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Server.API.Models.FarmCell", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.FarmCell", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -122,51 +96,94 @@ namespace Server.API.Migrations
                     b.ToTable("FarmCells");
                 });
 
-            modelBuilder.Entity("Server.API.Models.Font", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.GameState", b =>
                 {
-                    b.Property<Guid>("FontID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("FontName")
+                    b.Property<string>("StateJson")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FontPrice")
+                    b.Property<int>("TimePlayed")
                         .HasColumnType("int");
 
-                    b.Property<string>("FontType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Turn")
+                        .HasColumnType("int");
 
-                    b.HasKey("FontID");
+                    b.Property<Guid?>("WinnerId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.ToTable("Fonts");
+                    b.HasKey("Id");
+
+                    b.HasIndex("WinnerId");
+
+                    b.ToTable("GameStates");
                 });
 
-            modelBuilder.Entity("Server.API.Models.Icon", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.GameStats", b =>
                 {
-                    b.Property<Guid>("IconID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("IconName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IconPath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("IconPrice")
+                    b.Property<int>("EloRating")
                         .HasColumnType("int");
 
-                    b.HasKey("IconID");
+                    b.Property<Guid>("GameId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.ToTable("Icons");
+                    b.Property<int>("HighestElo")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("PlayerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("TotalDraws")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalMatches")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalNumberOfTurn")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalPlayTime")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalWins")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.ToTable("GameStats");
                 });
 
-            modelBuilder.Entity("Server.API.Models.InventoryResource", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.Games", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("GameWorldClassLibrary.Models.InventoryResource", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -190,7 +207,7 @@ namespace Server.API.Migrations
                     b.ToTable("InventoryResources");
                 });
 
-            modelBuilder.Entity("Server.API.Models.Item", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.Item", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -219,7 +236,7 @@ namespace Server.API.Migrations
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("Server.API.Models.MarketBuyItem", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.MarketBuyItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -238,7 +255,7 @@ namespace Server.API.Migrations
                     b.ToTable("MarketBuyItems");
                 });
 
-            modelBuilder.Entity("Server.API.Models.MarketSellResource", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.MarketSellResource", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -257,31 +274,66 @@ namespace Server.API.Migrations
                     b.ToTable("MarketSellResources");
                 });
 
-            modelBuilder.Entity("Server.API.Models.PlayingCard", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.Player", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Suit")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid?>("GameStateId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Value")
+                    b.Property<string>("Ip")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Port")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("GameStateId");
 
-                    b.ToTable("PlayingCards");
+                    b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("Server.API.Models.Resource", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.PlayerQueue", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("EloRating")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("GameId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GameTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("ObstractionHeight")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ObstractionWidth")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("PlayerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameTypeId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.ToTable("PlayerQueue");
+                });
+
+            modelBuilder.Entity("GameWorldClassLibrary.Models.Resource", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -295,77 +347,7 @@ namespace Server.API.Migrations
                     b.ToTable("Resources");
                 });
 
-            modelBuilder.Entity("Server.API.Models.ShopItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ShopItems");
-                });
-
-            modelBuilder.Entity("Server.API.Models.Table", b =>
-                {
-                    b.Property<Guid>("TableID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("TableBuyIn")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TableName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TablePlayerLimit")
-                        .HasColumnType("int");
-
-                    b.HasKey("TableID");
-
-                    b.ToTable("Tables");
-                });
-
-            modelBuilder.Entity("Server.API.Models.Title", b =>
-                {
-                    b.Property<Guid>("TitleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("TitleContent")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TitleName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TitlePrice")
-                        .HasColumnType("int");
-
-                    b.HasKey("TitleId");
-
-                    b.ToTable("Titles");
-                });
-
-            modelBuilder.Entity("Server.API.Models.Trade", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.Trade", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -403,7 +385,7 @@ namespace Server.API.Migrations
                     b.ToTable("Trades");
                 });
 
-            modelBuilder.Entity("Server.API.Models.User", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -424,44 +406,13 @@ namespace Server.API.Migrations
                     b.Property<DateTime?>("TradeHallUnlockTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserBet")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserChips")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserCurrentFontFontID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserCurrentIconPath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserCurrentTableTableID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UserCurrentTitleTitleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("UserHandsPlayed")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("UserLastLogin")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserLevel")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserStack")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserStreak")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserTablePlace")
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
@@ -470,16 +421,10 @@ namespace Server.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserCurrentFontFontID");
-
-                    b.HasIndex("UserCurrentTableTableID");
-
-                    b.HasIndex("UserCurrentTitleTitleId");
-
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Server.API.Models.UserAchievement", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.UserAchievement", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -503,9 +448,9 @@ namespace Server.API.Migrations
                     b.ToTable("UserAchievements");
                 });
 
-            modelBuilder.Entity("Server.API.Models.Comment", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.Comment", b =>
                 {
-                    b.HasOne("Server.API.Models.User", "Poster")
+                    b.HasOne("GameWorldClassLibrary.Models.User", "Poster")
                         .WithMany()
                         .HasForeignKey("PosterId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -514,15 +459,15 @@ namespace Server.API.Migrations
                     b.Navigation("Poster");
                 });
 
-            modelBuilder.Entity("Server.API.Models.FarmCell", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.FarmCell", b =>
                 {
-                    b.HasOne("Server.API.Models.Item", "Item")
+                    b.HasOne("GameWorldClassLibrary.Models.Item", "Item")
                         .WithMany()
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Server.API.Models.User", "User")
+                    b.HasOne("GameWorldClassLibrary.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -533,15 +478,43 @@ namespace Server.API.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Server.API.Models.InventoryResource", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.GameState", b =>
                 {
-                    b.HasOne("Server.API.Models.User", "Owner")
+                    b.HasOne("GameWorldClassLibrary.Models.Player", "Winner")
+                        .WithMany()
+                        .HasForeignKey("WinnerId");
+
+                    b.Navigation("Winner");
+                });
+
+            modelBuilder.Entity("GameWorldClassLibrary.Models.GameStats", b =>
+                {
+                    b.HasOne("GameWorldClassLibrary.Models.Games", "Game")
+                        .WithMany("GameStats")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GameWorldClassLibrary.Models.Player", "Player")
+                        .WithMany()
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("Player");
+                });
+
+            modelBuilder.Entity("GameWorldClassLibrary.Models.InventoryResource", b =>
+                {
+                    b.HasOne("GameWorldClassLibrary.Models.User", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Server.API.Models.Resource", "Resource")
+                    b.HasOne("GameWorldClassLibrary.Models.Resource", "Resource")
                         .WithMany()
                         .HasForeignKey("ResourceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -552,17 +525,17 @@ namespace Server.API.Migrations
                     b.Navigation("Resource");
                 });
 
-            modelBuilder.Entity("Server.API.Models.Item", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.Item", b =>
                 {
-                    b.HasOne("Server.API.Models.Resource", "ResourceToDestroy")
+                    b.HasOne("GameWorldClassLibrary.Models.Resource", "ResourceToDestroy")
                         .WithMany()
                         .HasForeignKey("ResourceToDestroyId");
 
-                    b.HasOne("Server.API.Models.Resource", "ResourceToInteract")
+                    b.HasOne("GameWorldClassLibrary.Models.Resource", "ResourceToInteract")
                         .WithMany()
                         .HasForeignKey("ResourceToInteractId");
 
-                    b.HasOne("Server.API.Models.Resource", "ResourceToPlace")
+                    b.HasOne("GameWorldClassLibrary.Models.Resource", "ResourceToPlace")
                         .WithMany()
                         .HasForeignKey("ResourceToPlaceId");
 
@@ -573,9 +546,9 @@ namespace Server.API.Migrations
                     b.Navigation("ResourceToPlace");
                 });
 
-            modelBuilder.Entity("Server.API.Models.MarketBuyItem", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.MarketBuyItem", b =>
                 {
-                    b.HasOne("Server.API.Models.Item", "Item")
+                    b.HasOne("GameWorldClassLibrary.Models.Item", "Item")
                         .WithMany()
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -584,9 +557,9 @@ namespace Server.API.Migrations
                     b.Navigation("Item");
                 });
 
-            modelBuilder.Entity("Server.API.Models.MarketSellResource", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.MarketSellResource", b =>
                 {
-                    b.HasOne("Server.API.Models.Resource", "ResourceToSell")
+                    b.HasOne("GameWorldClassLibrary.Models.Resource", "ResourceToSell")
                         .WithMany()
                         .HasForeignKey("ResourceToSellId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -595,33 +568,43 @@ namespace Server.API.Migrations
                     b.Navigation("ResourceToSell");
                 });
 
-            modelBuilder.Entity("Server.API.Models.PlayingCard", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.Player", b =>
                 {
-                    b.HasOne("Server.API.Models.User", null)
-                        .WithMany("UserCurrentHand")
-                        .HasForeignKey("UserId");
+                    b.HasOne("GameWorldClassLibrary.Models.GameState", null)
+                        .WithMany("Players")
+                        .HasForeignKey("GameStateId");
                 });
 
-            modelBuilder.Entity("Server.API.Models.ShopItem", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.PlayerQueue", b =>
                 {
-                    b.HasOne("Server.API.Models.User", "User")
+                    b.HasOne("GameWorldClassLibrary.Models.Games", "GameType")
+                        .WithMany("Queues")
+                        .HasForeignKey("GameTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GameWorldClassLibrary.Models.Player", "Player")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("GameType");
+
+                    b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("Server.API.Models.Trade", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.Trade", b =>
                 {
-                    b.HasOne("Server.API.Models.Resource", "ResourceToGetResource")
+                    b.HasOne("GameWorldClassLibrary.Models.Resource", "ResourceToGetResource")
                         .WithMany()
                         .HasForeignKey("ResourceToGetResourceId");
 
-                    b.HasOne("Server.API.Models.Resource", "ResourceToGive")
+                    b.HasOne("GameWorldClassLibrary.Models.Resource", "ResourceToGive")
                         .WithMany()
                         .HasForeignKey("ResourceToGiveId");
 
-                    b.HasOne("Server.API.Models.User", "User")
+                    b.HasOne("GameWorldClassLibrary.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
@@ -632,42 +615,15 @@ namespace Server.API.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Server.API.Models.User", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.UserAchievement", b =>
                 {
-                    b.HasOne("Server.API.Models.Font", "UserCurrentFont")
-                        .WithMany()
-                        .HasForeignKey("UserCurrentFontFontID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Server.API.Models.Table", "UserCurrentTable")
-                        .WithMany()
-                        .HasForeignKey("UserCurrentTableTableID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Server.API.Models.Title", "UserCurrentTitle")
-                        .WithMany()
-                        .HasForeignKey("UserCurrentTitleTitleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserCurrentFont");
-
-                    b.Navigation("UserCurrentTable");
-
-                    b.Navigation("UserCurrentTitle");
-                });
-
-            modelBuilder.Entity("Server.API.Models.UserAchievement", b =>
-                {
-                    b.HasOne("Server.API.Models.Achievement", "Achievement")
+                    b.HasOne("GameWorldClassLibrary.Models.Achievement", "Achievement")
                         .WithMany()
                         .HasForeignKey("AchievementId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Server.API.Models.User", "User")
+                    b.HasOne("GameWorldClassLibrary.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -678,9 +634,16 @@ namespace Server.API.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Server.API.Models.User", b =>
+            modelBuilder.Entity("GameWorldClassLibrary.Models.GameState", b =>
                 {
-                    b.Navigation("UserCurrentHand");
+                    b.Navigation("Players");
+                });
+
+            modelBuilder.Entity("GameWorldClassLibrary.Models.Games", b =>
+                {
+                    b.Navigation("GameStats");
+
+                    b.Navigation("Queues");
                 });
 #pragma warning restore 612, 618
         }

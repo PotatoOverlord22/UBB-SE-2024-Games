@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen();
 DependencyInjectionConfiguration.ConfigureContexts(builder.Services, builder.Configuration);
 
 // Custom service dependency injection configuration
-DependencyInjectionConfiguration.ConfigureServices(builder.Services);
+DependencyInjectionConfiguration.ConfigureRepositories(builder.Services);
 
 var app = builder.Build();
 

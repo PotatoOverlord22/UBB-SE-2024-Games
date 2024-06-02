@@ -167,52 +167,15 @@ namespace GameWorldClassLibrary.Services
             return new List<Tuple<Guid, Guid>>();
         }
 
-        public int GetChipsByUserId(Guid userId)
-        {
-            var user = userRepository.GetUserByIdAsync(userId).Result;
-            if (user == null)
-            {
-                throw new Exception($"User with id: {userId} not found in the database.");
-            }
-            return user.UserChips;
-        }
-
-        public List<string> GetLeaderboard()
-        {
-            List<string> leaderboardAsString = new List<string>();
-            List<User> leaderboard = userRepository.GetPokerLeaderboard().Result;
-            int rank = FIRST_USER_RANK;
-            leaderboard.Reverse();
-            foreach (User user in leaderboard)
-            {
-                leaderboardAsString.Add($"{rank}. {user.Username} - Lvl: {user.UserLevel} - Chips: {user.UserChips}");
-                rank++;
-            }
-            return leaderboardAsString;
-        }
-
-        public void UpdateUserChips(Guid id, int userChips)
-        {
-            // TODO validation
-            userRepository.UpdateUserChipsAsync(id, userChips);
-        }
-
-        public void UpdateUserStreak(Guid id, int userStreak)
-        {
-            // TODO validation
-            userRepository.UpdateUserStreak(id, userStreak);
-        }
-
         public void UpdateUserLastLogin(Guid id, DateTime now)
         {
             // TODO Validation
             userRepository.UpdateUserLastLogin(id, now);
         }
 
-        public void UpdateUserStack(Guid id, int userStack)
+        public async Task<User> GetUserByUsername(string username)
         {
-            // TODO validation
-            userRepository.UpdateUserStack(id, userStack);
+            return await userRepository.GetUserByUsername(username);
         }
     }
 }

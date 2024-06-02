@@ -21,7 +21,6 @@
         public static string ChickenEggPath = "/Resources/Assets/Sprites/Items/chicken-egg.png";
         public static string WoolPath = "/Resources/Assets/Sprites/Items/wool.png";
         public static string MilkPath = "/Resources/Assets/Sprites/Items/milk.png";
-        public static string TEST_USER_ID = "54ae7956-de9a-4cc6-9761-9bb0e5fa853d";
         public static int LAST_LOCATION = 0;
         public static int BOARD_LENGTH = 7;
         public static int BOARD_WIDTH = 6;

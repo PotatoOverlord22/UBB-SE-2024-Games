@@ -54,45 +54,6 @@ namespace GameWorldClassLibrary.Repositories
             await gamesContext.SaveChangesAsync();
         }
 
-        public async Task UpdateUserChipsAsync(Guid id, int chips)
-        {
-            // Find the user by ID
-            var user = await gamesContext.Users.FindAsync(id);
-
-            if (user == null)
-            {
-                throw new KeyNotFoundException("User not found");
-            }
-
-            // Update the user's chips
-            user.UserChips = chips;
-
-            // Save changes to the database
-            await gamesContext.SaveChangesAsync();
-        }
-
-        public async Task<List<User>> GetPokerLeaderboard()
-        {
-            var leaderboard = await gamesContext.Users
-                .OrderByDescending(user => user.UserChips)
-                .ThenByDescending(user => user.UserLevel)
-                .ThenBy(user => user.Username)
-                .ToListAsync();
-
-            return leaderboard;
-        }
-
-        public async Task UpdateUserStreak(Guid id, int streak)
-        {
-            var user = await gamesContext.Users.FindAsync(id);
-            if (user == null)
-            {
-                throw new KeyNotFoundException("User not found");
-            }
-            user.UserStreak = streak;
-            await gamesContext.SaveChangesAsync();
-        }
-
         public async Task UpdateUserLastLogin(Guid id, DateTime lastLogin)
         {
             var user = await gamesContext.Users.FindAsync(id);
@@ -104,15 +65,14 @@ namespace GameWorldClassLibrary.Repositories
             await gamesContext.SaveChangesAsync();
         }
 
-        public async Task UpdateUserStack(Guid id, int stack)
+        public async Task<User> GetUserByUsername(string username)
         {
-            var user = await gamesContext.Users.FindAsync(id);
+            var user = await gamesContext.Users.FirstOrDefaultAsync(user => user.Username == username);
             if (user == null)
             {
                 throw new KeyNotFoundException("User not found");
             }
-            user.UserStack = stack;
-            await gamesContext.SaveChangesAsync();
+            return user;
         }
     }
 }

@@ -31,22 +31,6 @@ namespace Server.API.Controllers
                 }
         }
 
-        // Get the poker leaderboard
-        // GET: api/users/poker-leaderboard
-        [HttpGet("poker-leaderboard")]
-        public async Task<ActionResult<IEnumerable<User>>> GetPokerLeaderboard()
-        {
-            try
-            {
-                var leaderboard = await userService.GetPokerLeaderboard();
-                return leaderboard;
-            }
-            catch (Exception e)
-            {
-                return BadRequest();
-            }
-        }
-
         // Get user by id
         // api/users/5
         [HttpGet("{id}")]
@@ -70,22 +54,6 @@ namespace Server.API.Controllers
             try
             {
                 await userService.UpdateUserAsync(user);
-            }
-            catch (KeyNotFoundException e)
-            {
-                return NotFound();
-            }
-            return NoContent();
-        }
-
-        // Update user chips
-        // PUT: api/users/5/chips
-        [HttpPut("{id}/chips")]
-        public async Task<IActionResult> UpdateUserChips(Guid id, [FromBody] int chips)
-        {
-            try
-            {
-                await userService.UpdateUserChipsAsync(id, chips);
             }
             catch (KeyNotFoundException e)
             {
@@ -123,6 +91,26 @@ namespace Server.API.Controllers
                 return NotFound();
             }
             return NoContent();
+        }
+
+        // Get user by username
+        // GET: api/users/username/{username}
+        [HttpGet("username/{username}")]
+        public async Task<ActionResult<User>> GetUserByUsername(string username)
+        {
+            try
+            {
+                var user = await userService.GetUserByUsername(username);
+                return Ok(user);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound($"No users found with the name {username}");
+            }
+            catch (Exception e)
+            {
+                return BadRequest($"Error: {e.Message}");
+            }
         }
     }
 }
