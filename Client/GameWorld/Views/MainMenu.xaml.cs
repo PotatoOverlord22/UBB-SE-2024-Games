@@ -18,13 +18,5 @@ namespace GameWorld.Views
             harvestHavenMainMenu.Show();
             this.Close();
         }
-        private void PlayPokerButton_Click(object sender, RoutedEventArgs e)
-        {
-            LoginPage loginPage = new LoginPage(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ICasinoPokerMainService>());
-            loginPage.Show();
-            /* MenuWindow mainMenu = new MenuWindow(GameStateManager.GetCurrentUser(), DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ICasinoPokerMainService>());
-             mainMenu.Show();*/
-            this.Close();
-        }
     }
 }

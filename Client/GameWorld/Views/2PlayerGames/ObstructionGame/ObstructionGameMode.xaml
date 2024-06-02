@@ -1,0 +1,214 @@
+﻿<Page
+    x:Class="GameWorld.Views.ObstructionGameMode"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="ObstructionGameMode"
+    d:DesignHeight="600"
+    d:DesignWidth="920"
+    mc:Ignorable="d">
+
+
+
+    <Border CornerRadius="20">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                <GradientStop Offset="0.0" Color="DarkBlue" />
+                <GradientStop Offset="1" Color="DeepSkyBlue" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <StackPanel>
+            <Grid Height="100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                        <GradientStop Offset="0.0" Color="DarkBlue" />
+                        <GradientStop Offset="1" Color="Blue" />
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <RadioButton
+                    x:Name="backButton"
+                    Width="100"
+                    Height="50"
+                    Margin="0,0,40,0"
+                    Content="Back"
+                    FontFamily="Times New Roman"
+                    FontSize="20"
+                    Foreground="White"
+                    Style="{StaticResource MenuButtonTheme}" Click="BackButton_Click" />
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="0,0,170,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="Times New Roman"
+                    FontSize="36"
+                    Foreground="White"
+                    Text="Choose Difficulty" />
+            </Grid>
+            <Grid Height="500">
+         
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120" />
+                <RowDefinition Height="170" />
+                <RowDefinition Height="200" />
+              
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0"
+                Grid.Column="0"
+                Width="300"
+                Height="80"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                BorderBrush="White"
+                BorderThickness="1"
+                CornerRadius="10">
+
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="30"
+                    Foreground="White"
+                    Text="Choose grid size" />
+
+            </Border>
+
+
+            <StackPanel
+                Grid.Row="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Width="150"
+                    Height="80"
+                    Margin="20,0,90,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="#1D4BFF"
+                    BorderThickness="1"
+                    CornerRadius="10">
+
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="30"
+                        Foreground="White"
+                        Text="5 x 5" />
+
+                </Border>
+
+
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Width="150"
+                    Height="80"
+                    Margin="50,0,50,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="#1D4BFF"
+                    BorderThickness="1"
+                    CornerRadius="10">
+
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="30"
+                        Foreground="White"
+                        Text="8 x 8" />
+
+                </Border>
+
+
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Width="150"
+                    Height="80"
+                    Margin="90,0,20,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="#1D4BFF"
+                    BorderThickness="1"
+                    CornerRadius="10">
+
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="30"
+                        Foreground="White"
+                        Text="12 x 12" />
+
+                </Border>
+
+
+
+
+            </StackPanel>
+
+
+
+
+            <StackPanel
+                Grid.Row="3"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+
+                <RadioButton
+                    x:Name="smallButton"
+                    Click="SmallButton_Click"
+                    Content="Small"
+                    FontSize="30"
+                    Foreground="White"
+                    Style="{StaticResource ObstructionDifficultyButtonTheme}" />
+
+
+                <RadioButton
+                    x:Name="mediumButon"
+                    Click="MediumButton_Click"
+                    Content="Medium"
+                    FontSize="30"
+                    Style="{StaticResource ObstructionDifficultyButtonTheme}" />
+
+
+                <RadioButton
+                    x:Name="largeButton"
+                    Click="LargeButton_Click"
+                    Content="Large"
+                    FontSize="30"
+                    Foreground="White"
+                    Style="{StaticResource ObstructionDifficultyButtonTheme}" />
+
+
+
+
+            </StackPanel>
+
+
+
+           
+
+
+
+
+        </Grid>
+
+
+        </StackPanel>
+        
+
+
+    </Border>
+
+
+</Page>
