@@ -4,8 +4,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using GameWorldClassLibrary.Models;
-using GameWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
+using GameWorld.Resources.Utils;
+using GameWorldClassLibrary.Services.Interfaces;
 
 namespace GameWorld.Views
 {

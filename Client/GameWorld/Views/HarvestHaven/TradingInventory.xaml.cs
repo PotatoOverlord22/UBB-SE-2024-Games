@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using GameWorldClassLibrary.Models;
-using GameWorld.Services;
+using GameWorldClassLibrary.Services.Interfaces;
 
 namespace GameWorld.Views
 {

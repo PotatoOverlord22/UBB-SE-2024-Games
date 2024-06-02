@@ -4,6 +4,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using GameWorldClassLibrary.Models;
 using GameWorld.Services;
+using GameWorldClassLibrary.Services.Interfaces;
 
 namespace GameWorld.Views
 {

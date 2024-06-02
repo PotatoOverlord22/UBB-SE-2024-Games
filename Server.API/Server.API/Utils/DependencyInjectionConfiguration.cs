@@ -1,4 +1,5 @@
-﻿using Server.API.Repositories;
+﻿using GameWorldClassLibrary.Repositories.Interfaces;
+using Server.API.Repositories;
 
 namespace Server.API.Utils
 {
@@ -6,22 +7,22 @@ namespace Server.API.Utils
     {
         public static void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IAchievementRepository, AchievementRepository>();
+            services.AddScoped<IAchievementRepository, GameWorldClassLibrary.Repositories.AchievementRepositoryDB>();
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<IResourceRepository, ResourceRepository>();
             services.AddScoped<IInventoryResourceRepository, InventoryResourceRepository>();
             services.AddScoped<IMarketBuyItemRepository, MarketBuyItemRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IFarmCellRepository, FarmCellRepository>();
-            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IFarmCellRepository, FarmCellRepositoryDB>();
+            services.AddScoped<ICommentRepository, CommentRepositoryDB>();
             services.AddScoped<IPlayingCardRepository, PlayingCardRepository>();
             services.AddScoped<IIconRepository, IconRepository>();
-            services.AddScoped<IFontRepository, FontRepository>();
+            services.AddScoped<IFontRepository, FontRepositoryDB>();
             services.AddScoped<ITradeRepository, TradeRepository>();
             services.AddScoped<IShopItemRepository, ShopItemRepository>();
             services.AddScoped<ITitleRepository, TitleRepository>();
             services.AddScoped<ITableRepository, TableRepository>();
-            services.AddScoped<IChallengeRepository, ChallengeRepository>();
+            services.AddScoped<IChallengeRepository, ChallengeRepositoryDB>();
             services.AddScoped<IMarketSellResourceRepository, MarketSellResourceRepository>();
         }
     }

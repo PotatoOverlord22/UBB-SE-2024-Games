@@ -1,5 +1,6 @@
 ﻿using System.Windows;
-using GameWorld.Services;
+using GameWorld.Resources.Utils;
+using GameWorldClassLibrary.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GameWorld.Views
