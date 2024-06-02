@@ -1,12 +1,13 @@
-﻿using System.Windows;
+﻿using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using GameWorldClassLibrary.Models;
 namespace GameWorld.Views
 {
-    /// <summary>
-    /// Interaction logic for GameBoardWindow.xaml
-    /// </summary>
     public partial class GameBoardWindow : UserControl
     {
         private int leftDiceValue = 0;
@@ -17,12 +18,11 @@ namespace GameWorld.Views
         // temporary hardcoded players
         private List<Player> players = new List<Player>
         {
-            new Player(1, "Egg"),
-            new Player(2, "Mario"),
-            new Player(3, "Gigi"),
-            new Player(4, "Flower")
+            new Player("Egg"),
+            new Player("Mario"),
+            new Player("Gigi"),
+            new Player("Flower")
         };
-
 
         public GameBoardWindow()
         {
@@ -39,7 +39,7 @@ namespace GameWorld.Views
                 client.BaseAddress = new Uri("http://localhost:5070/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //get paws and spawn them again
+                // get paws and spawn them again
                 var response = client.GetAsync("api/SkillIssueBroGame/GetPawns");
                 if (response.Result.IsSuccessStatusCode)
                 {
@@ -105,7 +105,7 @@ namespace GameWorld.Views
                 client.BaseAddress = new Uri("http://localhost:5070/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //get paws and spawn them again
+                // get paws and spawn them again
                 var response = client.GetAsync("api/SkillIssueBroGame/GetPawns");
                 if (response.Result.IsSuccessStatusCode)
                 {
@@ -129,7 +129,7 @@ namespace GameWorld.Views
                 client.BaseAddress = new Uri("http://localhost:5070/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //get paws and spawn them again
+                // get paws and spawn them again
                 var response = client.GetAsync("api/SkillIssueBroGame/GetPawns");
                 if (response.Result.IsSuccessStatusCode)
                 {
@@ -310,7 +310,7 @@ namespace GameWorld.Views
                 client.BaseAddress = new Uri("http://localhost:5070/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //get paws and spawn them again
+                // get paws and spawn them again
                 var response = client.GetAsync("api/SkillIssueBroGame/GetPawns");
                 if (response.Result.IsSuccessStatusCode)
                 {

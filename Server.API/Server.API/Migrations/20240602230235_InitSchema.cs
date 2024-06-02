@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Server.API.Migrations
 {
     /// <inheritdoc />
-    public partial class InitializeSchema : Migration
+    public partial class InitSchema : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,46 +25,16 @@ namespace Server.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Challenges",
+                name: "Games",
                 columns: table => new
                 {
-                    ChallengeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ChallengeDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ChallengeRule = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ChallengeAmount = table.Column<int>(type: "int", nullable: false),
-                    ChallengeReward = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Challenges", x => x.ChallengeId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Fonts",
-                columns: table => new
-                {
-                    FontID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FontName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FontPrice = table.Column<int>(type: "int", nullable: false),
-                    FontType = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Fonts", x => x.FontID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Icons",
-                columns: table => new
-                {
-                    IconID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IconName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IconPrice = table.Column<int>(type: "int", nullable: false),
-                    IconPath = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Icons", x => x.IconID);
+                    table.PrimaryKey("PK_Games", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,31 +50,23 @@ namespace Server.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tables",
+                name: "Users",
                 columns: table => new
                 {
-                    TableID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TableName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TableBuyIn = table.Column<int>(type: "int", nullable: false),
-                    TablePlayerLimit = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Coins = table.Column<int>(type: "int", nullable: false),
+                    AmountOfItemsBought = table.Column<int>(type: "int", nullable: false),
+                    AmountOfTradesPerformed = table.Column<int>(type: "int", nullable: false),
+                    TradeHallUnlockTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastTimeReceivedWater = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UserLevel = table.Column<int>(type: "int", nullable: false),
+                    UserStatus = table.Column<int>(type: "int", nullable: false),
+                    UserLastLogin = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tables", x => x.TableID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Titles",
-                columns: table => new
-                {
-                    TitleID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TitleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TitlePrice = table.Column<int>(type: "int", nullable: false),
-                    TitleContent = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Titles", x => x.TitleID);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -157,73 +119,6 @@ namespace Server.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Coins = table.Column<int>(type: "int", nullable: false),
-                    AmountOfItemsBought = table.Column<int>(type: "int", nullable: false),
-                    AmountOfTradesPerformed = table.Column<int>(type: "int", nullable: false),
-                    TradeHallUnlockTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastTimeReceivedWater = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UserCurrentFontFontID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserCurrentTitleTitleID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserCurrentIconPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserCurrentTableTableID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserChips = table.Column<int>(type: "int", nullable: false),
-                    UserStack = table.Column<int>(type: "int", nullable: false),
-                    UserStreak = table.Column<int>(type: "int", nullable: false),
-                    UserHandsPlayed = table.Column<int>(type: "int", nullable: false),
-                    UserLevel = table.Column<int>(type: "int", nullable: false),
-                    UserStatus = table.Column<int>(type: "int", nullable: false),
-                    UserBet = table.Column<int>(type: "int", nullable: false),
-                    UserTablePlace = table.Column<int>(type: "int", nullable: false),
-                    UserLastLogin = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_Fonts_UserCurrentFontFontID",
-                        column: x => x.UserCurrentFontFontID,
-                        principalTable: "Fonts",
-                        principalColumn: "FontID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Users_Tables_UserCurrentTableTableID",
-                        column: x => x.UserCurrentTableTableID,
-                        principalTable: "Tables",
-                        principalColumn: "TableID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Users_Titles_UserCurrentTitleTitleID",
-                        column: x => x.UserCurrentTitleTitleID,
-                        principalTable: "Titles",
-                        principalColumn: "TitleID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MarketBuyItems",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BuyPrice = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MarketBuyItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MarketBuyItems_Items_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
@@ -238,35 +133,6 @@ namespace Server.API.Migrations
                     table.ForeignKey(
                         name: "FK_Comments_Users_PosterId",
                         column: x => x.PosterId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FarmCells",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Row = table.Column<int>(type: "int", nullable: false),
-                    Column = table.Column<int>(type: "int", nullable: false),
-                    ItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LastTimeEnhanced = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastTimeInteracted = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FarmCells", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FarmCells_Items_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_FarmCells_Users_UserId",
-                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -296,45 +162,6 @@ namespace Server.API.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PlayingCards",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Suit = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlayingCards", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PlayingCards_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ShopItems",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ShopItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ShopItems_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -396,6 +223,150 @@ namespace Server.API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "FarmCells",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Row = table.Column<int>(type: "int", nullable: false),
+                    Column = table.Column<int>(type: "int", nullable: false),
+                    ItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LastTimeEnhanced = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastTimeInteracted = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FarmCells", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FarmCells_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FarmCells_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MarketBuyItems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BuyPrice = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MarketBuyItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MarketBuyItems_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GameStates",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StateJson = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WinnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Turn = table.Column<int>(type: "int", nullable: false),
+                    TimePlayed = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GameStates", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Players",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Ip = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Port = table.Column<int>(type: "int", nullable: true),
+                    GameStateId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Players", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Players_GameStates_GameStateId",
+                        column: x => x.GameStateId,
+                        principalTable: "GameStates",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GameStats",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GameId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EloRating = table.Column<int>(type: "int", nullable: false),
+                    HighestElo = table.Column<int>(type: "int", nullable: false),
+                    TotalMatches = table.Column<int>(type: "int", nullable: false),
+                    TotalWins = table.Column<int>(type: "int", nullable: false),
+                    TotalDraws = table.Column<int>(type: "int", nullable: false),
+                    TotalPlayTime = table.Column<int>(type: "int", nullable: false),
+                    TotalNumberOfTurn = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GameStats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GameStats_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GameStats_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlayerQueue",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GameId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GameTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EloRating = table.Column<int>(type: "int", nullable: false),
+                    ObstractionWidth = table.Column<int>(type: "int", nullable: true),
+                    ObstractionHeight = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlayerQueue", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PlayerQueue_Games_GameTypeId",
+                        column: x => x.GameTypeId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PlayerQueue_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_PosterId",
                 table: "Comments",
@@ -410,6 +381,21 @@ namespace Server.API.Migrations
                 name: "IX_FarmCells_UserId",
                 table: "FarmCells",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameStates_WinnerId",
+                table: "GameStates",
+                column: "WinnerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameStats_GameId",
+                table: "GameStats",
+                column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameStats_PlayerId",
+                table: "GameStats",
+                column: "PlayerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_InventoryResources_OwnerId",
@@ -447,14 +433,19 @@ namespace Server.API.Migrations
                 column: "ResourceToSellId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayingCards_UserId",
-                table: "PlayingCards",
-                column: "UserId");
+                name: "IX_PlayerQueue_GameTypeId",
+                table: "PlayerQueue",
+                column: "GameTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShopItems_UserId",
-                table: "ShopItems",
-                column: "UserId");
+                name: "IX_PlayerQueue_PlayerId",
+                table: "PlayerQueue",
+                column: "PlayerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Players_GameStateId",
+                table: "Players",
+                column: "GameStateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trades_ResourceToGetResourceId",
@@ -481,27 +472,20 @@ namespace Server.API.Migrations
                 table: "UserAchievements",
                 column: "UserId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_UserCurrentFontFontID",
-                table: "Users",
-                column: "UserCurrentFontFontID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_UserCurrentTableTableID",
-                table: "Users",
-                column: "UserCurrentTableTableID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_UserCurrentTitleTitleID",
-                table: "Users",
-                column: "UserCurrentTitleTitleID");
+            migrationBuilder.AddForeignKey(
+                name: "FK_GameStates_Players_WinnerId",
+                table: "GameStates",
+                column: "WinnerId",
+                principalTable: "Players",
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Challenges");
+            migrationBuilder.DropForeignKey(
+                name: "FK_GameStates_Players_WinnerId",
+                table: "GameStates");
 
             migrationBuilder.DropTable(
                 name: "Comments");
@@ -510,7 +494,7 @@ namespace Server.API.Migrations
                 name: "FarmCells");
 
             migrationBuilder.DropTable(
-                name: "Icons");
+                name: "GameStats");
 
             migrationBuilder.DropTable(
                 name: "InventoryResources");
@@ -522,10 +506,7 @@ namespace Server.API.Migrations
                 name: "MarketSellResources");
 
             migrationBuilder.DropTable(
-                name: "PlayingCards");
-
-            migrationBuilder.DropTable(
-                name: "ShopItems");
+                name: "PlayerQueue");
 
             migrationBuilder.DropTable(
                 name: "Trades");
@@ -537,6 +518,9 @@ namespace Server.API.Migrations
                 name: "Items");
 
             migrationBuilder.DropTable(
+                name: "Games");
+
+            migrationBuilder.DropTable(
                 name: "Achievements");
 
             migrationBuilder.DropTable(
@@ -546,13 +530,10 @@ namespace Server.API.Migrations
                 name: "Resources");
 
             migrationBuilder.DropTable(
-                name: "Fonts");
+                name: "Players");
 
             migrationBuilder.DropTable(
-                name: "Tables");
-
-            migrationBuilder.DropTable(
-                name: "Titles");
+                name: "GameStates");
         }
     }
 }

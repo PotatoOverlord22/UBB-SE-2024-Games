@@ -6,7 +6,7 @@ namespace Server.API.Utils
 {
     public static class DependencyInjectionConfiguration
     {
-        public static void ConfigureServices(IServiceCollection services)
+        public static void ConfigureRepositories(IServiceCollection services)
         {
             services.AddScoped<IAchievementRepository, AchievementRepositoryDB>();
             services.AddScoped<IItemRepository, ItemRepositoryDB>();
@@ -23,7 +23,8 @@ namespace Server.API.Utils
         public static void ConfigureContexts(IServiceCollection services, ConfigurationManager configuration)
         {
             services.AddDbContext<GamesContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("GamesContext")));
+                options.UseSqlServer(configuration.GetConnectionString("GamesContext"),
+                    sqlOptions => sqlOptions.MigrationsAssembly("Server.API")));
         }
     }
 }
