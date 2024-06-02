@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using GameWorldClassLibrary.Models;
-using Server.API.Repositories;
+using GameWorldClassLibrary.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -20,7 +20,7 @@ namespace Server.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Item>>> GetItems()
         {
-            var items = await itemService.GetItemsAsync();
+            var items = await itemService.GetAllItemsAsync();
             return items;
         }
 
@@ -46,7 +46,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                await itemService.UpdateItemAsync(id, item);
+                await itemService.UpdateItemAsync(item);
             }
             catch (KeyNotFoundException)
             {
@@ -62,7 +62,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                await itemService.AddItemAsync(item);
+                await itemService.CreateItemAsync(item);
             }
             catch (Exception)
             {

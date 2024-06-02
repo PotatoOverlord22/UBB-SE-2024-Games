@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GameWorldClassLibrary.Models;
-using Server.API.Repositories;
+using GameWorldClassLibrary.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -46,7 +46,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                await commentService.UpdateCommentAsync(id, comment);
+                await commentService.UpdateCommentAsync(comment);
             }
             catch (KeyNotFoundException e)
             {

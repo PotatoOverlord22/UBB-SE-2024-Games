@@ -57,19 +57,6 @@
                         </Button.Background>
                     </Button>
                 </StackPanel>
-                <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,0,0">
-                    <Button x:Name="PlayPokerButton" Content="Poker" Height="50" Width="180" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Click="PlayPokerButton_Click">
-                        <Button.Effect>
-                            <DropShadowEffect Color="Black" ShadowDepth="5" Direction="-50" BlurRadius="20"/>
-                        </Button.Effect>
-                        <Button.Background>
-                            <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
-                                <GradientStop Color="Yellow" Offset="0"/>
-                                <GradientStop Color="Black" Offset="2.9"/>
-                            </RadialGradientBrush>
-                        </Button.Background>
-                    </Button>
-                </StackPanel>
             </Grid>
         </StackPanel>
     </Grid>

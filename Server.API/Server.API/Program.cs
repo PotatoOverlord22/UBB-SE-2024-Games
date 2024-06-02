@@ -9,8 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<GamesContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("GamesContext")));
+// Custom context dependency injection configuration
+DependencyInjectionConfiguration.ConfigureContexts(builder.Services, builder.Configuration);
 
 // Custom service dependency injection configuration
 DependencyInjectionConfiguration.ConfigureServices(builder.Services);

@@ -1,19 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using GameWorldClassLibrary.Models;
-using Server.API.Utils;
+using GameWorldClassLibrary.Utils;
 
-namespace Server.API.Repositories
+namespace GameWorldClassLibrary.Repositories
 {
-    public class MarketSellResourceRepository : IMarketSellResourceRepository
+    public class MarketSellResourceRepositoryDB : IMarketSellResourceRepository
     {
         private readonly GamesContext context;
 
-        public MarketSellResourceRepository(GamesContext context)
+        public MarketSellResourceRepositoryDB(GamesContext context)
         {
             this.context = context;
         }
 
-        public async Task<List<MarketSellResource>> GetAllMarketSellResourcesAsync()
+        public async Task<List<MarketSellResource>> GetAllSellResourcesAsync()
         {
             return await context.MarketSellResources.ToListAsync();
         }

@@ -1,8 +1,8 @@
 ﻿using GameWorldClassLibrary.Models;
-using Server.API.Utils;
+using GameWorldClassLibrary.Utils;
 using Microsoft.EntityFrameworkCore;
 
-namespace Server.API.Repositories
+namespace GameWorldClassLibrary.Repositories
 {
     public class FarmCellRepositoryDB : IFarmCellRepository
     {

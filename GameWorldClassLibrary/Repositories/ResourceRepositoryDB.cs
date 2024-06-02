@@ -1,15 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Any;
 using GameWorldClassLibrary.Models;
-using Server.API.Utils;
+using GameWorldClassLibrary.Utils;
 
-namespace Server.API.Repositories
+namespace GameWorldClassLibrary.Repositories
 {
-    public class ResourceRepository : IResourceRepository
+    public class ResourceRepositoryDB : IResourceRepository
     {
         private readonly GamesContext context;
 
-        public ResourceRepository(GamesContext context)
+        public ResourceRepositoryDB(GamesContext context)
         {
             this.context = context;
         }

@@ -1,23 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using GameWorldClassLibrary.Models;
-using Server.API.Utils;
+using GameWorldClassLibrary.Utils;
 
-namespace Server.API.Repositories
+namespace GameWorldClassLibrary.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepositoryDB : IUserRepository
     {
         private readonly GamesContext gamesContext;
-        public UserRepository(GamesContext context)
+        public UserRepositoryDB(GamesContext context)
         {
             gamesContext = context;
         }
-        public async Task AddUser(User user)
+        public async Task AddUserAsync(User user)
         {
             gamesContext.Users.Add(user);
             await gamesContext.SaveChangesAsync();
         }
 
-        public async Task DeleteUserAsync(Guid id)
+        public async Task DeleteUserByIdAsync(Guid id)
         {
             var user = gamesContext.Users.Find(id);
             if (user == null)
@@ -38,14 +38,14 @@ namespace Server.API.Repositories
             return user;
         }
 
-        public async Task<List<User>> GetUsersAsync()
+        public async Task<List<User>> GetAllUsersAsync()
         {
             return await gamesContext.Users.ToListAsync();
         }
 
-        public async Task UpdateUserAsync(Guid id, User user)
+        public async Task UpdateUserAsync(User user)
         {
-            if (gamesContext.Users.Find(id) == null)
+            if (gamesContext.Users.Find(user.Id) == null)
             {
                 throw new KeyNotFoundException("User not found");
             }
@@ -71,7 +71,7 @@ namespace Server.API.Repositories
             await gamesContext.SaveChangesAsync();
         }
 
-        public async Task<List<User>> GetPokerLeaderboardAsync()
+        public async Task<List<User>> GetPokerLeaderboard()
         {
             var leaderboard = await gamesContext.Users
                 .OrderByDescending(user => user.UserChips)
@@ -80,6 +80,39 @@ namespace Server.API.Repositories
                 .ToListAsync();
 
             return leaderboard;
+        }
+
+        public async Task UpdateUserStreak(Guid id, int streak)
+        {
+            var user = await gamesContext.Users.FindAsync(id);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found");
+            }
+            user.UserStreak = streak;
+            await gamesContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateUserLastLogin(Guid id, DateTime lastLogin)
+        {
+            var user = await gamesContext.Users.FindAsync(id);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found");
+            }
+            user.UserLastLogin = lastLogin;
+            await gamesContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateUserStack(Guid id, int stack)
+        {
+            var user = await gamesContext.Users.FindAsync(id);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found");
+            }
+            user.UserStack = stack;
+            await gamesContext.SaveChangesAsync();
         }
     }
 }

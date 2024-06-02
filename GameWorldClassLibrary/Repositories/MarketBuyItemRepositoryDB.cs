@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using GameWorldClassLibrary.Models;
-using Server.API.Utils;
+using GameWorldClassLibrary.Utils;
 
-namespace Server.API.Repositories
+namespace GameWorldClassLibrary.Repositories
 {
-    public class MarketBuyItemRepository : IMarketBuyItemRepository
+    public class MarketBuyItemRepositoryDB : IMarketBuyItemRepository
     {
         private readonly GamesContext context;
 
-        public MarketBuyItemRepository(GamesContext context)
+        public MarketBuyItemRepositoryDB(GamesContext context)
         {
             this.context = context;
         }

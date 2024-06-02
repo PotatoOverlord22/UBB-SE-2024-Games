@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using GameWorldClassLibrary.Models;
-using Server.API.Utils;
-using GameWorldClassLibrary.Repositories.Interfaces;
+using GameWorldClassLibrary.Utils;
 
 namespace GameWorldClassLibrary.Repositories
 {

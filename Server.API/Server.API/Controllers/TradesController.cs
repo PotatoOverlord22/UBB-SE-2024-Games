@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using GameWorldClassLibrary.Models;
-using Server.API.Repositories;
+using GameWorldClassLibrary.Repositories;
 
 namespace Server.API.Controllers
 {
@@ -18,7 +18,7 @@ namespace Server.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Trade>>> GetTrades()
         {
-            var titles = await tradeService.GetTradesAsync();
+            var titles = await tradeService.GetAllTradesAsync();
             return titles;
         }
 
@@ -40,7 +40,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                await tradeService.UpdateTradeAsync(id, trade);
+                await tradeService.UpdateTradeAsync(trade);
             }
             catch (KeyNotFoundException)
             {
@@ -54,7 +54,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                await tradeService.AddTradeAsync(trade);
+                await tradeService.CreateTradeAsync(trade);
             }
             catch (Exception)
             {

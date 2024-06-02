@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using GameWorldClassLibrary.Models;
-using GameWorldClassLibrary.Repositories.Interfaces;
+using GameWorldClassLibrary.Repositories;
 
 namespace Server.API.Controllers
 {

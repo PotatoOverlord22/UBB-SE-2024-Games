@@ -6,7 +6,7 @@ using System.Windows.Media.Imaging;
 using GameWorldClassLibrary.Models;
 using Microsoft.Extensions.DependencyInjection;
 using GameWorld.Resources.Utils;
-using GameWorldClassLibrary.Services.Interfaces;
+using GameWorldClassLibrary.Services;
 
 namespace GameWorld.Views
 {

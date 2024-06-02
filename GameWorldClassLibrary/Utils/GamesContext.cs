@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using GameWorldClassLibrary.Models;
-namespace Server.API.Utils
+namespace GameWorldClassLibrary.Utils
 {
     public class GamesContext : DbContext
     {

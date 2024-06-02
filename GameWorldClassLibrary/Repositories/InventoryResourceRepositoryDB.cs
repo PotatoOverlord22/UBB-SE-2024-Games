@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using GameWorldClassLibrary.Models;
-using Server.API.Utils;
+using GameWorldClassLibrary.Utils;
 
-namespace Server.API.Repositories
+namespace GameWorldClassLibrary.Repositories
 {
-    public class InventoryResourceRepository : IInventoryResourceRepository
+    public class InventoryResourceRepositoryDB : IInventoryResourceRepository
     {
         private readonly GamesContext context;
 
-        public InventoryResourceRepository(GamesContext context)
+        public InventoryResourceRepositoryDB(GamesContext context)
         {
             this.context = context;
         }
