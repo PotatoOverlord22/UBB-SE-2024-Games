@@ -7,12 +7,12 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using GameWorld.Utils;
+using GameWorldClassLibrary.exceptions;
+using GameWorldClassLibrary.Models;
 
 namespace GameWorld.Views
 {
-    /// <summary>
-    /// Interaction logic for Connect4GameGUI.xaml
-    /// </summary>
     public partial class Connect4GameGUI : Page
     {
         private int column;
@@ -211,10 +211,10 @@ namespace GameWorld.Views
             {
                 client.BaseAddress = new Uri("https://localhost:5070/api/");
                 // Get the column number
-                column = (int)(Math.Floor((position.X - 235) / 56));
-                object[] arg = [column];
+                column = (int)Math.Floor((position.X - 235) / 56);
                 try
                 {
+                    int arg = column;
                     client.GetAsync("2PlayerGames/Play?numberOfParameters=1&parameters=" + arg);
                     UpdateBoard();
                     if (client.GetAsync("2PlayerGames/IsGameOver").Result.Content.ReadAsStringAsync().Result == "True")

@@ -1,11 +1,14 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using GameWorld.Utils;
+using GameWorldClassLibrary.exceptions;
+using GameWorldClassLibrary.Models;
+using Newtonsoft.Json;
 using Brushes = System.Windows.Media.Brushes;
 
 namespace GameWorld.Views
@@ -22,7 +25,7 @@ namespace GameWorld.Views
 
         public ObstructionGameGUI()
         {
-            //send the play service to the server
+            // send the play service to the server
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:5070/api/2PlayerGames/CreatePlayService/");
@@ -122,23 +125,6 @@ namespace GameWorld.Views
                     MessageBox.Show("User declined to start a new game.");
                     confirmationDialog.Close();
                 }
-            }
-        }
-
-        private void PopulatePlayersData()
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:5070/api/");
-                PlayerStats playerStats = client.GetAsync("2PlayerGames/GetStats").Result.Content.ReadFromJsonAsync<PlayerStats>().Result;
-                Player1Name.Text = playerStats.Player.Name;
-                Player1Rank.Text = playerStats.Rank;
-                Player1Trophies.Text = playerStats.Trophies.ToString();
-
-                playerStats = client.GetAsync("2PlayerGames/GetStats").Result.Content.ReadFromJsonAsync<PlayerStats>().Result;
-                Player2Name.Text = playerStats.Player.Name;
-                Player2Rank.Text = playerStats.Rank;
-                Player2Trophies.Text = playerStats.Trophies.ToString();
             }
         }
 
@@ -252,7 +238,11 @@ namespace GameWorld.Views
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:5070/api/");
-                object[] arg = [column, row];
+                object[] arg =
+                [
+                    column,
+                    row
+                ];
                 try
                 {
                     client.PostAsync("2PlayerGames/Play", new StringContent(JsonConvert.SerializeObject(arg), System.Text.Encoding.UTF8, "application/json"));

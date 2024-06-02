@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.Windows.Threading;
+using GameWorld.Utils;
 
 namespace GameWorld.Views
 {
@@ -32,15 +31,8 @@ namespace GameWorld.Views
                         object[] list2 = { Router.ObstructionMode, Router.ObstructionMode };
                         NavigationService.Navigate(Router.ObstructionPage);
                         break;
-                    case "Darts":
-                        NavigationService.Navigate(Router.DartsPage);
-                        break;
                     case "Connect4":
                         NavigationService.Navigate(Router.ConnectPage);
-                        break;
-                    case "Chess":
-                        object[] list = { Router.ChessMode };
-                        NavigationService.Navigate(Router.ChessPage);
                         break;
                     default:
                         break;
@@ -48,21 +40,13 @@ namespace GameWorld.Views
             }
             else
             {
-                List<Object> list = new();
-                list.Add(Router.AiDifficulty);
+                List<object> list = [Router.AiDifficulty];
                 switch (Router.GameType)
                 {
-                    case "Chess":
-                        list.Add(Router.ChessMode);
-                        NavigationService.Navigate(Router.ChessPage);
-                        break;
                     case "Obstruction":
                         list.Add(Router.ObstructionMode);
                         list.Add(Router.ObstructionMode);
                         NavigationService.Navigate(Router.ObstructionPage);
-                        break;
-                    case "Darts":
-                        NavigationService.Navigate(Router.DartsPage);
                         break;
                     case "Connect4":
                         NavigationService.Navigate(Router.ConnectPage);

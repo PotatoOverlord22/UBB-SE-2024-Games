@@ -26,5 +26,11 @@ namespace GameWorldClassLibrary.Utils
         public DbSet<Trade> Trades { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserAchievement> UserAchievements { get; set; }
+        // From 925
+        public DbSet<GameState> GameStates { get; set; }
+        public DbSet<Player> Players { get; set; }
+        public DbSet<Games> Games { get; set; }
+        public DbSet<GameStats> GameStats { get; set; }
+        public DbSet<PlayerQueue> PlayerQueue { get; set; }
     }
 }

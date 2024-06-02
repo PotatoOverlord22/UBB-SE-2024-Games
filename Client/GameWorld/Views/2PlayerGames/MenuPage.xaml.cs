@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using GameWorld.Utils;
 
 namespace GameWorld.Views
 {
@@ -21,7 +22,6 @@ namespace GameWorld.Views
         private void ChessButton_Click(object sender, RoutedEventArgs e)
         {
             Router.GameType = "Chess";
-            this.NavigationService.Navigate(Router.ChessSelectionPage);
         }
 
         private void Connect4Button_Click(object sender, RoutedEventArgs e)

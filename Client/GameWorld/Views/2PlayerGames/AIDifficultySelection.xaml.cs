@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Navigation;
+using GameWorld.Utils;
 
 namespace GameWorld.Views
 {
@@ -25,13 +25,13 @@ namespace GameWorld.Views
         private void EasyMode_Click(object sender, RoutedEventArgs e)
         {
             Router.AiDifficulty = "easy";
-            //NavigationService.Navigate(Router.LoadingPage);
+            // NavigationService.Navigate(Router.LoadingPage);
         }
 
         private void MediumMode_Click(object sender, RoutedEventArgs e)
         {
             Router.AiDifficulty = "medium";
-            //NavigationService.Navigate(Router.LoadingPage);
+            // NavigationService.Navigate(Router.LoadingPage);
         }
 
         private void HardMode_Click(object sender, RoutedEventArgs e)
