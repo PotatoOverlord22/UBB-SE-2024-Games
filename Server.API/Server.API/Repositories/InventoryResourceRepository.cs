@@ -2,7 +2,7 @@
 using Server.API.Models;
 using Server.API.Utils;
 
-namespace Server.API.Services
+namespace Server.API.Repositories
 {
     public class InventoryResourceRepository : IInventoryResourceRepository
     {

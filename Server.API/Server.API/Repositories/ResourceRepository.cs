@@ -3,7 +3,7 @@ using Microsoft.OpenApi.Any;
 using Server.API.Models;
 using Server.API.Utils;
 
-namespace Server.API.Services
+namespace Server.API.Repositories
 {
     public class ResourceRepository : IResourceRepository
     {

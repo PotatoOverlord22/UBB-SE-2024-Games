@@ -1,7 +1,8 @@
 ﻿using Server.API.Models;
 using Server.API.Utils;
 using Microsoft.EntityFrameworkCore;
-namespace Server.API.Services
+
+namespace Server.API.Repositories
 {
     public class FarmCellRepository : IFarmCellRepository
     {

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Server.API.Models;
-using Server.API.Services;
+using Server.API.Repositories;
 using Server.API.Utils;
 
 public class FontRepository : IFontRepository

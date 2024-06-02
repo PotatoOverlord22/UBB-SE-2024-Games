@@ -1,6 +1,6 @@
 ﻿using Server.API.Models;
 
-namespace Server.API.Services
+namespace Server.API.Repositories
 {
     public interface IMarketSellResourceRepository
     {
