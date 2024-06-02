@@ -1,0 +1,82 @@
+﻿<Page x:Class="GameWorld.Views.SkillIssueBroNumberPlayers"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="1080" d:DesignWidth="1920">
+    <Viewbox>
+        <Grid Height="1080" Width="1920" Background="LightYellow">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition></RowDefinition>
+
+        </Grid.RowDefinitions>
+
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,0" FontSize="90" FontWeight="DemiBold" Grid.Row="0" Foreground="DarkMagenta">Skill issue, Bro!
+            <TextBlock.Effect>
+                <DropShadowEffect ShadowDepth="5" Opacity="0.4" BlurRadius="10"></DropShadowEffect>
+            </TextBlock.Effect>
+        </TextBlock>
+
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="60" FontWeight="Medium">Number of players:</TextBlock>
+        
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+
+            <Button Click="OnChooseTwoPlayers" Foreground="White" Background="Blue" FontWeight="Bold" FontSize="50" Width="320" Height="167">
+                <Border  >
+
+                    <Border.Effect>
+                        <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7"/>
+                    </Border.Effect>
+
+                    <TextBlock >2
+                    </TextBlock>
+
+                </Border>
+            </Button>
+
+                <Button Click="OnChooseThreePlayers" Grid.Column="1" Foreground="White" Background="Blue" FontWeight="Bold" FontSize="50" Width="320" Height="167">
+                    <Border  >
+
+                    <Border.Effect>
+                        <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7"/>
+                    </Border.Effect>
+
+                    <TextBlock >3
+                    </TextBlock>
+
+                </Border>
+            </Button>
+                <Button Click="OnChooseFourPlayers" Grid.Column="3" Foreground="White" Background="Blue" FontWeight="Bold" FontSize="50" Width="320" Height="167">
+                    <Border  >
+
+                    <Border.Effect>
+                        <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7"/>
+                    </Border.Effect>
+
+                    <TextBlock >4
+                    </TextBlock>
+
+                </Border>
+            </Button>
+
+
+                <Button Click="OnBackButtonClicked" Margin="155,0" FontSize="30" Width="224" Height="52"  Foreground="White" Background="Black" Grid.Column="0" Grid.Row="1" Content="Back" HorizontalAlignment="Left"></Button>
+        </Grid>
+
+
+    </Grid>
+    </Viewbox>
+</Page>

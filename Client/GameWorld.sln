@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.API", "..\Server.API
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameWorldClassLibrary", "..\GameWorldClassLibrary\GameWorldClassLibrary.csproj", "{07D0F25C-5D0F-47C2-A75C-5EB8C0E249FE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameWorldWeb", "..\GameWorldWeb\GameWorldWeb\GameWorldWeb.csproj", "{3AB19A29-715A-4D35-87B0-F6ED8F24A083}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameWorldWeb", "..\GameWorldWeb\GameWorldWeb\GameWorldWeb.csproj", "{C2C81994-AC04-46AB-BAD0-AF70348FD075}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{07D0F25C-5D0F-47C2-A75C-5EB8C0E249FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07D0F25C-5D0F-47C2-A75C-5EB8C0E249FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07D0F25C-5D0F-47C2-A75C-5EB8C0E249FE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3AB19A29-715A-4D35-87B0-F6ED8F24A083}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3AB19A29-715A-4D35-87B0-F6ED8F24A083}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3AB19A29-715A-4D35-87B0-F6ED8F24A083}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3AB19A29-715A-4D35-87B0-F6ED8F24A083}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2C81994-AC04-46AB-BAD0-AF70348FD075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2C81994-AC04-46AB-BAD0-AF70348FD075}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2C81994-AC04-46AB-BAD0-AF70348FD075}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2C81994-AC04-46AB-BAD0-AF70348FD075}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
