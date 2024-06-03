@@ -1,4 +1,4 @@
-﻿using System.Net.Http;
+﻿using GameWorld.Views;
 using GameWorldClassLibrary.Repositories;
 using GameWorldClassLibrary.Services;
 using GameWorldClassLibrary.Utils;
@@ -26,7 +26,6 @@ namespace GameWorld.Resources.Utils
     {
         public static IServiceCollection ConfigureServices(this IServiceCollection services)
         {
-            services.AddScoped<IRequestClient, HttpClientImpl>();
             services.AddScoped<IAchievementService, AchievementService>();
             services.AddScoped<IMarketService, MarketService>();
             services.AddScoped<IFarmService, FarmService>();
@@ -37,11 +36,13 @@ namespace GameWorld.Resources.Utils
             services.AddScoped<IInventoryService, InventoryService>();
             services.AddScoped<IItemService, ItemService>();
             services.AddScoped<IDatabaseProvider, DatabaseProvider>();
+            services.AddScoped<ISkillIssueBroService, SkillIssueBroService>();
             return services;
         }
 
         public static IServiceCollection ConfigureRepositories(this IServiceCollection services)
         {
+            services.AddScoped<IRequestClient, HttpClientImpl>();
             services.AddScoped<IDatabaseProvider, DatabaseProvider>();
             services.AddScoped<IAchievementRepository, AchievementRepositoryClient>();
             services.AddScoped<ICommentRepository, CommentRepositoryClient>();
@@ -54,6 +55,7 @@ namespace GameWorld.Resources.Utils
             services.AddScoped<ITradeRepository, TradeRepositoryClient>();
             services.AddScoped<IUserAchievementRepository, UserAchievementRepository>();
             services.AddScoped<IUserRepository, UserRepositoryClient>();
+            services.AddScoped<ISkillIssueBroRepository, SkillIssueBroRepository>();
 
             return services;
         }

@@ -1,12 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using GameWorld.Resources.Utils;
+using GameWorldClassLibrary.Repositories;
+using GameWorldClassLibrary.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GameWorld.Views
 {
-    /// <summary>
-    /// Interaction logic for SkillIssueBroNumberPlayers.xaml
-    /// </summary>
     public partial class SkillIssueBroNumberPlayers : Page
     {
         public SkillIssueBroNumberPlayers()
@@ -21,17 +22,17 @@ namespace GameWorld.Views
 
         private void OnChooseTwoPlayers(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new GameBoardWindow());
+            NavigationService.Navigate(new GameBoardWindow(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ISkillIssueBroService>()));
         }
 
         private void OnChooseThreePlayers(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new GameBoardWindow());
+            NavigationService.Navigate(new GameBoardWindow(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ISkillIssueBroService>()));
         }
 
         private void OnChooseFourPlayers(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new GameBoardWindow());
+            NavigationService.Navigate(new GameBoardWindow(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ISkillIssueBroService>()));
         }
     }
 }
