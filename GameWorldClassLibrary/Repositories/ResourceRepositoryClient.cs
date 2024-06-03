@@ -5,14 +5,14 @@ using System.Text;
 
 namespace GameWorldClassLibrary.Repositories
 {
-    public class ResourceRepositoryHttp : IResourceRepository
+    public class ResourceRepositoryClient : IResourceRepository
     {
-        private readonly HttpClient httpClient;
+        private readonly IRequestClient requestClient;
         private readonly string base_URL;
 
-        public ResourceRepositoryHttp(HttpClient httpClient)
+        public ResourceRepositoryClient(IRequestClient requestClient)
         {
-            this.httpClient = httpClient;
+            this.requestClient = requestClient;
             base_URL = Apis.RESOURCES_BASE_URL;
         }
 
@@ -21,7 +21,7 @@ namespace GameWorldClassLibrary.Repositories
             try
             {
                 // Send a GET request to the base URL (localhost:3000 ?)
-                var response = await httpClient.GetAsync($"{base_URL}");
+                var response = await requestClient.GetAsync($"{base_URL}");
                 // Make sure the response is good otherwise throw error
                 response.EnsureSuccessStatusCode();
                 // Turn the HTTPContent into a json string
@@ -42,7 +42,7 @@ namespace GameWorldClassLibrary.Repositories
             try
             {
                 // Aici se poate face si POST daca se considera ca nu e okay sa expui IDu in URI
-                var response = await httpClient.GetAsync($"{base_URL}/{resourceId}");
+                var response = await requestClient.GetAsync($"{base_URL}/{resourceId}");
                 response.EnsureSuccessStatusCode();
 
                 var responseContent = await response.Content.ReadAsStringAsync();
@@ -60,7 +60,7 @@ namespace GameWorldClassLibrary.Repositories
             try
             {
                 Console.WriteLine($"{base_URL}/type/{(int)resourceType}");
-                var response = await httpClient.GetAsync($"{base_URL}/type/{resourceType}");
+                var response = await requestClient.GetAsync($"{base_URL}/type/{resourceType}");
                 response.EnsureSuccessStatusCode();
 
                 var responseContent = await response.Content.ReadAsStringAsync();
@@ -80,7 +80,7 @@ namespace GameWorldClassLibrary.Repositories
                 var sentContent = JsonConvert.SerializeObject(resource);
                 var content = new StringContent(sentContent, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync($"{base_URL}", content);
+                var response = await requestClient.PostAsync($"{base_URL}", content);
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception exception)
@@ -96,7 +96,7 @@ namespace GameWorldClassLibrary.Repositories
                 var putContent = JsonConvert.SerializeObject(resource);
                 var content = new StringContent(putContent, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PutAsync($"{base_URL}/{resource.Id}", content);
+                var response = await requestClient.PutAsync($"{base_URL}/{resource.Id}", content);
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception exception)
@@ -109,7 +109,7 @@ namespace GameWorldClassLibrary.Repositories
         {
             try
             {
-                var response = await httpClient.DeleteAsync($"{base_URL}/{resourceId}");
+                var response = await requestClient.DeleteAsync($"{base_URL}/{resourceId}");
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception exception)

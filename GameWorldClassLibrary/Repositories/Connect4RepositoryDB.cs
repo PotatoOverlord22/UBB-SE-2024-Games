@@ -3,10 +3,10 @@ using GameWorldClassLibrary.Utils;
 
 namespace GameWorldClassLibrary.Repositories
 {
-    public class Connect4Repository : BaseGameRepository, IGameRepo
+    public class Connect4RepositoryDB : BaseGameRepositoryDB, IGameRepo
     {
         private readonly GamesContext context;
-        public Connect4Repository(GamesContext gamesDbContext) : base(gamesDbContext)
+        public Connect4RepositoryDB(GamesContext gamesDbContext) : base(gamesDbContext)
         {
             context = gamesDbContext;
         }

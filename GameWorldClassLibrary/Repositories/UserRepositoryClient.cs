@@ -5,18 +5,18 @@ using System.Net.Http.Json;
 
 namespace GameWorldClassLibrary.Repositories
 {
-    public class UserRepositoryHttp : IUserRepository
+    public class UserRepositoryClient : IUserRepository
     {
-        private readonly HttpClient httpClient;
+        private readonly IRequestClient requestClient;
 
-        public UserRepositoryHttp(HttpClient httpClient)
+        public UserRepositoryClient(IRequestClient requestClient)
         {
-            this.httpClient = httpClient;
+            this.requestClient = requestClient;
         }
 
         public async Task AddUserAsync(User user)
         {
-            var response = await httpClient.PostAsync(Apis.USERS_BASE_URL, JsonContent.Create(user));
+            var response = await requestClient.PostAsync(Apis.USERS_BASE_URL, JsonContent.Create(user));
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("User added successfully.");
@@ -29,7 +29,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task DeleteUserByIdAsync(Guid userId)
         {
-            var response = await httpClient.DeleteAsync($"{Apis.USERS_BASE_URL}/{userId}");
+            var response = await requestClient.DeleteAsync($"{Apis.USERS_BASE_URL}/{userId}");
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("User deleted successfully.");
@@ -42,7 +42,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task<List<User>> GetAllUsersAsync()
         {
-            var response = await httpClient.GetAsync(Apis.USERS_BASE_URL);
+            var response = await requestClient.GetAsync(Apis.USERS_BASE_URL);
             string apiResponse = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -62,7 +62,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task<User> GetUserByIdAsync(Guid userId)
         {
-            var response = await httpClient.GetAsync($"{Apis.USERS_BASE_URL}/{userId}");
+            var response = await requestClient.GetAsync($"{Apis.USERS_BASE_URL}/{userId}");
             string apiResponse = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -85,7 +85,7 @@ namespace GameWorldClassLibrary.Repositories
             var content = JsonContent.Create(jsonSerialized);
             string endpoint = $"{Apis.USERS_BASE_URL}/{user.Id}";
 
-            var response = await httpClient.PutAsync(endpoint, content);
+            var response = await requestClient.PutAsync(endpoint, content);
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("User updated successfully.");
@@ -103,7 +103,7 @@ namespace GameWorldClassLibrary.Repositories
             HttpResponseMessage response;
             try
             {
-                response = await httpClient.PutAsync($"{Apis.USERS_BASE_URL}/{userId}/chips", content);
+                response = await requestClient.PutAsync($"{Apis.USERS_BASE_URL}/{userId}/chips", content);
             }
             catch (HttpRequestException e)
             {
@@ -132,7 +132,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task<List<User>> GetPokerLeaderboard()
         {
-            var response = await httpClient.GetAsync(Apis.POKER_LEADERBOARD_URL);
+            var response = await requestClient.GetAsync(Apis.POKER_LEADERBOARD_URL);
             string apiResponse = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -152,7 +152,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task<User> GetUserByUsername(string username)
         {
-            var response = await httpClient.GetAsync($"{Apis.USERS_USERNAME_URL}/{username}");
+            var response = await requestClient.GetAsync($"{Apis.USERS_USERNAME_URL}/{username}");
             string apiResponse = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {

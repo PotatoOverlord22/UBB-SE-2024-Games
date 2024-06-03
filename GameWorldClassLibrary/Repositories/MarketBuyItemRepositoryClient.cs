@@ -4,18 +4,18 @@ using Newtonsoft.Json;
 using System.Text;
 namespace GameWorldClassLibrary.Repositories
 {
-    public class MarketBuyItemRepositoryHttp : IMarketBuyItemRepository
+    public class MarketBuyItemRepositoryClient : IMarketBuyItemRepository
     {
-        private HttpClient httpClient;
-        public MarketBuyItemRepositoryHttp(HttpClient httpClient)
+        private IRequestClient requestClient;
+        public MarketBuyItemRepositoryClient(IRequestClient requestClient)
         {
-            this.httpClient = httpClient;
+            this.requestClient = requestClient;
         }
         public async Task<List<MarketBuyItem>> GetAllMarketBuyItemsAsync()
         {
             try
             {
-                var response = await httpClient.GetAsync($"{Apis.MARKET_BUY_ITEM}");
+                var response = await requestClient.GetAsync($"{Apis.MARKET_BUY_ITEM}");
                 response.EnsureSuccessStatusCode();
                 string responseContent = await response.Content.ReadAsStringAsync();
                 var resources = JsonConvert.DeserializeObject<List<MarketBuyItem>>(responseContent) ?? throw new Exception("Response content from getting all market bought item from the backend is invalid: ");
@@ -31,7 +31,7 @@ namespace GameWorldClassLibrary.Repositories
         {
             try
             {
-                var response = await httpClient.GetAsync($"{Apis.MARKET_BUY_ITEM}/{itemId}");
+                var response = await requestClient.GetAsync($"{Apis.MARKET_BUY_ITEM}/{itemId}");
                 response.EnsureSuccessStatusCode();
 
                 var responseContent = await response.Content.ReadAsStringAsync();
@@ -51,7 +51,7 @@ namespace GameWorldClassLibrary.Repositories
                 var sentContent = JsonConvert.SerializeObject(marketBuyItem);
                 var content = new StringContent(sentContent, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync($"{Apis.MARKET_BUY_ITEM}", content);
+                var response = await requestClient.PostAsync($"{Apis.MARKET_BUY_ITEM}", content);
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception exception)
@@ -67,7 +67,7 @@ namespace GameWorldClassLibrary.Repositories
                 var putContent = JsonConvert.SerializeObject(marketBuyItem);
                 var content = new StringContent(putContent, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PutAsync($"{Apis.MARKET_BUY_ITEM}/{marketBuyItem.Id}", content);
+                var response = await requestClient.PutAsync($"{Apis.MARKET_BUY_ITEM}/{marketBuyItem.Id}", content);
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception exception)
@@ -80,7 +80,7 @@ namespace GameWorldClassLibrary.Repositories
         {
             try
             {
-                var response = await httpClient.DeleteAsync($"{Apis.MARKET_BUY_ITEM}/{marketBuyItemId}");
+                var response = await requestClient.DeleteAsync($"{Apis.MARKET_BUY_ITEM}/{marketBuyItemId}");
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception exception)

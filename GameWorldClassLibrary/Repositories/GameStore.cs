@@ -1,4 +1,5 @@
 ﻿using GameWorldClassLibrary.Models;
+using GameWorldClassLibrary.Utils;
 using Newtonsoft.Json;
 
 namespace GameWorldClassLibrary.Repositories
@@ -13,7 +14,7 @@ namespace GameWorldClassLibrary.Repositories
             {
                 try
                 {
-                    var response = client.GetAsync("https://localhost:5070/api/2PlayerGames/GetGames").Result;
+                    var response = client.GetAsync($"{Apis.TWO_PLAYER_GAMES_BASE_URL}/GetGames").Result;
                     if (response.IsSuccessStatusCode)
                     {
                         var games = JsonConvert.DeserializeObject<List<Games>>(response.Content.ReadAsStringAsync().Result);

@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using GameWorld.Resources.Utils;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GameWorld.Views
 {
@@ -15,7 +17,7 @@ namespace GameWorld.Views
 
         private void OnClickJoin(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new GameBoardWindow());
+            NavigationService.Navigate(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<GameBoardWindow>());
         }
     }
 }

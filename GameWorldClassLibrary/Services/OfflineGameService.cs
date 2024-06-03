@@ -33,7 +33,7 @@ namespace GameWorldClassLibrary.Services
                     break;
                 case "Connect4":
 
-                    gameService = new Connect4Service(Guid.Empty, player, Player.Bot(), new Connect4Repository(gamesDbContext));
+                    gameService = new Connect4Service(Guid.Empty, player, Player.Bot(), new Connect4RepositoryDB(gamesDbContext));
                     break;
             }
             bot = BotStoreService.GetBotForTheGivenGameType(gameType, difficulty, gameService.GetGame().GameState.Id, player, gamesDbContext);

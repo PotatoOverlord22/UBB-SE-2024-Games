@@ -6,7 +6,7 @@ namespace GameWorldClassLibrary.Services
 {
     public class Connect4BotService(string difficulty, Guid gameStateId, Player player, GamesContext gameDbContext) : IBot
     {
-        private readonly Connect4Service gameService = new(gameStateId, player, Player.Null(), new Connect4Repository(gameDbContext));
+        private readonly Connect4Service gameService = new(gameStateId, player, Player.Null(), new Connect4RepositoryDB(gameDbContext));
         private readonly Player player = player;
         private readonly int searchDepth = difficulty.ToLower() switch
         {

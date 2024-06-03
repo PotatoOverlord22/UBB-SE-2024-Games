@@ -1,6 +1,7 @@
-﻿using System.Net.Http;
+﻿using GameWorld.Views;
 using GameWorldClassLibrary.Repositories;
 using GameWorldClassLibrary.Services;
+using GameWorldClassLibrary.Utils;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GameWorld.Resources.Utils
@@ -14,6 +15,7 @@ namespace GameWorld.Resources.Utils
             var serviceProvider = new ServiceCollection()
                 .ConfigureRepositories()
                 .ConfigureServices()
+                .ConfigureViews()
                 .BuildServiceProvider();
             ServiceProvider = serviceProvider;
 
@@ -25,7 +27,6 @@ namespace GameWorld.Resources.Utils
     {
         public static IServiceCollection ConfigureServices(this IServiceCollection services)
         {
-            services.AddScoped<HttpClient>();
             services.AddScoped<IAchievementService, AchievementService>();
             services.AddScoped<IMarketService, MarketService>();
             services.AddScoped<IFarmService, FarmService>();
@@ -36,23 +37,32 @@ namespace GameWorld.Resources.Utils
             services.AddScoped<IInventoryService, InventoryService>();
             services.AddScoped<IItemService, ItemService>();
             services.AddScoped<IDatabaseProvider, DatabaseProvider>();
+            services.AddScoped<ISkillIssueBroService, SkillIssueBroService>();
             return services;
         }
 
         public static IServiceCollection ConfigureRepositories(this IServiceCollection services)
         {
+            services.AddScoped<IRequestClient, HttpClientImpl>();
             services.AddScoped<IDatabaseProvider, DatabaseProvider>();
-            services.AddScoped<IAchievementRepository, AchievementRepositoryHttp>();
-            services.AddScoped<ICommentRepository, CommentRepositoryHttp>();
-            services.AddScoped<IFarmCellRepository, FarmCellRepositoryHttp>();
-            services.AddScoped<IInventoryResourceRepository, InventoryResourceRepositoryHttp>();
-            services.AddScoped<IItemRepository, ItemRepositoryHttp>();
-            services.AddScoped<IMarketBuyItemRepository, MarketBuyItemRepositoryHttp>();
-            services.AddScoped<IMarketSellResourceRepository, MarketSellResourceRepositoryHttp>();
-            services.AddScoped<IResourceRepository, ResourceRepositoryHttp>();
-            services.AddScoped<ITradeRepository, TradeRepositoryHttp>();
+            services.AddScoped<IAchievementRepository, AchievementRepositoryClient>();
+            services.AddScoped<ICommentRepository, CommentRepositoryClient>();
+            services.AddScoped<IFarmCellRepository, FarmCellRepositoryClient>();
+            services.AddScoped<IInventoryResourceRepository, InventoryResourceRepositoryClient>();
+            services.AddScoped<IItemRepository, ItemRepositoryClient>();
+            services.AddScoped<IMarketBuyItemRepository, MarketBuyItemRepositoryClient>();
+            services.AddScoped<IMarketSellResourceRepository, MarketSellResourceRepositoryClient>();
+            services.AddScoped<IResourceRepository, ResourceRepositoryClient>();
+            services.AddScoped<ITradeRepository, TradeRepositoryClient>();
             services.AddScoped<IUserAchievementRepository, UserAchievementRepository>();
-            services.AddScoped<IUserRepository, UserRepositoryHttp>();
+            services.AddScoped<IUserRepository, UserRepositoryClient>();
+            services.AddScoped<ISkillIssueBroRepository, SkillIssueBroRepository>();
+
+            return services;
+        }
+        public static IServiceCollection ConfigureViews(this IServiceCollection services)
+        {
+            services.AddScoped<GameBoardWindow>();
 
             return services;
         }

@@ -5,16 +5,16 @@ using GameWorldClassLibrary.Utils;
 
 namespace GameWorldClassLibrary.Repositories
 {
-    public class AchievementRepositoryHttp : IAchievementRepository
+    public class AchievementRepositoryClient : IAchievementRepository
     {
-        private HttpClient httpClient;
-        public AchievementRepositoryHttp(HttpClient httpClient)
+        private IRequestClient requestClient;
+        public AchievementRepositoryClient(IRequestClient requestClient)
         {
-            this.httpClient = httpClient;
+            this.requestClient = requestClient;
         }
         public async Task<Achievement> GetAchievementByIdAsync(Guid achievementId)
         {
-            var response = await httpClient.GetAsync($"{Apis.ACHIEVEMENTS_BASE_URL}/{achievementId}");
+            var response = await requestClient.GetAsync($"{Apis.ACHIEVEMENTS_BASE_URL}/{achievementId}");
             string apiResponse = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -33,7 +33,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task<List<Achievement>> GetAllAchievementsAsync()
         {
-            var response = await httpClient.GetAsync(Apis.ACHIEVEMENTS_BASE_URL);
+            var response = await requestClient.GetAsync(Apis.ACHIEVEMENTS_BASE_URL);
             string apiResponse = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -52,7 +52,7 @@ namespace GameWorldClassLibrary.Repositories
         }
         public async Task AddAchievementAsync(Achievement achievement)
         {
-            var response = await httpClient.PostAsync(Apis.ACHIEVEMENTS_BASE_URL, JsonContent.Create(achievement));
+            var response = await requestClient.PostAsync(Apis.ACHIEVEMENTS_BASE_URL, JsonContent.Create(achievement));
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Achievement added successfully.");
@@ -65,7 +65,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task DeleteAchievementAsync(Guid achievementId)
         {
-            var response = await httpClient.DeleteAsync($"{Apis.ACHIEVEMENTS_BASE_URL}/{achievementId}");
+            var response = await requestClient.DeleteAsync($"{Apis.ACHIEVEMENTS_BASE_URL}/{achievementId}");
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Achievement deleted successfully.");
@@ -82,7 +82,7 @@ namespace GameWorldClassLibrary.Repositories
             var content = JsonContent.Create(jsonSerialized);
             string endpoint = $"{Apis.ACHIEVEMENTS_BASE_URL}/{achievement.Id}";
 
-            var response = await httpClient.PutAsync(endpoint, content);
+            var response = await requestClient.PutAsync(endpoint, content);
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Achievement updated successfully.");

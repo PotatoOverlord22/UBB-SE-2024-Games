@@ -5,18 +5,18 @@ using System.Net.Http.Json;
 
 namespace GameWorldClassLibrary.Repositories
 {
-    public class ItemRepositoryHttp : IItemRepository
+    public class ItemRepositoryClient : IItemRepository
     {
-        private HttpClient httpClient;
-        public ItemRepositoryHttp(HttpClient httpClient)
+        private IRequestClient requestClient;
+        public ItemRepositoryClient(IRequestClient requestClient)
         {
-            this.httpClient = httpClient;
+            this.requestClient = requestClient;
         }
         public async Task<List<Item>> GetAllItemsAsync()
         {
             List<Item> items = new List<Item>();
 
-            var response = await httpClient.GetAsync(Apis.ITEMS_BASE_URL);
+            var response = await requestClient.GetAsync(Apis.ITEMS_BASE_URL);
             string apiResponse = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -37,7 +37,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task<Item> GetItemByIdAsync(Guid itemId)
         {
-            var response = await httpClient.GetAsync($"{Apis.ITEMS_BASE_URL}/{itemId}");
+            var response = await requestClient.GetAsync($"{Apis.ITEMS_BASE_URL}/{itemId}");
             string apiResponse = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -57,7 +57,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task<Item> GetItemByTypeAsync(ItemType itemType)
         {
-            var response = await httpClient.GetAsync($"{Apis.ITEMS_BASE_URL}/{itemType}");
+            var response = await requestClient.GetAsync($"{Apis.ITEMS_BASE_URL}/{itemType}");
             string apiResponse = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -77,7 +77,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task CreateItemAsync(Item item)
         {
-            var response = await httpClient.PostAsync(Apis.ITEMS_BASE_URL, JsonContent.Create(item));
+            var response = await requestClient.PostAsync(Apis.ITEMS_BASE_URL, JsonContent.Create(item));
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Item added successfully.");
@@ -94,7 +94,7 @@ namespace GameWorldClassLibrary.Repositories
             var content = JsonContent.Create(jsonSerialized);
             string endpoint = $"{Apis.ITEMS_BASE_URL}/{item}";
 
-            var response = await httpClient.PutAsync(endpoint, content);
+            var response = await requestClient.PutAsync(endpoint, content);
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Item updated successfully.");
@@ -107,7 +107,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task DeleteItemAsync(Guid itemId)
         {
-            var response = await httpClient.DeleteAsync($"{Apis.ITEMS_BASE_URL}/{itemId}");
+            var response = await requestClient.DeleteAsync($"{Apis.ITEMS_BASE_URL}/{itemId}");
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Item deleted successfully.");
