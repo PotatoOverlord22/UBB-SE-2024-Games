@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using GameWorldClassLibrary.Models;
+using GameWorldClassLibrary.Utils;
 namespace GameWorld.Views
 {
     public partial class GameBoardWindow : UserControl
@@ -36,11 +37,10 @@ namespace GameWorld.Views
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:5070/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 // get paws and spawn them again
-                var response = client.GetAsync("api/SkillIssueBroGame/GetPawns");
+                var response = client.GetAsync($"{Apis.SKILL_ISSUE_BRO_BASE_URL}/GetPawns");
                 if (response.Result.IsSuccessStatusCode)
                 {
                     var pawnList = response.Result.Content.ReadFromJsonAsync<List<Pawn>>().Result;
@@ -53,11 +53,11 @@ namespace GameWorld.Views
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:5070/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var response = await client.GetAsync("api/SkillIssueBroGame/GetCurrentPlayerColor");
+                var response = await client.GetAsync($"{Apis.SKILL_ISSUE_BRO_BASE_URL}/GetCurrentPlayerColor");
+                Console.WriteLine(response.Content.ReadAsStringAsync().Result);
                 if (response.IsSuccessStatusCode)
                 {
                     string color = await response.Content.ReadAsStringAsync();
@@ -102,11 +102,10 @@ namespace GameWorld.Views
             ClearPawnChildren();
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:5070/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 // get paws and spawn them again
-                var response = client.GetAsync("api/SkillIssueBroGame/GetPawns");
+                var response = client.GetAsync($"{Apis.SKILL_ISSUE_BRO_BASE_URL}/GetPawns");
                 if (response.Result.IsSuccessStatusCode)
                 {
                     var pawnList = response.Result.Content.ReadFromJsonAsync<List<Pawn>>().Result;
@@ -126,25 +125,23 @@ namespace GameWorld.Views
             ClearPawnChildren();
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:5070/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 // get paws and spawn them again
-                var response = client.GetAsync("api/SkillIssueBroGame/GetPawns");
-                if (response.Result.IsSuccessStatusCode)
+                var response = await client.GetAsync($"{Apis.SKILL_ISSUE_BRO_BASE_URL}/GetPawns");
+                if (response.IsSuccessStatusCode)
                 {
-                    var pawnList = response.Result.Content.ReadFromJsonAsync<List<Pawn>>().Result;
+                    var pawnList = response.Content.ReadFromJsonAsync<List<Pawn>>().Result;
                     SpawnPawns(pawnList);
                 }
             }
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:5070/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = await client.GetAsync("api/SkillIssueBroGame/ChangeCurrentPlayer");
+                var response = await client.GetAsync($"{Apis.SKILL_ISSUE_BRO_BASE_URL}/ChangeCurrentPlayer");
             }
-            ShowCurrentPlayerColorEllipseAsync();
+            await ShowCurrentPlayerColorEllipseAsync();
             HideDice();
             column1.column1Grid.Children[1].Visibility = Visibility.Visible;
         }
@@ -158,10 +155,9 @@ namespace GameWorld.Views
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("http://localhost:5070/");
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage response = client.GetAsync($"api/SkillIssueBroGame/MovePawnBasedOnClick?column={column}&row={row}&leftDiceValue={leftDiceValue}&rightDiceValue={rightDiceValue}").Result;
+                    HttpResponseMessage response = client.GetAsync($"{Apis.SKILL_ISSUE_BRO_BASE_URL}/MovePawnBasedOnClick?column={column}&row={row}&leftDiceValue={leftDiceValue}&rightDiceValue={rightDiceValue}").Result;
                     if (!response.Content.ReadAsStringAsync().Result.Equals("Moved pawn successfully"))
                     {
                         throw new Exception(response.Content.ReadAsStringAsync().Result);
@@ -218,10 +214,11 @@ namespace GameWorld.Views
             // will need to make 2 requests to get the values of the dice
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:5070/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = client.GetAsync("api/SkillIssueBroGame/RollDice");
+                var response = client.GetAsync($"{Apis.SKILL_ISSUE_BRO_BASE_URL}/RollDice");
+                Console.WriteLine(response.Result.Content.ReadAsStringAsync().Result);
+
                 if (response.Result.IsSuccessStatusCode)
                 {
                     leftDiceValue = response.Result.Content.ReadFromJsonAsync<int>().Result;
@@ -229,10 +226,9 @@ namespace GameWorld.Views
             }
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:5070/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = client.GetAsync("api/SkillIssueBroGame/RollDice");
+                var response = client.GetAsync($"{Apis.SKILL_ISSUE_BRO_BASE_URL}/RollDice");
                 if (response.Result.IsSuccessStatusCode)
                 {
                     rightDiceValue = response.Result.Content.ReadFromJsonAsync<int>().Result;
@@ -302,19 +298,18 @@ namespace GameWorld.Views
             column2.column2Grid.Children.Add(rightDice);
         }
 
-        private void GameBoardWindow_Loaded(object sender, RoutedEventArgs e)
+        private async void GameBoardWindow_Loaded(object sender, RoutedEventArgs e)
         {
             // create the controller when the window is loaded
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:5070/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 // get paws and spawn them again
-                var response = client.GetAsync("api/SkillIssueBroGame/GetPawns");
-                if (response.Result.IsSuccessStatusCode)
+                var response = await client.GetAsync($"{Apis.SKILL_ISSUE_BRO_BASE_URL}/GetPawns");
+                if (response.IsSuccessStatusCode)
                 {
-                    var pawnList = response.Result.Content.ReadFromJsonAsync<List<Pawn>>().Result;
+                    var pawnList = response.Content.ReadFromJsonAsync<List<Pawn>>().Result;
                     SpawnPawns(pawnList);
                 }
             }

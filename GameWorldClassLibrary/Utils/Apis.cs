@@ -15,5 +15,8 @@
         public static readonly string MARKET_SELL_RESOURCE = "https://localhost:8080/api/MarketSellResource";
         public static readonly string POKER_LEADERBOARD_URL = "https://localhost:8080/api/Users/poker-leaderboard";
         public static readonly string TRADES_BASE_URL = "https://localhost:8080/api/Trades";
+
+        public static readonly string TWO_PLAYER_GAMES_BASE_URL = "https://localhost:8080/api/TwoPlayerGames";
+        public static readonly string SKILL_ISSUE_BRO_BASE_URL = "https://localhost:8080/api/SkillIssueBro";
     }
 }

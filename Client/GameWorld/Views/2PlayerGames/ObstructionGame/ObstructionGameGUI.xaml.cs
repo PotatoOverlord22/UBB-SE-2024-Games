@@ -8,6 +8,7 @@ using System.Windows.Media;
 using GameWorld.Utils;
 using GameWorldClassLibrary.exceptions;
 using GameWorldClassLibrary.Models;
+using GameWorldClassLibrary.Utils;
 using Newtonsoft.Json;
 using Brushes = System.Windows.Media.Brushes;
 
@@ -28,8 +29,7 @@ namespace GameWorld.Views
             // send the play service to the server
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:5070/api/2PlayerGames/CreatePlayService/");
-                client.PostAsJsonAsync($"?playServiceType=OfflineGameService", Router.PlayService);
+                client.PostAsJsonAsync($"{Apis.TWO_PLAYER_GAMES_BASE_URL}/CreatePlayService?playServiceType=OfflineGameService", Router.PlayService);
             }
             InitializeComponent();
             Loaded += ObstructionGameGUI_Loaded;
@@ -40,26 +40,25 @@ namespace GameWorld.Views
         {
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:5070/api/");
                 while (true)
                 {
-                    if (client.GetAsync("2PlayerGames/HasData").Result.Content.ReadAsStringAsync().Result == "True")
+                    if (client.GetAsync($"{Apis.TWO_PLAYER_GAMES_BASE_URL}/HasData").Result.Content.ReadAsStringAsync().Result == "True")
                     {
                         this.Dispatcher.Invoke(() =>
                         {
                             ObstructionGrid.IsEnabled = false;
                         });
-                        client.GetAsync("2PlayerGames/PlayOther");
+                        client.GetAsync($"{Apis.TWO_PLAYER_GAMES_BASE_URL}/PlayOther");
                         SetCurrentTurn();
-                        client.GetAsync("2PlayerGames/SetFirstTurn");
+                        client.GetAsync($"{Apis.TWO_PLAYER_GAMES_BASE_URL}/SetFirstTurn");
                         this.Dispatcher.Invoke(() => { UpdateBoard(); });
                         this.Dispatcher.Invoke(() =>
                         {
                             ObstructionGrid.IsEnabled = true;
                         });
-                        if (client.GetAsync("2PlayerGames/IsGameOver").Result.Content.ReadAsStringAsync().Result == "True")
+                        if (client.GetAsync($"{Apis.TWO_PLAYER_GAMES_BASE_URL}/IsGameOver").Result.Content.ReadAsStringAsync().Result == "True")
                         {
-                            Guid? winner = client.GetAsync("2PlayerGames/GetWinner").Result.Content.ReadFromJsonAsync<Guid>().Result;
+                            Guid? winner = client.GetAsync($"{Apis.TWO_PLAYER_GAMES_BASE_URL}/GetWinner").Result.Content.ReadFromJsonAsync<Guid>().Result;
                             if (winner == Guid.Empty)
                             {
                                 this.Dispatcher.Invoke(() =>
@@ -99,8 +98,7 @@ namespace GameWorld.Views
         {
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:5070/api/");
-                if (client.GetAsync("2PlayerGames/GetTurn").Result.Content.ReadFromJsonAsync<Guid>().Result != Router.UserPlayer.Id)
+                if (client.GetAsync($"{Apis.TWO_PLAYER_GAMES_BASE_URL}/GetTurn").Result.Content.ReadFromJsonAsync<Guid>().Result != Router.UserPlayer.Id)
                 {
                     worker.RunWorkerAsync();
                 }
@@ -132,8 +130,7 @@ namespace GameWorld.Views
         {
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:5070/api/");
-                if (client.GetAsync("2PlayerGames/GetTurn").Result.Content.ReadFromJsonAsync<Guid>().Result == Router.UserPlayer.Id)
+                if (client.GetAsync($"{Apis.TWO_PLAYER_GAMES_BASE_URL}/GetTurn").Result.Content.ReadFromJsonAsync<Guid>().Result == Router.UserPlayer.Id)
                 {
                     this.Dispatcher.Invoke(() => { CurrentPlayerTurn.Text = Router.UserPlayer.Name + "'s turn"; });
                 }
@@ -237,7 +234,6 @@ namespace GameWorld.Views
         {
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:5070/api/");
                 object[] arg =
                 [
                     column,
@@ -245,18 +241,18 @@ namespace GameWorld.Views
                 ];
                 try
                 {
-                    client.PostAsync("2PlayerGames/Play", new StringContent(JsonConvert.SerializeObject(arg), System.Text.Encoding.UTF8, "application/json"));
+                    client.PostAsync($"{Apis.TWO_PLAYER_GAMES_BASE_URL}/Play", new StringContent(JsonConvert.SerializeObject(arg), System.Text.Encoding.UTF8, "application/json"));
                     UpdateBoard();
-                    if (client.GetAsync("2PlayerGames/IsGameOver").Result.Content.ReadAsStringAsync().Result == "True")
+                    if (client.GetAsync($"{Apis.TWO_PLAYER_GAMES_BASE_URL}/IsGameOver").Result.Content.ReadAsStringAsync().Result == "True")
                     {
-                        Guid? winner = client.GetAsync("2PlayerGames/GetWinner").Result.Content.ReadFromJsonAsync<Guid>().Result;
+                        Guid? winner = client.GetAsync($"{Apis.TWO_PLAYER_GAMES_BASE_URL}/GetWinner").Result.Content.ReadFromJsonAsync<Guid>().Result;
                         if (winner == null)
                         {
                             MessageBox.Show("It's a draw!");
                         }
                         else
                         {
-                            if (client.GetAsync("2PlayerGames/GetWinner").Result.Content.ReadFromJsonAsync<Guid>().Result == Router.UserPlayer.Id)
+                            if (client.GetAsync($"{Apis.TWO_PLAYER_GAMES_BASE_URL}/GetWinner").Result.Content.ReadFromJsonAsync<Guid>().Result == Router.UserPlayer.Id)
                             {
                                 MessageBox.Show("You won!");
                             }
@@ -288,8 +284,7 @@ namespace GameWorld.Views
         {
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:5070/api/");
-                foreach (IPiece piece in client.GetAsync("2PlayerGames/GetBoard").Result.Content.ReadFromJsonAsync<IPiece[]>().Result)
+                foreach (IPiece piece in client.GetAsync($"{Apis.TWO_PLAYER_GAMES_BASE_URL}/GetBoard").Result.Content.ReadFromJsonAsync<IPiece[]>().Result)
                 {
                     string content;
 
