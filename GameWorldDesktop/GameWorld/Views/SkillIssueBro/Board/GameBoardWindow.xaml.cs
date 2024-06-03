@@ -111,12 +111,12 @@ namespace GameWorld.Views
             {
                 List<Pawn> pawns = await skillIssueBroService.GetPawns();
                 SpawnPawns(pawns);
-                skillIssueBroService.NextPlayer();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            await skillIssueBroService.NextPlayer();
             await ShowCurrentPlayerColorEllipseAsync();
             HideDice();
             column1.column1Grid.Children[1].Visibility = Visibility.Visible;
@@ -129,7 +129,7 @@ namespace GameWorld.Views
 
             try
             {
-                skillIssueBroService.MovePawnBasedOnClick(column, row, leftDiceValue, rightDiceValue);
+                await skillIssueBroService.MovePawnBasedOnClick(column, row, leftDiceValue, rightDiceValue);
                 if (leftDiceValue != rightDiceValue)
                 {
                     await SwitchToNextTurnAsync();
@@ -141,7 +141,7 @@ namespace GameWorld.Views
             }
             catch (Exception ex)
             {
-                string message = ex.Message.Replace("\"", string.Empty);
+                string message = ex.Message;
                 if (message.Equals("Can't move pawn yet"))
                 {
                     MessageBox.Show(ex.Message);

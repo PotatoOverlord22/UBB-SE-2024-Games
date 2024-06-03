@@ -6,8 +6,8 @@ namespace GameWorldClassLibrary.Services
     {
         Task <string> GetCurrentPlayerColor();
         Task<List<Pawn>> GetPawns();
-        void MovePawnBasedOnClick(int column, int row, int leftDiceValue, int rightDiceValue);
-        void NextPlayer();
+        Task MovePawnBasedOnClick(int column, int row, int leftDiceValue, int rightDiceValue);
+        Task NextPlayer();
         Task<int> RollDice();
     }
 }

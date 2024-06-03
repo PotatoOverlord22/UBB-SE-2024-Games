@@ -54,6 +54,10 @@ namespace GameWorldClassLibrary.Repositories
                 // Maybe do something more interesting here
                 Console.WriteLine("Pawn moved successfully.");
             }
+            if (!response.Content.ReadAsStringAsync().Result.Equals("Moved pawn successfully"))
+            {
+                throw new Exception(response.Content.ReadAsStringAsync().Result);
+            }
             else
             {
                 // Log the response status code and reason phrase
@@ -72,9 +76,14 @@ namespace GameWorldClassLibrary.Repositories
         public async Task NextPlayer()
         {
             var response = await requestClient.GetAsync($"{Apis.SKILL_ISSUE_BRO_BASE_URL}/ChangeCurrentPlayer");
-            if (!response.Content.ReadAsStringAsync().Result.Equals("Moved pawn successfully"))
+            if (response.IsSuccessStatusCode)
             {
-                throw new Exception(response.Content.ReadAsStringAsync().Result);
+                // Do something more interesting here
+                Console.WriteLine("Player changed successfully.");
+            }
+            else
+            {
+                throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
             }
         }
 

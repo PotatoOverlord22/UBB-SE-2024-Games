@@ -36,11 +36,11 @@ namespace GameWorldClassLibrary.Services
             }
         }
 
-        public void MovePawnBasedOnClick(int column, int row, int leftDiceValue, int rightDiceValue)
+        public async Task MovePawnBasedOnClick(int column, int row, int leftDiceValue, int rightDiceValue)
         {
             try
             {
-                skillIssueBroRepository.MovePawnBasedOnClick(column, row, leftDiceValue, rightDiceValue);
+                await skillIssueBroRepository.MovePawnBasedOnClick(column, row, leftDiceValue, rightDiceValue);
             }
             catch (Exception e)
             {
@@ -49,11 +49,11 @@ namespace GameWorldClassLibrary.Services
             }
         }
 
-        public void NextPlayer()
+        public async Task NextPlayer()
         {
             try
             {
-                skillIssueBroRepository.NextPlayer();
+                await skillIssueBroRepository.NextPlayer();
             }
             catch (Exception e)
             {
