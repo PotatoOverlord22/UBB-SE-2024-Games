@@ -139,6 +139,8 @@ namespace GameWorld.Views
                     RerollDice();
                 }
             }
+            // TODO: Clean up this exception handling. This is illegal, why the fuck are you executing logic based
+            // on the message of the exception?
             catch (Exception ex)
             {
                 string message = ex.Message;

@@ -22,17 +22,17 @@ namespace GameWorld.Views
 
         private void OnChooseTwoPlayers(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new GameBoardWindow(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ISkillIssueBroService>()));
+            NavigationService.Navigate(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<GameBoardWindow>());
         }
 
         private void OnChooseThreePlayers(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new GameBoardWindow(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ISkillIssueBroService>()));
+            NavigationService.Navigate(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<GameBoardWindow>());
         }
 
         private void OnChooseFourPlayers(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new GameBoardWindow(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ISkillIssueBroService>()));
+            NavigationService.Navigate(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<GameBoardWindow>());
         }
     }
 }

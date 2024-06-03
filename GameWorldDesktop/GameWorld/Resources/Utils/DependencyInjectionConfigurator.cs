@@ -15,6 +15,7 @@ namespace GameWorld.Resources.Utils
             var serviceProvider = new ServiceCollection()
                 .ConfigureRepositories()
                 .ConfigureServices()
+                .ConfigureViews()
                 .BuildServiceProvider();
             ServiceProvider = serviceProvider;
 
@@ -56,6 +57,12 @@ namespace GameWorld.Resources.Utils
             services.AddScoped<IUserAchievementRepository, UserAchievementRepository>();
             services.AddScoped<IUserRepository, UserRepositoryClient>();
             services.AddScoped<ISkillIssueBroRepository, SkillIssueBroRepository>();
+
+            return services;
+        }
+        public static IServiceCollection ConfigureViews(this IServiceCollection services)
+        {
+            services.AddScoped<GameBoardWindow>();
 
             return services;
         }
