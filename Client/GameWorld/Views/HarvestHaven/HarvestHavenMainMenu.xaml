@@ -1,15 +1,12 @@
-﻿<Window x:Class="GameWorld.Views.HarvestHavenMainMenu"
+﻿<Page x:Class="GameWorld.Views.HarvestHavenMainMenu"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GameWorld.Views"
         mc:Ignorable="d"
-        Title="MainMenu"
-        ResizeMode="NoResize"
-        SizeToContent="WidthAndHeight">
+        Title="MainMenu">
 
-    <Window.Resources>
+    <Page.Resources>
         <Style TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -21,9 +18,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </Window.Resources>
+    </Page.Resources>
 
-    <StackPanel Height="450" Width="800" Orientation="Vertical">
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical">
         <StackPanel.Background>
             <ImageBrush ImageSource="/Resources/Assets/HarvestHaven/Sprites/start_background.jpg"/>
         </StackPanel.Background>
@@ -86,4 +83,4 @@ RadiusX="0.5" RadiusY="0.5">
             </Grid>
         </StackPanel>
     </StackPanel>
-</Window>
+</Page>

@@ -1,10 +1,11 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using GameWorldClassLibrary.Models;
 using GameWorldClassLibrary.Services;
 
 namespace GameWorld.Views
 {
-    public partial class SellMarket : Window
+    public partial class SellMarket : Page
     {
         private readonly Farm farmScreen;
         private readonly IMarketService marketService;
@@ -19,12 +20,8 @@ namespace GameWorld.Views
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            farmScreen.Top = this.Top;
-            farmScreen.Left = this.Left;
-
+            NavigationService.Navigate(farmScreen);
             farmScreen.RefreshGUI();
-            farmScreen.Show();
-            this.Close();
         }
 
         private async void SellItem(ResourceType resourceType)

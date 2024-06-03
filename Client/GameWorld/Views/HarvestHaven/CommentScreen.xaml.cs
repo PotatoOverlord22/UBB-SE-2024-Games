@@ -1,9 +1,10 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using GameWorldClassLibrary.Models;
 using GameWorldClassLibrary.Services;
 namespace GameWorld.Views
 {
-    public partial class CommentScreen : Window
+    public partial class CommentScreen : Page
     {
         private VisitedFarm visitedFarm;
         private User user;
@@ -20,11 +21,7 @@ namespace GameWorld.Views
 
         private void BackToVisitedFarm()
         {
-            visitedFarm.Top = this.Top;
-            visitedFarm.Left = this.Left;
-
-            visitedFarm.Show();
-            this.Close();
+            NavigationService.Navigate(visitedFarm);
         }
 
         private async void Button_Click_Send(object sender, RoutedEventArgs e)

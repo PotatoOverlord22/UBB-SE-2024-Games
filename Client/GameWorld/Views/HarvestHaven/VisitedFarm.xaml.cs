@@ -10,7 +10,7 @@ using GameWorldClassLibrary.Services;
 
 namespace GameWorld.Views
 {
-    public partial class VisitedFarm : Window
+    public partial class VisitedFarm : Page
     {
         private readonly IFarmService farmService;
         private readonly IUserService userService;
@@ -195,22 +195,13 @@ namespace GameWorld.Views
 
         private void BackButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            profileTab.Top = this.Top;
-            profileTab.Left = this.Left;
-
-            profileTab.Show();
-            this.Close();
+            NavigationService.Navigate(profileTab);
         }
 
         private void CommentButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
             CommentScreen commentScreen = new CommentScreen(this, user, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>());
-
-            commentScreen.Top = this.Top;
-            commentScreen.Left = this.Left;
-
-            commentScreen.Show();
-            this.Hide();
+            NavigationService.Navigate(commentScreen);
         }
     }
 }

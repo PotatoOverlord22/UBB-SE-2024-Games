@@ -1,15 +1,14 @@
-﻿<Window x:Class="GameWorld.Views.SellMarket"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GameWorld.Views"
-        mc:Ignorable="d"
-        Title="SellMarket"
-        ResizeMode="NoResize"
-        SizeToContent="WidthAndHeight">
+﻿<Page x:Class="GameWorld.Views.SellMarket"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:GameWorld.Views"
+      mc:Ignorable="d"
+      Title="SellMarket"
+      >
 
-    <Window.Resources>
+    <Page.Resources>
         <Style TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -21,9 +20,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </Window.Resources>
+    </Page.Resources>
 
-    <Grid Height="450" Width="800">
+    <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Resources/Assets/HarvestHaven/Sprites/shop.PNG"/>
         </Grid.Background>
@@ -66,4 +65,4 @@
         <Rectangle x:Name="BackButton" HorizontalAlignment="Left" Height="58" Margin="610,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="190" MouseDown="BackButton_MouseDown" Fill="#00000000"/>
         -->
     </Grid>
-</Window>
+</Page>

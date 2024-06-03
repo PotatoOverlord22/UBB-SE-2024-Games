@@ -1,15 +1,12 @@
-﻿<Window x:Class="GameWorld.Views.TradingInventory"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GameWorld.Views"
-        mc:Ignorable="d"
-        Title="TradingInventory"
-        ResizeMode="NoResize"
-        SizeToContent="WidthAndHeight">
+﻿<Page x:Class="GameWorld.Views.TradingInventory"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:GameWorld.Views"
+      mc:Ignorable="d">
 
-    <Window.Resources>
+    <Page.Resources>
         <Style TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -21,9 +18,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </Window.Resources>
+    </Page.Resources>
 
-    <Grid Height="450" Width="800">
+    <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Resources/Assets/HarvestHaven/Sprites/inventory_icon.jpg" Stretch="Fill" TileMode="None">
                 <ImageBrush.RelativeTransform>
@@ -106,4 +103,4 @@
         <Rectangle x:Name="cowButton" HorizontalAlignment="Left" Height="70" Margin="491,256,0,0" VerticalAlignment="Top" Width="70" Fill="#00000000" Cursor="Hand" MouseDown="CowButton_MouseDown"/>
         <Rectangle x:Name="duckButton" HorizontalAlignment="Left" Height="70" Margin="581,256,0,0" VerticalAlignment="Top" Width="70" Fill="#00000000" Cursor="Hand" MouseDown="DuckButton_MouseDown"/>
     </Grid>
-</Window>
+</Page>

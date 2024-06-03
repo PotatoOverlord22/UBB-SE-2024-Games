@@ -17,7 +17,7 @@ namespace GameWorld.Views
         private void HumanButton_Click(object sender, RoutedEventArgs e)
         {
             Router.OnlineGame = true;
-            // this.NavigationService.Navigate(Router.LoadingPage);
+            this.NavigationService.Navigate(Router.LoadingPage);
         }
 
         private void RobotButton_Click(object sender, RoutedEventArgs e)
