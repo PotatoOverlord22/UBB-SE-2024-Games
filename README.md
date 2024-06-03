@@ -1,13 +1,17 @@
 # Overview
-This is the result of merging two game projects: HarvestHaven (previously hosted here) and [Superbet Beclean](https://github.com/mirceamaierean/UBB-SE-2024-SuperbetBeclean)
+Contains all the games from the software engineering project UBB 2024.
 
-### GameWorld contains two different games: 
+### GameWorld contains different games: 
 
 **HarvestHaven** - an interactive farm simulator with scores, leaderboads, markets and harvesting mechanics.
 
-**Superbet Beclean** - an online poker and gambling simulator.
+**Skill Issue bro** - a.k.a "nu te supara, frate"
 
-The project is written in C# using WPF framework and uses the following packages: MSTest and NUnit for testing purposes, configuration manager, microsoft dependency injection and hosting, StyleCop for strict style rules.
+**Obstruction Game**
+
+**Connect4**
+
+# Teams (TBU)
 
 # Meet Team 42 Eagleflies
 ### [Raul Tiron (TL)](https://github.com/PotatoOverlord22)
