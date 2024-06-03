@@ -19,6 +19,8 @@
             this.AssociatedPlayer = associatedPlayer;
         }
 
+        public Pawn() { }
+
         public void ChangeTile(Tile tileToChangeTo)
         {
             OccupiedTile = tileToChangeTo;

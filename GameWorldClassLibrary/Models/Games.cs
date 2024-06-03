@@ -28,5 +28,12 @@ namespace GameWorldClassLibrary.Models
             this.Name = string.Empty;
             this.Category = string.Empty;
         }
+
+        public Games(string name)
+        {
+            this.Id = Guid.NewGuid();
+            this.Name = name;
+            this.Category = string.Empty;
+        }
     }
 }

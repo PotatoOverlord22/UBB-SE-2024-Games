@@ -1,10 +1,9 @@
 ﻿using GameWorldClassLibrary.Models;
 using GameWorldClassLibrary.Repositories;
-using GameWorldClassLibrary.Services;
 using GameWorldClassLibrary.Utils;
 using TwoPlayerGames.exceptions;
 
-namespace GameWorldClassLibrary.Service
+namespace GameWorldClassLibrary.Services
 {
     public class OfflineGameService : IPlayService
     {
