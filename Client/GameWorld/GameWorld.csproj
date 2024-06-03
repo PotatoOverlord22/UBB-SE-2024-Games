@@ -24,7 +24,50 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Assets\2PlayerGamesImages\avatar.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\BishopB.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\BishopW.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\black-circle.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\Board.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\connect4-board.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\dart-board.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\Dartboard.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\devil.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\diamond-rank.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\Human.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\KingB.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\KingW.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\KnightB.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\KnightW.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\o-symbol.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\OIP.jfif" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\p1-avatar.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\p2-avatar.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\PawnB.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\PawnW.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\QueenB.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\QueenW.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\red-circle.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\Robot.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\RookB.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\RookW.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\settings-icon.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\sleepy.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\star.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\sunglasses.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\trophy.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\white-circle.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\x-symbol.png" />
+	  <None Remove="Resources\Assets\2PlayerGamesImages\yellow-circle.png" />
 	  <None Remove="Resources\Assets\principalMenuBackground.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Resources\Assets\2PlayerGamesImages\avatar.png" />
+	  <Resource Include="Resources\Assets\2PlayerGamesImages\BishopB.png" />
+	  <Resource Include="Resources\Assets\2PlayerGamesImages\BishopW.png" />
+	  <Resource Include="Resources\Assets\2PlayerGamesImages\black-circle.png" />
+	  <Resource Include="Resources\Assets\2PlayerGamesImages\Board.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -55,6 +98,36 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Resource Include="Resources\Assets\2PlayerGamesImages\connect4-board.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\dart-board.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\Dartboard.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\devil.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\diamond-rank.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\Human.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\KingB.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\KingW.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\KnightB.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\KnightW.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\o-symbol.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\OIP.jfif" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\p1-avatar.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\p2-avatar.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\PawnB.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\PawnW.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\QueenB.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\QueenW.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\red-circle.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\Robot.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\RookB.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\RookW.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\settings-icon.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\sleepy.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\star.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\sunglasses.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\trophy.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\white-circle.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\x-symbol.png" />
+		<Resource Include="Resources\Assets\2PlayerGamesImages\yellow-circle.png" />
 		<Resource Include="Resources\Assets\HarvestHaven\Sprites\backpack_icon.png" />
 		<Resource Include="Resources\Assets\HarvestHaven\Sprites\bar_icon.png" />
 		<Resource Include="Resources\Assets\HarvestHaven\Sprites\button_icon.jpg" />

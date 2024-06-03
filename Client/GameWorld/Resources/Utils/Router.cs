@@ -9,7 +9,7 @@ namespace GameWorld.Utils
         private static Connect4GameGUI connectPage = new Connect4GameGUI();
         private static ObstructionGameGUI obstructionPage = new ObstructionGameGUI();
         private static ObstructionGameMode obstructionModePage = new ObstructionGameMode();
-        private static MenuPage menuPage = new MenuPage();
+        private static MainMenu menuPage = new MainMenu();
         private static LoadingPage loadingPage = new LoadingPage();
         private static OpponentPage opponentPage = new OpponentPage();
         private static AIDifficultySelection aiSelectionPage = new AIDifficultySelection();
@@ -53,7 +53,7 @@ namespace GameWorld.Utils
             set { obstructionModePage = value; }
         }
 
-        public static MenuPage MenuPage
+        public static MainMenu MenuPage
         {
             get { return menuPage; }
             set { menuPage = value; }

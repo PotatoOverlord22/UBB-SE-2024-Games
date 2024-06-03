@@ -4,7 +4,7 @@ using GameWorldClassLibrary.Services;
 
 namespace GameWorld.Views
 {
-    public partial class Inventory : Window
+    public partial class Inventory : Page
     {
         private Farm farmScreen;
         private readonly IInventoryService inventoryService;
@@ -19,11 +19,7 @@ namespace GameWorld.Views
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            farmScreen.Top = this.Top;
-            farmScreen.Left = this.Left;
-
-            farmScreen.Show();
-            this.Close();
+            NavigationService.Navigate(farmScreen);
         }
         private async void LoadInventory()
         {

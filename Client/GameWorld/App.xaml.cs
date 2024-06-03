@@ -16,8 +16,10 @@ namespace GameWorld
             DependencyInjectionConfigurator.Init();
             userService = DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>();
             SetCurrentUser().Wait();
-            MainMenu mainMenu = new MainMenu();
-            mainMenu.Show();
+            /*MainMenu mainMenu = new MainMenu();
+            mainMenu.Show();*/
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
         }
 
         private async Task SetCurrentUser()

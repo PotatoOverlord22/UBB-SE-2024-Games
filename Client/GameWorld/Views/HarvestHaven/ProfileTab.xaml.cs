@@ -8,7 +8,7 @@ using GameWorldClassLibrary.Services;
 
 namespace GameWorld.Views
 {
-    public partial class ProfileTab : Window
+    public partial class ProfileTab : Page
     {
         private Farm farmScreen;
         private readonly IAchievementService achievementService;
@@ -87,11 +87,7 @@ namespace GameWorld.Views
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            farmScreen.Top = this.Top;
-            farmScreen.Left = this.Left;
-
-            farmScreen.Show();
-            this.Close();
+           NavigationService.Navigate(farmScreen);
         }
         private void User_Click(object sender, RoutedEventArgs e)
         {
@@ -103,8 +99,7 @@ namespace GameWorld.Views
                 return;
             }
             VisitedFarm visitedFarm = new VisitedFarm(clickedUser, this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IFarmService>(), DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>());
-            visitedFarm.Show();
-            this.Hide();
+            NavigationService.Navigate(visitedFarm);
         }
     }
 }

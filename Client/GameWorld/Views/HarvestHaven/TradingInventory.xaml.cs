@@ -6,7 +6,7 @@ using GameWorldClassLibrary.Services;
 
 namespace GameWorld.Views
 {
-    public partial class TradingInventory : Window
+    public partial class TradingInventory : Page
     {
         private TradingUnlocked unlockedScreen;
         private readonly IInventoryService inventoryService;
@@ -29,11 +29,7 @@ namespace GameWorld.Views
 
         private void BackToTrading()
         {
-            unlockedScreen.Top = this.Top;
-            unlockedScreen.Left = this.Left;
-
-            unlockedScreen.Show();
-            this.Close();
+            NavigationService.Navigate(unlockedScreen);
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

@@ -1,11 +1,12 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using GameWorld.Resources.Utils;
 using GameWorldClassLibrary.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GameWorld.Views
 {
-    public partial class HarvestHavenMainMenu : Window
+    public partial class HarvestHavenMainMenu : Page
     {
         public HarvestHavenMainMenu(IHarvestHavenMainService service)
         {
@@ -16,17 +17,12 @@ namespace GameWorld.Views
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             Farm farmScreen = new Farm(DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IFarmService>(), DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>());
-
-            farmScreen.Top = this.Top;
-            farmScreen.Left = this.Left;
-
-            farmScreen.Show();
-            this.Close();
+            NavigationService.Navigate(farmScreen);
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            NavigationService.Navigate(new MainMenu());
         }
     }
 }

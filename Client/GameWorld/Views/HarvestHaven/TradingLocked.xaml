@@ -1,15 +1,12 @@
-﻿<Window x:Class="GameWorld.Views.TradingLocked"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GameWorld.Views"
-        mc:Ignorable="d"
-        Title="TradingLocked"
-        ResizeMode="NoResize"
-        SizeToContent="WidthAndHeight">
+﻿<Page x:Class="GameWorld.Views.TradingLocked"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:GameWorld.Views"
+      mc:Ignorable="d">
 
-    <Window.Resources>
+    <Page.Resources>
         <Style TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -21,9 +18,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </Window.Resources>
+    </Page.Resources>
 
-    <Grid Height="550" Width="900">
+    <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Resources/Assets/HarvestHaven/Sprites/market_background_locked.png" Stretch="UniformToFill"/>
         </Grid.Background>
@@ -46,4 +43,4 @@
         <Label Content="Fee is 500 coins" HorizontalAlignment="Center" Margin="0,171,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.383,0.212" Height="68" Width="414" FontWeight="Bold" FontSize="35" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
     </Grid>
-</Window>
+</Page>

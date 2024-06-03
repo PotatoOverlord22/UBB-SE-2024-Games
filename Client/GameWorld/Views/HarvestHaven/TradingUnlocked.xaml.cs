@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using GameWorldClassLibrary.Models;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,7 @@ using GameWorldClassLibrary.Services;
 
 namespace GameWorld.Views
 {
-    public partial class TradingUnlocked : Window
+    public partial class TradingUnlocked : Page
     {
         private readonly ITradeService tradeService;
         private readonly IResourceService resourceService;
@@ -139,11 +140,7 @@ namespace GameWorld.Views
 
         private void Back_Button_Click(object sender, RoutedEventArgs e)
         {
-            farmScreen.Top = this.Top;
-            farmScreen.Left = this.Left;
-
-            farmScreen.Show();
-            this.Close();
+            NavigationService.Navigate(farmScreen);
         }
 
         private void Give_Button_Click(object sender, RoutedEventArgs e)
@@ -151,13 +148,7 @@ namespace GameWorld.Views
             // Open inventory and select the resource you want to give
             // and return the resource type
             TradingInventory inventoryScreen = new TradingInventory(this, InventoryType.Give, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IInventoryService>());
-
-            inventoryScreen.Top = this.Top;
-            inventoryScreen.Left = this.Left;
-
-            inventoryScreen.Show();
-
-            this.Hide();
+            NavigationService.Navigate(inventoryScreen);
         }
 
         private void Get_Button_Click(object sender, RoutedEventArgs e)
@@ -165,13 +156,7 @@ namespace GameWorld.Views
             // Open inventory and select the resource you want to give
             // and return the resource type
             TradingInventory inventoryScreen = new TradingInventory(this, InventoryType.Get, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IInventoryService>());
-
-            inventoryScreen.Top = this.Top;
-            inventoryScreen.Left = this.Left;
-
-            inventoryScreen.Show();
-
-            this.Hide();
+            NavigationService.Navigate(inventoryScreen);
         }
 
         private async void Confirm_Cancel_Button_Click(object sender, RoutedEventArgs e)

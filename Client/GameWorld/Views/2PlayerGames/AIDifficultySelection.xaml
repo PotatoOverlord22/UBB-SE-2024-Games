@@ -124,7 +124,7 @@
                         BorderBrush="Aqua"
                         BorderThickness="2"
                         CornerRadius="10">
-                        <Image Width="150" Source="../Images/sleepy.png" />
+                        <Image Width="150" Source="/Resources/Assets/2PlayerGamesImages/sleepy.png" />
                     </Border>
                     <Border
                         Width="200"
@@ -133,7 +133,7 @@
                         BorderBrush="Aqua"
                         BorderThickness="2"
                         CornerRadius="10">
-                        <Image Width="120" Source="../Images/sunglasses.png" />
+                        <Image Width="120" Source="/Resources/Assets/2PlayerGamesImages/sunglasses.png" />
                     </Border>
                     <Border
                         Width="200"
@@ -142,7 +142,7 @@
                         BorderBrush="Aqua"
                         BorderThickness="2"
                         CornerRadius="10">
-                        <Image Width="150" Source="../Images/devil.png" />
+                        <Image Width="150" Source="/Resources/Assets/2PlayerGamesImages/devil.png" />
                     </Border>
                 </StackPanel>
             </Grid>

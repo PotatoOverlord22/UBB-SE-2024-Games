@@ -1,11 +1,12 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using GameWorldClassLibrary.Models;
 using GameWorldClassLibrary.Services;
 
 namespace GameWorld.Views
 {
-    public partial class BuyMarket : Window
+    public partial class BuyMarket : Page
     {
         private Farm farmScreen;
         private int row;
@@ -30,12 +31,7 @@ namespace GameWorld.Views
 
         private void BackToFarm()
         {
-            farmScreen.Top = this.Top;
-            farmScreen.Left = this.Left;
-
-            farmScreen.RefreshGUI();
-            farmScreen.Show();
-            this.Close();
+            NavigationService.Navigate(farmScreen);
         }
 
         private async void BuyItem(ItemType itemType)

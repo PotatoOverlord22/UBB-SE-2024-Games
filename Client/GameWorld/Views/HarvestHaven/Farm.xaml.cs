@@ -11,7 +11,7 @@ using GameWorldClassLibrary.Services;
 
 namespace GameWorld.Views
 {
-    public partial class Farm : Window
+    public partial class Farm : Page
     {
         private List<Image> itemIcons = new List<Image>();
         private readonly IFarmService farmService;
@@ -36,43 +36,23 @@ namespace GameWorld.Views
         }
         private void InventoryButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Inventory inventoryScreen = new Inventory(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IInventoryService>());
-
-            inventoryScreen.Top = this.Top;
-            inventoryScreen.Left = this.Left;
-
-            inventoryScreen.Show();
-
-            this.Hide();
+            NavigationService.Navigate(new Inventory(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IInventoryService>()));
         }
 
         private void ShopButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            SellMarket sellMarket = new SellMarket(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IMarketService>());
-
-            sellMarket.Top = this.Top;
-            sellMarket.Left = this.Left;
-
-            sellMarket.Show();
-
-            this.Hide();
+            NavigationService.Navigate(new SellMarket(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IMarketService>()));
         }
 
         private void QuitButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.Close();
+            NavigationService.Navigate(new MainMenu());
         }
 
         private void ProfileButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
             ProfileTab profileTab = new ProfileTab(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IAchievementService>(), DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>());
-
-            profileTab.Top = this.Top;
-            profileTab.Left = this.Left;
-
-            profileTab.Show();
-
-            this.Hide();
+            NavigationService.Navigate(profileTab);
         }
 
         private void TradingHallButton_MouseDown(object sender, MouseButtonEventArgs e)
@@ -82,24 +62,12 @@ namespace GameWorld.Views
             if (unlocked)
             {
                 TradingUnlocked tradingScreen = new TradingUnlocked(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<ITradeService>(), DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IResourceService>());
-
-                tradingScreen.Top = this.Top;
-                tradingScreen.Left = this.Left;
-
-                tradingScreen.Show();
-
-                this.Hide();
+                NavigationService.Navigate(tradingScreen);
             }
             else
             {
                 TradingLocked tradingScreen = new TradingLocked(this, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IUserService>());
-
-                tradingScreen.Top = this.Top;
-                tradingScreen.Left = this.Left;
-
-                tradingScreen.Show();
-
-                this.Hide();
+                NavigationService.Navigate(tradingScreen);
             }
         }
 
@@ -108,13 +76,7 @@ namespace GameWorld.Views
             HideBuyButton(true);
 
             BuyMarket market = new BuyMarket(this, clickedRow, clickedColumn, DependencyInjectionConfigurator.ServiceProvider.GetRequiredService<IMarketService>());
-
-            market.Top = this.Top;
-            market.Left = this.Left;
-
-            market.Show();
-
-            this.Hide();
+            NavigationService.Navigate(market);
         }
 
         public async void RefreshGUI()
