@@ -5,9 +5,6 @@ using GameWorld.Utils;
 
 namespace GameWorld.Views
 {
-    /// <summary>
-    /// Interaction logic for AIDifficultySelection.xaml
-    /// </summary>
     public partial class AIDifficultySelection : Page
     {
         private bool isDragging = false;
