@@ -8,19 +8,18 @@ namespace Server.API.Controllers
     [ApiController]
     public class AchievementsController : ControllerBase
     {
-        private readonly IAchievementRepository achievementService;
+        private readonly IAchievementRepository achievementRepository;
 
-        public AchievementsController(IAchievementRepository achievementService)
+        public AchievementsController(IAchievementRepository achievementRepository)
         {
-            this.achievementService = achievementService;
+            this.achievementRepository = achievementRepository;
         }
-
         // Get all achievements
         // GET: api/achievements
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Achievement>>> GetAchivements()
         {
-            var achievements = await achievementService.GetAllAchievementsAsync();
+            var achievements = await achievementRepository.GetAllAchievementsAsync();
             return achievements;
         }
 
@@ -29,7 +28,7 @@ namespace Server.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Achievement>> GetAchievementById(Guid id)
         {
-            var achievement = await achievementService.GetAchievementByIdAsync(id);
+            var achievement = await achievementRepository.GetAchievementByIdAsync(id);
 
             if (achievement == null)
             {
@@ -46,7 +45,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                await achievementService.UpdateAchievementAsync(achievement);
+                await achievementRepository.UpdateAchievementAsync(achievement);
             }
             catch (KeyNotFoundException e)
             {
@@ -62,7 +61,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                await achievementService.AddAchievementAsync(achievement);
+                await achievementRepository.AddAchievementAsync(achievement);
             }
             catch (Exception e)
             {
@@ -77,7 +76,7 @@ namespace Server.API.Controllers
         {
             try
             {
-                await achievementService.DeleteAchievementAsync(id);
+                await achievementRepository.DeleteAchievementAsync(id);
             }
             catch (KeyNotFoundException e)
             {
