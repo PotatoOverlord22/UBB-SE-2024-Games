@@ -13,7 +13,7 @@ namespace GameWorldClassLibrary.Services
     {
         private IGameService gameService;
         private IPlayService statsService;
-        private BaseGameRepository gameRepo;
+        private BaseGameRepositoryDB gameRepo;
         private Guid startPlayer;
 
         private IPlayerRepository playerRepository;
@@ -111,7 +111,7 @@ namespace GameWorldClassLibrary.Services
                         gameService = new ObstructionService(Guid.Empty, player, opponentPlayer, boardWidth, boardHeight, new ObstructionRepository(gameDbContext));
                         break;
                     case "Connect4":
-                        gameService = new Connect4Service(Guid.Empty, player, opponentPlayer, new Connect4Repository(gameDbContext));
+                        gameService = new Connect4Service(Guid.Empty, player, opponentPlayer, new Connect4RepositoryDB(gameDbContext));
                         break;
                 }
                 SendGame(gameService.GetGame());
@@ -121,7 +121,7 @@ namespace GameWorldClassLibrary.Services
                         gameRepo = new ObstructionRepository(gameDbContext);
                         break;
                     case "Connect4":
-                        gameRepo = new Connect4Repository(gameDbContext);
+                        gameRepo = new Connect4RepositoryDB(gameDbContext);
                         break;
                     default:
                         throw new NotImplementedException();
@@ -135,7 +135,7 @@ namespace GameWorldClassLibrary.Services
                         gameRepo = new ObstructionRepository(gameDbContext);
                         break;
                     case "Connect4":
-                        gameRepo = new Connect4Repository(gameDbContext);
+                        gameRepo = new Connect4RepositoryDB(gameDbContext);
                         break;
                     default:
                         throw new NotImplementedException();
@@ -147,7 +147,7 @@ namespace GameWorldClassLibrary.Services
                         gameService = new ObstructionService(game1.GameState.Id, player, opponentPlayer, boardWidth, boardHeight, new ObstructionRepository(gameDbContext));
                         break;
                     case "Connect4":
-                        gameService = new Connect4Service(game1.GameState.Id, player, opponentPlayer, new Connect4Repository(gameDbContext));
+                        gameService = new Connect4Service(game1.GameState.Id, player, opponentPlayer, new Connect4RepositoryDB(gameDbContext));
                         break;
                 }
             }

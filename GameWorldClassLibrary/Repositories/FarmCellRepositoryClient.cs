@@ -3,18 +3,18 @@ using GameWorldClassLibrary.Utils;
 using System.Net.Http.Json;
 namespace GameWorldClassLibrary.Repositories
 {
-    public class FarmCellRepositoryHttp : IFarmCellRepository
+    public class FarmCellRepositoryClient : IFarmCellRepository
     {
-        private HttpClient httpClient;
-        public FarmCellRepositoryHttp(HttpClient httpClient)
+        private IRequestClient requestClient;
+        public FarmCellRepositoryClient(IRequestClient requestClient)
         {
-            this.httpClient = httpClient;
+            this.requestClient = requestClient;
         }
         public async Task<List<FarmCell>> GetUserFarmCellsAsync(Guid userId)
         {
             try
             {
-                var response = await httpClient.GetAsync($"{Apis.FARM_CELL}/{userId}");
+                var response = await requestClient.GetAsync($"{Apis.FARM_CELL}/{userId}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadFromJsonAsync<List<FarmCell>>() ?? throw new Exception("Response content from getting all farm cells from the backend is invalid: ");
@@ -34,7 +34,7 @@ namespace GameWorldClassLibrary.Repositories
         {
             try
             {
-                var response = await httpClient.GetAsync($"{Apis.FARM_CELL}/userId={userId}&row={row}&column={column}");
+                var response = await requestClient.GetAsync($"{Apis.FARM_CELL}/userId={userId}&row={row}&column={column}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadFromJsonAsync<FarmCell>() ?? throw new Exception("Response content from getting all farm cells by user from the backend is invalid: ");
@@ -54,7 +54,7 @@ namespace GameWorldClassLibrary.Repositories
         {
             try
             {
-                var response = await httpClient.PostAsJsonAsync(Apis.FARM_CELL, farmCell);
+                var response = await requestClient.PostAsync(Apis.FARM_CELL, farmCell);
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new Exception($"Error adding farm cell: {response.ReasonPhrase}");
@@ -70,7 +70,7 @@ namespace GameWorldClassLibrary.Repositories
         {
             try
             {
-                var response = await httpClient.PutAsJsonAsync($"{Apis.FARM_CELL}/{farmCell.Id}", farmCell);
+                var response = await requestClient.PostAsync($"{Apis.FARM_CELL}/{farmCell.Id}", farmCell);
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new Exception($"Error updating farm cell: {response.ReasonPhrase}");
@@ -86,7 +86,7 @@ namespace GameWorldClassLibrary.Repositories
         {
             try
             {
-                var response = await httpClient.DeleteAsync($"{Apis.FARM_CELL}/{farmCellId}");
+                var response = await requestClient.DeleteAsync($"{Apis.FARM_CELL}/{farmCellId}");
                 if (!response.IsSuccessStatusCode)
                 {
                     Console.Error.WriteLine($"Error deleting farm cell: {response.ReasonPhrase}");

@@ -3,7 +3,7 @@ using GameWorldClassLibrary.Utils;
 
 namespace GameWorldClassLibrary.Repositories
 {
-    public class ObstructionRepository : BaseGameRepository, IGameRepo
+    public class ObstructionRepository : BaseGameRepositoryDB, IGameRepo
     {
         private readonly GamesContext context;
         public ObstructionRepository(GamesContext gamesDbContext) : base(gamesDbContext)

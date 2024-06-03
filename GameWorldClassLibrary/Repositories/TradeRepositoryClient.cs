@@ -5,16 +5,16 @@ using System.Net.Http.Json;
 
 namespace GameWorldClassLibrary.Repositories
 {
-    public class TradeRepositoryHttp : ITradeRepository
+    public class TradeRepositoryClient : ITradeRepository
     {
-        private HttpClient httpClient;
-        public TradeRepositoryHttp(HttpClient httpClient)
+        private IRequestClient requestClient;
+        public TradeRepositoryClient(IRequestClient requestClient)
         {
-            this.httpClient = httpClient;
+            this.requestClient = requestClient;
         }
         public async Task<List<Trade>> GetAllTradesAsync()
         {
-            var response = await httpClient.GetAsync(Apis.TRADES_BASE_URL);
+            var response = await requestClient.GetAsync(Apis.TRADES_BASE_URL);
             string apiResponse = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -34,7 +34,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task<List<Trade>> GetAllTradesExceptCreatedByUser(Guid userId)
         {
-            var response = await httpClient.GetAsync($"{Apis.TRADES_BASE_URL}/except/{userId}");
+            var response = await requestClient.GetAsync($"{Apis.TRADES_BASE_URL}/except/{userId}");
             string apiResponse = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -54,7 +54,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task<Trade> GetTradeByIdAsync(Guid tradeId)
         {
-            var response = await httpClient.GetAsync($"{Apis.TRADES_BASE_URL}/{tradeId}");
+            var response = await requestClient.GetAsync($"{Apis.TRADES_BASE_URL}/{tradeId}");
             string apiResponse = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -73,7 +73,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task<Trade> GetUserTradeAsync(Guid userId)
         {
-            var response = await httpClient.GetAsync($"{Apis.TRADES_BASE_URL}/user/{userId}");
+            var response = await requestClient.GetAsync($"{Apis.TRADES_BASE_URL}/user/{userId}");
             string apiResponse = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -92,7 +92,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task CreateTradeAsync(Trade trade)
         {
-            var response = await httpClient.PostAsync(Apis.TRADES_BASE_URL, JsonContent.Create(trade));
+            var response = await requestClient.PostAsync(Apis.TRADES_BASE_URL, JsonContent.Create(trade));
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Trade created successfully.");
@@ -109,7 +109,7 @@ namespace GameWorldClassLibrary.Repositories
             var content = JsonContent.Create(jsonSerialized);
             string endpoint = $"{Apis.TRADES_BASE_URL}/{trade.Id}";
 
-            var response = await httpClient.PutAsync(endpoint, content);
+            var response = await requestClient.PutAsync(endpoint, content);
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Trade updated successfully.");
@@ -122,7 +122,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task DeleteTradeAsync(Guid tradeId)
         {
-            var response = await httpClient.DeleteAsync($"{Apis.TRADES_BASE_URL}/{tradeId}");
+            var response = await requestClient.DeleteAsync($"{Apis.TRADES_BASE_URL}/{tradeId}");
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Trade deleted successfully.");

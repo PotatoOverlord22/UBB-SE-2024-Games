@@ -5,18 +5,18 @@ using System.Text;
 
 namespace GameWorldClassLibrary.Repositories
 {
-    public class MarketSellResourceRepositoryHttp : IMarketSellResourceRepository
+    public class MarketSellResourceRepositoryClient : IMarketSellResourceRepository
     {
-        private HttpClient httpClient;
-        public MarketSellResourceRepositoryHttp(HttpClient httpClient)
+        private IRequestClient requestClient;
+        public MarketSellResourceRepositoryClient(IRequestClient requestClient)
         {
-            this.httpClient = httpClient;
+            this.requestClient = requestClient;
         }
         public async Task<List<MarketSellResource>> GetAllSellResourcesAsync()
         {
             try
             {
-                var response = await httpClient.GetAsync($"{Apis.MARKET_SELL_RESOURCE}");
+                var response = await requestClient.GetAsync($"{Apis.MARKET_SELL_RESOURCE}");
                 response.EnsureSuccessStatusCode();
                 string responseContent = await response.Content.ReadAsStringAsync();
                 var resources = JsonConvert.DeserializeObject<List<MarketSellResource>>(responseContent) ?? throw new Exception("Response content from getting all market sell resources from the backend is invalid: ");
@@ -32,7 +32,7 @@ namespace GameWorldClassLibrary.Repositories
         {
             try
             {
-                var response = await httpClient.GetAsync($"{Apis.MARKET_SELL_RESOURCE}/{resourceId}");
+                var response = await requestClient.GetAsync($"{Apis.MARKET_SELL_RESOURCE}/{resourceId}");
                 response.EnsureSuccessStatusCode();
 
                 var responseContent = await response.Content.ReadAsStringAsync();
@@ -52,7 +52,7 @@ namespace GameWorldClassLibrary.Repositories
                 var sentContent = JsonConvert.SerializeObject(marketSellResource);
                 var content = new StringContent(sentContent, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync($"{Apis.MARKET_SELL_RESOURCE}", content);
+                var response = await requestClient.PostAsync($"{Apis.MARKET_SELL_RESOURCE}", content);
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception exception)
@@ -68,7 +68,7 @@ namespace GameWorldClassLibrary.Repositories
                 var putContent = JsonConvert.SerializeObject(marketSellResource);
                 var content = new StringContent(putContent, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PutAsync($"{Apis.MARKET_SELL_RESOURCE}/{marketSellResource.Id}", content);
+                var response = await requestClient.PutAsync($"{Apis.MARKET_SELL_RESOURCE}/{marketSellResource.Id}", content);
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception exception)
@@ -81,7 +81,7 @@ namespace GameWorldClassLibrary.Repositories
         {
             try
             {
-                var response = await httpClient.DeleteAsync($"{Apis.MARKET_SELL_RESOURCE}/{marketSellResourceId}");
+                var response = await requestClient.DeleteAsync($"{Apis.MARKET_SELL_RESOURCE}/{marketSellResourceId}");
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception exception)

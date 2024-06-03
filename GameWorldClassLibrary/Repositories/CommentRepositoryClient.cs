@@ -5,16 +5,16 @@ using GameWorldClassLibrary.Utils;
 
 namespace GameWorldClassLibrary.Repositories
 {
-    public class CommentRepositoryHttp : ICommentRepository
+    public class CommentRepositoryClient : ICommentRepository
     {
-        private HttpClient httpClient;
-        public CommentRepositoryHttp(HttpClient httpClient)
+        private IRequestClient requestClient;
+        public CommentRepositoryClient(IRequestClient requestClient)
         {
-            this.httpClient = httpClient;
+            this.requestClient = requestClient;
         }
         public async Task AddCommentAsync(Comment comment)
         {
-            var response = await httpClient.PostAsync(Apis.COMMENTS_BASE_URL, JsonContent.Create(comment));
+            var response = await requestClient.PostAsync(Apis.COMMENTS_BASE_URL, JsonContent.Create(comment));
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Comment added successfully.");
@@ -27,7 +27,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task<List<Comment>> GetUserCommentsAsync(Guid userId)
         {
-            var response = await httpClient.GetAsync($"{Apis.COMMENTS_BASE_URL}?userId={userId}");
+            var response = await requestClient.GetAsync($"{Apis.COMMENTS_BASE_URL}?userId={userId}");
             string apiResponse = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -51,7 +51,7 @@ namespace GameWorldClassLibrary.Repositories
             var content = JsonContent.Create(jsonSerialized);
             string endpoint = $"{Apis.COMMENTS_BASE_URL}/{comment}";
 
-            var response = await httpClient.PutAsync(endpoint, content);
+            var response = await requestClient.PutAsync(endpoint, content);
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Comment updated successfully.");
@@ -64,7 +64,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task DeleteCommentAsync(Guid commentId)
         {
-            var response = await httpClient.DeleteAsync($"{Apis.COMMENTS_BASE_URL}/{commentId}");
+            var response = await requestClient.DeleteAsync($"{Apis.COMMENTS_BASE_URL}/{commentId}");
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Comment deleted successfully.");
@@ -77,7 +77,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task<Comment> GetCommentByIdAsync(Guid id)
         {
-            var response = await httpClient.GetAsync($"{Apis.COMMENTS_BASE_URL}/{id}");
+            var response = await requestClient.GetAsync($"{Apis.COMMENTS_BASE_URL}/{id}");
             string apiResponse = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -96,7 +96,7 @@ namespace GameWorldClassLibrary.Repositories
 
         public async Task<List<Comment>> GetCommentsAsync()
         {
-            var response = await httpClient.GetAsync(Apis.COMMENTS_BASE_URL);
+            var response = await requestClient.GetAsync(Apis.COMMENTS_BASE_URL);
             string apiResponse = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {

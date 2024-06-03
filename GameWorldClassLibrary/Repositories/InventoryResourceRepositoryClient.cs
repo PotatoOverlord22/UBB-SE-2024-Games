@@ -4,10 +4,10 @@ using System.Net.Http.Json;
 
 namespace GameWorldClassLibrary.Repositories
 {
-    public class InventoryResourceRepositoryHttp : IInventoryResourceRepository
+    public class InventoryResourceRepositoryClient : IInventoryResourceRepository
     {
-        private HttpClient httpClient;
-        public InventoryResourceRepositoryHttp(HttpClient httpClient)
+        private IRequestClient httpClient;
+        public InventoryResourceRepositoryClient(IRequestClient httpClient)
         {
             this.httpClient = httpClient;
         }
@@ -56,7 +56,7 @@ namespace GameWorldClassLibrary.Repositories
         {
             try
             {
-                var response = await httpClient.PostAsJsonAsync(Apis.INVENTORY_RESOURCES_BASE_URL, userResource);
+                var response = await httpClient.PostAsync(Apis.INVENTORY_RESOURCES_BASE_URL, userResource);
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new Exception($"Error adding user resource: {response.ReasonPhrase}");
@@ -72,7 +72,7 @@ namespace GameWorldClassLibrary.Repositories
         {
             try
             {
-                var response = await httpClient.PutAsJsonAsync($"{Apis.INVENTORY_RESOURCES_BASE_URL}/{userResource.Id}", userResource);
+                var response = await httpClient.PutAsync($"{Apis.INVENTORY_RESOURCES_BASE_URL}/{userResource.Id}", userResource);
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new Exception($"Error updating user resource: {response.ReasonPhrase}");

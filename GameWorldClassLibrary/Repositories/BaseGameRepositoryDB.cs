@@ -6,12 +6,12 @@ using TwoPlayerGames.exceptions;
 
 namespace GameWorldClassLibrary.Repositories
 {
-    public abstract class BaseGameRepository : IGameRepo
+    public abstract class BaseGameRepositoryDB : IGameRepo
     {
         private readonly GamesContext context;
         private Dictionary<Guid, IGame> games;
 
-        public BaseGameRepository(GamesContext gamesDbContext)
+        public BaseGameRepositoryDB(GamesContext gamesDbContext)
         {
             context = gamesDbContext;
             games = GetGames();
