@@ -1,0 +1,50 @@
+@{
+    ViewData["Title"] = "Obstruction Game";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        .obstruction-board {
+            display: grid;
+            grid-template-columns: repeat(5, 50px);
+            grid-template-rows: repeat(5, 50px);
+            gap: 5px;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .obstruction-cell {
+            width: 50px;
+            height: 50px;
+            background-color: #2ecc71;
+            border: 2px solid #27ae60;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h1 class="display-1">Obstruction Game</h1>
+        <p>Challenge yourself in the Obstruction Game.</p>
+
+        <div class="obstruction-board">
+            @for (int row = 0; row < 5; row++)
+            {
+                for (int col = 0; col < 5; col++)
+                {
+                    <div class="obstruction-cell"></div>
+                }
+            }
+        </div>
+    </div>
+</body>
+</html>
